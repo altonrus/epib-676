@@ -1,0 +1,163 @@
+---
+title: "EPIB 676 Section 2: Advanced topics in decision-analytic modeling for health"
+subtitle: "Course syllabus, Winter 2023, McGill University"
+format: pdf
+editor: visual
+---
+
+## Course description
+
+Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, optimization, Bayesian model calibration and evaluation, probabilistic sensitivity analyses, and value of information analysis. Application areas include: disease screening, prevention, and treatment, prioritization of clinical research, and policies to avert drug overdose deaths.
+
+## Learning objectives
+
+By the end of the course, students should be able to:
+
+-   Develop decision analytic models to inform health policy and clinical decisions
+-   Understand and critically appraise publications describing decision-analytic models
+-   Create transparent reports of decision analyses that conform to open science principles
+
+## Target audience
+
+The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. While the course has an academic orientation, students interested in conducting decision-analytic modeling in industry may also find the course useful.
+
+## Meetings
+
+Course meetings will be held 10:05am -- 11:25pm at 2001 McGill College Ave in room #1203. Attendance is required.
+
+## Instructor
+
+**W. Alton Russell, PhD**, Assistant Professor, McGill Schoool of Population and Global Health. [alton.russell\@mcgill.ca](alton.russell@mcgill.ca) \| [mchi.mcgill.ca/decision-modeling-lab](mchi.mcgill.ca/decision-modeling-lab) \| Office: 2001 McGill College #1113
+
+## Prerequisites
+
+The course assumes students have taken (1) a course in probability, (2) a course in statistics or biostatistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) have some programming experience (we will use R). Students who lack one of the four prerequisites may need to spend extra time learning concepts but should be able to follow along. Students missing more than one prerequisite will likely struggle. Please discuss with the instructor if you have questions or concerns about whether you have the necessary background to succeed in the course.
+
+## Readings
+
+There is no textbook for this course. Readings drawn from various sources will be assigned before many class sessions from various sources. PDFs of the readings will be provided on the course website. Students should come to class prepared to discuss the readings; failure to do so can result in a reduced score for class participation.
+
+## Laptops and software
+
+Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Students should install and configure their laptop before the first class by completing the following steps:
+
+-   Install R and RStudio
+-   Install R packages
+-   Create github account
+-   Add github credentials to keychain (this step can be challenging; please try it before the first class but it's OK for now if it doesn't work)
+
+## Assignments & evaluation
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Course component (Percent of grade)**                                                                                                                                                                                                                                                                                             |
++=====================================================================================================================================================================================================================================================================================================================================+
+| **Programming assignments (50%)**                                                                                                                                                                                                                                                                                                   |
+|                                                                                                                                                                                                                                                                                                                                     |
+| A series of programming assignments will provide hands-on experience developing decision analytic models using popular methods. Students will be given a self-contained Quarto markdown document including questions, instructions, and starter code, which they will need to complete.                                             |
+|                                                                                                                                                                                                                                                                                                                                     |
+| 0.  Getting started in R (0%)                                                                                                                                                                                                                                                                                                       |
+| 1.  Decision trees, cost-effectiveness (10%)                                                                                                                                                                                                                                                                                        |
+| 2.  Compartmental models (10%)                                                                                                                                                                                                                                                                                                      |
+| 3.  Microsimulation (10%)                                                                                                                                                                                                                                                                                                           |
+| 4.  Sensitivity analysis and value of information (10%)                                                                                                                                                                                                                                                                             |
+| 5.  Calibration (10%)\                                                                                                                                                                                                                                                                                                              |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Open-source modeling study report (15%)**                                                                                                                                                                                                                                                                                         |
+|                                                                                                                                                                                                                                                                                                                                     |
+| Students will select a published decision-analytic modeling study with published code (and data, as needed). Students will need to run the code on their own machine and give a class presentation about the model and analysis.\                                                                                                   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Course project (30%)**                                                                                                                                                                                                                                                                                                            |
+|                                                                                                                                                                                                                                                                                                                                     |
+| Using methods they learn in lecture and through the problem sets, students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research when applicable. Students may work alone or in pairs. |
+|                                                                                                                                                                                                                                                                                                                                     |
+| 1.  Proposal (3%)                                                                                                                                                                                                                                                                                                                   |
+| 2.  Class presentation (12%)                                                                                                                                                                                                                                                                                                        |
+| 3.  Written report and code (15%)\                                                                                                                                                                                                                                                                                                  |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Class engagement (5%)**                                                                                                                                                                                                                                                                                                           |
+|                                                                                                                                                                                                                                                                                                                                     |
+| Students are expected to complete assigned readings before class, actively engage in discussions, and follow along with programming examples on their own laptops. Students who do not meet these expectations will receive a warning, after which points will be deducted from their class engagement grade.                       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+## Course schedule
+
+Readings should be completed before the course for which they are listed.
+
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| **Week** | **Day** | **Content**                                                                                                                             |
++==========+=========+=========================================================================================================================================+
+| 1        | 1/4     | **Introduction**                                                                                                                        |
+|          |         |                                                                                                                                         |
+|          |         | -   Course introduction                                                                                                                 |
+|          |         | -   Why do decision analysis                                                                                                            |
+|          |         | -   Analytic perspective                                                                                                                |
+|          |         | -   Coding in R                                                                                                                         |
+|          |         |                                                                                                                                         |
+|          |         | Readings:                                                                                                                               |
+|          |         |                                                                                                                                         |
+|          |         | -   None                                                                                                                                |
+|          |         |                                                                                                                                         |
+|          |         | Assignments:                                                                                                                            |
+|          |         |                                                                                                                                         |
+|          |         | -   Assignment 0 available (not graded)                                                                                                 |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 1/6     | **Programming in R**                                                                                                                    |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 2        | 1/11    | **Fundamental tools:** Decision trees, probability, conditional probability, distributions, expectation, variance.                      |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 1/13    | **Framing a decision problem:** Modelling aspects relevant to decision problem, ***Banning HIV+ immigrants to Canada***                 |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 3        | 1/18    | **Markov models:** State space, memoryless, recurrence, ***diagnosing coronary artery disease***                                        |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 1/20    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 4        | 1/25    | **Microsimulation:** Simulating a decision tree, time steps, probabilistic sensitivity analysis                                         |
+|          |         |                                                                                                                                         |
+|          |         | **Deciding on model structure**                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 1/27    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 5        | 2/1     | **SIR Model**                                                                                                                           |
+|          |         |                                                                                                                                         |
+|          |         | **Parameterizing a model:** Using the literature, ranges for sensitivity analysis, distributions for probabilistic sensitivity analysis |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 2/3     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 6        | 2/8     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 2/10    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 7        | 2/15    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 2/17    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 8        | 2/22    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 2/24    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 9        | 3/1     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 3/3     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 10       | 3/8     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 3/10    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 11       | 3/15    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 3/17    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 12       | 3/22    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 3/24    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 13       | 3/29    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 3/31    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 14       | 4/5     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 4/7     |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|          | 4/12    |                                                                                                                                         |
++----------+---------+-----------------------------------------------------------------------------------------------------------------------------------------+
