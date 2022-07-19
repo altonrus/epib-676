@@ -1,0 +1,16 @@
+---
+title: "Setting up your software environment"
+format: html
+editor: visual
+---
+
+## Install R and RStudio on a new machine
+
+1.  Go to <https://cran.r-project.org/bin/macosx/> if you are using macOS and <https://cran.r-project.org/bin/windows/base/> if you are using Windows, then download and install R for whichever operating system you use (Linux, macOS, or Windows). Download the installer program, then run it to install R.
+2.  Go to <https://www.rstudio.com/products/rstudio/> and download the open source edition of RStudio Desktop.
+
+## Updating R and RStudio (if already installed)
+
+1.  Open RStudio and type `sessionInfo()` in the console. The first line should be something like `R version 4.1.3 (2022-03-10)`, which tells you which version of R you're running. If it is not the most recent (4.2.1 as of July 2022) then you will want to update.
+2.  **On Windows:**
+3.  **On macOS:**

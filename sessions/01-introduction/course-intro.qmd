@@ -1,0 +1,70 @@
+---
+title: "Course introduction"
+subtitle: "EPIB  676 session 1, McGill University"
+author: "Alton Russell"
+date: "4 Jan 2023"
+format: revealjs
+editor: visual
+---
+
+## About me
+
+-   Born in North Carolina
+
+-   Engineering degrees from NC State (BSc) and Stanford (MSc, PhD)
+
+-   Joined the School of Population and Global Health in January 2022
+
+-   Teach PPHS 528 Economic evaluation of health programs in the fall
+
+-   Lead the [Decision Modeling Lab](http://mchi.mcgill.ca/decision-modeling-lab/)
+
+## Access course materials
+
+<br>
+
+**MyCourses**
+
+Access readings, submit assignments
+
+<https://mycourses2.mcgill.ca/>
+
+<br>
+
+**Public Github repo**
+
+Everything else
+
+<https://github.com/altonrus/epib-676>
+
+## Learning objectives
+
+By the end of the course, students should be able to:
+
+-   Develop decision analytic models to inform health policy and clinical decisions
+-   Understand and critically appraise publications describing decision-analytic models
+-   Create transparent reports of decision analyses that conform to open science principles
+
+## Two phases
+
+![](birds-eye-view.png)
+
+::: columns
+::: {.column width="50%"}
+### Methods
+
+-   Read methods papers, tutorials
+-   Programming assignments
+-   Technical/coding lectures
+:::
+
+::: {.column width="50%"}
+### Applications
+
+-   Read applied papers
+-   Analyse study, develop your own
+-   Applied example lectures
+:::
+:::
+
+
