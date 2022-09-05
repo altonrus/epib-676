@@ -14,32 +14,34 @@ Advanced methods used to model health policy decisions and conduct model-based h
 By the end of the course, students should be able to:
 
 -   Develop decision analytic models to inform health policy and clinical decisions
--   Understand and critically appraise publications describing decision-analytic models
+-   Understand and critically appraise published model-based decision analyses
 -   Create transparent reports of decision analyses that conform to open science principles
 
 ## Target audience
 
-The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. The course will also prepare students to conduct rigorous decision-analytic modeling in industry.
+The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for some positions in industry and with governmental agencies.
 
 ## Meetings
 
-Course meetings will be held 10:05am -- 11:25pm at 2001 McGill College Ave in room #1203. Attendance is required.
+Course meetings will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required.
 
 ## Instructor
 
 **W. Alton Russell, PhD**, Assistant Professor, McGill Schoool of Population and Global Health. [alton.russell\@mcgill.ca](alton.russell@mcgill.ca) \| [mchi.mcgill.ca/decision-modeling-lab](mchi.mcgill.ca/decision-modeling-lab) \| Office: 2001 McGill College #1113
 
+**Office hours:** 11:25am - 12pm Wednesday and Friday (directly after class) in my office (#1113, 11th floor) or by appointment.
+
 ## Prerequisites
 
-The course is designed for students who have taken (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) have some programming experience (we will use R). Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. The course is likely not appropriate for students missing two or more prerequisites. Please discuss with the instructor if you are unsure whether your background is appropriate.
+The ideal preperation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) some programming experience (we will use R). Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. The course is likely not appropriate for students missing two or more prerequisites, particularly if one of the missing prerequisites is programming experience. Please discuss with the instructor if you are unsure whether your background is appropriate.
 
 ## Readings
 
-There is no textbook for this course. Readings drawn from various sources will be assigned before many class sessions and can be accessed through the course website. Some readings are tutorials with accompanying code, which students should run and analyse before class when indicated. Students should come to class prepared to discuss the readings; failure to do so can result in a reduced score for class engagement.
+There is no textbook for this course. Readings drawn from various sources will be assigned before many class sessions; they will be posted on the course website. Some readings are tutorials with accompanying code, which students should run and analyse before class when indicated. Students should come to class prepared to discuss the readings; failure to do so can result in a reduced score for class engagement.
 
 ## Laptops and software
 
-Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Students should install and configure the necesary software (R, RStudio, git) before the first class \[TO DO: LINK TO INSTRUCTIONS\].
+Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Students should install and configure the necessary software (R, RStudio, git) before the first class \[Link to instructions to be added later\].
 
 ## Approach to learning
 
@@ -77,11 +79,11 @@ Using methods they learn in lecture and through the problem sets, students will 
 2.  Class presentation (15%)
 3.  Written report and code (20%)
 
-<!--#
-## Course schedule \[Tentative, subject to change\]
+
+## Course schedule \[Still under development. Course topics and readings subject to change\]
 
 +------------+--------------------------------------------------------------------------------+
-| **Date**   | **Content,** *Tasks to be completed before class*                              |
+| **Date**   | **Content,** *Tasks to be completed before class*  Tentative!                  |
 +============+================================================================================+
 | **1/4 W**  | **Course introduction**                                                        |
 |            |                                                                                |
@@ -98,7 +100,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Framing an analysis                                                        |
 |            | -   Quantifying health                                                         |
 |            | -   Discounting                                                                |
-|            | -   **Assignment** **1 available (decision trees, cost-effectiveness)**        |
+|            | -   **Assignment 1 available (decision trees, cost-effectiveness)**        |
 |            |                                                                                |
 |            | *Readings from 2nd Panel book?*\                                               |
 +------------+--------------------------------------------------------------------------------+
@@ -138,9 +140,9 @@ Using methods they learn in lecture and through the problem sets, students will 
 +------------+--------------------------------------------------------------------------------+
 | **1/25 W** | **Microsimulation II**                                                         |
 |            |                                                                                |
-|            | -   Individual attributes                                                      |
-|            | -   Number of iterations                                                       |
-|            | -   Conditional Monte Carlo                                                    |
+|            | -   Tracking individual attributes                                             |
+|            | -   Deciding on number of iterations                                           |
+|            | -   Efficiency techniques (e.g., Conditional Monte Carlo)                      |
 |            | -   **Assignment 2 due**                                                       |
 |            |                                                                                |
 |            | *Reading*\                                                                     |
@@ -160,6 +162,8 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Univariate sensitivity analysis                                            |
 |            | -   Scenario analysis                                                          |
 |            | -   **Assignment 4 available (Sensitivity analysis, value of information)**    |
+|            |                                                                                |
+|            | *Reading*\                                                     |
 +------------+--------------------------------------------------------------------------------+
 | **2/3 F**  | **Value of information**                                                       |
 |            |                                                                                |
@@ -178,80 +182,73 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   **Project proposal assigned**                                              |
 |            | -   **Assignment 3 due**                                                       |
 |            |                                                                                |
-|            | *Reading on project management in R*                                           |
+|            | *Reading on project management in R*\                                          |
 +------------+--------------------------------------------------------------------------------+
-| **2/10 F** | **Calibration I**                                                              |
+| **2/10 F** | **Calibration & validation**                                                   |
 |            |                                                                                |
+|            | -   Bayesian model calibration                                                 |
+|            | -   Model validation                                                           |
 |            | -   **Assignment 5 available (calibration)**                                   |
 |            |                                                                                |
 |            | *Menzies tutorial + code*\                                                     |
 +------------+--------------------------------------------------------------------------------+
-| **2/15 W** | **Calibration II**                                                             |
-|            |                                                                                |
-|            | -                                                                              |
-|            |                                                                                |
+| **2/15 W** | **Equity and distributional considerations**                                   |
+|            |                                                                                |   
+|            | -   Evaluation frameworks                                                      |
+|            | -   Data-driven modeling methods                                               |
 |            | -   **Report on published study assigned**                                     |
-|            |                                                                                |
-|            | -   **Assignment 4 due**                                                       |
+|            | -   **Assignment 4 due**\                                                      |
 +------------+--------------------------------------------------------------------------------+
-| **2/17 F** | Applied analysis presentation                                                  |
+| **2/17 F** | **Applied analysis presentation 1**                                            |
 |            |                                                                                |
 |            | -   **Assignment 5 due**                                                       |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **2/22 W** | **Work on final projects**                                                     |
+| **2/22 W** | **Review/catchup + work on projects**                                          |
 |            |                                                                                |
-|            | -   **Project proposal due**                                                   |
+|            | -   **Project proposal due**\                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **2/24 F** | **Applied analysis presentation**                                              |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/1 W**  | **Applied analysis presentation**                                              |
+| **2/24 F** | **Applied analysis presentation 2**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/3 F**  | **Applied analysis presentation**                                              |
+| *2/27-3/3* |*Winter reading break (no class)*\                                            |
++------------+--------------------------------------------------------------------------------+
+| **3/8 W**  | **Student presentations on published studies**\                                |
+|            |                                                                                |
++------------+--------------------------------------------------------------------------------+
+| **3/10 F** | **Applied analysis presentation 3**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/8 W**  | **Presentations on published studies**                                         |
+| **3/15 W** | **Applied analysis presentation 4**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/10 F** | **Applied analysis presentation**                                              |
+| **3/17 F** | **Applied analysis presentation 5**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/15 W** | **Applied analysis presentation**                                              |
+| **3/22 W** | **Work on final projects**\                                                    |
+|            |                                                                                |
++------------+--------------------------------------------------------------------------------+
+| **3/24 F** | **Applied analysis presentation 6**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/17 F** | **Applied analysis presentation**                                              |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/22 W** | **Work on final projects\                                                      |
-|            | **                                                                             |
-+------------+--------------------------------------------------------------------------------+
-| **3/24 F** | **Applied analysis presentation**                                              |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/29 W** | **Applied analysis presentation**                                              |
+| **3/29 W** | **Applied analysis presentation 7**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
 | **3/31 F** | **Work on final projects**\                                                    |
 +------------+--------------------------------------------------------------------------------+
-| **4/5 W**  | **Applied analysis presentation**                                              |
+| **4/5 W**  | **Applied analysis presentation 8**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
 | **4/7 F**  | **Final presentations**\                                                       |
 +------------+--------------------------------------------------------------------------------+
-| **4/12 W** | **Wrap-up**\                                                                   |
+| **4/13 Th**| **Wrap-up**\                                                                   |
 +------------+--------------------------------------------------------------------------------+
 
--->
