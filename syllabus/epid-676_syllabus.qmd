@@ -56,18 +56,18 @@ This course is designed to give student hands-on experience applying course conc
 
 Students are expected to attend class having complete assigned readings, actively engage in discussions, and follow along with programming examples on their own laptops.
 
-**R programming assignments (40%)**
+**R programming assignments (42%)**
 
 A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given Quarto document that includes questions, instructions, and starter code. Students will answer the questions and complete the code.
 
-0.  R setup + basics (not graded)
-1.  Decision trees, cost-effectiveness (8%)
-2.  Cohort models (8%)
-3.  Simulation (8%)
-4.  Sensitivity analysis and value of information (8%)
-5.  Calibration (8%)
+0.  R setup + basics (7%)
+1.  Decision trees, cost-effectiveness (7%)
+2.  Cohort models (7%)
+3.  Simulation (7%)
+4.  Sensitivity analysis and value of information (7%)
+5.  Calibration (7%)
 
-**Open-source modeling study report (12%)**
+**Open-source modeling study report (10%)**
 
 Students will select a published decision-analytic modeling study with open source code (and data, if applicable). Students will need to run the code on their own machine and give a class presentation about the model and analysis.
 
@@ -75,9 +75,9 @@ Students will select a published decision-analytic modeling study with open sour
 
 Using methods they learn in lecture and through the problem sets, students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.
 
-1.  Proposal (3%)
-2.  Class presentation (15%)
-3.  Written report and code (20%)
+1.  Proposal (2%)
+2.  Class presentation (12%)
+3.  Written report and code (24%)
 
 
 ## Course schedule \[Still under development. Course topics and readings subject to change\]

@@ -5,7 +5,9 @@ format: html
 editor: visual
 ---
 
-This assignment is not graded. It's designed to give you some practice using R for decision analysis and covers simple versions of three of the modeling methods this class will cover.
+This assignment aims to be a fairly gentle introduction to the types of models we'll cover in this class. It is self-contained, meaning students can complete it before attending lecture to get a sense of whether the class interests them. While this assignment should give a feel for future assignments, the coding component is lighter, with a lot of the code pre-written and a lot of hints. 
+
+To turn in the completed assignment, please upload the html document created when you render the .qmd file to MyCourses.
 
 ```{r}
 #load necessary packages. IF they aren't installed, type install.packages(c("ggplot2","tidyr")) into your console
@@ -257,7 +259,12 @@ First, we create the matrix where we track our cohort's transition between the h
 #Assign the state names H, S and D as the column names
 #HINTS: type ?matrix into your console. Use the values stored in l_prms where possible
 
-m_cohort_trace <- NA #REPLACE WITH PROPER CODE
+#This has errors. Fix it!
+m_cohort_trace <- matrix(data=as.integer(NA),
+                         nrow = 2,
+                         ncol = 3,
+                         dimnames = list("timestep"= 1:2,
+                                         "state"= c("H","S", "D")))
 
 #Initiallize the first row
 #Insert the number of people who are initially 'H'ealthy, 'S'ick, and 'D'ead in the first row of the cohort trace.
@@ -278,8 +285,8 @@ NOTE: In the R programming language, the first element of a vector has index 1 (
 ```{r}
 
 #Loop over each timestep and calculate the number of people in each healthstate, using the distribution from the previous timestep (the previous row of the cohort trace matrix) and the transition probabilities (in your parameter list)
-for (i in 1:l_prms$n_timesteps){
-  #Healthy state (I've done it for you)
+for (i in 1:(dim(m_cohort_trace)[1]-1)){
+  # Healthy state (I've done it for you)
   m_cohort_trace[i+1, "H"] <-(
     m_cohort_trace[i, "H"]+#H at last timestep
     m_cohort_trace[i, "S"]*l_prms$p_S_to_H+#transitions in from S
