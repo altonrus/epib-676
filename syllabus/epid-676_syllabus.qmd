@@ -60,7 +60,7 @@ Students are expected to attend class having complete assigned readings, activel
 
 A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given Quarto document that includes questions, instructions, and starter code. Students will answer the questions and complete the code.
 
-0.  R setup + basics (7%)
+0.  Simpler models (7%)
 1.  Decision trees, cost-effectiveness (7%)
 2.  Cohort models (7%)
 3.  Simulation (7%)
@@ -90,7 +90,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Why do decision analysis                                                   |
 |            | -   Analytic perspective                                                       |
 |            | -   R basics                                                                   |
-|            | -   **Assignment 0 available (not graded)**                                    |
+|            | -   **Assignment 0 available (simpler models)**                                |
 |            |                                                                                |
 |            | *Install R, Rstudio, Git, and create Github account (instructions on Github)*\ |
 +------------+--------------------------------------------------------------------------------+
@@ -100,7 +100,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Framing an analysis                                                        |
 |            | -   Quantifying health                                                         |
 |            | -   Discounting                                                                |
-|            | -   **Assignment 1 available (decision trees, cost-effectiveness)**        |
+|            | -   **Assignment 1 available (decision trees, cost-effectiveness)**            |
 |            |                                                                                |
 |            | *Readings from 2nd Panel book?*\                                               |
 +------------+--------------------------------------------------------------------------------+
@@ -109,6 +109,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Conditional probability                                                    |
 |            | -   Decision trees                                                             |
 |            | -   Distributions, expectation, variance                                       |
+|            | -   **Assignment 0 due**                                                       |
 |            |                                                                                |
 |            | *Readings from Baio book?*\                                                    |
 +------------+--------------------------------------------------------------------------------+
@@ -161,6 +162,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Credible intervals                                                         |
 |            | -   Univariate sensitivity analysis                                            |
 |            | -   Scenario analysis                                                          |
+|            | -   **Assignment 3 due**                                                       |
 |            | -   **Assignment 4 available (Sensitivity analysis, value of information)**    |
 |            |                                                                                |
 |            | *Reading*\                                                     |
@@ -180,7 +182,6 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Parameterization                                                           |
 |            | -   R project workflow                                                         |
 |            | -   **Project proposal assigned**                                              |
-|            | -   **Assignment 3 due**                                                       |
 |            |                                                                                |
 |            | *Reading on project management in R*\                                          |
 +------------+--------------------------------------------------------------------------------+
@@ -188,6 +189,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            |                                                                                |
 |            | -   Bayesian model calibration                                                 |
 |            | -   Model validation                                                           |
+|            | -   **Assignment 4 due**\                                                      |
 |            | -   **Assignment 5 available (calibration)**                                   |
 |            |                                                                                |
 |            | *Menzies tutorial + code*\                                                     |
@@ -196,24 +198,23 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            |                                                                                |   
 |            | -   Evaluation frameworks                                                      |
 |            | -   Data-driven modeling methods                                               |
-|            | -   **Report on published study assigned**                                     |
-|            | -   **Assignment 4 due**\                                                      |
+|            | -   **Report on published study assigned**\                                     |
 +------------+--------------------------------------------------------------------------------+
 | **2/17 F** | **Applied analysis presentation 1**                                            |
-|            |                                                                                |
 |            | -   **Assignment 5 due**                                                       |
+|            |                                                                                |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
 | **2/22 W** | **Review/catchup + work on projects**                                          |
 |            |                                                                                |
-|            | -   **Project proposal due**\                                                  |
 +------------+--------------------------------------------------------------------------------+
 | **2/24 F** | **Applied analysis presentation 2**                                            |
+|            | -   **Project proposal due**\                                                  |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| *2/27-3/3* |*Winter reading break (no class)*\                                            |
+| *2/27-3/3* |*Winter reading break (no class)*\                                              |
 +------------+--------------------------------------------------------------------------------+
 | **3/8 W**  | **Student presentations on published studies**\                                |
 |            |                                                                                |
@@ -247,8 +248,9 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **4/7 F**  | **Final presentations**\                                                       |
+| **4/12 W**  | **Final presentations**\                                                       |
 +------------+--------------------------------------------------------------------------------+
 | **4/13 Th**| **Wrap-up**\                                                                   |
 +------------+--------------------------------------------------------------------------------+
-
+| **4/21 F**| Final project report + code due (no class)\                                    |
++------------+--------------------------------------------------------------------------------+
