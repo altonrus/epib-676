@@ -5,12 +5,13 @@ format: html
 editor: visual
 ---
 
-This assignment aims to be a fairly gentle introduction to the types of models we'll cover in this class. It is self-contained, meaning students can complete it before attending lecture to get a sense of whether the class interests them. While this assignment should give a feel for future assignments, the coding component is lighter, with a lot of the code pre-written and a lot of hints. 
+This assignment aims to be a fairly gentle introduction to the types of models we'll cover in this class. It is self-contained, meaning students can complete it before attending lecture to get a sense of whether the class interests them. While this assignment should give a feel for future assignments, it is designed to be easier. While the type of modeling is representative, future assignments will have less pre-written code and fewer hints. Keep that in mind when gauging how much time you can expect to spend on course assignments in this class.
 
 To turn in the completed assignment, please upload the html document created when you render the .qmd file to MyCourses.
 
 ```{r}
-#load necessary packages. IF they aren't installed, type install.packages(c("ggplot2","tidyr")) into your console
+#load necessary packages. 
+# If they aren't installed, type install.packages(c("ggplot2","tidyr")) into your console
 library(ggplot2)
 library(tidyr)
 ```
@@ -25,7 +26,7 @@ Take a minute to think about the problem. What do you think the answer is?
 
 Most people find the answer counter-intuitive, at least until they work through it themselves. In the next two sections, you'll solve this problem with two different modeling tools from the class: with Monte Carlo simulation and decision trees.
 
-### Section 1A: Solving Monty Hall with simulation
+### Section 1A: Monty Hall Monte Carlo
 
 Monte Carlo simulation is a way to estimate the probability distribution of an outcome from a probabilistic event with known (or assumed) structure. This is done by generating many manifestations of the probabilistic event and then analyzing the proportion of times each possible outcome appeared.
 
@@ -49,7 +50,7 @@ prize <- NA
 # Randomly pick a door. Should also be 1, 2, or 3 with equal probability
 choice <- NA
   
-# List Monte's options for which door to reveal. He cannot reveal your choice or the door with the car (could be the same door). Start with the list 1, 2, or 3, but then remove the option(s) corresponding to the prize and to your choice.
+# List Monty's options for which door to reveal. He cannot reveal your choice or the door with the car (could be the same door). Start with the list 1, 2, or 3, but then remove the option(s) corresponding to the prize and to your choice.
 monty_options <- NA
 
 # Randomly select one of the doors in Monte's options for him to reveal
@@ -75,6 +76,7 @@ Monte Carlo simulations involve re-running a scenario over and over to estimate 
 #Inputs: none
 #Outputs: Optimal choice ("stay" or switch")
 monty_hall <- function() {
+  #Put some lines of code here
   optimal_choice=NA #replace this with the proper code
   return(optimal_choice)
 }
@@ -145,7 +147,11 @@ df_sim_size_outcomes <- data.frame(
 )
 #Print the dataframe
 df_sim_size_outcomes
+```
 
+This code should generate the plot without any edits from you, but take a look to try and understand what it's doing. I added comments to explain each line of code.
+
+```{r}
 #Plot it. 
 ggplot(data = df_sim_size_outcomes,#all ggplots use dataframes
        #The x and y values are considered "aesthetics" and are defined in aes()
@@ -173,7 +179,13 @@ ggplot(data = df_sim_size_outcomes,#all ggplots use dataframes
 
 ### Section 1B: Monty Hall decision tree
 
-Decision trees are great for representing relatively small decision problems where each decision has a discrete set of options and each chance event has a discrete set of possible outcomes, like the roll of a die. In a decision tree, decisions are represented by square decision nodes and chance events are represented by round chance nodes. Branches off of decision node represent your choices, and branches off of a chance node represent possible outcomes. Decision trees without any numbers can be used to illustrate a decision problem. Here's an example for someone deciding whether or not to bet on the Habs for an upcoming hockey game.
+Decision trees are great for representing decision problems that:
+
+* are relatively small
+* each decision has a discrete set of options 
+* each chance event has a discrete set of possible outcomes, like the roll of a die. 
+
+In a decision tree, decisions are represented by square decision nodes and chance events are represented by round chance nodes. Branches off of decision node represent your choices, and branches off of a chance node represent possible outcomes. Decision trees can sometimes be used just to represent the different possible outcomes of a decision problem, with no numbers attached. Here's an example for someone deciding whether or not to bet on the Habs for an upcoming hockey game.
 
 ![Decision tree for whether to bet on the Habs in an upcoming hockey game](figs/habs_bet_tree.png)
 
@@ -189,7 +201,10 @@ Going back to the Monty Hall problem, one can enumerate every possibility in a d
 
 However, we're going to take advantage of the symmetry of this problem to develop and solve a simpler representation. Because the probability of selecting the door with the car is the same regardless of which door you choose, we can represent it as though you have no choice at all. Using this, we start our decision treee with a chance node that indicates whether our initially selected door has a car or a goat behind it. Next, the host removes one of the remaining options and you have a decision: stick with the existing door or switch.
 
-Here's a picture of the simplified tree. Shown in red are the r names we will use for the numerical variables we'll need to define to solve the tree. Those variables are the probability that the initial selection has a car or a goat and the outcome of sticking with your choice or switching, conditioned on whether your originally-selected door has a car or goat behind it.
+Here's a picture of the simplified tree. Shown in red are the r names we will use for the numerical variables we'll need to define to solve the tree. Those variables are:
+
+* the probability that the initial selection has a car or a goat 
+* the outcome of sticking with your choice or switching, conditioned on whether your originally-selected door has a car or goat behind it
 
 ![Simpler version of the Monty Hall problem decision tree](figs/monty-hall-tree-simple.png)
 
@@ -199,7 +214,7 @@ Let's solve the decision tree problem. To do so, we just need to assign numbers 
 #Define the variables; replace NA with the proper values
 #The probability your initially selected door contains a car or a goat. Must sum to 1.
 p_car_initial = NA
-p_goat_initial = NA
+p_goat_initial = 1 - p_car_initial
 #For outcome variables, use 1 if the decision results in winning the car and 0 otherwise.
 o_pick_car_then_stick = NA
 o_pick_car_then_switch = NA
@@ -215,11 +230,11 @@ print(p_car_if_stick)
 print(p_car_if_switch)
 ```
 
-Hopefully this exercise has helped convince you of the Monty Hall problem solution and illustrated why the counter-intuitive result is correct. There are many ways to solve or explain this solution; free to check out the Wikipedia page for others.
+Hopefully this exercise has helped convince you that the counter-intuitive Monty Hall solution is indeed correct. There are many ways to solve or explain this solution; free to check out the Wikipedia page for others.
 
 ## Section 2: A cohort model
 
-In section 2, you will model the health of a cohort of 10,000 individuals over 20 years. Your model will have three health states: Healthy, Sick, and Dead. Individuals will all start healthy, but as time progresses some will get sick and some will die. You will generate a cohort trace plot that shows the percent of individuals in each health state at each timestep. You will perform a simple scenario analysis,and use the model to conduct a simplified health policy analysis, assessing the impact of a hypothetical vaccine.
+In section 2, you will model the health of a cohort of 10,000 individuals over 20 years. Your model will have three health states: Healthy, Sick, and Dead. Individuals will all start healthy, but as time progresses some will get sick and some will die. You will generate a cohort trace plot that shows the percent of individuals in each health state at each timestep. You will perform a simple scenario analysis and use the model to conduct a simplified health policy analysis, assessing the impact of a hypothetical vaccine.
 
 Let's get started!
 
@@ -247,9 +262,9 @@ l_prms$p_S_to_D <- .07 #sick to dead
 l_prms
 ```
 
-We're going to develop a Markov model, a simple and commonly-used cohort model. You'll learn a lot more about these later. For now, know that at each time step, individuals can transition from one state to another. Their probability of transitioning depends only on which state their currently in. We're going to use a for loop to develop the Markov model; later in the course we'll learn how to use matrix multiplication for more efficient modeling.
+We're going to develop a Markov model, a simple and commonly-used cohort model. You'll learn a lot more about these later. For now, know that at each time step, individuals can transition from one state to another. Their probability of transitioning depends only on which state their currently in. We're going to use a for loop to develop the Markov model; later in the course we'll learn how a more efficient method that uses matrix multiplication.
 
-First, we create the matrix where we track our cohort's transition between the health states over time. This is sometimes called a cohort trace matrix. We can also go fill in the first row of this matrix (timestep 0) with the initial distribution of the cohort using our parameter table.
+First, we create the matrix where we track our cohort's transition between the health states over time. This is sometimes called a cohort trace matrix. We can also go ahead and fill in the first row of this matrix (timestep 0) with the initial distribution of the cohort using our parameter table.
 
 ```{r}
 #Create a matrix that contains a 'trace' of how your cohort is distributed across the health states at each point in time.
@@ -257,7 +272,7 @@ First, we create the matrix where we track our cohort's transition between the h
 #Matrix width: 3 (the number of health states; H=healthy, S=sick, and D=dead)
 #Matrix type: integer (can fill it with 0s or as.integer(NA))
 #Assign the state names H, S and D as the column names
-#HINTS: type ?matrix into your console. Use the values stored in l_prms where possible
+#HINTS: type ?matrix into your console. Use the values stored in l_prms where possible instead of hard-coding numbers
 
 #This has errors. Fix it!
 m_cohort_trace <- matrix(data=as.integer(NA),
@@ -272,9 +287,9 @@ m_cohort_trace <- matrix(data=as.integer(NA),
 #TYPE YOUR CODE HERE
 ```
 
-Each row of the cohort trace matrix corresponds to one timestep in our model. Next. we will oop over each of then and perform calculations that 'move' cohort members between the health states according to our transition probabilities. You should be able to derive these calculations using the following information:
+Each row of the cohort trace matrix corresponds to one timestep in our model. Next. we will loop over each of them and perform calculations that 'move' cohort members between the health states according to our transition probabilities. You should be able to derive these calculations using the following information:
 
--   For any given transition $A \rightarrow B$, the number of people making it from timestep $i-1$ to $i$ is equal to the number of people in $A$ at timestep $i-1$ times the transition probability $p_{A \rightarrow B}$.
+-   For any given transition $A \rightarrow B$, the number of people transitioning between timestep $i-1$ and $i$ is equal to the number of people in $A$ at timestep $i-1$ times the transition probability $p_{A \rightarrow B}$.
 
 -   Anyone who doesn't transition out of a state remains there in the next timestep.
 
@@ -304,7 +319,8 @@ for (i in 1:(dim(m_cohort_trace)[1]-1)){
 One property of Markov model is that the number of people is conserved at each timestep. No one 'escapes' the model. Therefore, summing across any row of the cohort trace matrix should give you the same value; the original cohort size. Try it.
 
 ```{r}
-#Sum across each row of the cohort matrix
+#Sum across all row of the cohort matrix to make sure  population size is conserved 
+# (if not, you have a mistake in your code)
 #HINT: ?rowSums()
 
 ```
@@ -332,6 +348,8 @@ ggplot(data=df_cohort_trace_long,
 
 ```
 
+Congrats, you've built a Markov model! 
+
 Now that we've gotten a model working, we will want to put it into a function to make it easier to re-run on different parameter sets. Copy and paste code from the prior chunks into the function so that it takes a list of parameters as inputs and returns a cohort trace dataframe.
 
 ```{r}
@@ -347,15 +365,19 @@ run_Markov_model <- function(l_prms){
 We can explore how different inputs change our Markov trace diagram through scenario analysis. To do so, we will create 3 alternative parameter sets, each of which have 1-2 changes from our base case set. Create those parameter sets in the code chunk below.
 
 ```{r}
-#With vaccine: probability of healthy to sick is decreased to 1%
+#With vaccine
+#  probability of healthy to sick is decreased to 1%
 l_prms_vaccine <- l_prms #Copy the parameters
-l_prms_vaccine$p_H_to_S <- 0.01 #Change one value
+l_prms_vaccine$p_H_to_S <- 0.01 #We changed one value (already done for you)
 
-#Deadlier variant: probability of sick to dead is increased to 12%
+#Deadlier variant
+#  probability of sick to dead is increased to 12%
 l_prms_deadlier <- NA
 #IMPLEMENT THE CHANGE
 
-#Deadlier variant with vaccine: probability of healthy to sick is 1%; probability of sick to dead is 12%
+#Deadlier variant with vaccine
+#  probability of healthy to sick is 1%
+#  probability of sick to dead is 12%
 l_prms_deadlier_vaccine <- NA
 #IMPLEMENT THE TWO CHANGES
 
@@ -364,7 +386,8 @@ df_trace_vaccine <- NA
 df_trace_deadlier <- NA
 df_trace_deadlier_vaccine <- NA
 
-#For plotting, we want to make a dataframe with all 4 scenarios (original + 3 new) with the data in long format, with two extra columns to define the scenario: variant (original or new) and vaccine (with vaccine, no vaccine).
+#For plotting, we want to make a dataframe with all 4 scenarios (original + 3 new).
+# We want the data in long format, with two extra columns to define the scenario: variant (original or new) and vaccine (with vaccine, no vaccine).
 
 #Original variant, no vaccine (I've done this for you)
 df_scenarios <- cbind("variant" = "Original",
@@ -383,6 +406,7 @@ df_scenarios <- cbind("variant" = "Original",
 
 
 #now we'll use facet_plot to make a plot with each scenario in a panel
+# No need to edit this code
 ggplot(data=df_scenarios,
        aes(x = timestep, y = count, color = state))+
   geom_line() + geom_point()+
@@ -392,7 +416,8 @@ ggplot(data=df_scenarios,
 
 ```
 
-Finally, compare the scenarios in terms of total deaths.
+Finally, compare the scenarios in terms of total deaths and deaths averted by the vaccine.
+
 
 ```{r}
 #How many total deaths were there under each scenario
@@ -405,7 +430,20 @@ total_deaths <- list(
 total_deaths
 
 #How many deaths does the vaccine avert with the original variant?
+# (Compute it from the variables in the total_deaths list)
 
 #How many deaths does the vaccine avert with the new variant?
- 
+# (Compute it from the variables in the total_deaths list)
+
 ```
+
+
+If you've completed this assignment, you've already gotten exposed to lots of important concepts from the class (decision trees, simulation, Markov cohort models, policy analysis). Congrats!
+
+## Last two questions
+
+* About how much time did you spend on the assignment? **Replace with your answer**
+
+* Did you find any errors or have suggestions to improve it? **Replace with your answer**
+
+Fin.

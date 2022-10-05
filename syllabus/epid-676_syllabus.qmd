@@ -7,7 +7,7 @@ editor: visual
 
 ## Course description
 
-Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, optimization, Bayesian model calibration and evaluation, probabilistic sensitivity analyses, and value of information analysis. Application areas include: disease screening, prevention, and treatment, prioritization of clinical research, and policies to avert drug overdose deaths.
+Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, optimization, Bayesian model calibration and evaluation, probabilistic sensitivity analysis, value of information analysis, and equity-informative health policy analysis. Application areas include: disease screening, prevention, and treatment, prioritization of clinical research, and policies to avert drug overdose deaths.
 
 ## Learning objectives
 
@@ -27,17 +27,17 @@ Course meetings will be held 10:05am -- 11:25am on Wednesdays and Fridays at 200
 
 ## Instructor
 
-**W. Alton Russell, PhD**, Assistant Professor, McGill Schoool of Population and Global Health. [alton.russell\@mcgill.ca](alton.russell@mcgill.ca) \| [mchi.mcgill.ca/decision-modeling-lab](mchi.mcgill.ca/decision-modeling-lab) \| Office: 2001 McGill College #1113
+**W. Alton Russell, PhD**, Assistant Professor, McGill School of Population and Global Health. [alton.russell\@mcgill.ca](alton.russell@mcgill.ca) \| [mchi.mcgill.ca/decision-modeling-lab](mchi.mcgill.ca/decision-modeling-lab) \| Office: 2001 McGill College #1113
 
 **Office hours:** 11:25am - 12pm Wednesday and Friday (directly after class) in my office (#1113, 11th floor) or by appointment.
 
 ## Prerequisites
 
-The ideal preperation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) some programming experience (we will use R). Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. The course is likely not appropriate for students missing two or more prerequisites, particularly if one of the missing prerequisites is programming experience. Please discuss with the instructor if you are unsure whether your background is appropriate.
+The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) some programming experience (we will use R). Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments to be very time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can [complete assignment 0 (available on Github)](https://github.com/altonrus/epib-676/tree/main/assignments) and reach out to the instructor.
 
 ## Readings
 
-There is no textbook for this course. Readings drawn from various sources will be assigned before many class sessions; they will be posted on the course website. Some readings are tutorials with accompanying code, which students should run and analyse before class when indicated. Students should come to class prepared to discuss the readings; failure to do so can result in a reduced score for class engagement.
+There is no textbook for this course. Readings drawn from various sources will be assigned before many class sessions; they will be posted on the course website. Some readings are tutorials with accompanying code, which students should run and analyse before class when indicated. To get full credit for class engagement, students should come to class prepared to discuss the readings.
 
 ## Laptops and software
 
@@ -47,18 +47,18 @@ Students should bring a personal laptop to every class. Please reach out to the 
 
 This course is designed to give student hands-on experience applying course concepts early and often. The course has two distinct phases:
 
--   **Phase 1 (weeks 1-6)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Lectures will often contain sample code that students will run on their own laptops during the lecture. Five programming assignments will be assigned to provide further hands-on experience with model development.
--   **Phase 2 (weeks 6-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses, including through guest lectures and by analyzing an existing open sourced modeling study. Students will also develop their own model-based decision analysis through a course project.
+-   **Phase 1 (weeks 1-6)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.
+-   **Phase 2 (weeks 6-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses, largely through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis through a course project.
 
 ## Assignments & evaluation
 
-**Class engagement (10%)**
+### Class engagement (10%)
 
 Students are expected to attend class having complete assigned readings, actively engage in discussions, and follow along with programming examples on their own laptops.
 
-**R programming assignments (42%)**
+### R programming assignments (42%)
 
-A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given Quarto document that includes questions, instructions, and starter code. Students will answer the questions and complete the code.
+A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing starter code and answering questions.
 
 0.  Simpler models (7%)
 1.  Decision trees, cost-effectiveness (7%)
@@ -67,11 +67,11 @@ A series of programming assignments will provide hands-on experience developing 
 4.  Sensitivity analysis and value of information (7%)
 5.  Calibration (7%)
 
-**Open-source modeling study report (10%)**
+### Open-source modeling study report (10%)
 
 Students will select a published decision-analytic modeling study with open source code (and data, if applicable). Students will need to run the code on their own machine and give a class presentation about the model and analysis.
 
-**Course project (38%)**
+### Course project (38%)
 
 Using methods they learn in lecture and through the problem sets, students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.
 
@@ -165,7 +165,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   **Assignment 3 due**                                                       |
 |            | -   **Assignment 4 available (Sensitivity analysis, value of information)**    |
 |            |                                                                                |
-|            | *Reading*\                                                     |
+|            | [*Briggs et. al. 2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report*](www.doi.org/10.1177/0272989X12458348)\                                                     |
 +------------+--------------------------------------------------------------------------------+
 | **2/3 F**  | **Value of information**                                                       |
 |            |                                                                                |
@@ -183,7 +183,9 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   R project workflow                                                         |
 |            | -   **Project proposal assigned**                                              |
 |            |                                                                                |
-|            | *Reading on project management in R*\                                          |
+|            | (1) [*Reproducible Research in R Chapter 4: Management of R projects*](https://r-cubed.rostools.org/r-project-management.html)\  |
+|            | (2) [*Eddy et. al. 2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report*](https://www.doi.org/10.1177/0272989X12454579)\ |
+|            |                                                                                |
 +------------+--------------------------------------------------------------------------------+
 | **2/10 F** | **Calibration & validation**                                                   |
 |            |                                                                                |
@@ -192,13 +194,13 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   **Assignment 4 due**\                                                      |
 |            | -   **Assignment 5 available (calibration)**                                   |
 |            |                                                                                |
-|            | *Menzies tutorial + code*\                                                     |
+|            | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)  |
 +------------+--------------------------------------------------------------------------------+
 | **2/15 W** | **Equity and distributional considerations**                                   |
 |            |                                                                                |   
 |            | -   Evaluation frameworks                                                      |
 |            | -   Data-driven modeling methods                                               |
-|            | -   **Report on published study assigned**\                                     |
+|            | -   **Report on published study assigned**\                                    |
 +------------+--------------------------------------------------------------------------------+
 | **2/17 F** | **Applied analysis presentation 1**                                            |
 |            | -   **Assignment 5 due**                                                       |
@@ -248,9 +250,9 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **4/12 W**  | **Final presentations**\                                                       |
+| **4/12 W**  | **Final presentations**\                                                     |
 +------------+--------------------------------------------------------------------------------+
-| **4/13 Th**| **Wrap-up**\                                                                   |
+| **4/13 Th** | **Wrap-up**\                                                                   |
 +------------+--------------------------------------------------------------------------------+
-| **4/21 F**| Final project report + code due (no class)\                                    |
+| **4/21 F** | Final project report + code due (no class)\                                    |
 +------------+--------------------------------------------------------------------------------+

@@ -125,12 +125,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>This assignment aims to be a fairly gentle introduction to the types of models we’ll cover in this class. It is self-contained, meaning students can complete it before attending lecture to get a sense of whether the class interests them. While this assignment should give a feel for future assignments, the coding component is lighter, with a lot of the code pre-written and a lot of hints.</p>
+<p>This assignment aims to be a fairly gentle introduction to the types of models we’ll cover in this class. It is self-contained, meaning students can complete it before attending lecture to get a sense of whether the class interests them. While this assignment should give a feel for future assignments, it is designed to be easier. While the type of modeling is representative, future assignments will have less pre-written code and fewer hints. Keep that in mind when gauging how much time you can expect to spend on course assignments in this class.</p>
 <p>To turn in the completed assignment, please upload the html document created when you render the .qmd file to MyCourses.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load necessary packages. IF they aren't installed, type install.packages(c("ggplot2","tidyr")) into your console</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load necessary packages. </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># If they aren't installed, type install.packages(c("ggplot2","tidyr")) into your console</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="section-1-monty-hall-problem" class="level2">
 <h2 class="anchored" data-anchor-id="section-1-monty-hall-problem">Section 1: Monty Hall problem</h2>
@@ -140,8 +141,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>Take a minute to think about the problem. What do you think the answer is?</p>
 <p>Most people find the answer counter-intuitive, at least until they work through it themselves. In the next two sections, you’ll solve this problem with two different modeling tools from the class: with Monte Carlo simulation and decision trees.</p>
-<section id="section-1a-solving-monty-hall-with-simulation" class="level3">
-<h3 class="anchored" data-anchor-id="section-1a-solving-monty-hall-with-simulation">Section 1A: Solving Monty Hall with simulation</h3>
+<section id="section-1a-monty-hall-monte-carlo" class="level3">
+<h3 class="anchored" data-anchor-id="section-1a-monty-hall-monte-carlo">Section 1A: Monty Hall Monte Carlo</h3>
 <p>Monte Carlo simulation is a way to estimate the probability distribution of an outcome from a probabilistic event with known (or assumed) structure. This is done by generating many manifestations of the probabilistic event and then analyzing the proportion of times each possible outcome appeared.</p>
 <p>For most health-related decision problems, the inputs to the model must be estimated. In the case of the Monty Hall problem, we can derive the exact inputs from the structure of the problem:</p>
 <ul>
@@ -158,7 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly pick a door. Should also be 1, 2, or 3 with equal probability</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>choice <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># List Monte's options for which door to reveal. He cannot reveal your choice or the door with the car (could be the same door). Start with the list 1, 2, or 3, but then remove the option(s) corresponding to the prize and to your choice.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># List Monty's options for which door to reveal. He cannot reveal your choice or the door with the car (could be the same door). Start with the list 1, 2, or 3, but then remove the option(s) corresponding to the prize and to your choice.</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>monty_options <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly select one of the doors in Monte's options for him to reveal</span></span>
@@ -186,14 +187,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Inputs: none</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Outputs: Optimal choice ("stay" or switch")</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>monty_hall <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  optimal_choice<span class="ot">=</span><span class="cn">NA</span> <span class="co">#replace this with the proper code</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(optimal_choice)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Run the function 10 times</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (run <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">monty_hall</span>())</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Put some lines of code here</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  optimal_choice<span class="ot">=</span><span class="cn">NA</span> <span class="co">#replace this with the proper code</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(optimal_choice)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Run the function 10 times</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (run <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">monty_hall</span>())</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA
 [1] NA
@@ -329,6 +331,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 49 9e+04               0
 50 1e+05               0</code></pre>
 </div>
+</div>
+<p>This code should generate the plot without any edits from you, but take a look to try and understand what it’s doing. I added comments to explain each line of code.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot it. </span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_sim_size_outcomes,<span class="co">#all ggplots use dataframes</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>       <span class="co">#The x and y values are considered "aesthetics" and are defined in aes()</span></span>
@@ -353,13 +358,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="st">"left"</span>,</span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="assign0_getting-started_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="assign0_getting-started_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="section-1b-monty-hall-decision-tree" class="level3">
 <h3 class="anchored" data-anchor-id="section-1b-monty-hall-decision-tree">Section 1B: Monty Hall decision tree</h3>
-<p>Decision trees are great for representing relatively small decision problems where each decision has a discrete set of options and each chance event has a discrete set of possible outcomes, like the roll of a die. In a decision tree, decisions are represented by square decision nodes and chance events are represented by round chance nodes. Branches off of decision node represent your choices, and branches off of a chance node represent possible outcomes. Decision trees without any numbers can be used to illustrate a decision problem. Here’s an example for someone deciding whether or not to bet on the Habs for an upcoming hockey game.</p>
+<p>Decision trees are great for representing decision problems that:</p>
+<ul>
+<li>are relatively small</li>
+<li>each decision has a discrete set of options</li>
+<li>each chance event has a discrete set of possible outcomes, like the roll of a die.</li>
+</ul>
+<p>In a decision tree, decisions are represented by square decision nodes and chance events are represented by round chance nodes. Branches off of decision node represent your choices, and branches off of a chance node represent possible outcomes. Decision trees can sometimes be used just to represent the different possible outcomes of a decision problem, with no numbers attached. Here’s an example for someone deciding whether or not to bet on the Habs for an upcoming hockey game.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figs/habs_bet_tree.png" class="img-fluid figure-img"></p>
@@ -377,7 +388,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 <p>However, we’re going to take advantage of the symmetry of this problem to develop and solve a simpler representation. Because the probability of selecting the door with the car is the same regardless of which door you choose, we can represent it as though you have no choice at all. Using this, we start our decision treee with a chance node that indicates whether our initially selected door has a car or a goat behind it. Next, the host removes one of the remaining options and you have a decision: stick with the existing door or switch.</p>
-<p>Here’s a picture of the simplified tree. Shown in red are the r names we will use for the numerical variables we’ll need to define to solve the tree. Those variables are the probability that the initial selection has a car or a goat and the outcome of sticking with your choice or switching, conditioned on whether your originally-selected door has a car or goat behind it.</p>
+<p>Here’s a picture of the simplified tree. Shown in red are the r names we will use for the numerical variables we’ll need to define to solve the tree. Those variables are:</p>
+<ul>
+<li>the probability that the initial selection has a car or a goat</li>
+<li>the outcome of sticking with your choice or switching, conditioned on whether your originally-selected door has a car or goat behind it</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figs/monty-hall-tree-simple.png" class="img-fluid figure-img"></p>
@@ -389,7 +404,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Define the variables; replace NA with the proper values</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#The probability your initially selected door contains a car or a goat. Must sum to 1.</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>p_car_initial <span class="ot">=</span> <span class="cn">NA</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>p_goat_initial <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>p_goat_initial <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> p_car_initial</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#For outcome variables, use 1 if the decision results in winning the car and 0 otherwise.</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>o_pick_car_then_stick <span class="ot">=</span> <span class="cn">NA</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>o_pick_car_then_switch <span class="ot">=</span> <span class="cn">NA</span></span>
@@ -409,12 +424,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] NA</code></pre>
 </div>
 </div>
-<p>Hopefully this exercise has helped convince you of the Monty Hall problem solution and illustrated why the counter-intuitive result is correct. There are many ways to solve or explain this solution; free to check out the Wikipedia page for others.</p>
+<p>Hopefully this exercise has helped convince you that the counter-intuitive Monty Hall solution is indeed correct. There are many ways to solve or explain this solution; free to check out the Wikipedia page for others.</p>
 </section>
 </section>
 <section id="section-2-a-cohort-model" class="level2">
 <h2 class="anchored" data-anchor-id="section-2-a-cohort-model">Section 2: A cohort model</h2>
-<p>In section 2, you will model the health of a cohort of 10,000 individuals over 20 years. Your model will have three health states: Healthy, Sick, and Dead. Individuals will all start healthy, but as time progresses some will get sick and some will die. You will generate a cohort trace plot that shows the percent of individuals in each health state at each timestep. You will perform a simple scenario analysis,and use the model to conduct a simplified health policy analysis, assessing the impact of a hypothetical vaccine.</p>
+<p>In section 2, you will model the health of a cohort of 10,000 individuals over 20 years. Your model will have three health states: Healthy, Sick, and Dead. Individuals will all start healthy, but as time progresses some will get sick and some will die. You will generate a cohort trace plot that shows the percent of individuals in each health state at each timestep. You will perform a simple scenario analysis and use the model to conduct a simplified health policy analysis, assessing the impact of a hypothetical vaccine.</p>
 <p>Let’s get started!</p>
 <p>First, we define the model’s parameters. We’ll use a named list l_prms to contain all the parameters. You don’t need to change anything in this code block</p>
 <div class="cell">
@@ -463,15 +478,15 @@ $p_S_to_D
 [1] 0.07</code></pre>
 </div>
 </div>
-<p>We’re going to develop a Markov model, a simple and commonly-used cohort model. You’ll learn a lot more about these later. For now, know that at each time step, individuals can transition from one state to another. Their probability of transitioning depends only on which state their currently in. We’re going to use a for loop to develop the Markov model; later in the course we’ll learn how to use matrix multiplication for more efficient modeling.</p>
-<p>First, we create the matrix where we track our cohort’s transition between the health states over time. This is sometimes called a cohort trace matrix. We can also go fill in the first row of this matrix (timestep 0) with the initial distribution of the cohort using our parameter table.</p>
+<p>We’re going to develop a Markov model, a simple and commonly-used cohort model. You’ll learn a lot more about these later. For now, know that at each time step, individuals can transition from one state to another. Their probability of transitioning depends only on which state their currently in. We’re going to use a for loop to develop the Markov model; later in the course we’ll learn how a more efficient method that uses matrix multiplication.</p>
+<p>First, we create the matrix where we track our cohort’s transition between the health states over time. This is sometimes called a cohort trace matrix. We can also go ahead and fill in the first row of this matrix (timestep 0) with the initial distribution of the cohort using our parameter table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a matrix that contains a 'trace' of how your cohort is distributed across the health states at each point in time.</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Matrix length: 31 (the number of timesteps + 1)</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Matrix width: 3 (the number of health states; H=healthy, S=sick, and D=dead)</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Matrix type: integer (can fill it with 0s or as.integer(NA))</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Assign the state names H, S and D as the column names</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#HINTS: type ?matrix into your console. Use the values stored in l_prms where possible</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#HINTS: type ?matrix into your console. Use the values stored in l_prms where possible instead of hard-coding numbers</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#This has errors. Fix it!</span></span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>m_cohort_trace <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">as.integer</span>(<span class="cn">NA</span>),</span>
@@ -485,9 +500,9 @@ $p_S_to_D
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#TYPE YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Each row of the cohort trace matrix corresponds to one timestep in our model. Next. we will oop over each of then and perform calculations that ‘move’ cohort members between the health states according to our transition probabilities. You should be able to derive these calculations using the following information:</p>
+<p>Each row of the cohort trace matrix corresponds to one timestep in our model. Next. we will loop over each of them and perform calculations that ‘move’ cohort members between the health states according to our transition probabilities. You should be able to derive these calculations using the following information:</p>
 <ul>
-<li><p>For any given transition <span class="math inline">\(A \rightarrow B\)</span>, the number of people making it from timestep <span class="math inline">\(i-1\)</span> to <span class="math inline">\(i\)</span> is equal to the number of people in <span class="math inline">\(A\)</span> at timestep <span class="math inline">\(i-1\)</span> times the transition probability <span class="math inline">\(p_{A \rightarrow B}\)</span>.</p></li>
+<li><p>For any given transition <span class="math inline">\(A \rightarrow B\)</span>, the number of people transitioning between timestep <span class="math inline">\(i-1\)</span> and <span class="math inline">\(i\)</span> is equal to the number of people in <span class="math inline">\(A\)</span> at timestep <span class="math inline">\(i-1\)</span> times the transition probability <span class="math inline">\(p_{A \rightarrow B}\)</span>.</p></li>
 <li><p>Anyone who doesn’t transition out of a state remains there in the next timestep.</p></li>
 <li><p>The number of people in state <span class="math inline">\(A\)</span> at timestep <span class="math inline">\(i\)</span> equals the number of people in <span class="math inline">\(A\)</span> at timestep <span class="math inline">\(i-1\)</span>, <strong>plus</strong> all the people who transitioned in, <strong>minus</strong> all the people who transitioned out.</p></li>
 </ul>
@@ -511,8 +526,9 @@ $p_S_to_D
 </div>
 <p>One property of Markov model is that the number of people is conserved at each timestep. No one ‘escapes’ the model. Therefore, summing across any row of the cohort trace matrix should give you the same value; the original cohort size. Try it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sum across each row of the cohort matrix</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#HINT: ?rowSums()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sum across all row of the cohort matrix to make sure  population size is conserved </span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (if not, you have a mistake in your code)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#HINT: ?rowSums()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we can plot the cohort trace to look at how our cohort transitions over time. You do not need to change anything here; if the preceding chunks are correct, running this chunk after them should produce the trace plot.</p>
 <div class="cell">
@@ -540,9 +556,10 @@ $p_S_to_D
 <pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="assign0_getting-started_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="assign0_getting-started_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Congrats, you’ve built a Markov model!</p>
 <p>Now that we’ve gotten a model working, we will want to put it into a function to make it easier to re-run on different parameter sets. Copy and paste code from the prior chunks into the function so that it takes a list of parameters as inputs and returns a cohort trace dataframe.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Input: a list of model parameters</span></span>
@@ -554,48 +571,54 @@ $p_S_to_D
 </div>
 <p>We can explore how different inputs change our Markov trace diagram through scenario analysis. To do so, we will create 3 alternative parameter sets, each of which have 1-2 changes from our base case set. Create those parameter sets in the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#With vaccine: probability of healthy to sick is decreased to 1%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>l_prms_vaccine <span class="ot">&lt;-</span> l_prms <span class="co">#Copy the parameters</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>l_prms_vaccine<span class="sc">$</span>p_H_to_S <span class="ot">&lt;-</span> <span class="fl">0.01</span> <span class="co">#Change one value</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Deadlier variant: probability of sick to dead is increased to 12%</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>l_prms_deadlier <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#IMPLEMENT THE CHANGE</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Deadlier variant with vaccine: probability of healthy to sick is 1%; probability of sick to dead is 12%</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>l_prms_deadlier_vaccine <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#IMPLEMENT THE TWO CHANGES</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Now, use the function you created + the scenarios to create three additional Markov trace dataframes; one for each of the scenarios</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>df_trace_vaccine <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>df_trace_deadlier <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>df_trace_deadlier_vaccine <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co">#For plotting, we want to make a dataframe with all 4 scenarios (original + 3 new) with the data in long format, with two extra columns to define the scenario: variant (original or new) and vaccine (with vaccine, no vaccine).</span></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Original variant, no vaccine (I've done this for you)</span></span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>df_scenarios <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">"variant"</span> <span class="ot">=</span> <span class="st">"Original"</span>,</span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"vaccine"</span> <span class="ot">=</span> <span class="st">"No vaccine"</span>,</span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>                      tidyr<span class="sc">::</span><span class="fu">gather</span>(df_cohort_trace,</span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">key =</span> state,</span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">value =</span> count,</span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>                                      H<span class="sc">:</span>D))</span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="co">#use rbind() to append each of the new scenarios</span></span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="co"># vaccine (original)</span></span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="co"># variant (no vaccine)</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#With vaccine</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  probability of healthy to sick is decreased to 1%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>l_prms_vaccine <span class="ot">&lt;-</span> l_prms <span class="co">#Copy the parameters</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>l_prms_vaccine<span class="sc">$</span>p_H_to_S <span class="ot">&lt;-</span> <span class="fl">0.01</span> <span class="co">#We changed one value (already done for you)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Deadlier variant</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  probability of sick to dead is increased to 12%</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>l_prms_deadlier <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#IMPLEMENT THE CHANGE</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Deadlier variant with vaccine</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  probability of healthy to sick is 1%</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  probability of sick to dead is 12%</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>l_prms_deadlier_vaccine <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#IMPLEMENT THE TWO CHANGES</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Now, use the function you created + the scenarios to create three additional Markov trace dataframes; one for each of the scenarios</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>df_trace_vaccine <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>df_trace_deadlier <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>df_trace_deadlier_vaccine <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co">#For plotting, we want to make a dataframe with all 4 scenarios (original + 3 new).</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># We want the data in long format, with two extra columns to define the scenario: variant (original or new) and vaccine (with vaccine, no vaccine).</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Original variant, no vaccine (I've done this for you)</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>df_scenarios <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">"variant"</span> <span class="ot">=</span> <span class="st">"Original"</span>,</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"vaccine"</span> <span class="ot">=</span> <span class="st">"No vaccine"</span>,</span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>                      tidyr<span class="sc">::</span><span class="fu">gather</span>(df_cohort_trace,</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">key =</span> state,</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">value =</span> count,</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>                                      H<span class="sc">:</span>D))</span>
 <span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="co"># variant (with vaccine)</span></span>
-<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="co">#use rbind() to append each of the new scenarios</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a><span class="co"># vaccine (original)</span></span>
 <span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="co">#now we'll use facet_plot to make a plot with each scenario in a panel</span></span>
-<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>df_scenarios,</span>
-<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> timestep, <span class="at">y =</span> count, <span class="at">color =</span> state))<span class="sc">+</span></span>
-<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">10000</span>)<span class="sc">+</span></span>
-<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(vaccine), <span class="at">cols =</span> <span class="fu">vars</span>(variant))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="co"># variant (no vaccine)</span></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a><span class="co"># variant (with vaccine)</span></span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a><span class="co">#now we'll use facet_plot to make a plot with each scenario in a panel</span></span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a><span class="co"># No need to edit this code</span></span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>df_scenarios,</span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> timestep, <span class="at">y =</span> count, <span class="at">color =</span> state))<span class="sc">+</span></span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">10000</span>)<span class="sc">+</span></span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(vaccine), <span class="at">cols =</span> <span class="fu">vars</span>(variant))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 6 row(s) containing missing values (geom_path).</code></pre>
 </div>
@@ -603,10 +626,10 @@ $p_S_to_D
 <pre><code>Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="assign0_getting-started_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="assign0_getting-started_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Finally, compare the scenarios in terms of total deaths.</p>
+<p>Finally, compare the scenarios in terms of total deaths and deaths averted by the vaccine.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How many total deaths were there under each scenario</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>total_deaths <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
@@ -630,9 +653,16 @@ $new_variant_vaccine
 [1] NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How many deaths does the vaccine avert with the original variant?</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#How many deaths does the vaccine avert with the new variant?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Compute it from the variables in the total_deaths list)</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#How many deaths does the vaccine avert with the new variant?</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (Compute it from the variables in the total_deaths list)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>If you’ve completed this assignment, you’ve already gotten exposed to lots of important concepts from the class (decision trees, simulation, Markov cohort models, policy analysis). Congrats!</p>
+<p><strong>One last question:</strong></p>
+<p>About how much time (in hours) did you spend in the assignment?</p>
+<p><strong>Your answer</strong> hours</p>
+<p>Fin.</p>
 </section>
 
 </main>
