@@ -1,16 +1,81 @@
 ---
 title: "Setting up your software environment"
+subtitle: "EPIB 676: Advanced topics in decision-analytic modeling for health"
 format: html
 editor: visual
+author: 'Alton Russell'
+date: today
 ---
+
+The aim of this page is to make it as painless as possible to get your computer set up for the class. If anything is unclear, or any links are broken, please let me (Alton) know ASAP so that I can improve the document! 
 
 ## Install R and RStudio on a new machine
 
-1.  Go to <https://cran.r-project.org/bin/macosx/> if you are using macOS and <https://cran.r-project.org/bin/windows/base/> if you are using Windows, then download and install R for whichever operating system you use (Linux, macOS, or Windows). Download the installer program, then run it to install R.
+1.  Go to <https://cran.r-project.org/bin/macosx/> if you are using macOS and <https://cran.r-project.org/bin/windows/base/> if you are using Windows. Download the installer program, then run it to install R.
 2.  Go to <https://www.rstudio.com/products/rstudio/> and download the open source edition of RStudio Desktop.
 
 ## Updating R and RStudio (if already installed)
 
-1.  Open RStudio and type `sessionInfo()` in the console. The first line should be something like `R version 4.1.3 (2022-03-10)`, which tells you which version of R you're running. If it is not the most recent (4.2.1 as of July 2022) then you will want to update.
-2.  **On Windows:**
-3.  **On macOS:**
+Open RStudio and type `sessionInfo()` in the console. The first line should be something like `R version 4.1.3 (2022-03-10)`, which tells you which version of R you're running. If it is not the most recent (4.2.1 as of July 2022) then you will want to update. You can re-download R from scratch, but then you'll need to re-download your packages. Fortunately there are packages that will migrate your packages.
+
+**On Windows:**
+
+``` r
+install.packages("installr")
+library(installr)
+updateR()
+```
+
+1.  **On macOS:**
+
+``` r
+install.packages('devtools') #assuming it is not already installed
+library(devtools)
+install_github('andreacirilloac/updateR')
+library(updateR)
+updateR() #will be prompted to enter your password
+```
+
+## R Packages
+
+You will need to install the packages required to render Quarto documents. The easiest way to do this is to let RStudio do that for you.
+
+-   Open RStudio
+
+-   Go to to File -\> New File -\> Quarto document.
+
+-   If you get a pop up saying that you need to install some packages, click "Ok". RStudio will install the packages and then open a sample document.
+
+-   Click on the "Render" button (the blue arrow) to test your installation. If everything went well, you should see a new HTML file.
+
+Other packages we will use are **tidyverse** (includes several packages in the tidyverse ecosystem), **data.table**, and **readxl**. These are on CRAN so you can install (or update) them with the usual
+
+``` r
+install.packages(c("tidyverse", "data.table", "readxl"))
+```
+
+## Git and GitHub (required later in the course)
+
+It is recommended that you use Git and Github to manage your course project. Details on how to do this are best described in Jenny Bryan's fantastic [Happy Git with R book](https://happygitwithr.com/install-intro.html). The core steps are:
+
+1.  Install git on your machine.\
+
+    The instructions depend on your Operating System. Follow the instructions at <https://happygitwithr.com/install-git.html>.
+
+2.  Create a GitHub account.\
+
+    Go to [github.com](github.com) and create your free account.
+
+## LaTeX (optional)
+
+Quarto documents can be rendered into HTML, Word, or PDF files. The assignments you turn in will be Quarto-generated HTML documents (like the one you're currently reading). But if you want to be able to make PDFs, you'll need a working LaTeX installation. The easiest way to do this is to use the [tinytex](https://yihui.org/tinytex/) R package. You should be up and running with these two commands:
+
+``` r
+install.packages('tinytex')
+tinytex::install_tinytex()
+```
+
+## Sources:
+
+1.  https://eliocamp.github.io/reproducibility-with-r/materials/day0/
+2.  https://happygitwithr.com
