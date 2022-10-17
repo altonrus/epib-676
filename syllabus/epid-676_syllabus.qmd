@@ -1,7 +1,11 @@
 ---
 title: "EPIB 676 Section 2: Advanced topics in decision-analytic modeling for health"
 subtitle: "DRAFT Course syllabus, Winter 2023, McGill University"
-format: pdf
+format:
+    html:
+      toc: true
+    pdf:
+      toc: true
 editor: visual
 ---
 
@@ -17,27 +21,25 @@ By the end of the course, students should be able to:
 -   Understand and critically appraise published model-based decision analyses
 -   Create transparent reports of decision analyses that conform to open science principles
 
-## Target audience
-
-The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for some positions in industry and with governmental agencies.
-
-## Meetings
-
-Course meetings will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required.
-
 ## Instructor
 
 **W. Alton Russell, PhD**, Assistant Professor, McGill School of Population and Global Health. [alton.russell\@mcgill.ca](alton.russell@mcgill.ca) \| [mchi.mcgill.ca/decision-modeling-lab](mchi.mcgill.ca/decision-modeling-lab) \| Office: 2001 McGill College #1113
 
-**Office hours:** 11:25am - 12pm Wednesday and Friday (directly after class) in my office (#1113, 11th floor) or by appointment.
+## Lectures & office hourse
+
+**Course lectures** will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required. **Office hours** will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton's office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.
+
+## Target audience
+
+The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for some positions in industry and with governmental agencies.
 
 ## Prerequisites
 
-The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) some programming experience (we will use R). Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments to be very time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can [complete assignment 0 (available on Github)](https://github.com/altonrus/epib-676/tree/main/assignments) and reach out to the instructor.
+The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R will reduce the time needed to complete assignments, but is not necessary. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments to be very time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can [complete assignment 0 (available on Github)](https://github.com/altonrus/epib-676/tree/main/assignments) and reach out to the instructor.
 
 ## Readings
 
-There is no textbook for this course. Readings drawn from various sources will be assigned before many class sessions; they will be posted on the course website. Some readings are tutorials with accompanying code, which students should run and analyse before class when indicated. To get full credit for class engagement, students should come to class prepared to discuss the readings.
+There is no textbook for this course. Readings drawn from various sources are assigned before many class sessions; they are indicated in the schedule below, and PDFs of the readings are uploaded on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.
 
 ## Laptops and software
 
@@ -47,8 +49,8 @@ Students should bring a personal laptop to every class. Please reach out to the 
 
 This course is designed to give student hands-on experience applying course concepts early and often. The course has two distinct phases:
 
--   **Phase 1 (weeks 1-6)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.
--   **Phase 2 (weeks 6-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses, largely through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis through a course project.
+-   **Phase 1 (weeks 1-7)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.
+-   **Phase 2 (weeks 8-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses, largely through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis through a course project.
 
 ## Assignments & evaluation
 
@@ -80,19 +82,22 @@ Using methods they learn in lecture and through the problem sets, students will 
 3.  Written report and code (24%)
 
 
-## Course schedule \[Still under development. Course topics and readings subject to change\]
+## Course schedule
+
+Note: For students in the McGill course, PDFs of all readings are available in MyCourses.
 
 +------------+--------------------------------------------------------------------------------+
-| **Date**   | **Content,** *Readings/tasks to be completed before class*  Tentative!                  |
+| **Date**   | **Topics, Readings/tasks to be completed before class [Tentative!]**           |
 +============+================================================================================+
 | **1/4 W**  | **Course introduction**                                                        |
 |            |                                                                                |
 |            | -   Why do decision analysis                                                   |
 |            | -   Analytic perspective                                                       |
-|            | -   R basics                                                                   |
+|            | -   R workflow                                                                   |
 |            | -   **Assignment 0 available (simpler models)**                                |
 |            |                                                                                |
-|            | Follow the ['Setting up your software enviroment' instructions](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html)\ |
+|            | (1) Follow the ['Setting up your software enviroment' instructions](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html)\ |
+|            | (2) Read through [*Reproducible Research in R session 1: Management of R projects*](https://r-cubed.rostools.org/r-project-management.html)\  |
 +------------+--------------------------------------------------------------------------------+
 | **1/6 F**  | **Economic evaluation**                                                        |
 |            |                                                                                |
@@ -102,8 +107,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Discounting                                                                |
 |            | -   **Assignment 1 available (decision trees, cost-effectiveness)**            |
 |            |                                                                                |
-|            | (1) [*Ch. 1 'Introduction to health economic evaluation' from Bayesian Methods in Health Economics (2012) by Gianluca Baio*](https://doi.org/10.1201/b13099)\ |
-|            | (2) OPTIONAL [*Sanders et. al. 2016. Recommendations for Conduct, Methodological Practices, and Reporting of Cost-effectiveness Analyses.*](https://doi.org/10.1001/jama.2016.12195)\ |
+|            | Ch. 1 'Introduction to health economic evaluation' from [*Bayesian Methods in Health Economics (2012) by Gianluca Baio*](https://doi.org/10.1201/b13099)\ |
 +------------+--------------------------------------------------------------------------------+
 | **1/11 W** | **Probability, decision trees**                                                |
 |            |                                                                                |
@@ -112,7 +116,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Distributions, expectation, variance                                       |
 |            | -   **Assignment 0 due**                                                       |
 |            |                                                                                |
-|            | Ch 9, pg 311 - 351 (you can skip 9.4.5 -- 9.4.7, pg 331  - 338\) from [*'Economic evaluation using decision-analytic modelling' from 'Methods for the Economic Evaluation of Health Care Programmes' (2014) by Drummond et. al.*](http://ebookcentral.proquest.com/lib/mcgill/detail.action?docID=4605509)\ |
+|            | Ch 9, pg 311 - 351 (you can skip 9.4.5 -- 9.4.7, pg 331  - 338\) 'Economic evaluation using decision-analytic modelling' from [*'Methods for the Economic Evaluation of Health Care Programmes' (2014) by Drummond et. al.*](http://ebookcentral.proquest.com/lib/mcgill/detail.action?docID=4605509)\ |
 +------------+--------------------------------------------------------------------------------+
 | **1/13 F** | **Cohort models I**                                                            |
 |            |                                                                                |
@@ -121,7 +125,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Discrete time cohort models                                                |
 |            | -   **Assignment 2 available (cohort models)**                                 |
 |            |                                                                                |
-|            | *DARTH cohort tutorial intro*\                                                 |
+|            | [*Alarid Escudero et. al. 2022. An introductory tutorial on cohort state-transition models in R using a cost-effectiveness analysis example*](https://doi.org/10.1177/0272989X221103163)\ |
 +------------+--------------------------------------------------------------------------------+
 | **1/18 W** | **Cohort models II**                                                           |
 |            |                                                                                |
@@ -129,7 +133,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Tolls, tunnel states                                                       |
 |            | -   **Assignment 1 due**                                                       |
 |            |                                                                                |
-|            | *DARTH cohort tutorial advanced*\                                              |
+|            | [*Alarid Escudero et. al. 2022. A tutorial on time-dependent cohort state-transition models in R using a cost-effectiveness analysis example*](https://doi.org/10.1177/0272989X221121747)\ |
 +------------+--------------------------------------------------------------------------------+
 | **1/20 F** | **Microsimulation I**                                                          |
 |            |                                                                                |
@@ -138,7 +142,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Probabilistic sensitivity analysis                                         |
 |            | -   **Assignment 3 available (simulation)**                                    |
 |            |                                                                                |
-|            | *Reading*\                                                                     |
+|            | [*Krijkamp et. al. 2018. Microsimulation modeling for health decision sciences Using R: A tutorial*](http://www.doi.org/10.1177/0272989X18754513)\ |
 +------------+--------------------------------------------------------------------------------+
 | **1/25 W** | **Microsimulation II**                                                         |
 |            |                                                                                |
@@ -147,7 +151,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Efficiency techniques (e.g., Conditional Monte Carlo)                      |
 |            | -   **Assignment 2 due**                                                       |
 |            |                                                                                |
-|            | *Reading*\                                                                     |
+|            | Sections 1.4 and Ch. 2 (pg. 15 - 17, 23 - 64) from [*Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.*](https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689)\ |
 +------------+--------------------------------------------------------------------------------+
 | **1/27 F** | **Other simulation types**                                                     |
 |            |                                                                                |
@@ -155,18 +159,9 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   Agent based                                                                |
 |            | -   Network model                                                              |
 |            |                                                                                |
-|            | Sections 1.4 and Ch. 2 (pg. 15 - 17, 23 - 64) from [*Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.*](https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689)\|
+|            | [*Chhatwal & He (2015). Economic evaluations with agent-based modelling: An introduction.*](https://doi.org/10.1007/s40273-015-0254-2)\ |
 +------------+--------------------------------------------------------------------------------+
-| **2/1 W**  | **Designing & parameterizing an analysis**                                     |
-|            |                                                                                |
-|            | -   Perspective, time horizons, comparators                                    |
-|            | -   Deciding on scope & structure                                              |
-|            | -   Literature-based inputs                                                    |
-|            | -   Patient-level data inputs                                                  |
-|            |                                                                                |
-|            | [*Roberts et. al. 2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force*](www.doi.org/10.1016/j.jval.2012.06.016)\|
-+------------+--------------------------------------------------------------------------------+
-| **2/3 F**  | **Uncertainty analysis**                                                       |
+| **2/1 W**  | **Uncertainty analysis**                                                       |
 |            |                                                                                |
 |            | -   Probabilistic sensitivity analysis                                         |
 |            | -   Credible intervals                                                         |
@@ -175,27 +170,35 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   **Assignment 3 due**                                                       |
 |            | -   **Assignment 4 available (Sensitivity analysis, value of information)**    |
 |            |                                                                                |
-|            | [*Briggs et. al. 2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report*](www.doi.org/10.1177/0272989X12458348)\|
+|            | [*Briggs et. al. 2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report*](www.doi.org/10.1177/0272989X12458348)\ |
 +------------+--------------------------------------------------------------------------------+
-| **2/8 W**  | **Value of information**                                                       |
-|            |                                                                                |
-|            | -   EVPI, EVPPI                                                                |
-|            | -   EVSI                                                                       |
-|            |                                                                                |
-|            | *Reading from ISPOR tutorial*                                                  |
-|            |                                                                                |
-|            | *Code from SMDM session Anna Heath and Jeremy GF*\                             |
-+------------+--------------------------------------------------------------------------------+
-| **2/10 F**  | **Modeling workflow**                                                          |
+| **2/3 F**  | **Modeling workflow**                                                          |
 |            |                                                                                |
 |            | -   Model selection                                                            |
 |            | -   Parameterization                                                           |
 |            | -   R project workflow                                                         |
 |            | -   **Project proposal assigned**                                              |
 |            |                                                                                |
-|            | (1) [*Reproducible Research in R Chapter 4: Management of R projects*](https://r-cubed.rostools.org/r-project-management.html)\  |
-|            | (2) [*Eddy et. al. 2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report*](https://www.doi.org/10.1177/0272989X12454579)\ |
+|            | [*Eddy et. al. 2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report*](https://www.doi.org/10.1177/0272989X12454579)\ |
 |            |                                                                                |
++------------+--------------------------------------------------------------------------------+
+| **2/8 W**  | **Designing & parameterizing an analysis**                                     |
+|            |                                                                                |
+|            | -   Perspective, time horizons, comparators                                    |
+|            | -   Deciding on scope & structure                                              |
+|            | -   Literature-based inputs                                                    |
+|            | -   Patient-level data inputs                                                  |
+|            |                                                                                |
+|            | (1) [*Roberts et. al. 2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force*](www.doi.org/10.1016/j.jval.2012.06.016)\ |
+|            | (2) Ch 8 (pg 209 - 236) 'Finding and summarizing the evidence' from [*Decision Making in Health and Medicine (2014) by Hunink et. al.*](https://doi.org/10.1017/CBO9781139506779.011)\ |
++------------+--------------------------------------------------------------------------------+
+| **2/10 F**  | **Informing health intervention research**                                     |
+|            |                                                                                |
+|            | -   Value of information (VoI) analysis                                        |
+|            | -   VOI measures (EVPI, EVPPI, EVSI)                                            |
+|            | -   Challenges and limitation                                            |
+|            |                                                                                |
+|            | [Fenwick et. al. 2020. Value of information analysis for research decisions—an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force](https://doi.org/10.1016/j.jval.2020.01.004)\ |
 +------------+--------------------------------------------------------------------------------+
 | **2/15 W** | **Calibration & validation**                                                   |
 |            |                                                                                |
@@ -204,22 +207,27 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            | -   **Assignment 4 due**\                                                      |
 |            | -   **Assignment 5 available (calibration)**                                   |
 |            |                                                                                |
-|            | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)  |
+|            | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)\ |
 +------------+--------------------------------------------------------------------------------+
 | **2/17 F** | **Equity and distributional considerations**                                   |
 |            |                                                                                |   
 |            | -   Evaluation frameworks                                                      |
 |            | -   Data-driven modeling methods                                               |
 |            | -   **Report on published study assigned**\                                    |
+|            |                                                                                |
+|            | (1) [*Avanceña and Prosser (2021). Innovations in cost-effectiveness analysis that advance equity can expand its use in health policy*](https://doi.org/10.1016/j.jval.2019.03.006) \|
+|            | (2) [*Love-Koh et. al. (2019). Aggregate distributional cost-effectiveness analysis of health technologies*](https://doi.org/10.1016/j.jval.2019.03.006) \ |
 +------------+--------------------------------------------------------------------------------+
 | **2/22 W** | **Applied analysis presentation 1**                                            |
+|            |                                                                                |
 |            | -   **Assignment 5 due**                                                       |
 |            |                                                                                |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
 | **2/24 F** | **Applied analysis presentation 2**                                            |
-|            | -   **Project proposal due**\                                                  |
+|            |                                                                                |
+|            | -   **Project proposal due M 3/6**\                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
@@ -257,9 +265,9 @@ Using methods they learn in lecture and through the problem sets, students will 
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **4/12 W**  | **Final presentations**\                                                     |
+| **4/12 W** | **Final presentations**\                                                    |
 +------------+--------------------------------------------------------------------------------+
-| **4/13 Th** | **Wrap-up**\                                                                   |
+| **4/13 Th**| **Wrap-up**\                                                    |
 +------------+--------------------------------------------------------------------------------+
 | **4/21 F** | Final project report + code due (no class)\                                    |
 +------------+--------------------------------------------------------------------------------+

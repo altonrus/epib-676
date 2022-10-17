@@ -1,7 +1,9 @@
 ---
 title: "Assignment 0: Coding simple models"
 author: "YOUR NAME HERE"
-format: html
+format:
+    html:
+      toc: true
 editor: visual
 ---
 
