@@ -11,7 +11,9 @@ editor: visual
 
 <!--
 Clicking"render" will only do the first format and delete any other copies. 
-To render both html and pdf, use quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
+To render both html and pdf, use 
+
+quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
 -->
 
 
@@ -31,32 +33,34 @@ By the end of the course, students should be able to:
 
 **W. Alton Russell, PhD**, Assistant Professor, McGill School of Population and Global Health. [alton.russell\@mcgill.ca](alton.russell@mcgill.ca) \| [mchi.mcgill.ca/decision-modeling-lab](mchi.mcgill.ca/decision-modeling-lab) \| Office: 2001 McGill College #1113
 
-## Lectures & office hourse
+## Class sessions & office hours
 
-**Course lectures** will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required. **Office hours** will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton's office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.
+**Class sessions** will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required. 
+
+**Office hours** will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton's office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.
 
 ## Target audience
 
-The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for some positions in industry and with governmental agencies.
+The course is geared towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for students interested in industry and or government employment related to economic evaluation, health technology assessment, or health economics and outcomes research.
 
 ## Prerequisites
 
-The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R will reduce the time needed to complete assignments, but is not necessary. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments to be very time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can [complete assignment 0 (available on Github)](https://github.com/altonrus/epib-676/tree/main/assignments) and reach out to the instructor.
+The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R will reduce the time needed to complete assignments, but is not necessary. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can [attempt to complete assignment 0 (available on Github)](https://github.com/altonrus/epib-676/tree/main/assignments), then ask the instructor.
 
 ## Readings
 
-There is no textbook for this course. Readings drawn from various sources are assigned before many class sessions; they are indicated in the schedule below, and PDFs of the readings are uploaded on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.
+There is no textbook for this course. Readings drawn from various sources are assigned before many class sessions. They are indicated in the schedule below, and PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.
 
 ## Laptops and software
 
-Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Students should install and configure the necessary software (R, RStudio, git) before the first class [using the 'Setting up your software enviroment' instructions from session 1](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html).
+Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Before the first session, Students should install and configure the necessary software (R, RStudio, git) [using the 'Setting up your software enviroment' instructions from session 1](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html).
 
 ## Approach to learning
 
 This course is designed to give student hands-on experience applying course concepts early and often. The course has two distinct phases:
 
--   **Phase 1 (weeks 1-7)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.
--   **Phase 2 (weeks 8-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses, largely through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis through a course project.
+-   **Methods phase (weeks 1-7)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.
+-   **Application phase (weeks 8-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis in a course project.
 
 ## Assignments & evaluation
 
@@ -66,7 +70,7 @@ Students are expected to attend class having complete assigned readings, activel
 
 ### R programming assignments (42%)
 
-A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing starter code and answering questions.
+A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given a Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing starter code and answering questions.
 
 0.  Simpler models (7%)
 1.  Decision trees, cost-effectiveness (7%)
@@ -77,11 +81,11 @@ A series of programming assignments will provide hands-on experience developing 
 
 ### Open-source modeling study report (10%)
 
-Students will select a published decision-analytic modeling study with open source code (and data, if applicable). Students will need to run the code on their own machine and give a class presentation about the model and analysis.
+Students will select a published decision-analytic modeling study with open source code. Students will need to run the code on their own machine and give a class presentation about the analysis and what they learned by downloading and running the code.
 
 ### Course project (38%)
 
-Using methods they learn in lecture and through the problem sets, students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.
+Students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.
 
 1.  Proposal (2%)
 2.  Class presentation (12%)
@@ -90,7 +94,7 @@ Using methods they learn in lecture and through the problem sets, students will 
 
 ## Course schedule
 
-Note: For students in the McGill course, PDFs of all readings are available in MyCourses.
+PDFs of all readings are available to enrolled students in [MyCourses](https://mycourses2.mcgill.ca/).
 
 +------------+--------------------------------------------------------------------------------+
 | **Date**   | **Topics, Readings/tasks to be completed before class [Tentative!]**           |

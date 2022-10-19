@@ -43,7 +43,7 @@ ul.task-list{list-style: none;}
   <li><a href="#course-description" id="toc-course-description" class="nav-link active" data-scroll-target="#course-description">Course description</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
   <li><a href="#instructor" id="toc-instructor" class="nav-link" data-scroll-target="#instructor">Instructor</a></li>
-  <li><a href="#lectures-office-hourse" id="toc-lectures-office-hourse" class="nav-link" data-scroll-target="#lectures-office-hourse">Lectures &amp; office hourse</a></li>
+  <li><a href="#class-sessions-office-hours" id="toc-class-sessions-office-hours" class="nav-link" data-scroll-target="#class-sessions-office-hours">Class sessions &amp; office hours</a></li>
   <li><a href="#target-audience" id="toc-target-audience" class="nav-link" data-scroll-target="#target-audience">Target audience</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
@@ -79,6 +79,10 @@ ul.task-list{list-style: none;}
 
 </header>
 
+<!--
+Clicking"render" will only do the first format and delete any other copies. 
+To render both html and pdf, use quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
+-->
 <section id="course-description" class="level2">
 <h2 class="anchored" data-anchor-id="course-description">Course description</h2>
 <p>Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, optimization, Bayesian model calibration and evaluation, probabilistic sensitivity analysis, value of information analysis, and equity-informative health policy analysis. Application areas include: disease screening, prevention, and treatment, prioritization of clinical research, and policies to avert drug overdose deaths.</p>
@@ -96,32 +100,33 @@ ul.task-list{list-style: none;}
 <h2 class="anchored" data-anchor-id="instructor">Instructor</h2>
 <p><strong>W. Alton Russell, PhD</strong>, Assistant Professor, McGill School of Population and Global Health. <a href="alton.russell@mcgill.ca">alton.russell@mcgill.ca</a> | <a href="mchi.mcgill.ca/decision-modeling-lab">mchi.mcgill.ca/decision-modeling-lab</a> | Office: 2001 McGill College #1113</p>
 </section>
-<section id="lectures-office-hourse" class="level2">
-<h2 class="anchored" data-anchor-id="lectures-office-hourse">Lectures &amp; office hourse</h2>
-<p><strong>Course lectures</strong> will be held 10:05am – 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required. <strong>Office hours</strong> will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton’s office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.</p>
+<section id="class-sessions-office-hours" class="level2">
+<h2 class="anchored" data-anchor-id="class-sessions-office-hours">Class sessions &amp; office hours</h2>
+<p><strong>Class sessions</strong> will be held 10:05am – 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required.</p>
+<p><strong>Office hours</strong> will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton’s office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.</p>
 </section>
 <section id="target-audience" class="level2">
 <h2 class="anchored" data-anchor-id="target-audience">Target audience</h2>
-<p>The course is targeted towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for some positions in industry and with governmental agencies.</p>
+<p>The course is geared towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for students interested in industry and or government employment related to economic evaluation, health technology assessment, or health economics and outcomes research.</p>
 </section>
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<p>The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R will reduce the time needed to complete assignments, but is not necessary. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments to be very time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can <a href="https://github.com/altonrus/epib-676/tree/main/assignments">complete assignment 0 (available on Github)</a> and reach out to the instructor.</p>
+<p>The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R will reduce the time needed to complete assignments, but is not necessary. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can <a href="https://github.com/altonrus/epib-676/tree/main/assignments">attempt to complete assignment 0 (available on Github)</a>, then ask the instructor.</p>
 </section>
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<p>There is no textbook for this course. Readings drawn from various sources are assigned before many class sessions; they are indicated in the schedule below, and PDFs of the readings are uploaded on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.</p>
+<p>There is no textbook for this course. Readings drawn from various sources are assigned before many class sessions. They are indicated in the schedule below, and PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.</p>
 </section>
 <section id="laptops-and-software" class="level2">
 <h2 class="anchored" data-anchor-id="laptops-and-software">Laptops and software</h2>
-<p>Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Students should install and configure the necessary software (R, RStudio, git) before the first class <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html">using the ‘Setting up your software enviroment’ instructions from session 1</a>.</p>
+<p>Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Before the first session, Students should install and configure the necessary software (R, RStudio, git) <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html">using the ‘Setting up your software enviroment’ instructions from session 1</a>.</p>
 </section>
 <section id="approach-to-learning" class="level2">
 <h2 class="anchored" data-anchor-id="approach-to-learning">Approach to learning</h2>
 <p>This course is designed to give student hands-on experience applying course concepts early and often. The course has two distinct phases:</p>
 <ul>
-<li><strong>Phase 1 (weeks 1-7)</strong> focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.</li>
-<li><strong>Phase 2 (weeks 8-13)</strong> focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses, largely through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis through a course project.</li>
+<li><strong>Methods phase (weeks 1-7)</strong> focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.</li>
+<li><strong>Application phase (weeks 8-13)</strong> focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis in a course project.</li>
 </ul>
 </section>
 <section id="assignments-evaluation" class="level2">
@@ -132,7 +137,7 @@ ul.task-list{list-style: none;}
 </section>
 <section id="r-programming-assignments-42" class="level3">
 <h3 class="anchored" data-anchor-id="r-programming-assignments-42">R programming assignments (42%)</h3>
-<p>A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing starter code and answering questions.</p>
+<p>A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given a Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing starter code and answering questions.</p>
 <ol start="0" type="1">
 <li>Simpler models (7%)</li>
 <li>Decision trees, cost-effectiveness (7%)</li>
@@ -144,11 +149,11 @@ ul.task-list{list-style: none;}
 </section>
 <section id="open-source-modeling-study-report-10" class="level3">
 <h3 class="anchored" data-anchor-id="open-source-modeling-study-report-10">Open-source modeling study report (10%)</h3>
-<p>Students will select a published decision-analytic modeling study with open source code (and data, if applicable). Students will need to run the code on their own machine and give a class presentation about the model and analysis.</p>
+<p>Students will select a published decision-analytic modeling study with open source code. Students will need to run the code on their own machine and give a class presentation about the analysis and what they learned by downloading and running the code.</p>
 </section>
 <section id="course-project-38" class="level3">
 <h3 class="anchored" data-anchor-id="course-project-38">Course project (38%)</h3>
-<p>Using methods they learn in lecture and through the problem sets, students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.</p>
+<p>Students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.</p>
 <ol type="1">
 <li>Proposal (2%)</li>
 <li>Class presentation (12%)</li>
@@ -158,7 +163,7 @@ ul.task-list{list-style: none;}
 </section>
 <section id="course-schedule" class="level2">
 <h2 class="anchored" data-anchor-id="course-schedule">Course schedule</h2>
-<p>Note: For students in the McGill course, PDFs of all readings are available in MyCourses.</p>
+<p>PDFs of all readings are available to enrolled students in <a href="https://mycourses2.mcgill.ca/">MyCourses</a>.</p>
 <table class="table">
 <thead>
 <tr class="header">
