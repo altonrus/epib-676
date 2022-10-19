@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="YOUR NAME HERE">
+
+<title>Assignment 1: Decision trees and cost-effectiveness</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="assign1_trees_cea_files/libs/clipboard/clipboard.min.js"></script>
+<script src="assign1_trees_cea_files/libs/quarto-html/quarto.js"></script>
+<script src="assign1_trees_cea_files/libs/quarto-html/popper.min.js"></script>
+<script src="assign1_trees_cea_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="assign1_trees_cea_files/libs/quarto-html/anchor.min.js"></script>
+<link href="assign1_trees_cea_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="assign1_trees_cea_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="assign1_trees_cea_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="assign1_trees_cea_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="assign1_trees_cea_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="assign1_trees_cea_files/libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="assign1_trees_cea_files/libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#section-1-decision-trees" id="toc-section-1-decision-trees" class="nav-link active" data-scroll-target="#section-1-decision-trees">Section 1: Decision trees</a>
+  <ul class="collapse">
+  <li><a href="#a-load-data" id="toc-a-load-data" class="nav-link" data-scroll-target="#a-load-data">1.A Load data</a></li>
+  </ul></li>
+  <li><a href="#section-2-economic-evaluation" id="toc-section-2-economic-evaluation" class="nav-link" data-scroll-target="#section-2-economic-evaluation">Section 2: Economic evaluation</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 1: Decision trees and cost-effectiveness</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>YOUR NAME HERE </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="section-1-decision-trees" class="level1">
+<h1>Section 1: Decision trees</h1>
+<p>In this section, you will develop a decision analysis to help determine whether a newer clip should be used to close bleeding peptic ulcers in the gastrointestinal tract. The newer clips are called over-the-scope clips, abbreviated OTSc. Randomized trial data show that rebleeding rates are lower following endoscopic closure with OTSc as compared to when standard therapy clips are used, but OTSc are also significantly more expensive. You will use decision analysis to determine whether OTSc are ‘worth’ the added expense, either as a first line therapy (i.e.&nbsp;to treat all peptic ulcer bleeds initially) or only for rebleeds (i.e.&nbsp;only if a standard therapy clip was used and failed).</p>
+<p>We assume all peptic ulcer bleeds are fully resolved during a short hospitalization and therefore our analysis uses a time horizon of only 30 days. No discounting is needed due to the short time horizon. Because this analysis involves very small differences in utility, quality-adjusted life days (QALDs) are used instead of quality-adjusted life years (QALYs).</p>
+<p>First question: What type of economic evaluation is this? (possible answers include cost-utility analysis, cost-effectiveness analysis, cost minimization, comparative benefit analysis, etc.)</p>
+<blockquote class="blockquote">
+<p><strong>Replace this text with your answer</strong></p>
+</blockquote>
+<section id="a-load-data" class="level2">
+<h2 class="anchored" data-anchor-id="a-load-data">1.A Load data</h2>
+<p>All model parameters are provided for you in the file <code>parameters_OTSc.xlsx</code>, feel free to open it to take a look. For your assignment to render without error, this .csv file must be in the same folder as the assignment .qmd file. This chunk of code reads in the .csv file and generates a parameter table, using the flextable package for formatting (you don’t have to do anything in this code chunk).</p>
+<p>NOTE: When using a Windows machine I sometimes had errors with the <code>read_excel</code> function if the excel file was open.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co">#read in excel files; install it if you don't have it using install.packages("readxl")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable) <span class="co">#formatting tables for display (https://davidgohel.github.io/flextable/reference/index.html)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#read table from Excel</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>t_params <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">'parameters_OTSc.xlsx'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Turn it into a flextable object and do some formatting</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_params <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span> <span class="co">#turn into flextable object</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge_v</span>(<span class="at">j=</span><span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="co">#Merge cells in first column with same value (group probabilities, costs, etc.)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_box</span>() <span class="sc">|&gt;</span> <span class="co">#Apply a theme for aesthetics</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autofit</span>() <span class="co">#automatically set column widths to reasonable values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-bac08b28{}.cl-bab784f6{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bab78564{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-babbc458{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-babbc46c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-babbd6fa{width:3.028in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd704{width:1.364in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd705{width:10.416in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd706{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd70e{width:0.965in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd70f{width:3.028in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd718{width:1.364in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd722{width:10.416in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd723{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd724{width:0.965in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd72c{width:3.028in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd72d{width:1.364in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd736{width:10.416in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd737{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd738{width:0.965in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd740{width:3.028in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd741{width:1.364in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd74a{width:10.416in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd74b{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd754{width:0.965in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd755{width:3.028in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd756{width:1.364in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd75e{width:10.416in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd75f{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd768{width:0.965in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd769{width:3.028in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd772{width:1.364in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd773{width:10.416in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd77c{width:1.05in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-babbd77d{width:0.965in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class="cl-bac08b28"><thead><tr style="overflow-wrap:break-word;"><td class="cl-babbd6fa"><p class="cl-babbc458"><span class="cl-bab784f6">category</span></p></td><td class="cl-babbd704"><p class="cl-babbc458"><span class="cl-bab784f6">name</span></p></td><td class="cl-babbd705"><p class="cl-babbc458"><span class="cl-bab784f6">description</span></p></td><td class="cl-babbd706"><p class="cl-babbc46c"><span class="cl-bab784f6">bc</span></p></td><td class="cl-babbd70e"><p class="cl-babbc46c"><span class="cl-bab784f6">lb</span></p></td><td class="cl-babbd706"><p class="cl-babbc46c"><span class="cl-bab784f6">ub</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="4" class="cl-babbd70f"><p class="cl-babbc458"><span class="cl-bab78564">Probability</span></p></td><td class="cl-babbd718"><p class="cl-babbc458"><span class="cl-bab78564">p_ST_rebleed</span></p></td><td class="cl-babbd722"><p class="cl-babbc458"><span class="cl-bab78564">Continued bleding after an initial EGD using standard therapy</span></p></td><td class="cl-babbd723"><p class="cl-babbc46c"><span class="cl-bab78564">0.110</span></p></td><td class="cl-babbd724"><p class="cl-babbc46c"><span class="cl-bab78564">0.080</span></p></td><td class="cl-babbd723"><p class="cl-babbc46c"><span class="cl-bab78564">0.140</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">p_OTS_rebleed</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Continued bleding after an initial EGD using OTS clip</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">0.053</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">0.007</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">0.090</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">p_ST_rpt_IR</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Interventional Radiology (IR) procedure after repeat EGD using standard therapy</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">0.576</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">0.390</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">0.760</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">p_OTS_rpt_IR</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Interventional Radiology (IR) procedure after repeat  EGD using OTS clip</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">0.152</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">0.030</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">0.270</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="7" class="cl-babbd740"><p class="cl-babbc458"><span class="cl-bab78564">Cost</span></p></td><td class="cl-babbd741"><p class="cl-babbc458"><span class="cl-bab78564">c_EGD_MD</span></p></td><td class="cl-babbd74a"><p class="cl-babbc458"><span class="cl-bab78564">EGD physician fee (CPT code)</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">192.990</span></p></td><td class="cl-babbd754"><p class="cl-babbc46c"><span class="cl-bab78564">100.000</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">1,000.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd741"><p class="cl-babbc458"><span class="cl-bab78564">c_Stclip</span></p></td><td class="cl-babbd74a"><p class="cl-babbc458"><span class="cl-bab78564">Standard therapy clip</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">174.000</span></p></td><td class="cl-babbd754"><p class="cl-babbc46c"><span class="cl-bab78564">50.000</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">610.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd756"><p class="cl-babbc458"><span class="cl-bab78564">c_OTS</span></p></td><td class="cl-babbd75e"><p class="cl-babbc458"><span class="cl-bab78564">Over-the-scope clip</span></p></td><td class="cl-babbd75f"><p class="cl-babbc46c"><span class="cl-bab78564">438.000</span></p></td><td class="cl-babbd768"><p class="cl-babbc46c"><span class="cl-bab78564">170.000</span></p></td><td class="cl-babbd75f"><p class="cl-babbc46c"><span class="cl-bab78564">1,000.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">c_hosp_noCC</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Hospitalization cost of single successful EGD, based on DRG 379:  GI hemorrhage hospitalization w/o CC</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">5,534.110</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">2,500.000</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">7,500.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">c_hosp_CC</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Hospitalization cost of needing two EGDs, based on DRG 377, GI hemorrhage hospitalization w/ CC</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">7,503.890</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">5,500.000</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">13,000.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">c_hosp_MCC</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Hospitalization cost of two failed EGDs followed by an interventional radiology procedure, based on, DRG 378, GI hemorrhage hospitalization w/ MCC</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">13,097.080</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">7,503.890</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">25,000.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd772"><p class="cl-babbc458"><span class="cl-bab78564">c_IR_MD</span></p></td><td class="cl-babbd773"><p class="cl-babbc458"><span class="cl-bab78564">Interventional radiology physician fee</span></p></td><td class="cl-babbd77c"><p class="cl-babbc46c"><span class="cl-bab78564">1,005.310</span></p></td><td class="cl-babbd77d"><p class="cl-babbc46c"><span class="cl-bab78564">200.000</span></p></td><td class="cl-babbd77c"><p class="cl-babbc46c"><span class="cl-bab78564">2,000.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="3" class="cl-babbd72c"><p class="cl-babbc458"><span class="cl-bab78564">Utility toll (Quality-adjusted life days lost)</span></p></td><td class="cl-babbd72d"><p class="cl-babbc458"><span class="cl-bab78564">u_EGD</span></p></td><td class="cl-babbd736"><p class="cl-babbc458"><span class="cl-bab78564">Single EGD</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">4.745</span></p></td><td class="cl-babbd738"><p class="cl-babbc46c"><span class="cl-bab78564">0.000</span></p></td><td class="cl-babbd737"><p class="cl-babbc46c"><span class="cl-bab78564">5.840</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd741"><p class="cl-babbc458"><span class="cl-bab78564">u_double_EGD</span></p></td><td class="cl-babbd74a"><p class="cl-babbc458"><span class="cl-bab78564">Added toll of second EGD</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">1.095</span></p></td><td class="cl-babbd754"><p class="cl-babbc46c"><span class="cl-bab78564">0.000</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">4.745</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-babbd741"><p class="cl-babbc458"><span class="cl-bab78564">u_IR</span></p></td><td class="cl-babbd74a"><p class="cl-babbc458"><span class="cl-bab78564">Added toll of IR after two EGDs</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">3.650</span></p></td><td class="cl-babbd754"><p class="cl-babbc46c"><span class="cl-bab78564">0.000</span></p></td><td class="cl-babbd74b"><p class="cl-babbc46c"><span class="cl-bab78564">18.615</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+</section>
+<section id="section-2-economic-evaluation" class="level1">
+<h1>Section 2: Economic evaluation</h1>
+<div class="cell">
+
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

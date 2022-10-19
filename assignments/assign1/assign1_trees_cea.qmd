@@ -1,0 +1,46 @@
+---
+title: "Assignment 1: Decision trees and cost-effectiveness"
+author: "YOUR NAME HERE"
+format:
+    html:
+      toc: true
+editor: visual
+---
+
+# Section 1: Decision trees
+
+In this section, you will develop a decision analysis to help determine whether a newer clip should be used to close bleeding peptic ulcers in the gastrointestinal tract. The newer clips are called over-the-scope clips, abbreviated OTSc. Randomized trial data show that rebleeding rates are lower following endoscopic closure with OTSc as compared to when standard therapy clips are used, but OTSc are also significantly more expensive. You will use decision analysis to determine whether OTSc are 'worth' the added expense, either as a first line therapy (i.e. to treat all peptic ulcer bleeds initially) or only for rebleeds (i.e. only if a standard therapy clip was used and failed).
+
+We assume all peptic ulcer bleeds are fully resolved during a short hospitalization and therefore our analysis uses a time horizon of only 30 days. No discounting is needed due to the short time horizon. Because this analysis involves very small differences in utility, quality-adjusted life days (QALDs) are used instead of quality-adjusted life years (QALYs).
+
+First question: What type of economic evaluation is this? (possible answers include cost-utility analysis, cost-effectiveness analysis, cost minimization, comparative benefit analysis, etc.)
+
+> **Replace this text with your answer**
+
+## 1.A Load data
+
+All model parameters are provided for you in the file `parameters_OTSc.xlsx`, feel free to open it to take a look. For your assignment to render without error, this .csv file must be in the same folder as the assignment .qmd file. This chunk of code reads in the .csv file and generates a parameter table, using the flextable package for formatting (you don't have to do anything in this code chunk).
+
+NOTE: When using a Windows machine I sometimes had errors with the `read_excel` function if the excel file was open.
+
+```{r}
+library(readxl) #read in excel files; install it if you don't have it using install.packages("readxl")
+library(flextable) #formatting tables for display (https://davidgohel.github.io/flextable/reference/index.html)
+
+#read table from Excel
+t_params <- read_excel('parameters_OTSc.xlsx')
+#Turn it into a flextable object and do some formatting
+t_params |>
+  flextable() |> #turn into flextable object
+  merge_v(j=1) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
+  theme_box() |> #Apply a theme for aesthetics
+  autofit() #automatically set column widths to reasonable values
+```
+
+# Section 2: Economic evaluation
+
+```{r}
+
+
+
+```

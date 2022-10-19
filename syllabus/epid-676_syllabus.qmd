@@ -2,12 +2,18 @@
 title: "EPIB 676 Section 2: Advanced topics in decision-analytic modeling for health"
 subtitle: "DRAFT Course syllabus, Winter 2023, McGill University"
 format:
-    html:
-      toc: true
-    pdf:
-      toc: true
+  html: 
+    toc: true
+  pdf:
+    toc: true
 editor: visual
 ---
+
+<!--
+Clicking"render" will only do the first format and delete any other copies. 
+To render both html and pdf, use quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
+-->
+
 
 ## Course description
 
@@ -197,6 +203,7 @@ Note: For students in the McGill course, PDFs of all readings are available in M
 |            | -   Value of information (VoI) analysis                                        |
 |            | -   VOI measures (EVPI, EVPPI, EVSI)                                            |
 |            | -   Challenges and limitation                                            |
+|            | -   **Assignment 4 due**\                                                      |
 |            |                                                                                |
 |            | [Fenwick et. al. 2020. Value of information analysis for research decisions—an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force](https://doi.org/10.1016/j.jval.2020.01.004)\ |
 +------------+--------------------------------------------------------------------------------+
@@ -204,7 +211,6 @@ Note: For students in the McGill course, PDFs of all readings are available in M
 |            |                                                                                |
 |            | -   Bayesian model calibration                                                 |
 |            | -   Model validation                                                           |
-|            | -   **Assignment 4 due**\                                                      |
 |            | -   **Assignment 5 available (calibration)**                                   |
 |            |                                                                                |
 |            | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)\ |
@@ -237,7 +243,7 @@ Note: For students in the McGill course, PDFs of all readings are available in M
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/10 F**  | **Student presentations on published studies**\                               |
+| **3/10 F** | **Student presentations on published studies**\                               |
 |            |                                                                                |
 +------------+--------------------------------------------------------------------------------+
 | **3/15 W** | **Applied analysis presentation 4**                                            |

@@ -328,31 +328,178 @@
 <section id="about-me" class="slide level2">
 <h2>About me</h2>
 <ul>
-<li><p>Born in North Carolina</p></li>
-<li><p>Engineering degrees from NC State (BSc) and Stanford (MSc, PhD)</p></li>
-<li><p>Joined the School of Population and Global Health in January 2022</p></li>
-<li><p>Teach PPHS 528 Economic evaluation of health programs in the fall</p></li>
-<li><p>Lead the <a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a></p></li>
+<li>Born in North Carolina</li>
+<li>Engineering at NC State (BSc) and Stanford (MSc, PhD)</li>
+<li>Joined the School of Population and Global Health in January 2022</li>
+<li>Teach PPHS 528 Economic evaluation of health programs in the fall</li>
+<li>Lead the <a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a></li>
 </ul>
 </section>
-<section id="access-course-materials" class="slide level2">
-<h2>Access course materials</h2>
-<p><br></p>
-<p><strong>MyCourses</strong></p>
-<p>Access readings, submit assignments</p>
-<p><a href="https://mycourses2.mcgill.ca/" class="uri">https://mycourses2.mcgill.ca/</a></p>
-<p><br></p>
-<p><strong>Public Github repo</strong></p>
-<p>Everything else</p>
-<p><a href="https://github.com/altonrus/epib-676" class="uri">https://github.com/altonrus/epib-676</a></p>
+<section id="agenda-for-today" class="slide level2">
+<h2>Agenda for today</h2>
+<ul>
+<li><strong>Why decision analysis</strong></li>
+<li>Course overview</li>
+<li>Using R for decision analysis</li>
+<li>Perspective and audiences</li>
+</ul>
+</section>
+<section id="why-decision-analysis" class="slide level2">
+<h2>Why decision analysis?</h2>
+<ul>
+<li>Demand for health resources nearly infinite</li>
+<li>Resources (budgets) are limited</li>
+<li>Choices must be made!</li>
+</ul>
+</section>
+<section id="opportunity-cost" class="slide level2">
+<h2>Opportunity cost</h2>
+<p><em>The value of the next-best thing I could have done with the resources</em></p>
+<ul>
+<li><p>Each dollar spent on PrEP to prevent HIV in people who inject drugs cannot be spent on photon radiation for children with cancer, etc.</p></li>
+<li><p>Each dollar spent on health care cannot be spent on education, infrastructure, defense, etc.</p></li>
+</ul>
+</section>
+<section id="challenges-in-global-health" class="slide level2">
+<h2>Challenges in global health</h2>
+</section>
+<section id="challenges-in-global-health-1" class="slide level2">
+<h2>Challenges in global health</h2>
+<ul>
+<li>High childhood mortality</li>
+<li>Epidemics of infectious diseases</li>
+<li>Poor health infrastructure</li>
+<li>Limited access to care</li>
+<li>Limited funds for disease prevention and treatment</li>
+</ul>
+</section>
+<section id="challenges-in-canada" class="slide level2">
+<h2>Challenges in Canada</h2>
+</section>
+<section id="challenges-in-canada-1" class="slide level2">
+<h2>Challenges in Canada</h2>
+<ul>
+<li>Aging boomers
+<ul>
+<li>50% of health care expenses incurred in last year of life</li>
+</ul></li>
+<li>Chronic health conditions</li>
+<li>Insufficient capacity -&gt; long queues</li>
+<li>Total joints, screening colonoscopy, etc.</li>
+</ul>
+</section>
+<section id="how-do-we-decide-what-to-pay-for" class="slide level2">
+<h2>How do we decide what to pay for?</h2>
+</section>
+<section id="how-do-we-decide-what-to-pay-for-1" class="slide level2">
+<h2>How do we decide what to pay for?</h2>
+<ul>
+<li>Cost</li>
+<li>Effectiveness</li>
+<li>Efficiency</li>
+<li>Fairness</li>
+</ul>
+</section>
+<section id="key-questions-for-decision-analysis" class="slide level2">
+<h2>Key questions for decision analysis</h2>
+<ul>
+<li>What services should we pay for?</li>
+<li>Who should receive these services?</li>
+<li>How can these services be delivered most efficiently?</li>
+</ul>
+</section>
+<section id="key-questions-for-decision-analysis-1" class="slide level2">
+<h2>Key questions for decision analysis</h2>
+<p><strong>Health policy</strong></p>
+<ul>
+<li>What services should we pay for?</li>
+<li>Who should receive these services?</li>
+</ul>
+<p><strong>Healthcare operations</strong></p>
+<ul>
+<li>How can these services be delivered most efficiently?</li>
+</ul>
+</section>
+<section id="developing-a-decision-analysis" class="slide level2">
+<h2>Developing a decision analysis</h2>
+<ol type="1">
+<li><p>Define the decision context</p></li>
+<li><p>Identify outcomes of interest (cost, effects, efficiency, fairness)</p></li>
+<li><p>Identify alternatives</p></li>
+<li><p>Estimate outcomes under each alternative</p></li>
+<li><p>Perform sensitivity analysis</p></li>
+<li><p>Consider non-quantifiable factors</p></li>
+<li><p>Interpret the results</p></li>
+</ol>
+</section>
+<section id="developing-a-decision-analysis-1" class="slide level2">
+<h2>Developing a decision analysis</h2>
+<ol type="1">
+<li><p>Define the decision context</p></li>
+<li><p>Identify outcomes of interest (cost, effects, efficiency, fairness)</p></li>
+<li><p>Identify alternatives</p></li>
+<li><p><strong>Estimate outcomes under each alternative &lt;- Modeling</strong></p></li>
+<li><p><strong>Perform sensitivity analysis &lt;- Modeling</strong></p></li>
+<li><p>Consider non-quantifiable factors</p></li>
+<li><p>Interpret the results</p></li>
+</ol>
+</section>
+<section id="decision-analytic-model" class="slide level2">
+<h2>Decision-analytic model</h2>
+<ul>
+<li>Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives</li>
+<li>Propagate uncertainty (uncertain inputs -&gt; uncertain outputs)</li>
+</ul>
+</section>
+<section id="decision-analysis-can" class="slide level2">
+<h2>Decision analysis can…</h2>
+<ul>
+<li>Estimate monetary and nonmonetary consequences of alternatives</li>
+<li>Suport decisions about investment into programs or design of programs</li>
+<li>Help guide allocation of resources</li>
+<li>Provide insights with incomplete data (requires assumptions)</li>
+<li>Inform data collection/research</li>
+</ul>
+</section>
+<section id="decision-analysis-cant" class="slide level2">
+<h2>Decision analysis can’t…</h2>
+<ul>
+<li>Perfectly capture reality</li>
+<li>Account for unknown factors</li>
+<li>Replace a decision maker</li>
+</ul>
+</section>
+<section id="agenda-for-today-1" class="slide level2">
+<h2>Agenda for today</h2>
+<ul>
+<li>Why decision analysis</li>
+<li><strong>Course overview</strong></li>
+<li>Using R for decision analysis</li>
+<li>Perspective and audiences</li>
+</ul>
 </section>
 <section id="learning-objectives" class="slide level2">
 <h2>Learning objectives</h2>
-<p>By the end of the course, students should be able to:</p>
 <ul>
 <li>Develop decision analytic models to inform health policy and clinical decisions</li>
-<li>Understand and critically appraise publications describing decision-analytic models</li>
+<li>Understand and critically appraise published model-based decision analyses</li>
 <li>Create transparent reports of decision analyses that conform to open science principles</li>
+</ul>
+</section>
+<section id="course-materials" class="slide level2">
+<h2>Course materials</h2>
+<p><strong>MyCourses</strong> (<a href="https://mycourses2.mcgill.ca/" class="uri">https://mycourses2.mcgill.ca/</a>)</p>
+<ul>
+<li>Access readings, submit assignments</li>
+</ul>
+<p><strong>Public Github repo</strong> (<a href="https://github.com/altonrus/epib-676" class="uri">https://github.com/altonrus/epib-676</a>)</p>
+<ul>
+<li>Everything else</li>
+<li>To read HTML documents hosted on Github
+<ul>
+<li>Download then open in web browser</li>
+<li><a href="https://htmlpreview.github.io/?" class="uri">https://htmlpreview.github.io/?</a></li>
+</ul></li>
 </ul>
 </section>
 <section id="two-phases" class="slide level2">
@@ -360,21 +507,122 @@
 
 <img data-src="birds-eye-view.png" class="r-stretch"><div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="methods">Methods</h3>
+<h3 id="methods-phase">Methods phase</h3>
 <ul>
-<li>Read methods papers, tutorials</li>
+<li>Read textbook excerpts, tutorials</li>
 <li>Programming assignments</li>
-<li>Technical/coding lectures</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h3 id="applications">Applications</h3>
+<h3 id="application-phase">Application phase</h3>
 <ul>
 <li>Read applied papers</li>
-<li>Analyse study, develop your own</li>
-<li>Applied example lectures</li>
+<li>Course project</li>
+<li>Analyze open-source paper</li>
 </ul>
 </div>
 </div>
+</section>
+<section id="syllabus-with-schedule-on-github" class="slide level2">
+<h2>Syllabus (with schedule) on Github</h2>
+<p>Quarto -&gt; PDF</p>
+<p><a href="https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf" class="uri">https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf</a></p>
+<p><br></p>
+<p>Quarto -&gt; HTML</p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html" class="uri">https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html</a></p>
+</section>
+<section id="agenda-for-today-2" class="slide level2">
+<h2>Agenda for today</h2>
+<ul>
+<li>Why decision analysis</li>
+<li>Course overview</li>
+<li><strong>Using R for decision analysis</strong></li>
+<li>Perspective and audiences</li>
+</ul>
+</section>
+<section id="software-for-building-models" class="slide level2">
+<h2>Software for building models</h2>
+<ul>
+<li>TreeAge <a href="https://www.treeage.com/" class="uri">https://www.treeage.com/</a></li>
+<li>Excel</li>
+<li>Python, Julia, Matlab, etc.</li>
+<li>R</li>
+</ul>
+</section>
+<section id="why-i-like-r" class="slide level2">
+<h2>Why I like R</h2>
+<ul>
+<li>Code-based easier to interrogate + version control
+<ul>
+<li>Downside of Excel, TreeAge</li>
+</ul></li>
+<li>Free and open source, design for data science</li>
+<li>Ecosystem of packages, tutorials, vignettes</li>
+<li>Community of useRs
+<ul>
+<li>Decision Analyysis in R for Technologies in Health (DARTH) (<a href="https://darthworkgroup.com/">Website</a>, <a href="https://github.com/DARTH-git">Github</a>)</li>
+<li>R for Health Technology Assessment (<a href="https://r-hta.org/">Website</a>)</li>
+</ul></li>
+<li>Tools for creating reproducible research reports</li>
+</ul>
+</section>
+<section id="downsides-of-r" class="slide level2">
+<h2>Downsides of R</h2>
+<ul>
+<li>Not as fast
+<ul>
+<li>Julia, C++, Matlab faster</li>
+<li>RCPP package can integrate R with C++</li>
+</ul></li>
+<li>Dependence
+<ul>
+<li>Crowdsourcing = packages may not be maintained</li>
+<li>Functionality changes after updates</li>
+</ul></li>
+</ul>
+</section>
+<section id="rstudio-tour" class="slide level2">
+<h2>RStudio tour</h2>
+<ul>
+<li>Create R project</li>
+<li>Create Quarto document</li>
+<li>Download and start assignment 0</li>
+</ul>
+</section>
+<section id="agenda-for-today-3" class="slide level2">
+<h2>Agenda for today</h2>
+<ul>
+<li>Why decision analysis</li>
+<li>Course overview</li>
+<li>Using R for decision analysis</li>
+<li><strong>Perspective and audiences</strong></li>
+</ul>
+</section>
+<section id="who-is-the-audience" class="slide level2">
+<h2>Who is the audience?</h2>
+<ul>
+<li>Public health</li>
+<li>Regulators</li>
+<li>Clinicians / Medical societies</li>
+<li>Patients</li>
+<li>Patient parent/guardian</li>
+<li>Insurance companies</li>
+<li>Organization leaders (admin of hospital, blood collectors)</li>
+<li>Funding agencies (e.g., CIHR)</li>
+<li>etc.</li>
+</ul>
+<p>Depends on context; often multiple target audiences</p>
+</section>
+<section id="perspective-motivated-by-audience" class="slide level2">
+<h2>Perspective motivated by audience</h2>
+</section>
+<section id="the-case-for-societal-perspective" class="slide level2">
+<h2>The case for societal perspective</h2>
+</section>
+<section id="costs-and-perspectives" class="slide level2">
+<h2>Costs and perspectives</h2>
+</section>
+<section id="the-case-for-multiple-perspectives" class="slide level2">
+<h2>The case for multiple perspectives</h2>
 <div class="footer footer-default">
 
 </div>

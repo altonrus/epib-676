@@ -10,40 +10,156 @@ editor: visual
 ## About me
 
 -   Born in North Carolina
-
--   Engineering degrees from NC State (BSc) and Stanford (MSc, PhD)
-
+-   Engineering at NC State (BSc) and Stanford (MSc, PhD)
 -   Joined the School of Population and Global Health in January 2022
-
 -   Teach PPHS 528 Economic evaluation of health programs in the fall
-
 -   Lead the [Decision Modeling Lab](http://mchi.mcgill.ca/decision-modeling-lab/)
 
-## Access course materials
+## Agenda for today
 
-<br>
+-   **Why decision analysis**
+-   Course overview
+-   Using R for decision analysis
+-   Perspective and audiences
 
-**MyCourses**
+## Why decision analysis?
 
-Access readings, submit assignments
+-   Demand for health resources nearly infinite
+-   Resources (budgets) are limited
+-   Choices must be made!
 
-<https://mycourses2.mcgill.ca/>
+## Opportunity cost
 
-<br>
+*The value of the next-best thing I could have done with the resources*
 
-**Public Github repo**
+-   Each dollar spent on PrEP to prevent HIV in people who inject drugs cannot be spent on photon radiation for children with cancer, etc.
 
-Everything else
+-   Each dollar spent on health care cannot be spent on education, infrastructure, defense, etc.
 
-<https://github.com/altonrus/epib-676>
+## Challenges in global health
+
+## Challenges in global health
+
+-   High childhood mortality
+-   Epidemics of infectious diseases
+-   Poor health infrastructure
+-   Limited access to care
+-   Limited funds for disease prevention and treatment
+
+## Challenges in Canada
+
+## Challenges in Canada
+
+-   Aging boomers
+    -   50% of health care expenses incurred in last year of life
+-   Chronic health conditions
+-   Insufficient capacity -\> long queues
+-   Total joints, screening colonoscopy, etc.
+
+## How do we decide what to pay for?
+
+## How do we decide what to pay for?
+
+-   Cost
+-   Effectiveness
+-   Efficiency
+-   Fairness
+
+## Key questions for decision analysis
+
+-   What services should we pay for?
+-   Who should receive these services?
+-   How can these services be delivered most efficiently?
+
+## Key questions for decision analysis
+
+**Health policy**
+
+-   What services should we pay for? 
+-   Who should receive these services?
+
+**Healthcare operations**
+
+-   How can these services be delivered most efficiently? 
+
+## Developing a decision analysis
+
+1.  Define the decision context
+
+2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+
+3.  Identify alternatives
+
+4.  Estimate outcomes under each alternative
+
+5.  Perform sensitivity analysis
+
+6.  Consider non-quantifiable factors
+
+7.  Interpret the results
+
+## Developing a decision analysis
+
+1.  Define the decision context
+
+2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+
+3.  Identify alternatives
+
+4.  **Estimate outcomes under each alternative \<- Modeling**
+
+5.  **Perform sensitivity analysis \<- Modeling**
+
+6.  Consider non-quantifiable factors
+
+7.  Interpret the results
+
+## Decision-analytic model
+
+
+-  Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
+-  Propagate uncertainty (uncertain inputs -> uncertain outputs)
+
+## Decision analysis can...
+
+-  Estimate monetary and nonmonetary consequences of alternatives
+-  Suport decisions about investment into programs or design of programs
+-  Help guide allocation of resources
+-  Provide insights with incomplete data (requires assumptions)
+-  Inform data collection/research
+
+
+## Decision analysis can't...
+
+-  Perfectly capture reality
+-  Account for unknown factors
+-  Replace a decision maker
+
+## Agenda for today
+
+-   Why decision analysis
+-   **Course overview**
+-   Using R for decision analysis
+-   Perspective and audiences
 
 ## Learning objectives
 
-By the end of the course, students should be able to:
-
 -   Develop decision analytic models to inform health policy and clinical decisions
--   Understand and critically appraise publications describing decision-analytic models
+-   Understand and critically appraise published model-based decision analyses
 -   Create transparent reports of decision analyses that conform to open science principles
+
+## Course materials
+
+**MyCourses** (<https://mycourses2.mcgill.ca/>)
+
+-   Access readings, submit assignments
+
+**Public Github repo** (<https://github.com/altonrus/epib-676>)
+
+-   Everything else
+-   To read HTML documents hosted on Github
+    -   Download then open in web browser
+    -   <https://htmlpreview.github.io/?>
 
 ## Two phases
 
@@ -51,18 +167,100 @@ By the end of the course, students should be able to:
 
 ::: columns
 ::: {.column width="50%"}
-### Methods
+### Methods phase
 
--   Read methods papers, tutorials
+-   Read textbook excerpts, tutorials
 -   Programming assignments
--   Technical/coding lectures
 :::
 
 ::: {.column width="50%"}
-### Applications
+### Application phase
 
 -   Read applied papers
--   Analyse study, develop your own
--   Applied example lectures
+-   Course project
+-   Analyze open-source paper
 :::
 :::
+
+## Syllabus (with schedule) on Github
+
+Quarto -> PDF
+
+<https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf>
+
+<br>
+
+Quarto -> HTML
+
+<https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html>
+
+## Agenda for today
+
+-   Why decision analysis
+-   Course overview
+-   **Using R for decision analysis**
+-   Perspective and audiences
+
+## Software for building models
+
+-   TreeAge <https://www.treeage.com/>
+-   Excel
+-   Python, Julia, Matlab, etc.
+-   R
+
+## Why I like R
+
+-   Code-based easier to interrogate + version control
+    -   Downside of Excel, TreeAge
+-   Free and open source, design for data science
+-   Ecosystem of packages, tutorials, vignettes
+-   Community of useRs
+    -   Decision Analyysis in R for Technologies in Health (DARTH) ([Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git))
+    -   R for Health Technology Assessment ([Website](https://r-hta.org/))
+-   Tools for creating reproducible research reports
+
+## Downsides of R
+
+-   Not as fast
+    -   Julia, C++, Matlab faster
+    -   RCPP package can integrate R with C++
+-   Dependence
+    -   Crowdsourcing = packages may not be maintained
+    -   Functionality changes after updates
+
+## RStudio tour
+
+-   Create R project
+-   Create Quarto document
+-   Download and start assignment 0
+
+## Agenda for today
+
+-   Why decision analysis
+-   Course overview
+-   Using R for decision analysis
+-   **Perspective and audiences**
+
+## Who is the audience?
+-  Public health
+-  Regulators
+-  Clinicians / Medical societies
+-  Patients
+-  Patient parent/guardian
+-  Insurance companies
+-  Organization leaders (admin of hospital, blood collectors)
+-  Funding agencies (e.g., CIHR)
+-  etc.
+
+Depends on context; often multiple target audiences
+
+## Perspective motivated by audience
+
+
+## The case for societal perspective
+
+## Costs and perspectives
+
+
+## The case for multiple perspectives
+
