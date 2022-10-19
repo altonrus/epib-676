@@ -235,17 +235,15 @@ PDFs of all readings are available to enrolled students in [MyCourses](https://m
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **2/24 F** | **Applied analysis presentation 2**                                            |
+| **2/24 F** | **Guest lecture:** Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States" by Kyueun Lee (University of Washington)  |
 |            |                                                                                |
-|            | -   **Project proposal due M 3/6**\                                            |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
+|            | [Manuscript](https://doi.org/10.1093/ofid/ofab607) \ |
 +------------+--------------------------------------------------------------------------------+
 | *2/27-3/3* |*Winter reading break (no class)*\                                              |
 +------------+--------------------------------------------------------------------------------+
-| **3/8 W**  | **Applied analysis presentation 3**                                            |
+| **3/8 W**  | **Guest lecture:** "Re-evaluating the health impact and cost-effectiveness of tuberculosis preventive treatment for modern HIV cohorts on antiretroviral therapy: a modelling analysis using data from Tanzania" by Jinyi Zhu, PhD (Vandebilt University)  |
 |            |                                                                                |
-|            | *Read paper*\                                                                  |
+|            | [Manuscript]('https://doi.org/10.1016/S2214-109X(22)00372-2'), [Code](https://github.com/jinyizhu/IPTinTZ) \ |
 +------------+--------------------------------------------------------------------------------+
 | **3/10 F** | **Student presentations on published studies**\                               |
 |            |                                                                                |
