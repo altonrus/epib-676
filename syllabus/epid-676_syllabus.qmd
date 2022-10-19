@@ -235,7 +235,7 @@ PDFs of all readings are available to enrolled students in [MyCourses](https://m
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **2/24 F** | **Guest lecture:** Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States" by Kyueun Lee (University of Washington)  |
+| **2/24 F** | **Guest lecture:** "Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States" by Kyueun Lee, PhD (University of Washington)  |
 |            |                                                                                |
 |            | [Manuscript](https://doi.org/10.1093/ofid/ofab607) \ |
 +------------+--------------------------------------------------------------------------------+
