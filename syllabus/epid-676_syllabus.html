@@ -65,7 +65,7 @@ ul.task-list{list-style: none;}
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">EPIB 676 Section 2: Advanced topics in decision-analytic modeling for health</h1>
-<p class="subtitle lead">DRAFT Course syllabus, Winter 2023, McGill University</p>
+<p class="subtitle lead">Course syllabus, Winter 2023, McGill University</p>
 </div>
 
 
@@ -113,21 +113,21 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </section>
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-<p>The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R will reduce the time needed to complete assignments, but is not necessary. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can <a href="https://github.com/altonrus/epib-676/tree/main/assignments">attempt to complete assignment 0 (available on Github)</a>, then ask the instructor.</p>
+<p>The ideal preparation of this course would include (1) a course in probability, (2) a course in statistics, (3) a course on cost-effectiveness such as PPHS 528, and (4) an introductory programming course. Prior experience programming in R may reduce the time needed to complete assignments, but experience in another language should be sufficient. Students who lack one prerequisite may need to spend extra time on some course components but should be able to succeed in the course. In particular, students may find assignments time-consuming if they have not had an introductory programming course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can <a href="https://github.com/altonrus/epib-676/tree/main/assignments">attempt to complete assignment 0 early (available on Github)</a>.</p>
 </section>
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings">Readings</h2>
-<p>There is no textbook for this course. Readings drawn from various sources are assigned before many class sessions. They are indicated in the schedule below, and PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.</p>
+<p>Readings drawn from various sources are assigned before many class sessions as indicated in the schedule below. PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.</p>
 </section>
 <section id="laptops-and-software" class="level2">
 <h2 class="anchored" data-anchor-id="laptops-and-software">Laptops and software</h2>
-<p>Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Before the first session, Students should install and configure the necessary software (R, RStudio, git) <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html">using the ‘Setting up your software enviroment’ instructions from session 1</a>.</p>
+<p>Students should bring a personal laptop to every class. Please reach out to the instructor if you do not have a laptop so alternative arrangements can be made. Before the first session, students should install and configure the necessary software (R, RStudio, git) <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html">using the ‘Setting up your software enviroment’ instructions from session 1</a>.</p>
 </section>
 <section id="approach-to-learning" class="level2">
 <h2 class="anchored" data-anchor-id="approach-to-learning">Approach to learning</h2>
 <p>This course is designed to give student hands-on experience applying course concepts early and often. The course has two distinct phases:</p>
 <ul>
-<li><strong>Methods phase (weeks 1-7)</strong> focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Five programming assignments will provide hands-on experience coding model-based analyses.</li>
+<li><strong>Methods phase (weeks 1-7)</strong> focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Six programming assignments will provide hands-on experience coding model-based analyses.</li>
 <li><strong>Application phase (weeks 8-13)</strong> focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis in a course project.</li>
 </ul>
 </section>
@@ -139,14 +139,14 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </section>
 <section id="r-programming-assignments-42" class="level3">
 <h3 class="anchored" data-anchor-id="r-programming-assignments-42">R programming assignments (42%)</h3>
-<p>A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given a Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing starter code and answering questions.</p>
+<p>A series of programming assignments will provide hands-on experience developing decision analytic models using various methods. For each assignment, students will be given a Quarto document that includes questions, instructions, and starter code. Students will complete the assignments by completing the code and answering questions.</p>
 <ol start="0" type="1">
 <li>Simpler models (7%)</li>
 <li>Decision trees, cost-effectiveness (7%)</li>
 <li>Cohort models (7%)</li>
 <li>Simulation (7%)</li>
-<li>Sensitivity analysis and value of information (7%)</li>
-<li>Calibration (7%)</li>
+<li>Sensitivity analysis (7%)</li>
+<li>Calibration, validation, and value of information (7%)</li>
 </ol>
 </section>
 <section id="open-source-modeling-study-report-10" class="level3">
@@ -176,7 +176,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 <tbody>
 <tr class="odd">
 <td><strong>1/4 W</strong></td>
-<td><p><strong>Course introduction</strong></p>
+<td><p><strong>1. Course introduction</strong></p>
 <ul>
 <li>Why do decision analysis</li>
 <li>Analytic perspective</li>
@@ -192,7 +192,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>1/6 F</strong></td>
-<td><p><strong>Economic evaluation</strong></p>
+<td><p><strong>2. Economic evaluation</strong></p>
 <ul>
 <li>Economic evaluation</li>
 <li>Framing an analysis</li>
@@ -205,7 +205,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="odd">
 <td><strong>1/11 W</strong></td>
-<td><p><strong>Probability, decision trees</strong></p>
+<td><p><strong>3. Probability, decision trees</strong></p>
 <ul>
 <li>Conditional probability</li>
 <li>Decision trees</li>
@@ -217,7 +217,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>1/13 F</strong></td>
-<td><p><strong>Cohort models I</strong></p>
+<td><p><strong>4. Cohort models I</strong></p>
 <ul>
 <li>Markovian property</li>
 <li>Matrix operations in R</li>
@@ -229,7 +229,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="odd">
 <td><strong>1/18 W</strong></td>
-<td><p><strong>Cohort models II</strong></p>
+<td><p><strong>5. Cohort models II</strong></p>
 <ul>
 <li>Time-varying transitions</li>
 <li>Tolls, tunnel states</li>
@@ -240,7 +240,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>1/20 F</strong></td>
-<td><p><strong>Microsimulation I</strong>&nbsp;</p>
+<td><p><strong>6. Microsimulation I</strong>&nbsp;</p>
 <ul>
 <li>Monte Carlo simulation</li>
 <li>Simulating decision trees</li>
@@ -252,7 +252,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="odd">
 <td><strong>1/25 W</strong></td>
-<td><p><strong>Microsimulation II</strong></p>
+<td><p><strong>7. Microsimulation II</strong></p>
 <ul>
 <li>Tracking individual attributes</li>
 <li>Deciding on number of iterations</li>
@@ -264,7 +264,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>1/27 F</strong></td>
-<td><p><strong>Other simulation types</strong></p>
+<td><p><strong>8. Other simulation types</strong></p>
 <ul>
 <li>Discreet event</li>
 <li>Agent based</li>
@@ -275,73 +275,73 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="odd">
 <td><strong>2/1 W</strong></td>
-<td><p><strong>Uncertainty analysis</strong></p>
+<td><p><strong>9. Uncertainty analysis</strong></p>
 <ul>
 <li>Probabilistic sensitivity analysis</li>
 <li>Credible intervals</li>
 <li>Univariate sensitivity analysis</li>
 <li>Scenario analysis</li>
 <li><strong>Assignment 3 due</strong></li>
-<li><strong>Assignment 4 available (Sensitivity analysis, value of information)</strong></li>
+<li><strong>Assignment 4 available (Sensitivity analysis)</strong></li>
 </ul>
-<p><a href="www.doi.org/10.1177/0272989X12458348"><em>Briggs et. al.&nbsp;2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report</em></a><br>
+<p><a href="https://doi.org/10.1177/0272989X12458348"><em>Briggs et. al.&nbsp;2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report</em></a><br>
 </p></td>
 </tr>
 <tr class="even">
-<td><strong>2/3 F</strong></td>
-<td><p><strong>Modeling workflow</strong></p>
-<ul>
-<li>Model selection</li>
-<li>Parameterization</li>
-<li>R project workflow</li>
-<li><strong>Project proposal assigned</strong></li>
-</ul>
-<p><a href="https://www.doi.org/10.1177/0272989X12454579"><em>Eddy et. al.&nbsp;2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report</em></a><br>
-</p></td>
-</tr>
-<tr class="odd">
-<td><strong>2/8 W</strong></td>
-<td><p><strong>Designing &amp; parameterizing an analysis</strong></p>
+<td><strong>2/3 f</strong></td>
+<td><p><strong>10. Designing &amp; parameterizing an analysis</strong></p>
 <ul>
 <li>Perspective, time horizons, comparators</li>
 <li>Deciding on scope &amp; structure</li>
 <li>Literature-based inputs</li>
 <li>Patient-level data inputs</li>
+<li><strong>Project proposal assigned</strong></li>
 </ul>
 <ol type="1">
-<li><a href="www.doi.org/10.1016/j.jval.2012.06.016"><em>Roberts et. al.&nbsp;2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force</em></a><br>
+<li><a href="https://doi.org/10.1016/j.jval.2012.06.016"><em>Roberts et. al.&nbsp;2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force</em></a><br>
 </li>
 <li>Ch 8 (pg 209 - 236) ‘Finding and summarizing the evidence’ from <a href="https://doi.org/10.1017/CBO9781139506779.011"><em>Decision Making in Health and Medicine (2014) by Hunink et. al.</em></a><br>
 </li>
 </ol></td>
 </tr>
+<tr class="odd">
+<td><strong>2/8 W</strong></td>
+<td><p><strong>11. Modeling workflow</strong></p>
+<ul>
+<li>Model selection</li>
+<li>Parameterization</li>
+<li>R project workflow</li>
+</ul>
+<p><a href="https://www.doi.org/10.1177/0272989X12454579"><em>Eddy et. al.&nbsp;2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report</em></a><br>
+</p></td>
+</tr>
 <tr class="even">
 <td><strong>2/10 F</strong></td>
-<td><p><strong>Informing health intervention research</strong></p>
-<ul>
-<li>Value of information (VoI) analysis</li>
-<li>VOI measures (EVPI, EVPPI, EVSI)</li>
-<li>Challenges and limitation</li>
-<li><strong>Assignment 4 due</strong><br>
-</li>
-</ul>
-<a href="https://doi.org/10.1016/j.jval.2020.01.004">Fenwick et. al.&nbsp;2020. Value of information analysis for research decisions—an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force</a><br>
-</td>
-</tr>
-<tr class="odd">
-<td><strong>2/15 W</strong></td>
-<td><p><strong>Calibration &amp; validation</strong></p>
+<td><p><strong>12. Calibration &amp; validation</strong></p>
 <ul>
 <li>Bayesian model calibration</li>
 <li>Model validation</li>
-<li><strong>Assignment 5 available (calibration)</strong></li>
+<li><strong>Assignment 4 due</strong><br>
+</li>
 </ul>
 <p><a href="https://www.doi.org/10.1007/s40273-017-0494-4"><em>Menzies et. al.&nbsp;2017. Bayesian methods for calibrating health policy models: A tutorial.</em></a><br>
 </p></td>
 </tr>
+<tr class="odd">
+<td><strong>2/15 W</strong></td>
+<td><p><strong>13. Informing health intervention research</strong></p>
+<ul>
+<li>Value of information (VoI) analysis</li>
+<li>VOI measures (EVPI, EVPPI, EVSI)</li>
+<li>Challenges and limitation</li>
+<li><strong>Assignment 5 available (calibration, validation, and VoI)</strong></li>
+</ul>
+<a href="https://doi.org/10.1016/j.jval.2020.01.001">Fenwick et. al.&nbsp;2020. Value of information analysis for research decisions—an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force</a><br>
+</td>
+</tr>
 <tr class="even">
 <td><strong>2/17 F</strong></td>
-<td><p><strong>Equity and distributional considerations</strong></p>
+<td><p><strong>14. Equity and distributional considerations</strong></p>
 <ul>
 <li>Evaluation frameworks</li>
 <li>Data-driven modeling methods</li>
@@ -349,7 +349,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </li>
 </ul>
 <ol type="1">
-<li><a href="https://doi.org/10.1016/j.jval.2019.03.006"><em>Avanceña and Prosser (2021). Innovations in cost-effectiveness analysis that advance equity can expand its use in health policy</em></a><br>
+<li><a href="https://doi.org/10.1136/bmjgh-2021-008140"><em>Avanceña and Prosser (2021). Innovations in cost-effectiveness analysis that advance equity can expand its use in health policy</em></a><br>
 </li>
 <li><a href="https://doi.org/10.1016/j.jval.2019.03.006"><em>Love-Koh et. al.&nbsp;(2019). Aggregate distributional cost-effectiveness analysis of health technologies</em></a><br>
 </li>
@@ -357,7 +357,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="odd">
 <td><strong>2/22 W</strong></td>
-<td><p><strong>Applied analysis presentation 1</strong></p>
+<td><p><strong>15. Guest lecture:</strong> Topic TBD by Anton Avanceña, PhD (University of Texas Austin)</p>
 <ul>
 <li><strong>Assignment 5 due</strong></li>
 </ul>
@@ -366,7 +366,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>2/24 F</strong></td>
-<td><p><strong>Guest lecture:</strong> “Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States” by Kyueun Lee, PhD (University of Washington)</p>
+<td><p><strong>16. Guest lecture:</strong> “Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States” by Kyueun Lee, PhD (University of Washington)</p>
 <p><a href="https://doi.org/10.1093/ofid/ofab607">Manuscript</a><br>
 </p></td>
 </tr>
@@ -377,63 +377,63 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>3/8 W</strong></td>
-<td><p><strong>Guest lecture:</strong> “Re-evaluating the health impact and cost-effectiveness of tuberculosis preventive treatment for modern HIV cohorts on antiretroviral therapy: a modelling analysis using data from Tanzania” by Jinyi Zhu, PhD (Vandebilt University)</p>
+<td><p><strong>17. Guest lecture:</strong> “Re-evaluating the health impact and cost-effectiveness of tuberculosis preventive treatment for modern HIV cohorts on antiretroviral therapy: a modelling analysis using data from Tanzania” by Jinyi Zhu, PhD (Vandebilt University)</p>
 <p><a href="'https://doi.org/10.1016/S2214-109X(22)00372-2'">Manuscript</a>, <a href="https://github.com/jinyizhu/IPTinTZ">Code</a><br>
 </p></td>
 </tr>
 <tr class="odd">
 <td><strong>3/10 F</strong></td>
-<td><strong>Student presentations on published studies</strong><br>
+<td><strong>18. Student presentations on published studies</strong><br>
 </td>
 </tr>
 <tr class="even">
 <td><strong>3/15 W</strong></td>
-<td><p><strong>Applied analysis presentation 4</strong></p>
+<td><p><strong>19. Applied analysis presentation 4</strong></p>
 <p><em>Read paper</em><br>
 </p></td>
 </tr>
 <tr class="odd">
 <td><strong>3/17 F</strong></td>
-<td><p><strong>Applied analysis presentation 5</strong></p>
+<td><p><strong>20. Applied analysis presentation 5</strong></p>
 <p><em>Read paper</em><br>
 </p></td>
 </tr>
 <tr class="even">
 <td><strong>3/22 W</strong></td>
-<td><strong>Work on final projects</strong><br>
+<td><strong>21. Work on final projects</strong><br>
 </td>
 </tr>
 <tr class="odd">
 <td><strong>3/24 F</strong></td>
-<td><p><strong>Applied analysis presentation 6</strong></p>
+<td><p><strong>22. Applied analysis presentation 6</strong></p>
 <p><em>Read paper</em><br>
 </p></td>
 </tr>
 <tr class="even">
 <td><strong>3/29 W</strong></td>
-<td><p><strong>Applied analysis presentation 7</strong></p>
+<td><p><strong>23. Guest lecture: </strong> TBD by Giovanni Malloy, PhD (RAND corporation)</p>
 <p><em>Read paper</em><br>
 </p></td>
 </tr>
 <tr class="odd">
 <td><strong>3/31 F</strong></td>
-<td><strong>Work on final projects</strong><br>
+<td><strong>24. Work on final projects</strong><br>
 </td>
 </tr>
 <tr class="even">
 <td><strong>4/5 W</strong></td>
-<td><p><strong>Applied analysis presentation 8</strong></p>
+<td><p><strong>25. Applied analysis presentation 8</strong></p>
 <p><em>Read paper</em><br>
 </p></td>
 </tr>
 <tr class="odd">
 <td><strong>4/12 W</strong></td>
-<td><strong>Final presentations</strong><br>
+<td><strong>26. Final presentations</strong><br>
 </td>
 </tr>
 <tr class="even">
 <td><strong>4/13 Th</strong></td>
-<td><strong>Wrap-up</strong><br>
+<td><strong>27. Wrap-up</strong><br>
 </td>
 </tr>
 <tr class="odd">

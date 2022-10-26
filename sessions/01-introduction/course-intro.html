@@ -448,15 +448,16 @@
 <h2>Decision-analytic model</h2>
 <ul>
 <li>Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives</li>
-<li>Propagate uncertainty (uncertain inputs -&gt; uncertain outputs)</li>
+<li>Propagate uncertainty (uncertain inputs → uncertain outputs)</li>
 </ul>
+<p>[To do: Make a diagram]</p>
 </section>
 <section id="decision-analysis-can" class="slide level2">
 <h2>Decision analysis can…</h2>
 <ul>
 <li>Estimate monetary and nonmonetary consequences of alternatives</li>
-<li>Suport decisions about investment into programs or design of programs</li>
-<li>Help guide allocation of resources</li>
+<li>Suport decisions about investment into/design of programs</li>
+<li>Inform allocation of resources</li>
 <li>Provide insights with incomplete data (requires assumptions)</li>
 <li>Inform data collection/research</li>
 </ul>
@@ -497,7 +498,7 @@
 <li>Everything else</li>
 <li>To read HTML documents hosted on Github
 <ul>
-<li>Download then open in web browser</li>
+<li>Download then open in web browser <strong>or</strong></li>
 <li><a href="https://htmlpreview.github.io/?" class="uri">https://htmlpreview.github.io/?</a></li>
 </ul></li>
 </ul>
@@ -524,10 +525,10 @@
 </section>
 <section id="syllabus-with-schedule-on-github" class="slide level2">
 <h2>Syllabus (with schedule) on Github</h2>
-<p>Quarto -&gt; PDF</p>
+<p>Quarto → PDF</p>
 <p><a href="https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf" class="uri">https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf</a></p>
 <p><br></p>
-<p>Quarto -&gt; HTML</p>
+<p>Quarto → HTML</p>
 <p><a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html" class="uri">https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html</a></p>
 </section>
 <section id="agenda-for-today-2" class="slide level2">
@@ -551,29 +552,43 @@
 <section id="why-i-like-r" class="slide level2">
 <h2>Why I like R</h2>
 <ul>
-<li>Code-based easier to interrogate + version control
+<li>Free and open source, designed for data science</li>
+<li>Code-based models easier to interrogate + version control
 <ul>
-<li>Downside of Excel, TreeAge</li>
+<li>Unlike Excel, TreeAge</li>
 </ul></li>
-<li>Free and open source, design for data science</li>
-<li>Ecosystem of packages, tutorials, vignettes</li>
-<li>Community of useRs
+<li>Ecosystem of packages, tutorials, vignettes
 <ul>
-<li>Decision Analyysis in R for Technologies in Health (DARTH) (<a href="https://darthworkgroup.com/">Website</a>, <a href="https://github.com/DARTH-git">Github</a>)</li>
-<li>R for Health Technology Assessment (<a href="https://r-hta.org/">Website</a>)</li>
+<li>Unlike python, matlab, etc.</li>
 </ul></li>
+<li>Friendly community of useRs</li>
 <li>Tools for creating reproducible research reports</li>
+</ul>
+</section>
+<section id="packages-for-decision-analytic-modeling-in-r" class="slide level2">
+<h2>Packages for decision-analytic modeling in R</h2>
+<ul>
+<li>Decision Analysis in R for Technologies in Health (DARTH)
+<ul>
+<li><a href="https://darthworkgroup.com/">Website</a>, <a href="https://github.com/DARTH-git">Github</a></li>
+</ul></li>
+<li>R for Health Technology Assessment
+<ul>
+<li><a href="https://r-hta.org/">Website</a></li>
+</ul></li>
+<li>Nathan Green’s <a href="https://github.com/n8thangreen/health_economics_R_packages">List of Health Economics R Packages</a></li>
 </ul>
 </section>
 <section id="downsides-of-r" class="slide level2">
 <h2>Downsides of R</h2>
 <ul>
-<li>Not as fast
+<li>High learning curve for non-programmers (vs.&nbsp;Excel, TreeAge)</li>
+<li>Not the fastest language
 <ul>
 <li>Julia, C++, Matlab faster</li>
 <li>RCPP package can integrate R with C++</li>
 </ul></li>
-<li>Dependence
+<li>Dependencies and back/forward compatability
 <ul>
 <li>Crowdsourcing = packages may not be maintained</li>
 <li>Functionality changes after updates</li>
@@ -582,9 +597,10 @@
 </section>
 <section id="rstudio-tour" class="slide level2">
 <h2>RStudio tour</h2>
+<p>We will:</p>
 <ul>
-<li>Create R project</li>
-<li>Create Quarto document</li>
+<li>Create an R project</li>
+<li>Create &amp; render a Quarto document</li>
 <li>Download and start assignment 0</li>
 </ul>
 </section>
@@ -598,6 +614,9 @@
 </ul>
 </section>
 <section id="who-is-the-audience" class="slide level2">
+<h2>Who is the audience?</h2>
+</section>
+<section id="who-is-the-audience-1" class="slide level2">
 <h2>Who is the audience?</h2>
 <ul>
 <li>Public health</li>
@@ -621,8 +640,16 @@
 <section id="costs-and-perspectives" class="slide level2">
 <h2>Costs and perspectives</h2>
 </section>
-<section id="the-case-for-multiple-perspectives" class="slide level2">
-<h2>The case for multiple perspectives</h2>
+<section id="why-choose-just-one" class="slide level2">
+<h2>Why choose just one?</h2>
+<ul>
+<li>1 analysis can have &gt;1 perspective</li>
+<li>Typical: societal + healthcare payer
+<ul>
+<li>Recommended by <a href="https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext">Second Panel on Cost-Effectiveness</a></li>
+</ul></li>
+</ul>
+<p>Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.</p>
 <div class="footer footer-default">
 
 </div>

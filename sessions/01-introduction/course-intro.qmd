@@ -118,13 +118,15 @@ editor: visual
 
 
 -  Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
--  Propagate uncertainty (uncertain inputs -> uncertain outputs)
+-  Propagate uncertainty (uncertain inputs → uncertain outputs)
+
+[To do: Make a diagram]
 
 ## Decision analysis can...
 
 -  Estimate monetary and nonmonetary consequences of alternatives
--  Suport decisions about investment into programs or design of programs
--  Help guide allocation of resources
+-  Suport decisions about investment into/design of programs
+-  Inform allocation of resources
 -  Provide insights with incomplete data (requires assumptions)
 -  Inform data collection/research
 
@@ -158,7 +160,7 @@ editor: visual
 
 -   Everything else
 -   To read HTML documents hosted on Github
-    -   Download then open in web browser
+    -   Download then open in web browser **or**
     -   <https://htmlpreview.github.io/?>
 
 ## Two phases
@@ -184,13 +186,13 @@ editor: visual
 
 ## Syllabus (with schedule) on Github
 
-Quarto -> PDF
+Quarto → PDF
 
 <https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf>
 
 <br>
 
-Quarto -> HTML
+Quarto → HTML
 
 <https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html>
 
@@ -210,28 +212,38 @@ Quarto -> HTML
 
 ## Why I like R
 
--   Code-based easier to interrogate + version control
-    -   Downside of Excel, TreeAge
--   Free and open source, design for data science
+-   Free and open source, designed for data science
+-   Code-based models easier to interrogate + version control
+    -   Unlike Excel, TreeAge
 -   Ecosystem of packages, tutorials, vignettes
--   Community of useRs
-    -   Decision Analyysis in R for Technologies in Health (DARTH) ([Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git))
-    -   R for Health Technology Assessment ([Website](https://r-hta.org/))
+    -   Unlike python, matlab, etc.
+-   Friendly community of useRs
 -   Tools for creating reproducible research reports
+
+## Packages for decision-analytic modeling in R
+
+ -   Decision Analysis in R for Technologies in Health (DARTH) 
+     -   [Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git)
+-   R for Health Technology Assessment
+    -   [Website](https://r-hta.org/)
+-   Nathan Green's [List of Health Economics R Packages](https://github.com/n8thangreen/health_economics_R_packages)
 
 ## Downsides of R
 
--   Not as fast
+-   High learning curve for non-programmers (vs. Excel, TreeAge)
+-   Not the fastest language
     -   Julia, C++, Matlab faster
     -   RCPP package can integrate R with C++
--   Dependence
+-   Dependencies and back/forward compatability
     -   Crowdsourcing = packages may not be maintained
     -   Functionality changes after updates
 
 ## RStudio tour
 
--   Create R project
--   Create Quarto document
+We will:
+
+-   Create an R project
+-   Create & render a Quarto document
 -   Download and start assignment 0
 
 ## Agenda for today
@@ -240,6 +252,8 @@ Quarto -> HTML
 -   Course overview
 -   Using R for decision analysis
 -   **Perspective and audiences**
+
+## Who is the audience?
 
 ## Who is the audience?
 -  Public health
@@ -262,5 +276,10 @@ Depends on context; often multiple target audiences
 ## Costs and perspectives
 
 
-## The case for multiple perspectives
+## Why choose just one?
 
+-  1 analysis can have >1 perspective
+-  Typical: societal + healthcare payer
+    -   Recommended by [Second Panel on Cost-Effectiveness](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
+
+Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.
