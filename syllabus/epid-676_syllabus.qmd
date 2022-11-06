@@ -210,9 +210,9 @@ PDFs of all readings are available to enrolled students in [MyCourses](https://m
 |            |                                                                                |
 |            | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)\ |
 +------------+--------------------------------------------------------------------------------+
-| **2/15 W**  | **13. Informing health intervention research**                                |
+| **2/15 W**  | **13. Value of information analysis**                                         |
 |            |                                                                                |
-|            | -   Value of information (VoI) analysis                                        |
+|            | -   For research prioritization and as sensitivity analysis                    |
 |            | -   VOI measures (EVPI, EVPPI, EVSI)                                           |
 |            | -   Challenges and limitation                                                  |
 |            | -   **Assignment 5 available (calibration, validation, and VoI)**              |
@@ -243,12 +243,12 @@ PDFs of all readings are available to enrolled students in [MyCourses](https://m
 +------------+--------------------------------------------------------------------------------+
 | **3/8 W**  | **17. Guest lecture:** "Re-evaluating the health impact and cost-effectiveness of tuberculosis preventive treatment for modern HIV cohorts on antiretroviral therapy: a modelling analysis using data from Tanzania" by Jinyi Zhu, PhD (Vandebilt University)  |
 |            |                                                                                |
-|            | [Manuscript]('https://doi.org/10.1016/S2214-109X(22)00372-2'), [Code](https://github.com/jinyizhu/IPTinTZ) \ |
+|            | [Manuscript](https://doi.org/10.1016/S2214-109X(22)00372-2), [Code](https://github.com/jinyizhu/IPTinTZ) \ |
 +------------+--------------------------------------------------------------------------------+
 | **3/10 F** | **18. Student presentations on published studies**\                               |
 |            |                                                                                |
 +------------+--------------------------------------------------------------------------------+
-| **3/15 W** | **19. Applied analysis presentation 4**                                            |
+| **3/15 W** | **19. Guest lecture:** TBD by Theresa Ryckman  |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
@@ -259,17 +259,17 @@ PDFs of all readings are available to enrolled students in [MyCourses](https://m
 | **3/22 W** | **21. Work on final projects**\                                                    |
 |            |                                                                                |
 +------------+--------------------------------------------------------------------------------+
-| **3/24 F** | **22. Applied analysis presentation 6**                                            |
+| **3/24 F** | **22. Guest lecture: ** TBD by Giovanni Malloy, PhD (RAND corporation) |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+
-| **3/29 W** | **23. Guest lecture: ** TBD by Giovanni Malloy, PhD (RAND corporation)|
+| **3/29 W** | **23. Guest lecture: ** Scaling up target regimens for tuberculosis preventive treatment in Brazil and South Africa: An analysis of costs and cost-effectivenessby Johnathan Campbell, PhD (McGill)                |
 |            |                                                                                |
-|            | *Read paper*\                                                                  |
+|            | [Manuscript](https://doi.org/10.1371/journal.pmed.1004032)\                                                                  |
 +------------+--------------------------------------------------------------------------------+
 | **3/31 F** | **24. Work on final projects**\                                                    |
 +------------+--------------------------------------------------------------------------------+
-| **4/5 W**  | **25. Applied analysis presentation 8**                                            |
+| **4/5 W**  | **25. Guest lecture**                                            |
 |            |                                                                                |
 |            | *Read paper*\                                                                  |
 +------------+--------------------------------------------------------------------------------+

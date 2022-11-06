@@ -183,9 +183,9 @@ ggplot(data = df_sim_size_outcomes,#all ggplots use dataframes
 
 Decision trees are great for representing decision problems that:
 
-* are relatively small
-* each decision has a discrete set of options 
-* each chance event has a discrete set of possible outcomes, like the roll of a die. 
+-   are relatively small
+-   each decision has a discrete set of options
+-   each chance event has a discrete set of possible outcomes, like the roll of a die.
 
 In a decision tree, decisions are represented by square decision nodes and chance events are represented by round chance nodes. Branches off of decision node represent your choices, and branches off of a chance node represent possible outcomes. Decision trees can sometimes be used just to represent the different possible outcomes of a decision problem, with no numbers attached. Here's an example for someone deciding whether or not to bet on the Habs for an upcoming hockey game.
 
@@ -205,8 +205,8 @@ However, we're going to take advantage of the symmetry of this problem to develo
 
 Here's a picture of the simplified tree. Shown in red are the r names we will use for the numerical variables we'll need to define to solve the tree. Those variables are:
 
-* the probability that the initial selection has a car or a goat 
-* the outcome of sticking with your choice or switching, conditioned on whether your originally-selected door has a car or goat behind it
+-   the probability that the initial selection has a car or a goat
+-   the outcome of sticking with your choice or switching, conditioned on whether your originally-selected door has a car or goat behind it
 
 ![Simpler version of the Monty Hall problem decision tree](figs/monty-hall-tree-simple.png)
 
@@ -350,7 +350,7 @@ ggplot(data=df_cohort_trace_long,
 
 ```
 
-Congrats, you've built a Markov model! 
+Congrats, you've built a Markov model!
 
 Now that we've gotten a model working, we will want to put it into a function to make it easier to re-run on different parameter sets. Copy and paste code from the prior chunks into the function so that it takes a list of parameters as inputs and returns a cohort trace dataframe.
 
@@ -420,7 +420,6 @@ ggplot(data=df_scenarios,
 
 Finally, compare the scenarios in terms of total deaths and deaths averted by the vaccine.
 
-
 ```{r}
 #How many total deaths were there under each scenario
 total_deaths <- list(
@@ -439,13 +438,12 @@ total_deaths
 
 ```
 
-
 If you've completed this assignment, you've already gotten exposed to lots of important concepts from the class (decision trees, simulation, Markov cohort models, policy analysis). Congrats!
 
 ## Last two questions
 
-* About how much time did you spend on the assignment? **Replace with your answer**
+-   About how much time did you spend on the assignment? **Replace with your answer**
 
-* Did you find any errors or have suggestions to improve it? **Replace with your answer**
+-   Did you find any errors or have suggestions to improve it? **Replace with your answer**
 
 Fin.

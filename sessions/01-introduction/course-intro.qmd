@@ -75,12 +75,12 @@ editor: visual
 
 **Health policy**
 
--   What services should we pay for? 
+-   What services should we pay for?
 -   Who should receive these services?
 
 **Healthcare operations**
 
--   How can these services be delivered most efficiently? 
+-   How can these services be delivered most efficiently?
 
 ## Developing a decision analysis
 
@@ -116,26 +116,24 @@ editor: visual
 
 ## Decision-analytic model
 
+-   Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
+-   Propagate uncertainty (uncertain inputs → uncertain outputs)
 
--  Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
--  Propagate uncertainty (uncertain inputs → uncertain outputs)
-
-[To do: Make a diagram]
+\[To do: Make a diagram\]
 
 ## Decision analysis can...
 
--  Estimate monetary and nonmonetary consequences of alternatives
--  Suport decisions about investment into/design of programs
--  Inform allocation of resources
--  Provide insights with incomplete data (requires assumptions)
--  Inform data collection/research
-
+-   Estimate monetary and nonmonetary consequences of alternatives
+-   Suport decisions about investment into/design of programs
+-   Inform allocation of resources
+-   Provide insights with incomplete data (requires assumptions)
+-   Inform data collection/research
 
 ## Decision analysis can't...
 
--  Perfectly capture reality
--  Account for unknown factors
--  Replace a decision maker
+-   Perfectly capture reality
+-   Account for unknown factors
+-   Replace a decision maker
 
 ## Agenda for today
 
@@ -205,10 +203,16 @@ Quarto → HTML
 
 ## Software for building models
 
--   TreeAge <https://www.treeage.com/>
--   Excel
--   Python, Julia, Matlab, etc.
--   R
+-   Software programs
+    -   TreeAge <https://www.treeage.com/>
+
+    -   Arena, Simio, Simul8
+
+    -   Excel
+-   Programming languages
+    -   Python, Julia, Matlab, etc.
+
+    -   R
 
 ## Why I like R
 
@@ -216,14 +220,14 @@ Quarto → HTML
 -   Code-based models easier to interrogate + version control
     -   Unlike Excel, TreeAge
 -   Ecosystem of packages, tutorials, vignettes
-    -   Unlike python, matlab, etc.
+    -   More mature than python, Matlab, etc.
 -   Friendly community of useRs
 -   Tools for creating reproducible research reports
 
 ## Packages for decision-analytic modeling in R
 
- -   Decision Analysis in R for Technologies in Health (DARTH) 
-     -   [Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git)
+-   Decision Analysis in R for Technologies in Health (DARTH)
+    -   [Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git)
 -   R for Health Technology Assessment
     -   [Website](https://r-hta.org/)
 -   Nathan Green's [List of Health Economics R Packages](https://github.com/n8thangreen/health_economics_R_packages)
@@ -256,30 +260,29 @@ We will:
 ## Who is the audience?
 
 ## Who is the audience?
--  Public health
--  Regulators
--  Clinicians / Medical societies
--  Patients
--  Patient parent/guardian
--  Insurance companies
--  Organization leaders (admin of hospital, blood collectors)
--  Funding agencies (e.g., CIHR)
--  etc.
+
+-   Public health
+-   Regulators
+-   Clinicians / Medical societies
+-   Patients
+-   Patient parent/guardian
+-   Insurance companies
+-   Organization leaders (admin of hospital, blood collectors)
+-   Funding agencies (e.g., CIHR)
+-   etc.
 
 Depends on context; often multiple target audiences
 
 ## Perspective motivated by audience
 
-
 ## The case for societal perspective
 
 ## Costs and perspectives
 
-
 ## Why choose just one?
 
--  1 analysis can have >1 perspective
--  Typical: societal + healthcare payer
+-   1 analysis can have \>1 perspective
+-   Typical: societal + healthcare payer
     -   Recommended by [Second Panel on Cost-Effectiveness](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
 
 Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.
