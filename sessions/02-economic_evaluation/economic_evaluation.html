@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="course-intro_files/libs/clipboard/clipboard.min.js"></script>
-<script src="course-intro_files/libs/quarto-html/tabby.min.js"></script>
-<script src="course-intro_files/libs/quarto-html/popper.min.js"></script>
-<script src="course-intro_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="course-intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="course-intro_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="course-intro_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="economic_evaluation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="economic_evaluation_files/libs/quarto-html/tabby.min.js"></script>
+<script src="economic_evaluation_files/libs/quarto-html/popper.min.js"></script>
+<script src="economic_evaluation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="economic_evaluation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="economic_evaluation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="economic_evaluation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.37">
 
   <meta name="author" content="Alton Russell">
-  <title>Course introduction</title>
+  <title>Economic evaluation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="course-intro_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="course-intro_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="economic_evaluation_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="economic_evaluation_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -23,12 +23,76 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="course-intro_files/libs/revealjs/dist/theme/quarto.css" id="theme">
-  <link href="course-intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="course-intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="course-intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="course-intro_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="economic_evaluation_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="economic_evaluation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="economic_evaluation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="economic_evaluation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="economic_evaluation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -319,338 +383,47 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Course introduction</h1>
-  <p class="subtitle">EPIB 676 session 1, McGill University</p>
+  <h1 class="title">Economic evaluation</h1>
+  <p class="subtitle">EPIB 676 session 2, McGill University</p>
   <p class="author">Alton Russell</p>
-  <p class="date">4 Jan 2023</p>
+  <p class="date">6 Jan 2023</p>
 </section>
 
-<section id="about-me" class="slide level2">
-<h2>About me</h2>
+<section id="logistics" class="slide level2">
+<h2>Logistics</h2>
 <ul>
-<li>Born in North Carolina</li>
-<li>Engineering at NC State (BSc) and Stanford (MSc, PhD)</li>
-<li>Joined the School of Population and Global Health in January 2022</li>
-<li>Teach PPHS 528 Economic evaluation of health programs in the fall</li>
-<li>Lead the <a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a></li>
+<li><p>Assignment 0 due next Wednesday 1/11</p></li>
+<li><p>Assignment 1 available (due Wednesday 1/18)</p></li>
 </ul>
 </section>
-<section id="agenda-for-today" class="slide level2">
-<h2>Agenda for today</h2>
+<section id="today" class="slide level2">
+<h2>Today</h2>
 <ul>
-<li><strong>Why decision analysis</strong></li>
-<li>Course overview</li>
-<li>Using R for decision analysis</li>
-<li>Perspective and audiences</li>
+<li><p>Economic evaluation frameworks</p></li>
+<li><p>Quantifying health</p></li>
+<li><p>Quantifying costs</p></li>
+<li><p>Discounting</p></li>
+<li><p>Incremental analysis (cost-effectiveness)</p></li>
 </ul>
 </section>
-<section id="why-decision-analysis" class="slide level2">
-<h2>Why decision analysis?</h2>
-<ul>
-<li>Demand for health resources nearly infinite</li>
-<li>Resources (budgets) are limited</li>
-<li>Choices must be made!</li>
-</ul>
-</section>
-<section id="opportunity-cost" class="slide level2">
-<h2>Opportunity cost</h2>
-<p><em>The value of the next-best thing I could have done with the resources</em></p>
-<ul>
-<li><p>Each dollar spent on PrEP to prevent HIV in people who inject drugs cannot be spent on photon radiation for children with cancer, etc.</p></li>
-<li><p>Each dollar spent on health care cannot be spent on education, infrastructure, defense, etc.</p></li>
-</ul>
-</section>
-<section id="challenges-in-global-health" class="slide level2">
-<h2>Challenges in global health</h2>
-</section>
-<section id="challenges-in-global-health-1" class="slide level2">
-<h2>Challenges in global health</h2>
-<ul>
-<li>High childhood mortality</li>
-<li>Epidemics of infectious diseases</li>
-<li>Poor health infrastructure</li>
-<li>Limited access to care</li>
-<li>Limited funds for disease prevention and treatment</li>
-</ul>
-</section>
-<section id="challenges-in-canada" class="slide level2">
-<h2>Challenges in Canada</h2>
-</section>
-<section id="challenges-in-canada-1" class="slide level2">
-<h2>Challenges in Canada</h2>
-<ul>
-<li>Aging boomers
-<ul>
-<li>50% of health care expenses incurred in last year of life</li>
-</ul></li>
-<li>Chronic health conditions</li>
-<li>Insufficient capacity -&gt; long queues</li>
-<li>Total joints, screening colonoscopy, etc.</li>
-</ul>
-</section>
-<section id="how-do-we-decide-what-to-pay-for" class="slide level2">
-<h2>How do we decide what to pay for?</h2>
-</section>
-<section id="how-do-we-decide-what-to-pay-for-1" class="slide level2">
-<h2>How do we decide what to pay for?</h2>
-<ul>
-<li>Cost</li>
-<li>Effectiveness</li>
-<li>Efficiency</li>
-<li>Fairness</li>
-</ul>
-</section>
-<section id="key-questions-for-decision-analysis" class="slide level2">
-<h2>Key questions for decision analysis</h2>
-<ul>
-<li>What services should we pay for?</li>
-<li>Who should receive these services?</li>
-<li>How can these services be delivered most efficiently?</li>
-</ul>
-</section>
-<section id="key-questions-for-decision-analysis-1" class="slide level2">
-<h2>Key questions for decision analysis</h2>
-<p><strong>Health policy</strong></p>
-<ul>
-<li>What services should we pay for?</li>
-<li>Who should receive these services?</li>
-</ul>
-<p><strong>Healthcare operations</strong></p>
-<ul>
-<li>How can these services be delivered most efficiently?</li>
-</ul>
-</section>
-<section id="developing-a-decision-analysis" class="slide level2">
-<h2>Developing a decision analysis</h2>
-<ol type="1">
-<li><p>Define the decision context</p></li>
-<li><p>Identify outcomes of interest (cost, effects, efficiency, fairness)</p></li>
-<li><p>Identify alternatives</p></li>
-<li><p>Estimate outcomes under each alternative</p></li>
-<li><p>Perform sensitivity analysis</p></li>
-<li><p>Consider non-quantifiable factors</p></li>
-<li><p>Interpret the results</p></li>
-</ol>
-</section>
-<section id="developing-a-decision-analysis-1" class="slide level2">
-<h2>Developing a decision analysis</h2>
-<ol type="1">
-<li><p>Define the decision context</p></li>
-<li><p>Identify outcomes of interest (cost, effects, efficiency, fairness)</p></li>
-<li><p>Identify alternatives</p></li>
-<li><p><strong>Estimate outcomes under each alternative &lt;- Modeling</strong></p></li>
-<li><p><strong>Perform sensitivity analysis &lt;- Modeling</strong></p></li>
-<li><p>Consider non-quantifiable factors</p></li>
-<li><p>Interpret the results</p></li>
-</ol>
-</section>
-<section id="decision-analytic-model" class="slide level2">
-<h2>Decision-analytic model</h2>
-<ul>
-<li>Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives</li>
-<li>Propagate uncertainty (uncertain inputs → uncertain outputs)</li>
-</ul>
-<p>[To do: Make a diagram]</p>
-</section>
-<section id="decision-analysis-can" class="slide level2">
-<h2>Decision analysis can…</h2>
-<ul>
-<li>Estimate monetary and nonmonetary consequences of alternatives</li>
-<li>Suport decisions about investment into/design of programs</li>
-<li>Inform allocation of resources</li>
-<li>Provide insights with incomplete data (requires assumptions)</li>
-<li>Inform data collection/research</li>
-</ul>
-</section>
-<section id="decision-analysis-cant" class="slide level2">
-<h2>Decision analysis can’t…</h2>
-<ul>
-<li>Perfectly capture reality</li>
-<li>Account for unknown factors</li>
-<li>Replace a decision maker</li>
-</ul>
-</section>
-<section id="agenda-for-today-1" class="slide level2">
-<h2>Agenda for today</h2>
-<ul>
-<li>Why decision analysis</li>
-<li><strong>Course overview</strong></li>
-<li>Using R for decision analysis</li>
-<li>Perspective and audiences</li>
-</ul>
-</section>
-<section id="learning-objectives" class="slide level2">
-<h2>Learning objectives</h2>
-<ul>
-<li>Develop decision analytic models to inform health policy and clinical decisions</li>
-<li>Understand and critically appraise published model-based decision analyses</li>
-<li>Create transparent reports of decision analyses that conform to open science principles</li>
-</ul>
-</section>
-<section id="course-materials" class="slide level2">
-<h2>Course materials</h2>
-<p><strong>MyCourses</strong> (<a href="https://mycourses2.mcgill.ca/" class="uri">https://mycourses2.mcgill.ca/</a>)</p>
-<ul>
-<li>Access readings, submit assignments</li>
-</ul>
-<p><strong>Public Github repo</strong> (<a href="https://github.com/altonrus/epib-676" class="uri">https://github.com/altonrus/epib-676</a>)</p>
-<ul>
-<li>Everything else</li>
-<li>To read HTML documents hosted on Github
-<ul>
-<li>Download then open in web browser <strong>or</strong></li>
-<li><a href="https://htmlpreview.github.io/?" class="uri">https://htmlpreview.github.io/?</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="two-phases" class="slide level2">
-<h2>Two phases</h2>
-
-<img data-src="birds-eye-view.png" class="r-stretch"><div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="methods-phase">Methods phase</h3>
-<ul>
-<li>Read textbook excerpts, tutorials</li>
-<li>Programming assignments</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h3 id="application-phase">Application phase</h3>
-<ul>
-<li>Read applied papers</li>
-<li>Course project</li>
-<li>Analyze open-source paper</li>
-</ul>
+<section id="net-present-cost" class="slide level2">
+<h2>Net present cost</h2>
+<p>To calculate net present value of quantity <span class="math inline">\(Q\)</span>, <span class="math inline">\(t\)</span> years into the future, with a discount rate <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+NPV = Q \frac{1}{(1+r)^t}
+\]</span></p>
+<p>Example in R</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Q<span class="ot">=</span><span class="dv">100</span> <span class="co">#dollars</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>t <span class="ot">=</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>r <span class="ot">=</span> .<span class="dv">05</span> <span class="co">#5 percent discount rate</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>NPV <span class="ot">&lt;-</span> Q<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>r)<span class="sc">^</span>t)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>NPV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 78.35262</code></pre>
 </div>
 </div>
-</section>
-<section id="syllabus-with-schedule-on-github" class="slide level2">
-<h2>Syllabus (with schedule) on Github</h2>
-<p>Quarto → PDF</p>
-<p><a href="https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf" class="uri">https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf</a></p>
-<p><br></p>
-<p>Quarto → HTML</p>
-<p><a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html" class="uri">https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html</a></p>
-</section>
-<section id="agenda-for-today-2" class="slide level2">
-<h2>Agenda for today</h2>
-<ul>
-<li>Why decision analysis</li>
-<li>Course overview</li>
-<li><strong>Using R for decision analysis</strong></li>
-<li>Perspective and audiences</li>
-</ul>
-</section>
-<section id="software-for-decision-analytic-modeling" class="slide level2">
-<h2>Software for decision-analytic modeling</h2>
-<ul>
-<li>Software programs
-<ul>
-<li><p>TreeAge <a href="https://www.treeage.com/" class="uri">https://www.treeage.com/</a></p></li>
-<li><p>Arena, Simio, Simul8</p></li>
-<li><p>Excel</p></li>
-</ul></li>
-<li>Programming languages
-<ul>
-<li><p>Python, Julia, Matlab, etc.</p></li>
-<li><p>R</p></li>
-</ul></li>
-</ul>
-</section>
-<section id="why-i-like-r" class="slide level2">
-<h2>Why I like R</h2>
-<ul>
-<li>Free and open source, designed for data science</li>
-<li>Code-based (easier to interrogate + version control)</li>
-<li>Ecosystem of packages, tutorials, vignettes (others not as mature)</li>
-<li>Friendly community of useRs</li>
-<li>Systems for creating reproducible research reports</li>
-</ul>
-</section>
-<section id="packages-for-decision-analytic-modeling-in-r" class="slide level2">
-<h2>Packages for decision-analytic modeling in R</h2>
-<ul>
-<li>Decision Analysis in R for Technologies in Health (DARTH)
-<ul>
-<li><a href="https://darthworkgroup.com/">Website</a>, <a href="https://github.com/DARTH-git">Github</a></li>
-</ul></li>
-<li>R for Health Technology Assessment
-<ul>
-<li><a href="https://r-hta.org/">Website</a></li>
-</ul></li>
-<li>Nathan Green’s <a href="https://github.com/n8thangreen/health_economics_R_packages">List of Health Economics R Packages</a></li>
-</ul>
-</section>
-<section id="downsides-of-r" class="slide level2">
-<h2>Downsides of R</h2>
-<ul>
-<li>High learning curve for non-programmers (vs.&nbsp;Excel, TreeAge)</li>
-<li>Not the fastest language
-<ul>
-<li>Julia, C++, Matlab faster</li>
-<li>RCPP package can integrate R with C++</li>
-</ul></li>
-<li>Dependencies and back/forward compatability
-<ul>
-<li>Crowdsourcing = packages may not be maintained</li>
-<li>Functionality changes after updates</li>
-</ul></li>
-</ul>
-</section>
-<section id="rstudio-tour" class="slide level2">
-<h2>RStudio tour</h2>
-<p>We will:</p>
-<ul>
-<li>Create an R project</li>
-<li>Create &amp; render a Quarto document</li>
-<li>Download and start assignment 0</li>
-</ul>
-</section>
-<section id="agenda-for-today-3" class="slide level2">
-<h2>Agenda for today</h2>
-<ul>
-<li>Why decision analysis</li>
-<li>Course overview</li>
-<li>Using R for decision analysis</li>
-<li><strong>Perspective and audiences</strong></li>
-</ul>
-</section>
-<section id="who-is-the-audience" class="slide level2">
-<h2>Who is the audience?</h2>
-</section>
-<section id="who-is-the-audience-1" class="slide level2">
-<h2>Who is the audience?</h2>
-<ul>
-<li>Public health</li>
-<li>Regulators</li>
-<li>Clinicians / Medical societies</li>
-<li>Patients</li>
-<li>Patient parent/guardian</li>
-<li>Insurance companies</li>
-<li>Organization leaders (admin of hospital, blood collectors)</li>
-<li>Funding agencies (e.g., CIHR)</li>
-<li>etc.</li>
-</ul>
-<p>Depends on context; often multiple target audiences</p>
-</section>
-<section id="perspective-motivated-by-audience" class="slide level2">
-<h2>Perspective motivated by audience</h2>
-</section>
-<section id="the-case-for-societal-perspective" class="slide level2">
-<h2>The case for societal perspective</h2>
-</section>
-<section id="costs-and-perspectives" class="slide level2">
-<h2>Costs and perspectives</h2>
-</section>
-<section id="why-choose-just-one" class="slide level2">
-<h2>Why choose just one?</h2>
-<ul>
-<li>1 analysis can have &gt;1 perspective</li>
-<li>Typical: societal + healthcare payer
-<ul>
-<li>Recommended by <a href="https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext">Second Panel on Cost-Effectiveness</a></li>
-</ul></li>
-</ul>
-<p>Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.</p>
 <div class="footer footer-default">
 
 </div>
@@ -659,19 +432,19 @@
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="course-intro_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="course-intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="course-intro_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="course-intro_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="economic_evaluation_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -866,6 +639,48 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

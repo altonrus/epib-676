@@ -201,7 +201,7 @@ Quarto → HTML
 -   **Using R for decision analysis**
 -   Perspective and audiences
 
-## Software for building models
+## Software for decision-analytic modeling
 
 -   Software programs
     -   TreeAge <https://www.treeage.com/>
@@ -217,12 +217,10 @@ Quarto → HTML
 ## Why I like R
 
 -   Free and open source, designed for data science
--   Code-based models easier to interrogate + version control
-    -   Unlike Excel, TreeAge
--   Ecosystem of packages, tutorials, vignettes
-    -   More mature than python, Matlab, etc.
+-   Code-based (easier to interrogate + version control)
+-   Ecosystem of packages, tutorials, vignettes (others not as mature)
 -   Friendly community of useRs
--   Tools for creating reproducible research reports
+-   Systems for creating reproducible research reports
 
 ## Packages for decision-analytic modeling in R
 
@@ -237,18 +235,18 @@ Quarto → HTML
 -   High learning curve for non-programmers (vs. Excel, TreeAge)
 -   Not the fastest language
     -   Julia, C++, Matlab faster
-    -   RCPP package can integrate R with C++
--   Dependencies and back/forward compatability
-    -   Crowdsourcing = packages may not be maintained
+    -   **But,** RCPP package can integrate R with C++
+-   Dependencies and back/forward compatibility
+    -   Packages can have errors, not be maintained
     -   Functionality changes after updates
 
-## RStudio tour
+## Getting started with R
 
 We will:
 
--   Create an R project
--   Create & render a Quarto document
--   Download and start assignment 0
+-   Clone the class R project onto your computer
+-   Create a new R project with quarto document
+-   Download and render assignment 0
 
 ## Agenda for today
 
@@ -286,3 +284,7 @@ Depends on context; often multiple target audiences
     -   Recommended by [Second Panel on Cost-Effectiveness](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
 
 Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.
+
+## Logistics
+
+-   Assignment 0 due next Wednesday 1/11

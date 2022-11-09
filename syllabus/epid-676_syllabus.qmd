@@ -9,17 +9,17 @@ format:
 editor: visual
 ---
 
+```{=html}
 <!--
 Clicking"render" will only do the first format and delete any other copies. 
 To render both html and pdf, use 
 
 quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
 -->
-
-
+```
 ## Course description
 
-Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, optimization, Bayesian model calibration and evaluation, probabilistic sensitivity analysis, value of information analysis, and equity-informative health policy analysis. Application areas include: disease screening, prevention, and treatment, prioritization of clinical research, and policies to avert drug overdose deaths.
+Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, Bayesian model calibration and evaluation, probabilistic sensitivity analysis, value of information analysis, and equity-informative health policy analysis. Application areas include: disease screening, prevention, and treatment, public health measures, and prioritization of clinical research.
 
 ## Learning objectives
 
@@ -35,7 +35,7 @@ By the end of the course, students should be able to:
 
 ## Class sessions & office hours
 
-**Class sessions** will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required. 
+**Class sessions** will be held 10:05am -- 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required.
 
 **Office hours** will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton's office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.
 
@@ -77,7 +77,7 @@ A series of programming assignments will provide hands-on experience developing 
 2.  Cohort models (7%)
 3.  Simulation (7%)
 4.  Sensitivity analysis (7%)
-5.  Calibration, validation, and value of information  (7%)
+5.  Calibration, validation, and value of information (7%)
 
 ### Open-source modeling study report (10%)
 
@@ -91,191 +91,186 @@ Students will develop a decision-analytic model an use it to inform a decision f
 2.  Class presentation (12%)
 3.  Written report and code (24%)
 
-
 ## Course schedule
 
 PDFs of all readings are available to enrolled students in [MyCourses](https://mycourses2.mcgill.ca/).
 
-+------------+--------------------------------------------------------------------------------+
-| **Date**   | **Topics, Readings/tasks to be completed before class [Tentative!]**           |
-+============+================================================================================+
-| **1/4 W**  | **1. Course introduction**                                                        |
-|            |                                                                                |
-|            | -   Why do decision analysis                                                   |
-|            | -   Analytic perspective                                                       |
-|            | -   R workflow                                                                   |
-|            | -   **Assignment 0 available (simpler models)**                                |
-|            |                                                                                |
-|            | (1) Follow the ['Setting up your software enviroment' instructions](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html)\ |
-|            | (2) Read through [*Reproducible Research in R session 1: Management of R projects*](https://r-cubed.rostools.org/r-project-management.html)\  |
-+------------+--------------------------------------------------------------------------------+
-| **1/6 F**  | **2. Economic evaluation**                                                        |
-|            |                                                                                |
-|            | -   Economic evaluation                                                        |
-|            | -   Framing an analysis                                                        |
-|            | -   Quantifying health                                                         |
-|            | -   Discounting                                                                |
-|            | -   **Assignment 1 available (decision trees, cost-effectiveness)**            |
-|            |                                                                                |
-|            | Ch. 1 'Introduction to health economic evaluation' from [*Bayesian Methods in Health Economics (2012) by Gianluca Baio*](https://doi.org/10.1201/b13099)\ |
-+------------+--------------------------------------------------------------------------------+
-| **1/11 W** | **3. Probability, decision trees**                                                |
-|            |                                                                                |
-|            | -   Conditional probability                                                    |
-|            | -   Decision trees                                                             |
-|            | -   Distributions, expectation, variance                                       |
-|            | -   **Assignment 0 due**                                                       |
-|            |                                                                                |
-|            | Ch 9, pg 311 - 351 (you can skip 9.4.5 -- 9.4.7, pg 331  - 338\) 'Economic evaluation using decision-analytic modelling' from [*'Methods for the Economic Evaluation of Health Care Programmes' (2014) by Drummond et. al.*](http://ebookcentral.proquest.com/lib/mcgill/detail.action?docID=4605509)\ |
-+------------+--------------------------------------------------------------------------------+
-| **1/13 F** | **4. Cohort models I**                                                            |
-|            |                                                                                |
-|            | -   Markovian property                                                         |
-|            | -   Matrix operations in R                                                     |
-|            | -   Discrete time cohort models                                                |
-|            | -   **Assignment 2 available (cohort models)**                                 |
-|            |                                                                                |
-|            | [*Alarid Escudero et. al. 2022. An introductory tutorial on cohort state-transition models in R using a cost-effectiveness analysis example*](https://doi.org/10.1177/0272989X221103163)\ |
-+------------+--------------------------------------------------------------------------------+
-| **1/18 W** | **5. Cohort models II**                                                           |
-|            |                                                                                |
-|            | -   Time-varying transitions                                                   |
-|            | -   Tolls, tunnel states                                                       |
-|            | -   **Assignment 1 due**                                                       |
-|            |                                                                                |
-|            | [*Alarid Escudero et. al. 2022. A tutorial on time-dependent cohort state-transition models in R using a cost-effectiveness analysis example*](https://doi.org/10.1177/0272989X221121747)\ |
-+------------+--------------------------------------------------------------------------------+
-| **1/20 F** | **6. Microsimulation I**                                                          |
-|            |                                                                                |
-|            | -   Monte Carlo simulation                                                     |
-|            | -   Simulating decision trees                                                  |
-|            | -   Probabilistic sensitivity analysis                                         |
-|            | -   **Assignment 3 available (simulation)**                                    |
-|            |                                                                                |
-|            | [*Krijkamp et. al. 2018. Microsimulation modeling for health decision sciences Using R: A tutorial*](http://www.doi.org/10.1177/0272989X18754513)\ |
-+------------+--------------------------------------------------------------------------------+
-| **1/25 W** | **7. Microsimulation II**                                                         |
-|            |                                                                                |
-|            | -   Tracking individual attributes                                             |
-|            | -   Deciding on number of iterations                                           |
-|            | -   Efficiency techniques (e.g., Conditional Monte Carlo)                      |
-|            | -   **Assignment 2 due**                                                       |
-|            |                                                                                |
-|            | Sections 1.4 and Ch. 2 (pg. 15 - 17, 23 - 64) from [*Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.*](https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689)\ |
-+------------+--------------------------------------------------------------------------------+
-| **1/27 F** | **8. Other simulation types**                                                     |
-|            |                                                                                |
-|            | -   Discreet event                                                             |
-|            | -   Agent based                                                                |
-|            | -   Network model                                                              |
-|            |                                                                                |
-|            | [*Chhatwal & He (2015). Economic evaluations with agent-based modelling: An introduction.*](https://doi.org/10.1007/s40273-015-0254-2)\ |
-+------------+--------------------------------------------------------------------------------+
-| **2/1 W**  | **9. Uncertainty analysis**                                                       |
-|            |                                                                                |
-|            | -   Probabilistic sensitivity analysis                                         |
-|            | -   Credible intervals                                                         |
-|            | -   Univariate sensitivity analysis                                            |
-|            | -   Scenario analysis                                                          |
-|            | -   **Assignment 3 due**                                                       |
-|            | -   **Assignment 4 available (Sensitivity analysis)**    |
-|            |                                                                                |
-|            | [*Briggs et. al. 2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report*](https://doi.org/10.1177/0272989X12458348)\ |
-+------------+--------------------------------------------------------------------------------+
-| **2/3 f**  | **10. Designing & parameterizing an analysis**                                     |
-|            |                                                                                |
-|            | -   Perspective, time horizons, comparators                                    |
-|            | -   Deciding on scope & structure                                              |
-|            | -   Literature-based inputs                                                    |
-|            | -   Patient-level data inputs                                                  |
-|            | -   **Project proposal assigned**                                              |
-|            |                                                                                |
-|            | (1) [*Roberts et. al. 2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force*](https://doi.org/10.1016/j.jval.2012.06.016)\ |
-|            | (2) Ch 8 (pg 209 - 236) 'Finding and summarizing the evidence' from [*Decision Making in Health and Medicine (2014) by Hunink et. al.*](https://doi.org/10.1017/CBO9781139506779.011)\ |
-+------------+--------------------------------------------------------------------------------+
-| **2/8 W**  | **11. Modeling workflow**                                                      |
-|            |                                                                                |
-|            | -   Model selection                                                            |
-|            | -   Parameterization                                                           |
-|            | -   R project workflow                                                         |
-|            |                                                                                |
-|            | [*Eddy et. al. 2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report*](https://www.doi.org/10.1177/0272989X12454579)\ |
-|            |                                                                                |
-+------------+--------------------------------------------------------------------------------+
-| **2/10 F** | **12. Calibration & validation**                                                   |
-|            |                                                                                |
-|            | -   Bayesian model calibration                                                 |
-|            | -   Model validation                                                           |
-|            | -   **Assignment 4 due**\                                   |
-|            |                                                                                |
-|            | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)\ |
-+------------+--------------------------------------------------------------------------------+
-| **2/15 W**  | **13. Value of information analysis**                                         |
-|            |                                                                                |
-|            | -   For research prioritization and as sensitivity analysis                    |
-|            | -   VOI measures (EVPI, EVPPI, EVSI)                                           |
-|            | -   Challenges and limitation                                                  |
-|            | -   **Assignment 5 available (calibration, validation, and VoI)**              |
-|            |                                                                                |
-|            | [Fenwick et. al. 2020. Value of information analysis for research decisions—an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force](https://doi.org/10.1016/j.jval.2020.01.001)\ |
-+------------+--------------------------------------------------------------------------------+
-| **2/17 F** | **14. Equity and distributional considerations**                                   |
-|            |                                                                                |   
-|            | -   Evaluation frameworks                                                      |
-|            | -   Data-driven modeling methods                                               |
-|            | -   **Report on published study assigned**\                                    |
-|            |                                                                                |
-|            | (1) [*Avanceña and Prosser (2021). Innovations in cost-effectiveness analysis that advance equity can expand its use in health policy*](https://doi.org/10.1136/bmjgh-2021-008140) \|
-|            | (2) [*Love-Koh et. al. (2019). Aggregate distributional cost-effectiveness analysis of health technologies*](https://doi.org/10.1016/j.jval.2019.03.006) \ |
-+------------+--------------------------------------------------------------------------------+
-| **2/22 W** | **15. Guest lecture:** Topic TBD by Anton Avanceña, PhD (University of Texas Austin) |
-|            |                                                                                |
-|            | -   **Assignment 5 due**                                                       |
-|            |                                                                                |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **2/24 F** | **16. Guest lecture:** "Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States" by Kyueun Lee, PhD (University of Washington)  |
-|            |                                                                                |
-|            | [Manuscript](https://doi.org/10.1093/ofid/ofab607) \ |
-+------------+--------------------------------------------------------------------------------+
-| *2/27-3/3* |*Winter reading break (no class)*\                                              |
-+------------+--------------------------------------------------------------------------------+
-| **3/8 W**  | **17. Guest lecture:** "Re-evaluating the health impact and cost-effectiveness of tuberculosis preventive treatment for modern HIV cohorts on antiretroviral therapy: a modelling analysis using data from Tanzania" by Jinyi Zhu, PhD (Vandebilt University)  |
-|            |                                                                                |
-|            | [Manuscript](https://doi.org/10.1016/S2214-109X(22)00372-2), [Code](https://github.com/jinyizhu/IPTinTZ) \ |
-+------------+--------------------------------------------------------------------------------+
-| **3/10 F** | **18. Student presentations on published studies**\                               |
-|            |                                                                                |
-+------------+--------------------------------------------------------------------------------+
-| **3/15 W** | **19. Guest lecture:** TBD by Theresa Ryckman  |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/17 F** | **20. Applied analysis presentation 5**                                            |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/22 W** | **21. Work on final projects**\                                                    |
-|            |                                                                                |
-+------------+--------------------------------------------------------------------------------+
-| **3/24 F** | **22. Guest lecture: ** TBD by Giovanni Malloy, PhD (RAND corporation) |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/29 W** | **23. Guest lecture: ** Scaling up target regimens for tuberculosis preventive treatment in Brazil and South Africa: An analysis of costs and cost-effectivenessby Johnathan Campbell, PhD (McGill)                |
-|            |                                                                                |
-|            | [Manuscript](https://doi.org/10.1371/journal.pmed.1004032)\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **3/31 F** | **24. Work on final projects**\                                                    |
-+------------+--------------------------------------------------------------------------------+
-| **4/5 W**  | **25. Guest lecture**                                            |
-|            |                                                                                |
-|            | *Read paper*\                                                                  |
-+------------+--------------------------------------------------------------------------------+
-| **4/12 W** | **26. Final presentations**\                                                    |
-+------------+--------------------------------------------------------------------------------+
-| **4/13 Th**| **27. Wrap-up**\                                                    |
-+------------+--------------------------------------------------------------------------------+
-| **4/21 F** | Final project report + code due (no class)\                                    |
-+------------+--------------------------------------------------------------------------------+
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Date**    | **Topics, Readings/tasks to be completed before class \[Tentative!\]**                                                                                                                                                                                                                               |
++=============+======================================================================================================================================================================================================================================================================================================+
+| **1/4 W**   | **1. Course introduction**                                                                                                                                                                                                                                                                           |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Why do decision analysis                                                                                                                                                                                                                                                                         |
+|             | -   Analytic perspective                                                                                                                                                                                                                                                                             |
+|             | -   R workflow                                                                                                                                                                                                                                                                                       |
+|             | -   **Assignment 0 available (simpler models)**                                                                                                                                                                                                                                                      |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | (1) Follow the ['Setting up your software enviroment' instructions](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html)\                                                                                                         |
+|             | (2) Read through [*Reproducible Research in R session 1: Management of R projects*](https://r-cubed.rostools.org/r-project-management.html)\                                                                                                                                                         |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/6 F**   | **2. Economic evaluation**                                                                                                                                                                                                                                                                           |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Economic evaluation                                                                                                                                                                                                                                                                              |
+|             | -   Framing an analysis                                                                                                                                                                                                                                                                              |
+|             | -   Quantifying health                                                                                                                                                                                                                                                                               |
+|             | -   Discounting                                                                                                                                                                                                                                                                                      |
+|             | -   **Assignment 1 available (decision trees, cost-effectiveness)**                                                                                                                                                                                                                                  |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | Ch. 1 'Introduction to health economic evaluation' from [*Bayesian Methods in Health Economics (2012) by Gianluca Baio*](https://doi.org/10.1201/b13099)\                                                                                                                                            |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/11 W**  | **3. Probability, decision trees**                                                                                                                                                                                                                                                                   |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Conditional probability                                                                                                                                                                                                                                                                          |
+|             | -   Decision trees                                                                                                                                                                                                                                                                                   |
+|             | -   Distributions, expectation, variance                                                                                                                                                                                                                                                             |
+|             | -   **Assignment 0 due**                                                                                                                                                                                                                                                                             |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | Ch 9, pg 311 - 351 (you can skip 9.4.5 -- 9.4.7, pg 331 - 338) 'Economic evaluation using decision-analytic modelling' from [*'Methods for the Economic Evaluation of Health Care Programmes' (2014) by Drummond et. al.*](http://ebookcentral.proquest.com/lib/mcgill/detail.action?docID=4605509)\ |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/13 F**  | **4. Cohort models I**                                                                                                                                                                                                                                                                               |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Markovian property                                                                                                                                                                                                                                                                               |
+|             | -   Matrix operations in R                                                                                                                                                                                                                                                                           |
+|             | -   Discrete time cohort models                                                                                                                                                                                                                                                                      |
+|             | -   **Assignment 2 available (cohort models)**                                                                                                                                                                                                                                                       |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Alarid Escudero et. al. 2022. An introductory tutorial on cohort state-transition models in R using a cost-effectiveness analysis example*](https://doi.org/10.1177/0272989X221103163)\                                                                                                            |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/18 W**  | **5. Cohort models II**                                                                                                                                                                                                                                                                              |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Time-varying transitions                                                                                                                                                                                                                                                                         |
+|             | -   Tolls, tunnel states                                                                                                                                                                                                                                                                             |
+|             | -   **Assignment 1 due**                                                                                                                                                                                                                                                                             |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Alarid Escudero et. al. 2022. A tutorial on time-dependent cohort state-transition models in R using a cost-effectiveness analysis example*](https://doi.org/10.1177/0272989X221121747)\                                                                                                           |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/20 F**  | **6. Microsimulation I**                                                                                                                                                                                                                                                                             |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Monte Carlo simulation                                                                                                                                                                                                                                                                           |
+|             | -   Simulating decision trees                                                                                                                                                                                                                                                                        |
+|             | -   Probabilistic sensitivity analysis                                                                                                                                                                                                                                                               |
+|             | -   **Assignment 3 available (simulation)**                                                                                                                                                                                                                                                          |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Krijkamp et. al. 2018. Microsimulation modeling for health decision sciences Using R: A tutorial*](http://www.doi.org/10.1177/0272989X18754513)\                                                                                                                                                   |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/25 W**  | **7. Microsimulation II**                                                                                                                                                                                                                                                                            |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Tracking individual attributes                                                                                                                                                                                                                                                                   |
+|             | -   Deciding on number of iterations                                                                                                                                                                                                                                                                 |
+|             | -   Efficiency techniques (e.g., Conditional Monte Carlo)                                                                                                                                                                                                                                            |
+|             | -   **Assignment 2 due**                                                                                                                                                                                                                                                                             |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | Sections 1.4 and Ch. 2 (pg. 15 - 17, 23 - 64) from [*Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.*](https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689)\                  |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **1/27 F**  | **8. Other simulation types**                                                                                                                                                                                                                                                                        |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Discreet event                                                                                                                                                                                                                                                                                   |
+|             | -   Agent based                                                                                                                                                                                                                                                                                      |
+|             | -   Network model                                                                                                                                                                                                                                                                                    |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Chhatwal & He (2015). Economic evaluations with agent-based modelling: An introduction.*](https://doi.org/10.1007/s40273-015-0254-2)\                                                                                                                                                              |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/1 W**   | **9. Uncertainty analysis**                                                                                                                                                                                                                                                                          |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Probabilistic sensitivity analysis                                                                                                                                                                                                                                                               |
+|             | -   Credible intervals                                                                                                                                                                                                                                                                               |
+|             | -   Univariate sensitivity analysis                                                                                                                                                                                                                                                                  |
+|             | -   Scenario analysis                                                                                                                                                                                                                                                                                |
+|             | -   **Assignment 3 due**                                                                                                                                                                                                                                                                             |
+|             | -   **Assignment 4 available (Sensitivity analysis)**                                                                                                                                                                                                                                                |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Briggs et. al. 2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report*](https://doi.org/10.1177/0272989X12458348)\                                                                                                                        |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/3 f**   | **10. Designing & parameterizing an analysis**                                                                                                                                                                                                                                                       |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Perspective, time horizons, comparators                                                                                                                                                                                                                                                          |
+|             | -   Deciding on scope & structure                                                                                                                                                                                                                                                                    |
+|             | -   Literature-based inputs                                                                                                                                                                                                                                                                          |
+|             | -   Patient-level data inputs                                                                                                                                                                                                                                                                        |
+|             | -   **Project proposal assigned**                                                                                                                                                                                                                                                                    |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | (1) [*Roberts et. al. 2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force*](https://doi.org/10.1016/j.jval.2012.06.016)\                                                                                                                           |
+|             | (2) Ch 8 (pg 209 - 236) 'Finding and summarizing the evidence' from [*Decision Making in Health and Medicine (2014) by Hunink et. al.*](https://doi.org/10.1017/CBO9781139506779.011)\                                                                                                               |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/8 W**   | **11. Modeling workflow**                                                                                                                                                                                                                                                                            |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Model selection                                                                                                                                                                                                                                                                                  |
+|             | -   Parameterization                                                                                                                                                                                                                                                                                 |
+|             | -   R project workflow                                                                                                                                                                                                                                                                               |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Eddy et. al. 2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report*](https://www.doi.org/10.1177/0272989X12454579)\                                                                                                                                        |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/10 F**  | **12. Calibration & validation**                                                                                                                                                                                                                                                                     |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Bayesian model calibration                                                                                                                                                                                                                                                                       |
+|             | -   Model validation                                                                                                                                                                                                                                                                                 |
+|             | -   **Assignment 4 due**\                                                                                                                                                                                                                                                                            |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [*Menzies et. al. 2017. Bayesian methods for calibrating health policy models: A tutorial.*](https://www.doi.org/10.1007/s40273-017-0494-4)\                                                                                                                                                         |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/15 W**  | | **13. Value of information analysis**                                                                                                                                                                                                                                                              |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   For research prioritization and as sensitivity analysis                                                                                                                                                                                                                                          |
+|             | -   VOI measures (EVPI, EVPPI, EVSI)                                                                                                                                                                                                                                                                 |
+|             | -   Challenges and limitation                                                                                                                                                                                                                                                                        |
+|             | -   **Assignment 5 available (calibration, validation, and VoI)**                                                                                                                                                                                                                                    |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [Fenwick et. al. 2020. Value of information analysis for research decisions---an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force](https://doi.org/10.1016/j.jval.2020.01.001)\                                                                  |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/17 F**  | **14. Equity and distributional considerations**                                                                                                                                                                                                                                                     |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   Evaluation frameworks                                                                                                                                                                                                                                                                            |
+|             | -   Data-driven modeling methods                                                                                                                                                                                                                                                                     |
+|             | -   **Report on published study assigned**\                                                                                                                                                                                                                                                          |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | (1) [*Avanceña and Prosser (2021). Innovations in cost-effectiveness analysis that advance equity can expand its use in health policy*](https://doi.org/10.1136/bmjgh-2021-008140)\                                                                                                                  |
+|             | (2) [*Love-Koh et. al. (2019). Aggregate distributional cost-effectiveness analysis of health technologies*](https://doi.org/10.1016/j.jval.2019.03.006)\                                                                                                                                            |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/22 W**  | **15. Guest lecture:** Topic TBD by Anton Avanceña, PhD (University of Texas Austin)                                                                                                                                                                                                                 |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | -   **Assignment 5 due**                                                                                                                                                                                                                                                                             |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | *Read paper*\                                                                                                                                                                                                                                                                                        |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **2/24 F**  | **16. Guest lecture:** "Estimating the impact of low influenza activity in 2020 on population immunity and future influenza seasons in the United States" by Kyueun Lee, PhD (University of Washington)                                                                                              |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [Manuscript](https://doi.org/10.1093/ofid/ofab607), Code on MyCourses\                                                                                                                                                                                                                               |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| *2/27-3/3*  | *Winter reading break (no class)*\                                                                                                                                                                                                                                                                   |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/8 W**   | **17. Guest lecture:** "Re-evaluating the health impact and cost-effectiveness of tuberculosis preventive treatment for modern HIV cohorts on antiretroviral therapy: a modelling analysis using data from Tanzania" by Jinyi Zhu, PhD (Vandebilt University)                                        |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [Manuscript](https://doi.org/10.1016/S2214-109X(22)00372-2), [Code](https://github.com/jinyizhu/IPTinTZ)\                                                                                                                                                                                            |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/10 F**  | **18. Student presentations on published studies**\                                                                                                                                                                                                                                                  |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/15 W**  | **19. Guest lecture:** "Outbreaks of COVID-19 variants in US prisons: a mathematical modelling analysis of vaccination and reopening policies" by Theresa Ryckman (Johns Hopkins University)                                                                                                         |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [Manuscript](https://doi.org/10.1016/S2468-2667(21)00162-6), Code on MyCourses                                                                                                                                                                                                                       |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/17 F**  | **20. Applied analysis presentation 5**                                                                                                                                                                                                                                                              |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | *Read paper*\                                                                                                                                                                                                                                                                                        |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/22 W**  | **21. Work on final projects**\                                                                                                                                                                                                                                                                      |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/24 F**  | **22. Guest lecture:** TBD by Giovanni Malloy, PhD (RAND corporation)                                                                                                                                                                                                                                |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | *Read paper*\                                                                                                                                                                                                                                                                                        |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/29 W**  | **23. Guest lecture:** "Scaling up target regimens for tuberculosis preventive treatment in Brazil and South Africa: An analysis of costs and cost-effectiveness" by Johnathan Campbell, PhD (McGill)                                                                                                |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | [Manuscript](https://doi.org/10.1371/journal.pmed.1004032)\                                                                                                                                                                                                                                          |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **3/31 F**  | **24. Work on final projects**\                                                                                                                                                                                                                                                                      |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **4/5 W**   | **25. Guest lecture**                                                                                                                                                                                                                                                                                |
+|             |                                                                                                                                                                                                                                                                                                      |
+|             | *Read paper*\                                                                                                                                                                                                                                                                                        |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **4/12 W**  | **26. Final presentations**\                                                                                                                                                                                                                                                                         |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **4/13 Th** | **27. Wrap-up**\                                                                                                                                                                                                                                                                                     |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **4/21 F**  | Final project report + code due (no class)\                                                                                                                                                                                                                                                          |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

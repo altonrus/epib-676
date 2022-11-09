@@ -1,0 +1,12 @@
+---
+title: "Assignment 2: Cohort models"
+author: "YOUR NAME HERE"
+date: today
+format:
+    html:
+      toc: true
+editor: visual
+---
+
+# Section 1
+

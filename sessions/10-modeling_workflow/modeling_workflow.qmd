@@ -1,5 +1,5 @@
 ---
-title: "Economic evaluation"
+title: "Reproducible modeling workflow"
 subtitle: "EPIB  676 session 2, McGill University"
 author: "Alton Russell"
 date: "6 Jan 2023"
