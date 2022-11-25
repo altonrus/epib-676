@@ -8,5 +8,10 @@ format:
 editor: visual
 ---
 
-# Section 1
+## Differential equations model
 
+https://kinglab.eeb.lsa.umich.edu/480/nls/de.html#solving_odes_in_r
+
+## Markov model
+
+## Semi-Markov model

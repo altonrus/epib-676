@@ -1,0 +1,44 @@
+---
+title: "Probability and decision trees"
+subtitle: "EPIB  676 session 3, McGill University"
+author: "Alton Russell"
+date: "11 Jan 2023"
+format: revealjs
+editor: visual
+---
+
+## Logistics
+
+-   Assignment 0 due today
+
+-   Assignment 1 due Wednesday 1/18
+
+## Today
+
+-   **Key probability concepts**
+
+-   Decision trees
+
+## What is probability?
+
+Relative frequency: long run average over many repetitions
+
+<br>
+
+Measure of belief: how likely we think outcome is
+
+## Intuitive definition
+
+If event
+
+## Sample space
+
+## Axioms of probability
+
+## Expectation
+
+## Today
+
+-   Key probability concepts
+
+-   **Decision trees**
