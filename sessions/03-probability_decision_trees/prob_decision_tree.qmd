@@ -37,8 +37,26 @@ If event
 
 ## Expectation
 
+## Conditional probability
+
+## Bayesian updating
+
+## Priors, likelihood, posterior
+
+## Beta distribution
+
+## Sampling from distributions
+
+## Two-by-two table
+
+http://courses.washington.edu/inde411/DecisionAnalysis2015(part1).pdf
+
+## Expected payoff
+
 ## Today
 
 -   Key probability concepts
 
 -   **Decision trees**
+
+## Decision tree components

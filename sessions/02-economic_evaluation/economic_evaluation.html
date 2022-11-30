@@ -405,6 +405,17 @@
 <li><p>Incremental analysis (cost-effectiveness)</p></li>
 </ul>
 </section>
+<section id="purpose-of-decision-models" class="slide level2">
+<h2>Purpose of decision models</h2>
+<p>Clarify important elements of decision</p>
+<ul>
+<li><p><strong>Alternatives:</strong> What can I do?</p></li>
+<li><p><strong>Information:</strong> What do I know?</p></li>
+<li><p><strong>Preferences:</strong> What do I value?</p></li>
+<li><p><strong>Uncertainty:</strong> How sure can I be?</p></li>
+</ul>
+<p>Provide insight to inform or guide decision making</p>
+</section>
 <section id="decision-analytic-frameworks" class="slide level2">
 <h2>Decision analytic frameworks</h2>
 
@@ -467,7 +478,7 @@
 <ul>
 <li><p>Outcomes analysis <strong>(No decision)</strong></p>
 <ul>
-<li><em>How many cases?</em></li>
+<li><em>How many cases/deaths?</em></li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
@@ -483,7 +494,7 @@
 <ul>
 <li><p>Outcomes analysis <strong>(No decision)</strong></p>
 <ul>
-<li><em>How many cases?</em></li>
+<li><em>How many cases/deaths?</em></li>
 </ul></li>
 <li><p>Comparative outcomes</p>
 <ul>
@@ -556,17 +567,6 @@
 
 <img data-src="images/choosing_eval_type_table.png" class="r-stretch"><p><strong>Not shown:</strong> Equity-informative frameworks (more later)</p>
 </section>
-<section id="purpose-of-decision-models" class="slide level2">
-<h2>Purpose of decision models</h2>
-<p>Clarify important elements of decision</p>
-<ul>
-<li><p><strong>Alternatives:</strong> What can I do?</p></li>
-<li><p><strong>Information:</strong> What do I know?</p></li>
-<li><p><strong>Preferences:</strong> What do I value?</p></li>
-<li><p><strong>Uncertainty:</strong> How sure can I be?</p></li>
-</ul>
-<p>Provide insight to inform or guide decision making</p>
-</section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
@@ -576,12 +576,12 @@
 <li><p>Incremental analysis (cost-effectiveness)</p></li>
 </ul>
 </section>
-<section id="measures-of-health" class="slide level2">
-<h2>Measures of health</h2>
+<section id="example-health-measures" class="slide level2">
+<h2>Example health measures</h2>
 <p>Examples?</p>
 </section>
-<section id="measures-of-health-1" class="slide level2">
-<h2>Measures of health</h2>
+<section id="example-health-measures-1" class="slide level2">
+<h2>Example health measures</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Life years gained</p>
@@ -602,13 +602,13 @@
 </section>
 <section id="choice-of-health-measure" class="slide level2">
 <h2>Choice of health measure</h2>
-<p>Context-specific measures OK for narrow comparison of strategies</p>
+<p><strong>Context-specific</strong> measures work within narrow context</p>
 <ul>
 <li><p>Blood pressure medication → mmHg blood pressure</p></li>
 <li><p>Hepatitis B screening strategies → % cases detected</p></li>
 <li><p>HIV antivirals → % with high CD4 level</p></li>
 </ul>
-<p>General measures allow comparison across contexts</p>
+<p><strong>General measures</strong> let you compare across contexts</p>
 <ul>
 <li><p>Life years gained</p></li>
 <li><p>Quality-adjusted life years gained</p></li>
@@ -618,12 +618,11 @@
 <h2>Net present value</h2>
 <ul>
 <li><p>Benefits in further into future valued less (why?)</p></li>
-<li><p>To calculate net present value of quantity <span class="math inline">\(Q\)</span>, <span class="math inline">\(t\)</span> years into the future, with a discount rate <span class="math inline">\(r\)</span>:</p></li>
+<li><p>Net present value of quantity <span class="math inline">\(Q\)</span>, <span class="math inline">\(t\)</span> years into the future, with a discount rate <span class="math inline">\(r\)</span>:</p></li>
 </ul>
 <p><span class="math display">\[
 NPV = Q \frac{1}{(1+r)^t}
 \]</span></p>
-<p>Example in R</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Q<span class="ot">=</span><span class="dv">100</span> <span class="co">#dollars</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>t <span class="ot">=</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
@@ -639,12 +638,12 @@ NPV = Q \frac{1}{(1+r)^t}
 <section id="discounted-life-expectancy-dle" class="slide level2">
 <h2>Discounted life expectancy (DLE)</h2>
 <ul>
-<li>Life years gained today valued more than life years gained in distant future</li>
+<li>Life years gained today valued more than life years gained in future</li>
 </ul>
 <p><span class="math display">\[
 DLE = \sum_{t=0}^T LY_t \frac{1}{(1+r)^t}
 \]</span></p>
-<p><span class="math inline">\(LY_t\)</span> is life-years experienced at time t. The rest is the discounting multiplier for an annual discount rate of <span class="math inline">\(r\)</span> (typically around 0% to 7%)</p>
+<p><span class="math inline">\(LY_t\)</span> is life-years experienced at time t. The rest is the discounting multiplier for an annual discount rate of <span class="math inline">\(r\)</span> (typically ~ 0% to 7%)</p>
 </section>
 <section id="quality-adjusted-life-expectancy" class="slide level2">
 <h2>Quality-adjusted life expectancy</h2>
@@ -659,9 +658,9 @@ DLE = \sum_{t=0}^T LY_t \frac{1}{(1+r)^t}
 QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 \]</span></p>
 </section>
-<section id="where-do-health-related-utility-weights-come-from" class="slide level2">
-<h2>Where do health related utility weights come from?</h2>
-<p>Elicited from subjects through various methods</p>
+<section id="how-are-health-related-utility-weights-estimated" class="slide level2">
+<h2>How are health related utility weights estimated?</h2>
+<p>Reflect societal or patient preference. Many elicitation methods</p>
 <ul>
 <li><p>Standard gamble</p></li>
 <li><p>Time trade off</p></li>
@@ -672,8 +671,8 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 </ul></li>
 </ul>
 </section>
-<section id="sources-for-utility-weights" class="slide level2">
-<h2>Sources for utility weights</h2>
+<section id="where-modelers-find-utility-weights" class="slide level2">
+<h2>Where modelers find utility weights</h2>
 <ul>
 <li><p>Search the literature</p></li>
 <li><p><a href="https://cevr.tuftsmedicalcenter.org/databases/cea-registry">The Cost-Effectiveness Registry</a> from Tufts Center for the Evaluation of Value and Risk in Health</p></li>
@@ -694,8 +693,56 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p>Incremental analysis (cost-effectiveness)</p></li>
 </ul>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
+<section id="what-matters" class="slide level2">
+<h2>What matters?</h2>
+<p><strong><em>Differences</em></strong> in costs, not total cost</p>
+<p>Typically</p>
+<ul>
+<li><p>Cost of the intervention(s) themselves</p></li>
+<li><p>‘Downstream’ costs that differ due to intervention</p></li>
+</ul>
+</section>
+<section id="discounting-costs" class="slide level2">
+<h2>Discounting costs</h2>
+</section>
+<section id="where-to-find-cost-values" class="slide level2">
+<h2>Where to find cost values?</h2>
+</section>
+<section id="currency-exchange" class="slide level2">
+<h2>Currency exchange</h2>
+</section>
+<section id="adjust-for-inflation" class="slide level2">
+<h2>Adjust for inflation</h2>
+</section>
+<section id="productivity-costs" class="slide level2">
+<h2>Productivity costs</h2>
+</section>
+<section id="medical-costs-unrelated-to-intervention" class="slide level2">
+<h2>Medical costs unrelated to intervention</h2>
+</section>
+<section id="today-3" class="slide level2">
+<h2>Today</h2>
+<ul>
+<li><p>Decision analytic frameworks</p></li>
+<li><p>Quantifying health</p></li>
+<li><p>Quantifying costs</p></li>
+<li><p><strong>Incremental analysis (cost-effectiveness)</strong></p></li>
+</ul>
+</section>
+<section id="incremental-cost-effectiveness-ratio" class="slide level2">
+<h2>Incremental cost-effectiveness ratio</h2>
+</section>
+<section id="dominance" class="slide level2">
+<h2>Dominance</h2>
+</section>
+<section id="efficiency-frontier-plot" class="slide level2">
+<h2>Efficiency frontier plot</h2>
+</section>
+<section id="willingness-to-pay" class="slide level2">
+<h2>Willingness to pay</h2>
+</section>
+<section id="net-monetary-benefit" class="slide level2">
+<h2>Net monetary benefit</h2>
 <div class="footer footer-default">
 
 </div>

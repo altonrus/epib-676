@@ -1,0 +1,411 @@
+---
+title: "Reproducible modeling workflow"
+subtitle: "EPIB  676 session 2, McGill University"
+author: "Alton Russell"
+date: "2 Feb 2023"
+format: revealjs
+editor: visual
+---
+
+## Logistics
+
+-   Assignment 4 due Friday 2/10
+
+-   Project proposal due Friday 2/17
+
+## Today
+
+-   Open science / reproducible research
+
+-   Example R Project workflow
+
+## Reproducible
+
+Can be exactly redone, given same materials
+
+-   Code
+
+-   Environment
+
+-   Data[^1]
+
+[^1]: Adapted from [Telling Stories with Data by Rohan Alexander](https://tellingstorieswithdata.com/04-workflow.html)
+
+## Reproducible for whom?
+
+-   Can **you** run your entire workflow again?
+
+-   Can **another person** run your entire workflow again?
+
+-   Can **"future-you"** run your entire workflow again?
+
+-   Can **"future-another-person"** run your entire workflow again?[^2]
+
+[^2]: Adapted from [Telling Stories with Data by Rohan Alexander](https://tellingstorieswithdata.com/04-workflow.html)
+
+## Reproducible outputs
+
+::: columns
+::: {.column width="50%"}
+Necessary conditions
+
+-   Code
+
+-   Datasets
+
+-   Info to reconstruct environment
+:::
+
+::: {.column width="50%"}
+Overachieving
+
+-   Code-generated manuscripts
+
+-   Functional docker-container
+
+-   Apps/widgets to run model/interrogate analysis
+:::
+:::
+
+## Paradigm shift
+
+Manuscript is an advertisement
+
+"Product" is:
+
+-   Code
+
+-   Data
+
+-   Shiny tool
+
+-   etc.
+
+## Why people don't share code?
+
+-   Didn't have to
+
+-   It's not 'clean enough'
+
+-   Want to keep competitive edge
+
+-   Mistakes might be found
+
+## Why people don't share code?
+
+-   Didn't have to
+
+-   It's not 'clean enough'
+
+-   Want to keep competitive edge
+
+-   Mistakes might be found
+
+Usually, not good reasons
+
+## Why should we share code?
+
+-   Fully communicate methods
+
+-   Research as a public good
+
+-   More potential contribution
+
+-   Mistakes might be found
+
+-   Can increase citations
+
+**Messy code \>\>\> No code!**
+
+## "Data available on request"
+
+Gabelica et. al.[^3] found:
+
+[^3]: Gabelica, Bojčić, and Puljakc 2022. *Journal of Clinical Epidemiology* 2022. <https://doi.org/10.1016/j.jclinepi.2022.05.019>
+
+-   3416 of 3556 articles (96%) included data availability statements
+
+-   1782 (42%) indicated data available on request, **but**
+
+    -   1528 (86%) did not respond
+
+    -   131 (7%) declined to share
+
+    -   123 (7%) shared their data
+
+## Can't share data due to privacy?
+
+Code is very useful even without data
+
+-   Helps communicate your methods
+
+-   Others can adapt + run on their own data
+
+Increase reproducibility without sharing data with
+
+-   'Data dictionary' in supplement
+
+-   Synthetic data
+
+## Environment
+
+-   R and packages updated all the time
+
+-   No guarantees of backwards compatibility
+
+-   Potential solutions
+
+    -   [renv package](https://rstudio.github.io/renv/) for **r**eproducible **env**ironments
+
+    -   Docker containers
+
+## R projects
+
+-   Self contained set of files (data, scripts, reports)
+
+-   Portable **if** all file paths relative to project directory
+
+    -   Bad:`"\Users\alton\projects\COVID\data\dat.csv"`
+
+    -   Bad: `setwd("\Users\alton\projects\COVID")`
+
+    -   Good: `"1_data\dat_file.csv"`
+
+## Each script should run error-free in new session
+
+Use console when designing code, but 'restart r and clear output' for 'production.
+
+Change global options to maximize reproducibility
+
+![](figs/rstudio-global-options.jpeg)
+
+## Literate programming
+
+Idea of Donald Knuth: Code snippets and 'natural language' (English) interspersed in one document
+
+-   **Jupyter notebooks** Python, Julia
+
+-   **RMarkdown** R, Python with some extra steps
+
+-   **Quarto documents** R, Python, Julia
+
+## Repositories
+
+Zenodo, CEVR repo, etc.
+
+## Today
+
+-   Open science / reproducible research
+
+-   **Example R Project workflow**
+
+## R project organization
+
+::: columns
+::: {.column width="40%"}
+![](figs/generic-project-directory.png){width="399"}
+:::
+
+::: {.column width="60%"}
+-   **1_data** (self-explanatory)
+
+-   **2_scripts** code not embedded in manuscript
+
+-   **3_intermediate** intermediate outputs
+
+-   **4_output** figures, tables that will be read into the manuscript
+
+-   **5_manuscipt** .Rmd or .qmd manuscript
+:::
+:::
+
+## .gitignore
+
+::: columns
+::: {.column width="30%"}
+![](figs/gitignore-example.png)
+:::
+
+::: {.column width="70%"}
+Any folder or file you don't want on github
+
+-   "local" folder for data use agreements, conference presentations, etc.
+
+-   "private" folders for objects that cannot be made public
+
+I keep Github repos private at first, but they become public when I publish.
+
+**If sensitive data were ever in repo, hard to remove!**
+:::
+:::
+
+## **Git**hub in RStudio
+
+::: columns
+::: {.column width="65%"}
+![](figs/github-in-rstudio.png)
+:::
+
+::: {.column width="35%"}
+-   Can pull, commit, and push within Rstudio
+
+-   Use terminal for more complex things
+
+-   Also works in Rstudio server!
+:::
+:::
+
+## RMarkdown/Quarto documents
+
+-   Quarto will eventually replace RMarkdown
+
+-   Some RMarkdown packages don't work in Quarto
+
+-   "Knit" (RMarkdown) or "Render" (Quarto) to:
+
+    -   HTML (this document)
+
+    -   PDF
+
+    -   Word
+
+    -   Powerpoint
+
+## Literate programming (.Rmd or .Qmd)
+
+### Code chunks
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(ggplot2)
+fread("1_data/data.csv")
+```
+
+### Inline code
+
+![](figs/example-inline-code.png)
+
+↓
+
+> The mean cost per person was \$1,212
+
+## My Manuscript template
+
+-   .Rmd that knits to Microsoft Word
+
+    -   Collaborators can track changes
+    -   Some medical journals still prefer Word
+
+-   Requires a .bib file for bibliography
+
+    -   Can make with [Zotero](https://www.zotero.org/) or Mendeley
+
+-   Use [flextable package](https://davidgohel.github.io/flextable/reference/index.html) to make pretty tables
+
+## Manuscript template .Rmd
+
+::: columns
+::: {.column width="60%"}
+![](figs/manuscript-template-head.png)
+:::
+
+::: {.column width="40%"}
+-   YAML header to specify title, output format, bib file, citation style
+
+-   `<br>` for line breaks; `#####` for page breaks
+
+-   Can use latex for equations
+:::
+:::
+
+## Manuscript folder contents
+
+::: columns
+::: {.column width="40%"}
+![](figs/manuscript-folder-contents.png)
+:::
+
+::: {.column width="60%"}
+-   **Reference manuscript:** set format for headers, table of content, etc.
+
+-   **.csl file** specifies citation format (AMA format with numbers in brackets)
+
+-   **.bib file** contains references to cite by citation code, e.g., `[@russell2021a]`
+:::
+:::
+
+## Screenshot of "knit" manuscript
+
+::: columns
+::: {.column width="70%"}
+![](figs/manuscript-knit-to-word.png)
+:::
+
+::: {.column width="30%"}
+-   Normal word document
+
+-   Collaborators track changes and return
+
+-   I manually update .Rmd (annoying)
+:::
+:::
+
+## Citations: Zotero → Bibtex → .Rmd
+
+::: columns
+::: {.column width="40%"}
+![](figs/zotero-screenshots.png)
+:::
+
+::: {.column width="60%"}
+-   Export Zotero collection to Bibtex in same folder as .Rmd
+
+-   To replace default CiteKey, add `Citation Key: <CiteKey>` to 'extra' field
+
+-   In .Rmd header, set `bibliography: [filename].bib`
+
+-   Cite with `[@CiteKey]` or `[@CiteKey1; @CiteKey2]`
+:::
+:::
+
+## Zenodo repository
+
+<https://zenodo.org/>
+
+-   Permanent
+
+-   Assigned a DOI (citable)
+
+-   Can drag-and-drop files or auto-add a 'release' from Github
+
+## Agenda
+
+-   Overview
+
+-   My workflow
+
+-   **Example**
+
+## Evaluating quarantine and testing policies for arriving travelers
+
+-   Manuscript: <https://doi.org/10.1101/2020.11.02.20224568>
+
+-   Zenodo repository: <https://doi.org/10.5281/zenodo.4107124>
+
+-   Github repository: <https://github.com/altonrus/quarantineTesting>
+
+-   Shiny app: <https://shiny.mchi.mcgill.ca/arussel/quarantineTesting/>
+
+## Learn more
+
+-   [Decision modeling lab manual](https://altonrus.quarto.pub/decision-modeling-lab-manual/)
+
+-   [Reproducible Analytical Pipelines Course](https://rap4mads.eu/) by Bruno Rodrigues
+
+-   [Reproducible research in R workshop materials](https://r-cubed.rostools.org/index.html) by Luke Johnston et. al.
+
+-   ["Telling Stories with Data"](https://tellingstorieswithdata.com/04-workflow.html) Ch. 4 by Rohan Alexander
+
+-   [Intro to Dockers for R Users](https://colinfay.me/docker-r-reproducibility/) by Colin Fay
