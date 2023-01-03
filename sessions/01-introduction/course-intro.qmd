@@ -13,7 +13,7 @@ editor: visual
 -   Engineering at NC State (BSc) and Stanford (MSc, PhD)
 -   Joined the School of Population and Global Health in January 2022
 -   Teach PPHS 528 Economic evaluation of health programs in the fall
--   Lead the [Decision Modeling Lab](http://mchi.mcgill.ca/decision-modeling-lab/)
+-   [Decision Modeling Lab](http://mchi.mcgill.ca/decision-modeling-lab/)
 
 ## Agenda for today
 
@@ -24,9 +24,17 @@ editor: visual
 
 ## Why decision analysis?
 
+::: columns
+::: {.column width="60%"}
 -   Demand for health resources nearly infinite
 -   Resources (budgets) are limited
 -   Choices must be made!
+:::
+
+::: {.column width="40%"}
+![From https://blog.flexis.com](tradeoffs.jpeg)
+:::
+:::
 
 ## Opportunity cost
 
@@ -53,12 +61,16 @@ editor: visual
 -   Aging boomers
     -   50% of health care expenses incurred in last year of life
 -   Chronic health conditions
--   Insufficient capacity -\> long queues
--   Total joints, screening colonoscopy, etc.
+-   Insufficient capacity → long queues for services
+    -   Joint replacements, colonoscopy, emergency rooms, etc.
 
 ## How do we decide what to pay for?
 
+*Decision criteria*
+
 ## How do we decide what to pay for?
+
+*Decision criteria*
 
 -   Cost
 -   Effectiveness
@@ -106,9 +118,9 @@ editor: visual
 
 3.  Identify alternatives
 
-4.  **Estimate outcomes under each alternative \<- Modeling**
+4.  **Estimate outcomes under each alternative → Modeling**
 
-5.  **Perform sensitivity analysis \<- Modeling**
+5.  **Perform sensitivity analysis → Modeling**
 
 6.  Consider non-quantifiable factors
 
@@ -117,9 +129,10 @@ editor: visual
 ## Decision-analytic model
 
 -   Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
--   Propagate uncertainty (uncertain inputs → uncertain outputs)
+-   Propagate uncertainty
+    -   Uncertain inputs → uncertain outputs
 
-\[To do: Make a diagram\]
+![](model-inputs-outputs.svg)
 
 ## Decision analysis can...
 
@@ -148,6 +161,22 @@ editor: visual
 -   Understand and critically appraise published model-based decision analyses
 -   Create transparent reports of decision analyses that conform to open science principles
 
+## EPIB 676 vs PPHS 528
+
+-   Economic evaluations often use decision analytic models
+
+    -   Exception: trial-based cost-effectiveness analysis
+
+-   Decision analyses often used for economic evaluation
+
+    -   Exception: decision models without costs
+
+-   **PPHS 528:** economic evaluation, \~15% modeling methods
+
+-   **EPIB 676:** modeling method, \~15% economic evaluation
+
+PPHS 528 is less research oriented and requires less background in programming, probability, and math
+
 ## Course materials
 
 **MyCourses** (<https://mycourses2.mcgill.ca/>)
@@ -166,19 +195,24 @@ editor: visual
 ![](birds-eye-view.png)
 
 ::: columns
-::: {.column width="50%"}
-### Methods phase
+::: {.column width="49%"}
+**Methods phase**
 
--   Read textbook excerpts, tutorials
+-   Read tutorials, textbooks
+
+-   Technical lectures
+
 -   Programming assignments
 :::
 
-::: {.column width="50%"}
-### Application phase
+::: {.column width="49%"}
+**Application phase**
 
--   Read applied papers
--   Course project
--   Analyze open-source paper
+-   Read applied analyses
+
+-   Guest lectures
+
+-   Build model; analyze open source publication
 :::
 :::
 
@@ -210,7 +244,7 @@ Quarto → HTML
 
     -   Excel
 -   Programming languages
-    -   Python, Julia, Matlab, etc.
+    -   Python, Julia, Matlab, C++, etc.
 
     -   R
 
@@ -221,6 +255,7 @@ Quarto → HTML
 -   Ecosystem of packages, tutorials, vignettes (others not as mature)
 -   Friendly community of useRs
 -   Systems for creating reproducible research reports
+    -   Quarto documents!
 
 ## Packages for decision-analytic modeling in R
 
@@ -244,9 +279,9 @@ Quarto → HTML
 
 We will:
 
--   Clone the class R project onto your computer
 -   Create a new R project with quarto document
 -   Download and render assignment 0
+-   \[Optional\] clone the class R project onto your computer
 
 ## Agenda for today
 
@@ -273,18 +308,61 @@ Depends on context; often multiple target audiences
 
 ## Perspective motivated by audience
 
+-   Payers want to know their own costs
+
+-   Government may also care about societal costs & benefits
+
+    -   Patient time/transportation
+
+    -   Productivity loss from illness or death
+
+    -   Informal care-giving
+
+    -   Spillover into criminal justice, education, etc.
+
 ## The case for societal perspective
 
-## Costs and perspectives
+[First Panel on Cost-Effectiveness in Health and Medicine (1996)](https://www.doi.org/10.1001/jama.1996.03540140060028):
+
+> Using CEA to inform allocation of health resources accepts the existence of a limit on health spending; when the **societal perspective** is adopted, the analysis acknowledges the value of competing uses for society's resources
+
+**But**, data on non-health benefits/costs are often lacking
 
 ## Why choose just one?
 
 -   1 analysis can have \>1 perspective
 -   Typical: societal + healthcare payer
-    -   Recommended by [Second Panel on Cost-Effectiveness](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
+    -   Recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
 
-Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.
+Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.
+
+## The impact inventory
+
+::: columns
+::: {.column width="55%"}
+![](impact-inventory.png)
+:::
+
+::: {.column width="45%"}
+[From Second Panel on Cost Effectiveness](https://jamanetwork-com.proxy3.library.mcgill.ca/journals/jama/fullarticle/2552214)
+
+Lists all potentially relevant cost categories and comments on their inclusion
+
+Often put in supplement of analysis
+:::
+:::
+
+## Recap
+
+-   Decision analysis can inform efficient and effective use of finite health resources
+
+-   Applications in health policy & operations
+
+-   R enables open source, reproducible workflows
+
+-   Perspective and framing depends on target audience
 
 ## Logistics
 
 -   Assignment 0 due next Wednesday 1/11
+-   Complete reading before Friday's class

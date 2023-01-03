@@ -7,7 +7,7 @@
 <link href="economic_evaluation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="economic_evaluation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="economic_evaluation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.37">
+  <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Alton Russell">
   <title>Economic evaluation</title>
@@ -19,10 +19,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -382,13 +387,20 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Economic evaluation</h1>
   <p class="subtitle">EPIB 676 session 2, McGill University</p>
-  <p class="author">Alton Russell</p>
-  <p class="date">6 Jan 2023</p>
-</section>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Alton Russell 
+</div>
+</div>
+</div>
+
+  <p class="date">1/6/23</p>
+</section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
@@ -448,7 +460,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states only</p>
+<p><em>Health states only</em></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_0-01.png"></p>
 </div>
@@ -458,7 +470,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states only</p>
+<p><em>Health states only</em></p>
 <ul>
 <li><p>Outcomes analysis <strong>(No decision)</strong></p>
 <ul>
@@ -474,7 +486,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states only</p>
+<p><em>Health states only</em></p>
 <ul>
 <li><p>Outcomes analysis <strong>(No decision)</strong></p>
 <ul>
@@ -490,7 +502,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states only</p>
+<p><em>Health states only</em></p>
 <ul>
 <li><p>Outcomes analysis <strong>(No decision)</strong></p>
 <ul>
@@ -510,7 +522,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states and cost</p>
+<p><em>Health states and cost</em></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_2.png"></p>
 </div>
@@ -520,7 +532,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states and cost</p>
+<p><em>Health states and cost</em></p>
 <ul>
 <li>Cost comparison; cost minimization
 <ul>
@@ -540,7 +552,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states, costs, health-state utilities</p>
+<p><em>Health states, costs, health-state utilities</em></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_3.png"></p>
 </div>
@@ -550,7 +562,7 @@
 <h2>Modeled outcomes and frameworks</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Health states, costs, health-state utilities</p>
+<p><em>Health states, costs, health-state utilities</em></p>
 <ul>
 <li>Cost-utility
 <ul>
@@ -566,6 +578,31 @@
 <h2>Choosing decision analytic framework</h2>
 
 <img data-src="images/choosing_eval_type_table.png" class="r-stretch"><p><strong>Not shown:</strong> Equity-informative frameworks (more later)</p>
+</section>
+<section id="what-matters-for-making-decisions" class="slide level2">
+<h2>What matters for making decisions?</h2>
+<p><strong><em>Differences</em></strong> in costs and outcomes (not total cost or outcome!)</p>
+<p>Typically</p>
+<ul>
+<li><p>Differences in cost, side-effects of the intervention(s)</p></li>
+<li><p>Differences in ‘Downstream’ health and costs</p></li>
+</ul>
+</section>
+<section id="time-horizon" class="slide level2">
+<h2>Time horizon</h2>
+<ul>
+<li><p>Should capture all relevant differences in costs &amp; health outcomes</p></li>
+<li><p>Sometimes, short time horizon OK</p>
+<ul>
+<li>No substantial cost/outcome differences expected after short period</li>
+</ul></li>
+<li><p>Patient lifetime horizon often needed</p>
+<ul>
+<li><p>Differences in mortality</p></li>
+<li><p>Differences in risk of chronic conditions</p></li>
+<li><p>Differences in risk of events over remaining lifespan</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
@@ -624,12 +661,11 @@
 NPV = Q \frac{1}{(1+r)^t}
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Q<span class="ot">=</span><span class="dv">100</span> <span class="co">#dollars</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>t <span class="ot">=</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>r <span class="ot">=</span> .<span class="dv">05</span> <span class="co">#5 percent discount rate</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Q <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co">#dollars</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>t <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>r <span class="ot">&lt;-</span> .<span class="dv">05</span> <span class="co">#5 percent discount rate</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a>NPV <span class="ot">&lt;-</span> Q<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>r)<span class="sc">^</span>t)</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>NPV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a>NPV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 78.35262</code></pre>
 </div>
@@ -658,8 +694,8 @@ DLE = \sum_{t=0}^T LY_t \frac{1}{(1+r)^t}
 QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 \]</span></p>
 </section>
-<section id="how-are-health-related-utility-weights-estimated" class="slide level2">
-<h2>How are health related utility weights estimated?</h2>
+<section id="how-to-estimate-health-related-utility-weights" class="slide level2">
+<h2>How to estimate health related utility weights?</h2>
 <p>Reflect societal or patient preference. Many elicitation methods</p>
 <ul>
 <li><p>Standard gamble</p></li>
@@ -670,18 +706,18 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li>Often used for trial-based decision analysis</li>
 </ul></li>
 </ul>
+<p>But, modelers often use existing estimates</p>
 </section>
-<section id="where-modelers-find-utility-weights" class="slide level2">
-<h2>Where modelers find utility weights</h2>
+<section id="where-to-find-utility-weights" class="slide level2">
+<h2>Where to find utility weights?</h2>
 <ul>
 <li><p>Search the literature</p></li>
 <li><p><a href="https://cevr.tuftsmedicalcenter.org/databases/cea-registry">The Cost-Effectiveness Registry</a> from Tufts Center for the Evaluation of Value and Risk in Health</p></li>
 <li><p><a href="https://ghdx.healthdata.org/record/ihme-data/gbd-2019-disability-weights">Global Burden of Disease Study</a> (for disability weights in DALY studies)</p></li>
 </ul>
-<p>If no publish estimate available:</p>
+<p>If no published estimate available:</p>
 <ul>
-<li><p>Pick something similar as a proxy</p></li>
-<li><p>Do thorough sensitivity analysis</p></li>
+<li>Pick something similar as a proxy, but <strong>do thorough sensitivity analysis!</strong></li>
 </ul>
 </section>
 <section id="today-2" class="slide level2">
@@ -693,32 +729,71 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p>Incremental analysis (cost-effectiveness)</p></li>
 </ul>
 </section>
-<section id="what-matters" class="slide level2">
-<h2>What matters?</h2>
-<p><strong><em>Differences</em></strong> in costs, not total cost</p>
-<p>Typically</p>
+<section id="cost-parameters" class="slide level2">
+<h2>Cost parameters</h2>
 <ul>
-<li><p>Cost of the intervention(s) themselves</p></li>
-<li><p>‘Downstream’ costs that differ due to intervention</p></li>
+<li><p>Lower bound of 0</p></li>
+<li><p>Potentially no upper limit</p></li>
+<li><p>Often vary considerably across patients</p></li>
+<li><p>Often right-skewed (a few high-cost patients)</p></li>
+</ul>
+</section>
+<section id="health-resources-and-costs" class="slide level2">
+<h2>Health resources and costs?</h2>
+<ul>
+<li><p><strong>Administrative data:</strong> encounters (clinic, emergency room, hospital), procedures, length of stay. Follow patients across care settings</p></li>
+<li><p><strong>Clinical data:</strong> labs, drugs, blood units transfused. Usually for one care setting.</p></li>
 </ul>
 </section>
 <section id="discounting-costs" class="slide level2">
 <h2>Discounting costs</h2>
-</section>
-<section id="where-to-find-cost-values" class="slide level2">
-<h2>Where to find cost values?</h2>
+<ul>
+<li><p>Prefer getting money today vs.&nbsp;in the future?</p></li>
+<li><p>Losing money in today vs.&nbsp;in the future?</p></li>
+<li><p>Net present cost discounted just like outcomes: <span class="math inline">\(NPC = \sum_{t=0}^T c_t \frac{1}{(1+r)^t}\)</span></p></li>
+<li><p><a href="https://www.cadth.ca/guidelines-economic-evaluation-health-technologies-canada-4th-edition">CADTH recommends 1.5% discount rate</a> (sensitivity analysis at 3%)</p></li>
+<li><p>In practice, same discount rate used for costs &amp; outcomes (strongly contested in theory)</p></li>
+</ul>
 </section>
 <section id="currency-exchange" class="slide level2">
 <h2>Currency exchange</h2>
+<ul>
+<li><p>Suggested to use purchasing power parity (estimated cost of a basket of goods) rather than exchange rate</p></li>
+<li><p>Available from OECD data: <a href="https://data.oecd.org/conversion/purchasing-power-parities-ppp.htm" class="uri">https://data.oecd.org/conversion/purchasing-power-parities-ppp.htm</a></p></li>
+<li><p>Measured as national currency per USD</p></li>
+<li><p>For non-USD currency, convert to USD and then to CAD</p></li>
+</ul>
 </section>
 <section id="adjust-for-inflation" class="slide level2">
 <h2>Adjust for inflation</h2>
+<ul>
+<li><p>Suggested to use the annual average all-item consumer price index (CPI)</p></li>
+<li><p>[Year Y cost] = [Year X cost] x [Year Y CPI] / [Year X CPI]</p></li>
+<li><p>Available from StatsCanada: <a href="https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1810000501" class="uri">https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1810000501</a></p></li>
+</ul>
 </section>
 <section id="productivity-costs" class="slide level2">
 <h2>Productivity costs</h2>
+<ul>
+<li><p>Typically largest cost “societal perspective only” cost</p></li>
+<li><p>Unpaid labor (housekeeping, child-rearing) can be costed as “opportunity cost”</p>
+<ul>
+<li>Use median wage for all individuals regardless of employment</li>
+</ul></li>
+<li><p>For death-related productivity loss, should tally “net productivity loss” by subtracting consumption</p></li>
+</ul>
 </section>
-<section id="medical-costs-unrelated-to-intervention" class="slide level2">
-<h2>Medical costs unrelated to intervention</h2>
+<section id="unrelated-medical-costs-in-life-years-gained" class="slide level2">
+<h2>Unrelated medical costs in life-years gained</h2>
+<ul>
+<li><p>Interventions that extend life result in healthcare costs unrelated to the condition</p></li>
+<li><p>There are strong arguments that they should be included</p>
+<ul>
+<li><p><a href="https://doi.org/10.2165/00019053-200826100-00003">Rappange et. al.&nbsp;2008</a></p></li>
+<li><p><a href="https://doi.org/10.1007/s10198-018-0976-0">van Baal et. al.&nbsp;2018</a></p></li>
+</ul></li>
+<li><p>But most analysts don’t, and methods to do so are not well-established</p></li>
+</ul>
 </section>
 <section id="today-3" class="slide level2">
 <h2>Today</h2>
@@ -731,18 +806,273 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 </section>
 <section id="incremental-cost-effectiveness-ratio" class="slide level2">
 <h2>Incremental cost-effectiveness ratio</h2>
+<p>Cost-effectiveness focuses on <strong>incremental</strong> costs/outcomes (not <strong>total</strong> costs/outcomes)</p>
+<ul>
+<li><p>Incremental effect: <span class="math inline">\(E[\Delta_e]=\bar{e}_1 - \bar{e}_0\)</span></p></li>
+<li><p>Incremental cost: <span class="math inline">\(E[\Delta_c]=\bar{c}_1 - \bar{c}_0\)</span></p></li>
+</ul>
+<p>Incremental cost-effectiveness ratio:</p>
+<p><span class="math display">\[
+ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{E[\Delta_e]}
+\]</span></p>
+<p><em>What is the increase in net spending per unit of net health benefit?</em></p>
 </section>
-<section id="dominance" class="slide level2">
-<h2>Dominance</h2>
+<section id="cost-effectiveness-plane-pairwise-comparisons" class="slide level2">
+<h2>Cost-effectiveness plane (pairwise comparisons)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-2-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Plot <span class="math inline">\(\Delta\)</span> cost and <span class="math inline">\(\Delta\)</span> effect for alternative vs.&nbsp;status quo</li>
+<li>Slope of line from origin → ICER</li>
+<li>Cost-effectiveness of alternative vs.&nbsp;status quo depends on quadrant alternative falls into</li>
+</ul>
+</div>
+</div>
 </section>
-<section id="efficiency-frontier-plot" class="slide level2">
-<h2>Efficiency frontier plot</h2>
+<section id="q2-and-q4" class="slide level2">
+<h2>Q2 and Q4</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-3-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p><strong>Q2:</strong> alternative dominated by status quo</p>
+<ul>
+<li>Costlier, gives worse outcome</li>
+</ul></li>
+<li><p><strong>Q4:</strong> alternative dominates status quo</p>
+<ul>
+<li>Cheaper, gives better health outcome</li>
+</ul></li>
+</ul>
+</div>
+</div>
 </section>
-<section id="willingness-to-pay" class="slide level2">
-<h2>Willingness to pay</h2>
+<section id="q1-and-q3" class="slide level2">
+<h2>Q1 and Q3</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-4-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Depends what we’re willing to pay (WTP threshold)</p>
+<ul>
+<li><p><strong>Q1:</strong> ICER &lt; WTP → alternative cost-effective</p></li>
+<li><p><strong>Q3:</strong> ICER &lt; WTP → SQ not cost-effective compared to alternative</p>
+<ul>
+<li><p>Alternative ‘worse’ but preferred</p></li>
+<li><p>Politically difficult!</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="avoid-confusion-when-reporting-icers" class="slide level2">
+<h2>Avoid confusion when reporting ICERS</h2>
+<ul>
+<li><p>Don’t report negative ICER’s exact value, instead say strategy ‘<strong>dominated</strong>’ (Q4) or ‘<strong>dominant</strong>’ (Q2)</p></li>
+<li><p>If in Q3, reverse comparison when reporting ICER</p>
+<ul>
+<li><p><strong>Alternative in Q1</strong>: Alternative costs $32,000 per QALY gained compared to status quo</p></li>
+<li><p><strong>Alternative in Q3</strong>: Status quo costs $32,000 per QALY gained compared to alternative</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="comparing-multiple-interventions" class="slide level2">
+<h2>Comparing multiple interventions</h2>
+<p>With &gt;2 alternatives, conduct incremental analysis:</p>
+<ol type="1">
+<li><p>Order by increasing effectiveness</p></li>
+<li><p>Remove dominated alternatives</p></li>
+<li><p>Calculate ICERs between non-dominated alternatives</p></li>
+</ol>
+<p>Always calculate ICER relative to <strong>next-least-effective, non-dominated</strong> intervention</p>
+</section>
+<section id="strong-dominance" class="slide level2">
+<h2>Strong dominance</h2>
+<ul>
+<li><p>Dominated if ≥1 alt. cheaper and more effective</p></li>
+<li><p><strong>Check:</strong> Order by increasing effectiveness. Any alt. with higher cost than next alt. is dominated</p></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-5-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  alt effect  cost
+1   A     15  1000
+2   B     20  3100
+3   C     29  3500
+4   D     39 11000
+5   E     45 10000</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><strong>D dominated by E!</strong></p>
+</div>
+</div>
+</section>
+<section id="extended-weak-dominance" class="slide level2">
+<h2>Extended (weak) dominance</h2>
+<ul>
+<li><p>Linear combo of 2 alternatives cheaper and more effective</p></li>
+<li><p><strong>Check:</strong> Calculate ICERS between undominated alts. Any alt. whose ICER exceeds next alt. is dominated</p></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-7-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  alt effect  cost      ICER
+1   A     15  1000      &lt;NA&gt;
+2   B     20  3100       420
+3   C     29  3500      44.4
+4   D     39 11000 Dominated
+5   E     45 10000       406</code></pre>
+</div>
+</div>
+<p><strong>B dominated</strong> (by linear combo of A and C)</p>
+<p>Remove B and re-calculate ICERs</p>
+</div>
+</div>
+</section>
+<section id="efficiency-frontier" class="slide level2">
+<h2>Efficiency frontier</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-9-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  alt effect  cost       ICER
+1   A     15  1000       &lt;NA&gt;
+2   B     20  3100   Weak dom
+3   C     29  3500        179
+4   D     39 11000 Strong dom
+5   E     45 10000        406</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Undominated alternatives form the <strong>efficiency frontier</strong></p>
+<ul>
+<li><p>a ‘convex hull’ (no concavities)</p></li>
+<li><p>Dominated interventions above frontier</p></li>
+</ul>
+</section>
+<section id="incremental-analysis-procedure" class="slide level2">
+<h2>Incremental analysis procedure</h2>
+<ol type="1">
+<li><p>Order alternatives by increasing effectiveness</p></li>
+<li><p>Remove strongly dominated <em>(cost exceeds next non-dominated)</em></p>
+<ul>
+<li>Repeat 2 until all strongly dominated removed</li>
+</ul></li>
+<li><p>Calculate ICERS between non-dominated</p></li>
+<li><p>Remove weakly dominated <em>(ICER exceeds next non-dominated)</em></p>
+<ul>
+<li>Repeat 3&amp;4 until all weakly dominated removed</li>
+</ul></li>
+</ol>
+</section>
+<section id="willingness-to-pay-wtp" class="slide level2">
+<h2>Willingness to pay (WTP)</h2>
+<div class="columns">
+<div class="column" style="width:25%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-11-1.png" width="240"></p>
+</div>
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-11-2.png" width="240"></p>
+</div>
+</div>
+</div><div class="column" style="width:75%;">
+<ul>
+<li><p>Maximum cost per QALY considered cost-effective</p></li>
+<li><p>Related to opportunity cost</p></li>
+<li><p>CAD$50,000/QALY often cited by CADTH</p></li>
+<li><p><a href="https://doi.org/10.1016/j.jval.2016.09.821">Griffiths and Vadlamudi (2016)</a> found drugs with ICERs up to $131,100 often approved</p></li>
+<li><p>WTP higher in some contexts (orphan drugs, blood safety)</p></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="net-monetary-benefit" class="slide level2">
 <h2>Net monetary benefit</h2>
+<ul>
+<li><p>ICER not ideal in some contexts because (1) negative ICERs ambiguous and (2) ratios don’t behave well with small denominators</p></li>
+<li><p>Calculate Net Monetary Benefit by assigning $ value to health benefits using WTP:</p></li>
+</ul>
+<p><span class="math display">\[
+NMB_a = \bar{c}_a + \bar{e}_a\times WTP
+\]</span></p>
+<ul>
+<li><span class="math inline">\(NMB_a &gt; NMB_b\)</span> → <span class="math inline">\(a\)</span> is cost-effective compared to <span class="math inline">\(b\)</span> (<span class="math inline">\(ICER_{\text{\{a vs. b\}}} \leq WTP\)</span>)</li>
+</ul>
+</section>
+<section id="cost-effective-affordable" class="slide level2">
+<h2>Cost effective ≠ affordable</h2>
+<ul>
+<li>Often, costs are front-loaded
+<ul>
+<li>Upfront costs high; savings take years to realize</li>
+</ul></li>
+</ul>
+<!-- -->
+<ul>
+<li><p>Party paying upfront cost may not benefit from cost offsets</p></li>
+<li><p><strong>Example:</strong> <a href="https://doi.org/10.7326/M14-0602">Liu et. al.&nbsp;2014</a> found:</p>
+<ul>
+<li><p>Treating HCV+ prisoners with Sofosbuvir costs &lt;US$30,000 per QALY</p></li>
+<li><p>$32 billion upfront cost to correctional system</p></li>
+<li><p>Cost offsets after release benefit other payers</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<ul>
+<li><p>Decision analyses that include costs are economic evaluations</p></li>
+<li><p>Cost-effectiveness analyses measure costs and health outcomes</p></li>
+<li><p>Cost-effectiveness determined with Incremental analysis, ICERs, and willingness-to-pay</p></li>
+<li><p>Concepts covered in great detail in PPHS 528 next fall</p></li>
+</ul>
+</section>
+<section id="logistics-1" class="slide level2">
+<h2>Logistics</h2>
+<ul>
+<li>Assignment 0 due next Wednesday 1/11</li>
+<li>Complete reading before Wednesday’s class</li>
+<li>Assignment 1 due Wednesday 1/18</li>
+</ul>
 <div class="footer footer-default">
 
 </div>
@@ -964,12 +1294,15 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -980,13 +1313,6 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
@@ -1038,7 +1364,24 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -1068,31 +1411,50 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

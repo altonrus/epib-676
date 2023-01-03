@@ -7,7 +7,7 @@
 <link href="course-intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="course-intro_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="course-intro_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.37">
+  <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Alton Russell">
   <title>Course introduction</title>
@@ -19,10 +19,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="course-intro_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="course-intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -318,13 +323,20 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Course introduction</h1>
   <p class="subtitle">EPIB 676 session 1, McGill University</p>
-  <p class="author">Alton Russell</p>
-  <p class="date">4 Jan 2023</p>
-</section>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Alton Russell 
+</div>
+</div>
+</div>
+
+  <p class="date">1/4/23</p>
+</section>
 <section id="about-me" class="slide level2">
 <h2>About me</h2>
 <ul>
@@ -332,7 +344,7 @@
 <li>Engineering at NC State (BSc) and Stanford (MSc, PhD)</li>
 <li>Joined the School of Population and Global Health in January 2022</li>
 <li>Teach PPHS 528 Economic evaluation of health programs in the fall</li>
-<li>Lead the <a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a></li>
+<li><a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a></li>
 </ul>
 </section>
 <section id="agenda-for-today" class="slide level2">
@@ -346,11 +358,22 @@
 </section>
 <section id="why-decision-analysis" class="slide level2">
 <h2>Why decision analysis?</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
 <li>Demand for health resources nearly infinite</li>
 <li>Resources (budgets) are limited</li>
 <li>Choices must be made!</li>
 </ul>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="tradeoffs.jpeg"></p>
+<p></p><figcaption>From https://blog.flexis.com</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="opportunity-cost" class="slide level2">
 <h2>Opportunity cost</h2>
@@ -384,15 +407,19 @@
 <li>50% of health care expenses incurred in last year of life</li>
 </ul></li>
 <li>Chronic health conditions</li>
-<li>Insufficient capacity -&gt; long queues</li>
-<li>Total joints, screening colonoscopy, etc.</li>
+<li>Insufficient capacity → long queues for services
+<ul>
+<li>Joint replacements, colonoscopy, emergency rooms, etc.</li>
+</ul></li>
 </ul>
 </section>
 <section id="how-do-we-decide-what-to-pay-for" class="slide level2">
 <h2>How do we decide what to pay for?</h2>
+<p><em>Decision criteria</em></p>
 </section>
 <section id="how-do-we-decide-what-to-pay-for-1" class="slide level2">
 <h2>How do we decide what to pay for?</h2>
+<p><em>Decision criteria</em></p>
 <ul>
 <li>Cost</li>
 <li>Effectiveness</li>
@@ -438,8 +465,8 @@
 <li><p>Define the decision context</p></li>
 <li><p>Identify outcomes of interest (cost, effects, efficiency, fairness)</p></li>
 <li><p>Identify alternatives</p></li>
-<li><p><strong>Estimate outcomes under each alternative &lt;- Modeling</strong></p></li>
-<li><p><strong>Perform sensitivity analysis &lt;- Modeling</strong></p></li>
+<li><p><strong>Estimate outcomes under each alternative → Modeling</strong></p></li>
+<li><p><strong>Perform sensitivity analysis → Modeling</strong></p></li>
 <li><p>Consider non-quantifiable factors</p></li>
 <li><p>Interpret the results</p></li>
 </ol>
@@ -448,10 +475,13 @@
 <h2>Decision-analytic model</h2>
 <ul>
 <li>Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives</li>
-<li>Propagate uncertainty (uncertain inputs → uncertain outputs)</li>
+<li>Propagate uncertainty
+<ul>
+<li>Uncertain inputs → uncertain outputs</li>
+</ul></li>
 </ul>
-<p>[To do: Make a diagram]</p>
-</section>
+
+<img data-src="model-inputs-outputs.svg" class="r-stretch"></section>
 <section id="decision-analysis-can" class="slide level2">
 <h2>Decision analysis can…</h2>
 <ul>
@@ -487,6 +517,22 @@
 <li>Create transparent reports of decision analyses that conform to open science principles</li>
 </ul>
 </section>
+<section id="epib-676-vs-pphs-528" class="slide level2">
+<h2>EPIB 676 vs PPHS 528</h2>
+<ul>
+<li><p>Economic evaluations often use decision analytic models</p>
+<ul>
+<li>Exception: trial-based cost-effectiveness analysis</li>
+</ul></li>
+<li><p>Decision analyses often used for economic evaluation</p>
+<ul>
+<li>Exception: decision models without costs</li>
+</ul></li>
+<li><p><strong>PPHS 528:</strong> economic evaluation, ~15% modeling methods</p></li>
+<li><p><strong>EPIB 676:</strong> modeling method, ~15% economic evaluation</p></li>
+</ul>
+<p>PPHS 528 is less research oriented and requires less background in programming, probability, and math</p>
+</section>
 <section id="course-materials" class="slide level2">
 <h2>Course materials</h2>
 <p><strong>MyCourses</strong> (<a href="https://mycourses2.mcgill.ca/" class="uri">https://mycourses2.mcgill.ca/</a>)</p>
@@ -507,18 +553,19 @@
 <h2>Two phases</h2>
 
 <img data-src="birds-eye-view.png" class="r-stretch"><div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="methods-phase">Methods phase</h3>
+<div class="column" style="width:49%;">
+<p><strong>Methods phase</strong></p>
 <ul>
-<li>Read textbook excerpts, tutorials</li>
-<li>Programming assignments</li>
+<li><p>Read tutorials, textbooks</p></li>
+<li><p>Technical lectures</p></li>
+<li><p>Programming assignments</p></li>
 </ul>
-</div><div class="column" style="width:50%;">
-<h3 id="application-phase">Application phase</h3>
+</div><div class="column" style="width:49%;">
+<p><strong>Application phase</strong></p>
 <ul>
-<li>Read applied papers</li>
-<li>Course project</li>
-<li>Analyze open-source paper</li>
+<li><p>Read applied analyses</p></li>
+<li><p>Guest lectures</p></li>
+<li><p>Build model; analyze open source publication</p></li>
 </ul>
 </div>
 </div>
@@ -551,7 +598,7 @@
 </ul></li>
 <li>Programming languages
 <ul>
-<li><p>Python, Julia, Matlab, etc.</p></li>
+<li><p>Python, Julia, Matlab, C++, etc.</p></li>
 <li><p>R</p></li>
 </ul></li>
 </ul>
@@ -563,7 +610,10 @@
 <li>Code-based (easier to interrogate + version control)</li>
 <li>Ecosystem of packages, tutorials, vignettes (others not as mature)</li>
 <li>Friendly community of useRs</li>
-<li>Systems for creating reproducible research reports</li>
+<li>Systems for creating reproducible research reports
+<ul>
+<li>Quarto documents!</li>
+</ul></li>
 </ul>
 </section>
 <section id="packages-for-decision-analytic-modeling-in-r" class="slide level2">
@@ -587,22 +637,22 @@
 <li>Not the fastest language
 <ul>
 <li>Julia, C++, Matlab faster</li>
-<li>RCPP package can integrate R with C++</li>
+<li><strong>But,</strong> RCPP package can integrate R with C++</li>
 </ul></li>
-<li>Dependencies and back/forward compatability
+<li>Dependencies and back/forward compatibility
 <ul>
-<li>Crowdsourcing = packages may not be maintained</li>
+<li>Packages can have errors, not be maintained</li>
 <li>Functionality changes after updates</li>
 </ul></li>
 </ul>
 </section>
-<section id="rstudio-tour" class="slide level2">
-<h2>RStudio tour</h2>
+<section id="getting-started-with-r" class="slide level2">
+<h2>Getting started with R</h2>
 <p>We will:</p>
 <ul>
-<li>Create an R project</li>
-<li>Create &amp; render a Quarto document</li>
-<li>Download and start assignment 0</li>
+<li>Create a new R project with quarto document</li>
+<li>Download and render assignment 0</li>
+<li>[Optional] clone the class R project onto your computer</li>
 </ul>
 </section>
 <section id="agenda-for-today-3" class="slide level2">
@@ -634,12 +684,24 @@
 </section>
 <section id="perspective-motivated-by-audience" class="slide level2">
 <h2>Perspective motivated by audience</h2>
+<ul>
+<li><p>Payers want to know their own costs</p></li>
+<li><p>Government may also care about societal costs &amp; benefits</p>
+<ul>
+<li><p>Patient time/transportation</p></li>
+<li><p>Productivity loss from illness or death</p></li>
+<li><p>Informal care-giving</p></li>
+<li><p>Spillover into criminal justice, education, etc.</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="the-case-for-societal-perspective" class="slide level2">
 <h2>The case for societal perspective</h2>
-</section>
-<section id="costs-and-perspectives" class="slide level2">
-<h2>Costs and perspectives</h2>
+<p><a href="https://www.doi.org/10.1001/jama.1996.03540140060028">First Panel on Cost-Effectiveness in Health and Medicine (1996)</a>:</p>
+<blockquote>
+<p>Using CEA to inform allocation of health resources accepts the existence of a limit on health spending; when the <strong>societal perspective</strong> is adopted, the analysis acknowledges the value of competing uses for society’s resources</p>
+</blockquote>
+<p><strong>But</strong>, data on non-health benefits/costs are often lacking</p>
 </section>
 <section id="why-choose-just-one" class="slide level2">
 <h2>Why choose just one?</h2>
@@ -647,10 +709,38 @@
 <li>1 analysis can have &gt;1 perspective</li>
 <li>Typical: societal + healthcare payer
 <ul>
-<li>Recommended by <a href="https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext">Second Panel on Cost-Effectiveness</a></li>
+<li>Recommended by <a href="https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext">Second Panel on Cost-Effectiveness (2016)</a></li>
 </ul></li>
 </ul>
-<p>Reporting disaggregated outcomes (mainy cost) can allow reader to re-calculate according to their perspective.</p>
+<p>Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.</p>
+</section>
+<section id="the-impact-inventory" class="slide level2">
+<h2>The impact inventory</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><img data-src="impact-inventory.png"></p>
+</div><div class="column" style="width:45%;">
+<p><a href="https://jamanetwork-com.proxy3.library.mcgill.ca/journals/jama/fullarticle/2552214">From Second Panel on Cost Effectiveness</a></p>
+<p>Lists all potentially relevant cost categories and comments on their inclusion</p>
+<p>Often put in supplement of analysis</p>
+</div>
+</div>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<ul>
+<li><p>Decision analysis can inform efficient and effective use of finite health resources</p></li>
+<li><p>Applications in health policy &amp; operations</p></li>
+<li><p>R enables open source, reproducible workflows</p></li>
+<li><p>Perspective and framing depends on target audience</p></li>
+</ul>
+</section>
+<section id="logistics" class="slide level2">
+<h2>Logistics</h2>
+<ul>
+<li>Assignment 0 due next Wednesday 1/11</li>
+<li>Complete reading before Friday’s class</li>
+</ul>
 <div class="footer footer-default">
 
 </div>
@@ -904,7 +994,24 @@
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -934,31 +1041,50 @@
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

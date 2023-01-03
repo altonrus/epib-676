@@ -133,6 +133,10 @@ Gabelica et. al.[^3] found:
 
     -   123 (7%) shared their data
 
+## "Research should be as open as possible and as closed as necessary"
+
+H2020 Program Guidelines on FAIR Data, European Commission
+
 ## Can't share data due to privacy?
 
 Code is very useful even without data

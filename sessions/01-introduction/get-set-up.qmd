@@ -9,7 +9,7 @@ author: 'Alton Russell'
 date: today
 ---
 
-The aim of this page is to make it as painless as possible to get your computer set up for the class. If anything is unclear, or any links are broken, please let me (Alton) know ASAP so that I can improve the document! 
+The aim of this page is to make it as painless as possible to get your computer set up for the class. If anything is unclear, or any links are broken, please let me (Alton) know ASAP so that I can improve the document!
 
 ## Install R and RStudio on a new machine
 
@@ -56,17 +56,21 @@ Other packages we will use are **tidyverse** (includes several packages in the t
 install.packages(c("tidyverse", "data.table", "readxl"))
 ```
 
-## Git and GitHub (required later in the course)
+## Git and GitHub
 
 It is recommended that you use Git and Github to manage your course project. Details on how to do this are best described in Jenny Bryan's fantastic [Happy Git with R book](https://happygitwithr.com/install-intro.html). The core steps are:
 
-1.  Install git on your machine.\
+1.  Install git on your machine.
 
     The instructions depend on your Operating System. Follow the instructions at <https://happygitwithr.com/install-git.html>.
 
-2.  Create a GitHub account.\
+2.  Create a GitHub account.
 
     Go to [github.com](github.com) and create your free account.
+
+3.  Create a Github personal access token
+
+4.  [Store it in your keychain](https://docs.github.com/en/get-started/getting-started-with-git/updating-credentials-from-the-macos-keychain) (Mac) or in [Windows Credential Manager](https://kwilson.io/blog/use-windows-credential-store-for-git-to-remember-your-login-for-tfs-bitbucket-and-such/)
 
 ## LaTeX (optional)
 

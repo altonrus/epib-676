@@ -138,7 +138,7 @@ Your model should start with a decision mode with three options:
 
 -   **ST only**: use a standard clip for first line therapy and, if a rebleed occurs, for second line therapy.
 
-All three arms from this decision node ("actions" in the rdecision package) will end at a chance node corresponding to the outcomes of the first line EGD.  From the initial chance node, there are two possibilities:
+All three arms from this decision node ("actions" in the rdecision package) will end at a chance node corresponding to the outcomes of the first line EGD. From the initial chance node, there are two possibilities:
 
 -   **Success:** the first line procedure was a success (ends in a leaf node).
 
@@ -148,27 +148,27 @@ After second-line therapy, you have another chance node with two possibilities:
 
 -   **Success:** second line therapy worked (ends in a leaf node).
 
--   **Further bleeding; IR procedure needed:** After 2 failed EGDs, patients undergo an interventional radiology procedure, which we assume will be successful (ends in a leaf node). 
+-   **Further bleeding; IR procedure needed:** After 2 failed EGDs, patients undergo an interventional radiology procedure, which we assume will be successful (ends in a leaf node).
 
 **Costs:** You will accumulate costs along the action and reaction paths:
 
-* In the actions from this initial decision node, patients incur the cost for the physician fee to do the EGD (`c_EGD_MD`) and the cost of whichever clip was used (`c_STclip` or `c_OTSclip`)
+-   In the actions from this initial decision node, patients incur the cost for the physician fee to do the EGD (`c_EGD_MD`) and the cost of whichever clip was used (`c_STclip` or `c_OTSclip`)
 
-* If the first line EGD was successful, we add in the cost of a hospitalization with no major complications or comorbidities (`c_hosp_noCC`).
+-   If the first line EGD was successful, we add in the cost of a hospitalization with no major complications or comorbidities (`c_hosp_noCC`).
 
-* If the first line EGD was unsuccessful, we add in the costs of a second EGD (physician fee plus cost of whichever clip is being used for second line therapy)
+-   If the first line EGD was unsuccessful, we add in the costs of a second EGD (physician fee plus cost of whichever clip is being used for second line therapy)
 
-* If the second line EGD was successful, we add in the cost of a hospitalization with minor complications and comorbidities (`c_hosp_CC`)
+-   If the second line EGD was successful, we add in the cost of a hospitalization with minor complications and comorbidities (`c_hosp_CC`)
 
-* If the second line EGD was unsuccessful and an IR proceducure was needed, we add in the cost of the IR physician fee (`c_IR_MD`), and the cost of a hospitalization with major complications/comorbidities (`c_hosp_MCC`).
+-   If the second line EGD was unsuccessful and an IR proceducure was needed, we add in the cost of the IR physician fee (`c_IR_MD`), and the cost of a hospitalization with major complications/comorbidities (`c_hosp_MCC`).
 
 **Quality-adjusted life years:** We will use rdecision's default time horizon of one year. You will need to assign one of the three parameters `q_single_EGD`, `q_double_EGD`, and `q_IR` as the utility at each leaf node, depending on which procedures the patient underwent in order to arrive at that leaf.
 
 Tips:
 
-* Draw the tree on paper before you start coding it.
+-   Draw the tree on paper before you start coding it.
 
-* Focus on tree structure and probabilities first, plot it, and then add costs and utilities.
+-   Focus on tree structure and probabilities first, plot it, and then add costs and utilities.
 
 ```{r}
 # I like to turn the parameters from my table into  a named list
@@ -222,7 +222,6 @@ DT2 <-NA
 #DT2_evaluation |> flextable()
 ```
 
-
 The differences in QALYs experienced in a one-year period is hard to see. We can instead convert the QALYs experienced to lost quality-adjusted life days (QALDs lost). I wrote the code for you; you just need to uncomment it after completing the previous code block.
 
 ```{r}
@@ -233,11 +232,11 @@ The differences in QALYs experienced in a one-year period is hard to see. We can
 
 Using a willingness to pay threshold of \$50,000 per QALY (\$137 per QALD), indicate whether each intervention is dominated with strong dominance, Dominated by extended dominant, not preferred, or preferred (exactly one intervention should be preferred). Indicate the ICER for any non-dominated interventions when applicable.
 
-> ST only: 
+> ST only:
 >
-> ST first: 
+> ST first:
 >
-> OTSc first: 
+> OTSc first:
 
 In case you're curious, this is a slightly simplified version of [a paper I published as a PhD student](https://doi.org/10.1016/j.giec.2019.09.004).
 
@@ -265,7 +264,7 @@ In this section, we'll use loops to conduct incremental analysis, the process of
 
 First, I've written the code for you that reads in the data on 9 different strategies we wish to compare (from the params_assign1.xlsx file). For each strategy, we are provided with the estimated QALYs experienced and the estimated cost across three categories: those insurer pays, out-of-pocket costs paid by the patient, and productivity loss.
 
-```{r} 
+```{r}
 #No edits needed to this code chunk
 
 #read table from Excel
@@ -364,7 +363,6 @@ t_ICERS |>
 
 **Function-ize it:** The following code chunk contains the shell of a function that takes three vectors (strategy_name, cost, and QALY), puts them into a table called t_ICERS, does calculations, and then returns the table with ICER and dominated columns added. Complete the funciton by copying and pasting code from the previous code chunk
 
-
 ```{r}
 
 #INPUT: 3 equal-length vectors strategy_name, cost, and QALYs
@@ -388,10 +386,9 @@ generate_ICER_table <- function(strategy_name, cost, QALYs){
 
 **Other perspectives:** using the function above, complete the incremental analysis from three cost perspectives:
 
-* **Insurer:** same as above
-* **Healthcare costs** includes insurer and patient out-of-pocket costs
-* **Societal:** healthcare costs plus productivity loss
-
+-   **Insurer:** same as above
+-   **Healthcare costs** includes insurer and patient out-of-pocket costs
+-   **Societal:** healthcare costs plus productivity loss
 
 ```{r}
 
@@ -422,7 +419,6 @@ t_ICER_societal |>
   autofit() #automatically set column widths to reasonable values
 
 ```
-
 
 ## 2c Identifying maximum net monetary benefit
 
@@ -459,7 +455,6 @@ Comparing the net monetary benefit plot to your incremental analysis from the so
 -   All non-dominated interventions should maximize net monetary benefit for some willingness-to-pay level
 
 -   The willingness-to-pay level at which we 'flip' from preferring non-dominated strategy i to non-dominated strategy j (i.e., the x-axis value at which the line for strategy j crosses to exceed that of strategy i) corresponds to the ICER of strategy j compared to strategy i.
-
 
 # Last two questions
 

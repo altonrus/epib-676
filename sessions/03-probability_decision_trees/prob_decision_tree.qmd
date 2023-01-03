@@ -25,19 +25,105 @@ Relative frequency: long run average over many repetitions
 
 <br>
 
-Measure of belief: how likely we think outcome is
+<br>
 
-## Intuitive definition
+Measure of belief: how likely is the outcome?
 
-If event
+## What is probability?
 
-## Sample space
+Relative frequency: long run average over many repetitions
 
-## Axioms of probability
+*How probabilities are estimated in clin/epi research*
 
-## Expectation
+<br>
+
+Measure of belief: how likely is the outcome?
+
+*How probabilities are used in decision analysis*
+
+## Sample space and events
+
+**Sample space:** set of all possible outcomes
+
+**Event:** one outcome or a set of outcomes (subset of sample space)
+
+## Axioms of probability 1 & 2
+
+1.  Probability of an event is between 0 (can't happen) and 1 (will definitely happen)
+
+$$ 0 \leq P(e) \leq 1 $$
+
+2.  Some event in the sample space must occur
+
+$$
+P(S) = 1
+$$
+
+## Axiom 3: Mutually exclusive
+
+For **mutually exclusive** (or 'disjoint') events $e_1$, $e_2$, ... $e_I$:
+
+$$
+P(\cup_{i=1}^{I} e_i) = \sum_{i=1}^{I} P(e_i)
+$$
+
+The probability any of the mutually exclusive events occurs it the sum of the events' individual probabilities
+
+## Expected value of a random variable
+
+Long run average value from repeated experiments
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+**Discrete** variable $x$ with $I$ possible values $x_i$
+
+$$
+E[x] = \sum_{i=1}^I x_iP(x_i)
+$$
+:::
+
+::: {.column width="50%"}
+**Continuous** variable $x$
+
+<br>
+
+$$
+E[x] = \int_{-\infty}^{\infty} x f(x)dx
+$$
+:::
+:::
 
 ## Conditional probability
+
+-   Prob. of $A$ occurring **conditioned on** $B$ having occurred (probability $A$ **given** $B$):
+
+$$
+P(A \mid B)=\frac{P(AB)}{P(B)}
+$$
+
+-   Can condition on multiple events:
+
+$$
+P(A \mid B,C,D,E) = \frac{P(A,B,C,D,E)}{P(B,C,D,E)}
+$$
+
+## Conditional probability visualized
+
+'Rescaling' the sample space to account for B occurring
+
+![https://www.geeksforgeeks.org/conditional-probability/](conditional_prob.png)
+
+## Conditional independence
+
+A and B are independent conditioned on C iff
+
+$$
+P(A \cap B \mid C) = P( A \mid C) \times P( B \mid C)
+$$
+
+K A and B independent
 
 ## Bayesian updating
 
