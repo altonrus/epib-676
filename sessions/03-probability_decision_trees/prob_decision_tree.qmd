@@ -43,9 +43,13 @@ Measure of belief: how likely is the outcome?
 
 ## Sample space and events
 
-**Sample space:** set of all possible outcomes
+**Sample space (**$\Omega$**):** set of all possible outcomes
 
 **Event:** one outcome or a set of outcomes (subset of sample space)
+
+<br>
+
+![](sample_space.svg)
 
 ## Axioms of probability 1 & 2
 
@@ -56,7 +60,7 @@ $$ 0 \leq P(e) \leq 1 $$
 2.  Some event in the sample space must occur
 
 $$
-P(S) = 1
+P(\Omega) = 1
 $$
 
 ## Axiom 3: Mutually exclusive
@@ -68,6 +72,107 @@ P(\cup_{i=1}^{I} e_i) = \sum_{i=1}^{I} P(e_i)
 $$
 
 The probability any of the mutually exclusive events occurs it the sum of the events' individual probabilities
+
+![](mutually_exclusive.svg)
+
+## Conditional probability
+
+-   Prob. of $A$ occurring **conditioned on** $B$ having occurred (probability $A$ **given** $B$):
+
+$$
+P(A \mid B)=\frac{P(AB)}{P(B)}
+$$
+
+-   Can condition on multiple events:
+
+$$
+P(A \mid BCDE) = \frac{P(ABCDE)}{P(BCDE)}
+$$
+
+## Conditional probability visualized
+
+'Rescaling' the sample space to account for B occurring
+
+![https://www.geeksforgeeks.org/conditional-probability/](conditional_prob.png)
+
+## Conditional probability for mutually exclusive events?
+
+![](mutually_exclusive.svg){width="188"}
+
+What is $P(A \mid B)$?
+
+## Conditional probability for mutually exclusive events?
+
+![](mutually_exclusive.svg){width="188"}
+
+What is $P(A \mid B)$?
+
+For **mutually exclusive** events $A, B$:
+
+$$
+P(A \mid B) = 0\\
+P(B \mid A) = 0
+$$
+
+## Independent events
+
+If $A \perp \!\!\! \perp B$, the A occurring doesn't effect B's probability and B occurring doesn't effect A's probability
+
+$$
+P(A) = P(A \mid B)\\
+P(B) = P(B \mid A)\\
+P(AB) = P(A)P(B)
+$$
+
+![](independent_events.svg)
+
+## Conditional independence
+
+A and B are independent conditioned on C iff
+
+$$
+P(A \mid BC) = P(A \mid C)\\
+P(B \mid AC) = P(B \mid C)\\
+P(AB \mid C) = P( A \mid C)P( B \mid C)
+$$
+
+Example: Are height and vocabulary independent?
+
+## Conditional independence
+
+A and B are independent conditioned on C iff
+
+$$
+P(A \mid BC) = P(A \mid C)\\
+P(B \mid AC) = P(B \mid C)\\
+P(AB \mid C) = P( A \mid C)P( B \mid C)
+$$
+
+Example: Are height and vocabulary independent?
+
+> No, shorter humans are often children with less vocabulary. But height and vocabulary are likely independent given (conditioned on) a person being \>19 years old
+
+## Bayes theorem
+
+$$
+P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+$$
+
+Classic example:
+
+$$
+P(\text{disease} | \text{test positive}) = \frac{P(\text{test positive} \mid \text{disease}) \times P(\text{disease})}{P(\text{test positive})}
+$$
+
+## Bayesian updating
+
+**Prior:** distribution
+
+**Posterior:** Probability
+
+**Likelihood:** distribution
+
+## Priors, likelihood, posterior
 
 ## Expected value of a random variable
 
@@ -95,40 +200,6 @@ $$
 :::
 :::
 
-## Conditional probability
-
--   Prob. of $A$ occurring **conditioned on** $B$ having occurred (probability $A$ **given** $B$):
-
-$$
-P(A \mid B)=\frac{P(AB)}{P(B)}
-$$
-
--   Can condition on multiple events:
-
-$$
-P(A \mid B,C,D,E) = \frac{P(A,B,C,D,E)}{P(B,C,D,E)}
-$$
-
-## Conditional probability visualized
-
-'Rescaling' the sample space to account for B occurring
-
-![https://www.geeksforgeeks.org/conditional-probability/](conditional_prob.png)
-
-## Conditional independence
-
-A and B are independent conditioned on C iff
-
-$$
-P(A \cap B \mid C) = P( A \mid C) \times P( B \mid C)
-$$
-
-K A and B independent
-
-## Bayesian updating
-
-## Priors, likelihood, posterior
-
 ## Beta distribution
 
 ## Sampling from distributions
@@ -145,4 +216,68 @@ http://courses.washington.edu/inde411/DecisionAnalysis2015(part1).pdf
 
 -   **Decision trees**
 
-## Decision tree components
+## Conventional decision tree design
+
+::: columns
+::: {.column width="50%"}
+-   Starts with one node; ends in terminal nodes
+
+-   Grows from left to right
+
+-   Nodes connected by edges
+
+-   "Payoff" received at terminal nodes (sometimes, receive payoff along the way)
+:::
+
+::: {.column width="50%"}
+![](decision_tree_nodes.svg)
+:::
+:::
+
+## Mapping parameters to decision tree structure
+
+::: columns
+::: {.column width="50%"}
+**Alternatives**
+
+**Random events**
+
+**Probabilities**
+
+**Costs**
+
+**Health effects (e.g., QALYs)**
+:::
+
+::: {.column width="50%"}
+![](decision_tree_nodes.svg)
+:::
+:::
+
+## Mapping parameters to decision tree structure
+
+**Alternatives** → branches from a decision node **▢**
+
+**Random events** → branches from a chance node ◯
+
+**Probabilities** → assigned to branches from a chance node
+
+**Costs** → Payoffs (at terminal nodes △ or along the way)
+
+**Health effects** → Payoffs (at terminal nodes △ or along the way)
+
+## Example tree
+
+## All probabilities are conditional
+
+## 
+
+## Evaluating decision tree
+
+## Handling multiple decision nodes
+
+## Strengths of decision tree
+
+## Limitations of decision tree
+
+## Recap

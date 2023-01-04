@@ -368,9 +368,11 @@ Alton Russell
 </section>
 <section id="sample-space-and-events" class="slide level2">
 <h2>Sample space and events</h2>
-<p><strong>Sample space:</strong> set of all possible outcomes</p>
+<p><strong>Sample space (</strong><span class="math inline">\(\Omega\)</span><strong>):</strong> set of all possible outcomes</p>
 <p><strong>Event:</strong> one outcome or a set of outcomes (subset of sample space)</p>
-</section>
+<p><br></p>
+
+<img data-src="sample_space.svg" class="r-stretch"></section>
 <section id="axioms-of-probability-1-2" class="slide level2">
 <h2>Axioms of probability 1 &amp; 2</h2>
 <ol type="1">
@@ -381,7 +383,7 @@ Alton Russell
 <li>Some event in the sample space must occur</li>
 </ol>
 <p><span class="math display">\[
-P(S) = 1
+P(\Omega) = 1
 \]</span></p>
 </section>
 <section id="axiom-3-mutually-exclusive" class="slide level2">
@@ -391,6 +393,94 @@ P(S) = 1
 P(\cup_{i=1}^{I} e_i) = \sum_{i=1}^{I} P(e_i)
 \]</span></p>
 <p>The probability any of the mutually exclusive events occurs it the sum of the events’ individual probabilities</p>
+
+<img data-src="mutually_exclusive.svg" class="r-stretch"></section>
+<section id="conditional-probability" class="slide level2">
+<h2>Conditional probability</h2>
+<ul>
+<li>Prob. of <span class="math inline">\(A\)</span> occurring <strong>conditioned on</strong> <span class="math inline">\(B\)</span> having occurred (probability <span class="math inline">\(A\)</span> <strong>given</strong> <span class="math inline">\(B\)</span>):</li>
+</ul>
+<p><span class="math display">\[
+P(A \mid B)=\frac{P(AB)}{P(B)}
+\]</span></p>
+<ul>
+<li>Can condition on multiple events:</li>
+</ul>
+<p><span class="math display">\[
+P(A \mid BCDE) = \frac{P(ABCDE)}{P(BCDE)}
+\]</span></p>
+</section>
+<section id="conditional-probability-visualized" class="slide level2">
+<h2>Conditional probability visualized</h2>
+<p>‘Rescaling’ the sample space to account for B occurring</p>
+
+<img data-src="conditional_prob.png" class="r-stretch quarto-figure-center"><p class="caption">https://www.geeksforgeeks.org/conditional-probability/</p></section>
+<section id="conditional-probability-for-mutually-exclusive-events" class="slide level2">
+<h2>Conditional probability for mutually exclusive events?</h2>
+
+<img data-src="mutually_exclusive.svg" width="188" class="r-stretch"><p>What is <span class="math inline">\(P(A \mid B)\)</span>?</p>
+</section>
+<section id="conditional-probability-for-mutually-exclusive-events-1" class="slide level2">
+<h2>Conditional probability for mutually exclusive events?</h2>
+
+<img data-src="mutually_exclusive.svg" width="188" class="r-stretch"><p>What is <span class="math inline">\(P(A \mid B)\)</span>?</p>
+<p>For <strong>mutually exclusive</strong> events <span class="math inline">\(A, B\)</span>:</p>
+<p><span class="math display">\[
+P(A \mid B) = 0\\
+P(B \mid A) = 0
+\]</span></p>
+</section>
+<section id="independent-events" class="slide level2">
+<h2>Independent events</h2>
+<p>If <span class="math inline">\(A \perp \!\!\! \perp B\)</span>, the A occurring doesn’t effect B’s probability and B occurring doesn’t effect A’s probability</p>
+<p><span class="math display">\[
+P(A) = P(A \mid B)\\
+P(B) = P(B \mid A)\\
+P(AB) = P(A)P(B)
+\]</span></p>
+
+<img data-src="independent_events.svg" class="r-stretch"></section>
+<section id="conditional-independence" class="slide level2">
+<h2>Conditional independence</h2>
+<p>A and B are independent conditioned on C iff</p>
+<p><span class="math display">\[
+P(A \mid BC) = P(A \mid C)\\
+P(B \mid AC) = P(B \mid C)\\
+P(AB \mid C) = P( A \mid C)P( B \mid C)
+\]</span></p>
+<p>Example: Are height and vocabulary independent?</p>
+</section>
+<section id="conditional-independence-1" class="slide level2">
+<h2>Conditional independence</h2>
+<p>A and B are independent conditioned on C iff</p>
+<p><span class="math display">\[
+P(A \mid BC) = P(A \mid C)\\
+P(B \mid AC) = P(B \mid C)\\
+P(AB \mid C) = P( A \mid C)P( B \mid C)
+\]</span></p>
+<p>Example: Are height and vocabulary independent?</p>
+<blockquote>
+<p>No, shorter humans are often children with less vocabulary. But height and vocabulary are likely independent given (conditioned on) a person being &gt;19 years old</p>
+</blockquote>
+</section>
+<section id="bayes-theorem" class="slide level2">
+<h2>Bayes theorem</h2>
+<p><span class="math display">\[
+P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+\]</span></p>
+<p>Classic example:</p>
+<p><span class="math display">\[
+P(\text{disease} | \text{test positive}) = \frac{P(\text{test positive} \mid \text{disease}) \times P(\text{disease})}{P(\text{test positive})}
+\]</span></p>
+</section>
+<section id="bayesian-updating" class="slide level2">
+<h2>Bayesian updating</h2>
+<p><strong>Prior:</strong> distribution</p>
+<p><strong>Posterior:</strong> Probability</p>
+<p><strong>Likelihood:</strong> distribution</p>
+</section>
+<section id="priors-likelihood-posterior" class="slide level2">
+<h2>Priors, likelihood, posterior</h2>
 </section>
 <section id="expected-value-of-a-random-variable" class="slide level2">
 <h2>Expected value of a random variable</h2>
@@ -410,40 +500,6 @@ E[x] = \int_{-\infty}^{\infty} x f(x)dx
 \]</span></p>
 </div>
 </div>
-</section>
-<section id="conditional-probability" class="slide level2">
-<h2>Conditional probability</h2>
-<ul>
-<li>Prob. of <span class="math inline">\(A\)</span> occurring <strong>conditioned on</strong> <span class="math inline">\(B\)</span> having occurred (probability <span class="math inline">\(A\)</span> <strong>given</strong> <span class="math inline">\(B\)</span>):</li>
-</ul>
-<p><span class="math display">\[
-P(A \mid B)=\frac{P(AB)}{P(B)}
-\]</span></p>
-<ul>
-<li>Can condition on multiple events:</li>
-</ul>
-<p><span class="math display">\[
-P(A \mid B,C,D,E) = \frac{P(A,B,C,D,E)}{P(B,C,D,E)}
-\]</span></p>
-</section>
-<section id="conditional-probability-visualized" class="slide level2">
-<h2>Conditional probability visualized</h2>
-<p>‘Rescaling’ the sample space to account for B occurring</p>
-
-<img data-src="conditional_prob.png" class="r-stretch quarto-figure-center"><p class="caption">https://www.geeksforgeeks.org/conditional-probability/</p></section>
-<section id="conditional-independence" class="slide level2">
-<h2>Conditional independence</h2>
-<p>A and B are independent conditioned on C iff</p>
-<p><span class="math display">\[
-P(A \cap B \mid C) = P( A \mid C) \times P( B \mid C)
-\]</span></p>
-<p>K A and B independent</p>
-</section>
-<section id="bayesian-updating" class="slide level2">
-<h2>Bayesian updating</h2>
-</section>
-<section id="priors-likelihood-posterior" class="slide level2">
-<h2>Priors, likelihood, posterior</h2>
 </section>
 <section id="beta-distribution" class="slide level2">
 <h2>Beta distribution</h2>
@@ -465,8 +521,66 @@ P(A \cap B \mid C) = P( A \mid C) \times P( B \mid C)
 <li><p><strong>Decision trees</strong></p></li>
 </ul>
 </section>
-<section id="decision-tree-components" class="slide level2">
-<h2>Decision tree components</h2>
+<section id="conventional-decision-tree-design" class="slide level2">
+<h2>Conventional decision tree design</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Starts with one node; ends in terminal nodes</p></li>
+<li><p>Grows from left to right</p></li>
+<li><p>Nodes connected by edges</p></li>
+<li><p>“Payoff” received at terminal nodes (sometimes, receive payoff along the way)</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="decision_tree_nodes.svg"></p>
+</div>
+</div>
+</section>
+<section id="mapping-parameters-to-decision-tree-structure" class="slide level2">
+<h2>Mapping parameters to decision tree structure</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Alternatives</strong></p>
+<p><strong>Random events</strong></p>
+<p><strong>Probabilities</strong></p>
+<p><strong>Costs</strong></p>
+<p><strong>Health effects (e.g., QALYs)</strong></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="decision_tree_nodes.svg"></p>
+</div>
+</div>
+</section>
+<section id="mapping-parameters-to-decision-tree-structure-1" class="slide level2">
+<h2>Mapping parameters to decision tree structure</h2>
+<p><strong>Alternatives</strong> → branches from a decision node <strong>▢</strong></p>
+<p><strong>Random events</strong> → branches from a chance node ◯</p>
+<p><strong>Probabilities</strong> → assigned to branches from a chance node</p>
+<p><strong>Costs</strong> → Payoffs (at terminal nodes △ or along the way)</p>
+<p><strong>Health effects</strong> → Payoffs (at terminal nodes △ or along the way)</p>
+</section>
+<section id="example-tree" class="slide level2">
+<h2>Example tree</h2>
+</section>
+<section id="all-probabilities-are-conditional" class="slide level2">
+<h2>All probabilities are conditional</h2>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+</section>
+<section id="evaluating-decision-tree" class="slide level2">
+<h2>Evaluating decision tree</h2>
+</section>
+<section id="handling-multiple-decision-nodes" class="slide level2">
+<h2>Handling multiple decision nodes</h2>
+</section>
+<section id="strengths-of-decision-tree" class="slide level2">
+<h2>Strengths of decision tree</h2>
+</section>
+<section id="limitations-of-decision-tree" class="slide level2">
+<h2>Limitations of decision tree</h2>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
 <div class="footer footer-default">
 
 </div>

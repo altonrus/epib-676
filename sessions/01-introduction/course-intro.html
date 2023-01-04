@@ -344,7 +344,16 @@ Alton Russell
 <li>Engineering at NC State (BSc) and Stanford (MSc, PhD)</li>
 <li>Joined the School of Population and Global Health in January 2022</li>
 <li>Teach PPHS 528 Economic evaluation of health programs in the fall</li>
-<li><a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a></li>
+<li><a href="http://mchi.mcgill.ca/decision-modeling-lab/">Decision Modeling Lab</a> (possibly re-named D3Mod lab for data-driven decision modeling)</li>
+</ul>
+</section>
+<section id="second-introductions" class="slide level2">
+<h2>30 second introductions</h2>
+<ul>
+<li><p>Name</p></li>
+<li><p>Degree program</p></li>
+<li><p>Research interests</p></li>
+<li><p>What you hope to get from this class</p></li>
 </ul>
 </section>
 <section id="agenda-for-today" class="slide level2">
@@ -379,8 +388,9 @@ Alton Russell
 <h2>Opportunity cost</h2>
 <p><em>The value of the next-best thing I could have done with the resources</em></p>
 <ul>
-<li><p>Each dollar spent on PrEP to prevent HIV in people who inject drugs cannot be spent on photon radiation for children with cancer, etc.</p></li>
-<li><p>Each dollar spent on health care cannot be spent on education, infrastructure, defense, etc.</p></li>
+<li><p>A dollar spent on PrEP for people who inject drugs cannot be spent on photon radiation for children with cancer</p></li>
+<li><p>A dollar spent on providing care cannot be spent on health research</p></li>
+<li><p>A dollar spent in health sector cannot be spent on education, infrastructure, defense, etc.</p></li>
 </ul>
 </section>
 <section id="challenges-in-global-health" class="slide level2">
@@ -391,6 +401,7 @@ Alton Russell
 <ul>
 <li>High childhood mortality</li>
 <li>Epidemics of infectious diseases</li>
+<li>Increasing burden of chronic condition</li>
 <li>Poor health infrastructure</li>
 <li>Limited access to care</li>
 <li>Limited funds for disease prevention and treatment</li>
@@ -433,6 +444,7 @@ Alton Russell
 <li>What services should we pay for?</li>
 <li>Who should receive these services?</li>
 <li>How can these services be delivered most efficiently?</li>
+<li>Where should we invest our research dollars?</li>
 </ul>
 </section>
 <section id="key-questions-for-decision-analysis-1" class="slide level2">
@@ -445,6 +457,10 @@ Alton Russell
 <p><strong>Healthcare operations</strong></p>
 <ul>
 <li>How can these services be delivered most efficiently?</li>
+</ul>
+<p><strong>Health research</strong></p>
+<ul>
+<li>Where should we invest our research dollars?</li>
 </ul>
 </section>
 <section id="developing-a-decision-analysis" class="slide level2">
@@ -517,21 +533,30 @@ Alton Russell
 <li>Create transparent reports of decision analyses that conform to open science principles</li>
 </ul>
 </section>
+<section id="decision-analysis-and-economic-evaluation" class="slide level2">
+<h2>Decision analysis and economic evaluation</h2>
+<p>Economic evaluations often use decision analytic models</p>
+<ul>
+<li><strong>Exception</strong>: trial-based cost-effectiveness analysis</li>
+</ul>
+<p>Economic evaluations represent a large share of decision analysis</p>
+<ul>
+<li><strong>Exception</strong>: decision models without costs</li>
+</ul>
+</section>
 <section id="epib-676-vs-pphs-528" class="slide level2">
 <h2>EPIB 676 vs PPHS 528</h2>
 <ul>
-<li><p>Economic evaluations often use decision analytic models</p>
+<li><p><strong>PPHS 528:</strong> economic evaluation theory and application</p>
 <ul>
-<li>Exception: trial-based cost-effectiveness analysis</li>
+<li>~20% decision analytic modeling</li>
 </ul></li>
-<li><p>Decision analyses often used for economic evaluation</p>
+<li><p><strong>EPIB 676:</strong> decision analytic modeling,</p>
 <ul>
-<li>Exception: decision models without costs</li>
+<li>~20% economic evaluation</li>
 </ul></li>
-<li><p><strong>PPHS 528:</strong> economic evaluation, ~15% modeling methods</p></li>
-<li><p><strong>EPIB 676:</strong> modeling method, ~15% economic evaluation</p></li>
 </ul>
-<p>PPHS 528 is less research oriented and requires less background in programming, probability, and math</p>
+<p>Some overlap, but PPHS 528 is less research oriented. Requires less background in programming, probability, and math</p>
 </section>
 <section id="course-materials" class="slide level2">
 <h2>Course materials</h2>
@@ -564,7 +589,7 @@ Alton Russell
 <p><strong>Application phase</strong></p>
 <ul>
 <li><p>Read applied analyses</p></li>
-<li><p>Guest lectures</p></li>
+<li><p>Applied guest lectures</p></li>
 <li><p>Build model; analyze open source publication</p></li>
 </ul>
 </div>
@@ -608,7 +633,7 @@ Alton Russell
 <ul>
 <li>Free and open source, designed for data science</li>
 <li>Code-based (easier to interrogate + version control)</li>
-<li>Ecosystem of packages, tutorials, vignettes (others not as mature)</li>
+<li>Ecosystem of packages, tutorials, vignettes (less mature for others languages)</li>
 <li>Friendly community of useRs</li>
 <li>Systems for creating reproducible research reports
 <ul>
@@ -633,16 +658,16 @@ Alton Russell
 <section id="downsides-of-r" class="slide level2">
 <h2>Downsides of R</h2>
 <ul>
-<li>High learning curve for non-programmers (vs.&nbsp;Excel, TreeAge)</li>
+<li>Learning curve for non-programmers (vs.&nbsp;Excel, TreeAge)</li>
 <li>Not the fastest language
 <ul>
-<li>Julia, C++, Matlab faster</li>
-<li><strong>But,</strong> RCPP package can integrate R with C++</li>
+<li>Julia, C++, Matlab faster. <strong>But,</strong> can use <a href="https://cran.r-project.org/web/packages/Rcpp/index.html">RCPP package</a> to change compute-intensive operations in C++</li>
 </ul></li>
 <li>Dependencies and back/forward compatibility
 <ul>
 <li>Packages can have errors, not be maintained</li>
 <li>Functionality changes after updates</li>
+<li>Will discuss some strategies to address</li>
 </ul></li>
 </ul>
 </section>
@@ -651,8 +676,8 @@ Alton Russell
 <p>We will:</p>
 <ul>
 <li>Create a new R project with quarto document</li>
-<li>Download and render assignment 0</li>
-<li>[Optional] clone the class R project onto your computer</li>
+<li>Clone the class repository from Github onto your computer</li>
+<li>Edit and render assignment 0</li>
 </ul>
 </section>
 <section id="agenda-for-today-3" class="slide level2">
@@ -674,9 +699,9 @@ Alton Russell
 <li>Regulators</li>
 <li>Clinicians / Medical societies</li>
 <li>Patients</li>
-<li>Patient parent/guardian</li>
+<li>Parent/guardian or loved one</li>
 <li>Insurance companies</li>
-<li>Organization leaders (admin of hospital, blood collectors)</li>
+<li>Organizational leaders (of hospital, blood collector, etc.)</li>
 <li>Funding agencies (e.g., CIHR)</li>
 <li>etc.</li>
 </ul>
@@ -693,6 +718,7 @@ Alton Russell
 <li><p>Informal care-giving</p></li>
 <li><p>Spillover into criminal justice, education, etc.</p></li>
 </ul></li>
+<li><p>Other stakeholders have other priorities (if possible, ask)</p></li>
 </ul>
 </section>
 <section id="the-case-for-societal-perspective" class="slide level2">
@@ -706,13 +732,10 @@ Alton Russell
 <section id="why-choose-just-one" class="slide level2">
 <h2>Why choose just one?</h2>
 <ul>
-<li>1 analysis can have &gt;1 perspective</li>
-<li>Typical: societal + healthcare payer
-<ul>
-<li>Recommended by <a href="https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext">Second Panel on Cost-Effectiveness (2016)</a></li>
-</ul></li>
+<li>An analysis can have &gt;1 perspective</li>
+<li><strong>Societal</strong> perspective and <strong>healthcare payer</strong> perspective recommended by <a href="https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext">Second Panel on Cost-Effectiveness (2016)</a></li>
+<li>Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.</li>
 </ul>
-<p>Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.</p>
 </section>
 <section id="the-impact-inventory" class="slide level2">
 <h2>The impact inventory</h2>
@@ -722,17 +745,17 @@ Alton Russell
 </div><div class="column" style="width:45%;">
 <p><a href="https://jamanetwork-com.proxy3.library.mcgill.ca/journals/jama/fullarticle/2552214">From Second Panel on Cost Effectiveness</a></p>
 <p>Lists all potentially relevant cost categories and comments on their inclusion</p>
-<p>Often put in supplement of analysis</p>
+<p>Often found in online supplement</p>
 </div>
 </div>
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
-<li><p>Decision analysis can inform efficient and effective use of finite health resources</p></li>
-<li><p>Applications in health policy &amp; operations</p></li>
+<li><p>Decision analysis can inform efficient, effective, and equitable use of finite health resources</p></li>
+<li><p>Can apply to health policy, clinical decisions, operations, and research</p></li>
 <li><p>R enables open source, reproducible workflows</p></li>
-<li><p>Perspective and framing depends on target audience</p></li>
+<li><p>Target audience should inform analytic framing and perspective</p></li>
 </ul>
 </section>
 <section id="logistics" class="slide level2">
@@ -740,6 +763,7 @@ Alton Russell
 <ul>
 <li>Assignment 0 due next Wednesday 1/11</li>
 <li>Complete reading before Friday’s class</li>
+<li>Office hours start now!</li>
 </ul>
 <div class="footer footer-default">
 

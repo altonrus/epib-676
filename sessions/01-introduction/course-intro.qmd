@@ -13,7 +13,17 @@ editor: visual
 -   Engineering at NC State (BSc) and Stanford (MSc, PhD)
 -   Joined the School of Population and Global Health in January 2022
 -   Teach PPHS 528 Economic evaluation of health programs in the fall
--   [Decision Modeling Lab](http://mchi.mcgill.ca/decision-modeling-lab/)
+-   [Decision Modeling Lab](http://mchi.mcgill.ca/decision-modeling-lab/) (possibly re-named D3Mod lab for data-driven decision modeling)
+
+## 30 second introductions
+
+-   Name
+
+-   Degree program
+
+-   Research interests
+
+-   What you hope to get from this class
 
 ## Agenda for today
 
@@ -40,9 +50,11 @@ editor: visual
 
 *The value of the next-best thing I could have done with the resources*
 
--   Each dollar spent on PrEP to prevent HIV in people who inject drugs cannot be spent on photon radiation for children with cancer, etc.
+-   A dollar spent on PrEP for people who inject drugs cannot be spent on photon radiation for children with cancer
 
--   Each dollar spent on health care cannot be spent on education, infrastructure, defense, etc.
+-   A dollar spent on providing care cannot be spent on health research
+
+-   A dollar spent in health sector cannot be spent on education, infrastructure, defense, etc.
 
 ## Challenges in global health
 
@@ -50,6 +62,7 @@ editor: visual
 
 -   High childhood mortality
 -   Epidemics of infectious diseases
+-   Increasing burden of chronic condition
 -   Poor health infrastructure
 -   Limited access to care
 -   Limited funds for disease prevention and treatment
@@ -82,6 +95,7 @@ editor: visual
 -   What services should we pay for?
 -   Who should receive these services?
 -   How can these services be delivered most efficiently?
+-   Where should we invest our research dollars?
 
 ## Key questions for decision analysis
 
@@ -93,6 +107,10 @@ editor: visual
 **Healthcare operations**
 
 -   How can these services be delivered most efficiently?
+
+**Health research**
+
+-   Where should we invest our research dollars?
 
 ## Developing a decision analysis
 
@@ -161,21 +179,27 @@ editor: visual
 -   Understand and critically appraise published model-based decision analyses
 -   Create transparent reports of decision analyses that conform to open science principles
 
+## Decision analysis and economic evaluation
+
+Economic evaluations often use decision analytic models
+
+-   **Exception**: trial-based cost-effectiveness analysis
+
+Economic evaluations represent a large share of decision analysis
+
+-   **Exception**: decision models without costs
+
 ## EPIB 676 vs PPHS 528
 
--   Economic evaluations often use decision analytic models
+-   **PPHS 528:** economic evaluation theory and application
 
-    -   Exception: trial-based cost-effectiveness analysis
+    -   \~20% decision analytic modeling
 
--   Decision analyses often used for economic evaluation
+-   **EPIB 676:** decision analytic modeling,
 
-    -   Exception: decision models without costs
+    -   \~20% economic evaluation
 
--   **PPHS 528:** economic evaluation, \~15% modeling methods
-
--   **EPIB 676:** modeling method, \~15% economic evaluation
-
-PPHS 528 is less research oriented and requires less background in programming, probability, and math
+Some overlap, but PPHS 528 is less research oriented. Requires less background in programming, probability, and math
 
 ## Course materials
 
@@ -210,7 +234,7 @@ PPHS 528 is less research oriented and requires less background in programming, 
 
 -   Read applied analyses
 
--   Guest lectures
+-   Applied guest lectures
 
 -   Build model; analyze open source publication
 :::
@@ -252,7 +276,7 @@ Quarto → HTML
 
 -   Free and open source, designed for data science
 -   Code-based (easier to interrogate + version control)
--   Ecosystem of packages, tutorials, vignettes (others not as mature)
+-   Ecosystem of packages, tutorials, vignettes (less mature for others languages)
 -   Friendly community of useRs
 -   Systems for creating reproducible research reports
     -   Quarto documents!
@@ -267,21 +291,21 @@ Quarto → HTML
 
 ## Downsides of R
 
--   High learning curve for non-programmers (vs. Excel, TreeAge)
+-   Learning curve for non-programmers (vs. Excel, TreeAge)
 -   Not the fastest language
-    -   Julia, C++, Matlab faster
-    -   **But,** RCPP package can integrate R with C++
+    -   Julia, C++, Matlab faster. **But,** can use [RCPP package](https://cran.r-project.org/web/packages/Rcpp/index.html) to change compute-intensive operations in C++
 -   Dependencies and back/forward compatibility
     -   Packages can have errors, not be maintained
     -   Functionality changes after updates
+    -   Will discuss some strategies to address
 
 ## Getting started with R
 
 We will:
 
 -   Create a new R project with quarto document
--   Download and render assignment 0
--   \[Optional\] clone the class R project onto your computer
+-   Clone the class repository from Github onto your computer
+-   Edit and render assignment 0
 
 ## Agenda for today
 
@@ -298,9 +322,9 @@ We will:
 -   Regulators
 -   Clinicians / Medical societies
 -   Patients
--   Patient parent/guardian
+-   Parent/guardian or loved one
 -   Insurance companies
--   Organization leaders (admin of hospital, blood collectors)
+-   Organizational leaders (of hospital, blood collector, etc.)
 -   Funding agencies (e.g., CIHR)
 -   etc.
 
@@ -320,6 +344,8 @@ Depends on context; often multiple target audiences
 
     -   Spillover into criminal justice, education, etc.
 
+-   Other stakeholders have other priorities (if possible, ask)
+
 ## The case for societal perspective
 
 [First Panel on Cost-Effectiveness in Health and Medicine (1996)](https://www.doi.org/10.1001/jama.1996.03540140060028):
@@ -330,11 +356,9 @@ Depends on context; often multiple target audiences
 
 ## Why choose just one?
 
--   1 analysis can have \>1 perspective
--   Typical: societal + healthcare payer
-    -   Recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
-
-Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.
+-   An analysis can have \>1 perspective
+-   **Societal** perspective and **healthcare payer** perspective recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
+-   Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.
 
 ## The impact inventory
 
@@ -348,21 +372,22 @@ Reporting disaggregated outcomes (e.g., costs by category) can allow reader to r
 
 Lists all potentially relevant cost categories and comments on their inclusion
 
-Often put in supplement of analysis
+Often found in online supplement
 :::
 :::
 
 ## Recap
 
--   Decision analysis can inform efficient and effective use of finite health resources
+-   Decision analysis can inform efficient, effective, and equitable use of finite health resources
 
--   Applications in health policy & operations
+-   Can apply to health policy, clinical decisions, operations, and research
 
 -   R enables open source, reproducible workflows
 
--   Perspective and framing depends on target audience
+-   Target audience should inform analytic framing and perspective
 
 ## Logistics
 
 -   Assignment 0 due next Wednesday 1/11
 -   Complete reading before Friday's class
+-   Office hours start now!
