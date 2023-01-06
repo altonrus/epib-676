@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="prob_decision_tree_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="prob_decision_tree_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -339,8 +403,11 @@ Alton Russell
 </section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
+<div class="cell">
+
+</div>
 <ul>
-<li><p>Assignment 0 due today</p></li>
+<li><p>Assignment 0 due 11:59pm today</p></li>
 <li><p>Assignment 1 due Wednesday 1/18</p></li>
 </ul>
 </section>
@@ -361,7 +428,7 @@ Alton Russell
 <section id="what-is-probability-1" class="slide level2">
 <h2>What is probability?</h2>
 <p>Relative frequency: long run average over many repetitions</p>
-<p><em>How probabilities are estimated in clin/epi research</em></p>
+<p><em>How probabilities are estimated in frequentist statistics</em></p>
 <p><br></p>
 <p>Measure of belief: how likely is the outcome?</p>
 <p><em>How probabilities are used in decision analysis</em></p>
@@ -376,7 +443,7 @@ Alton Russell
 <section id="axioms-of-probability-1-2" class="slide level2">
 <h2>Axioms of probability 1 &amp; 2</h2>
 <ol type="1">
-<li>Probability of an event is between 0 (can’t happen) and 1 (will definitely happen)</li>
+<li>Probability of an event is between 0 (can’t happen) and 1 (must happen)</li>
 </ol>
 <p><span class="math display">\[ 0 \leq P(e) \leq 1 \]</span></p>
 <ol start="2" type="1">
@@ -448,7 +515,7 @@ P(A \mid BC) = P(A \mid C)\\
 P(B \mid AC) = P(B \mid C)\\
 P(AB \mid C) = P( A \mid C)P( B \mid C)
 \]</span></p>
-<p>Example: Are height and vocabulary independent?</p>
+<p>Example: Are human height and vocabulary independent?</p>
 </section>
 <section id="conditional-independence-1" class="slide level2">
 <h2>Conditional independence</h2>
@@ -458,9 +525,9 @@ P(A \mid BC) = P(A \mid C)\\
 P(B \mid AC) = P(B \mid C)\\
 P(AB \mid C) = P( A \mid C)P( B \mid C)
 \]</span></p>
-<p>Example: Are height and vocabulary independent?</p>
+<p>Example: Are human height and vocabulary independent?</p>
 <blockquote>
-<p>No, shorter humans are often children with less vocabulary. But height and vocabulary are likely independent given (conditioned on) a person being &gt;19 years old</p>
+<p>No, shorter humans tend to know less vocabulary because they are often children. But height and vocabulary are likely independent <strong>conditioned on</strong> a person is &gt;19 years old</p>
 </blockquote>
 </section>
 <section id="bayes-theorem" class="slide level2">
@@ -468,19 +535,119 @@ P(AB \mid C) = P( A \mid C)P( B \mid C)
 <p><span class="math display">\[
 P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
 \]</span></p>
-<p>Classic example:</p>
+<p><br></p>
+<p>Estimating the post-test probability of disease is a classic example:</p>
 <p><span class="math display">\[
-P(\text{disease} | \text{test positive}) = \frac{P(\text{test positive} \mid \text{disease}) \times P(\text{disease})}{P(\text{test positive})}
+P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+}) \times P(\text{disease+})}{P(\text{test+})}
 \]</span></p>
+</section>
+<section id="contingency-table-for-binary-test" class="slide level2">
+<h2>Contingency table for binary test</h2>
+<p>Here is a <strong>contingency table</strong> (or 2x2 table) described a population of 10,000 who were screened for a disease with a test. It’s useful to also have the marginal sums.</p>
+<p><br></p>
+<p><em>Copy and paste this code and run on your computer</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>disease <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">9500</span>), <span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>test_pos <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">285</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10000</span> <span class="sc">-</span> <span class="dv">285</span> <span class="sc">-</span> <span class="dv">163</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">163</span>))</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">table</span>(disease, test_pos)<span class="sc">|&gt;</span> <span class="fu">addmargins</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       test_pos
+disease     0     1   Sum
+    0    9215   285  9500
+    1     337   163   500
+    Sum  9552   448 10000</code></pre>
+</div>
+</div>
+</section>
+<section id="prevalence-sensitivity-specificity" class="slide level2">
+<h2>Prevalence, sensitivity, specificity</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       test_pos
+disease     0     1   Sum
+    0    9215   285  9500
+    1     337   163   500
+    Sum  9552   448 10000</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>From the data, estimate:</p>
+<ul>
+<li><p>Prevalence <span class="math inline">\(P(disease+)\)</span></p></li>
+<li><p>Sensitivity <span class="math inline">\(P(test + \mid disease+)\)</span></p></li>
+<li><p>Specificity <span class="math inline">\(P(test - \mid disease-)\)</span></p></li>
+</ul>
+</section>
+<section id="prevalence-sensitivity-specificity-1" class="slide level2">
+<h2>Prevalence, sensitivity, specificity</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       test_pos
+disease     0     1   Sum
+    0    9215   285  9500
+    1      37   463   500
+    Sum  9252   748 10000</code></pre>
+</div>
+</div>
+<p>Prevalence <span class="math inline">\(P(disease+)\)</span>: 0.05</p>
+<p><code>sum(disease)/length(disease)</code></p>
+<p>Sensitivity <span class="math inline">\(P(test + \mid disease+)\)</span>: 0.926</p>
+<p><code>sum(test_pos*disease)/sum(disease)</code></p>
+<p>Specificity <span class="math inline">\(P(test - \mid disease-)\)</span>: 0.97</p>
+<p><code>sum((1-test_pos)*(1-disease))/sum(1-disease)</code></p>
+</section>
+<section id="pre--and-post-test-probability" class="slide level2">
+<h2>Pre- and post-test probability</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       test_pos
+disease     0     1   Sum
+    0    9215   285  9500
+    1     337   163   500
+    Sum  9552   448 10000</code></pre>
+</div>
+</div>
+<p>We test a new person from the same population. What is their:</p>
+<ul>
+<li><p>Pre-test probability of having the disease?</p></li>
+<li><p>Post-test probability if they test positive (positive predictive value)?</p></li>
+<li><p>Post-test probability if they test negative (one minus negative predictive value)?</p></li>
+</ul>
+</section>
+<section id="pre--and-post-test-probability-1" class="slide level2">
+<h2>Pre- and post-test probability</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       test_pos
+disease     0     1   Sum
+    0    9215   285  9500
+    1     337   163   500
+    Sum  9552   448 10000</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Pre-test probability = prevalence = <span class="math inline">\(P(disease+)=\)</span> 0.05</p>
+<p>PPV = <span class="math inline">\(P(disease+ \mid test+)\)</span> = 0.3638393 <code>sum(disease*test_pos)/sum(test_pos)</code></p>
+<p>1 - NPV = <span class="math inline">\(P(disease+ \mid test-)\)</span>= 0.0352806</p>
+<p><code>sum(disease*(1-test_pos))/sum(1-test_pos)</code></p>
 </section>
 <section id="bayesian-updating" class="slide level2">
 <h2>Bayesian updating</h2>
-<p><strong>Prior:</strong> distribution</p>
-<p><strong>Posterior:</strong> Probability</p>
-<p><strong>Likelihood:</strong> distribution</p>
+<p>Estimate parameter <span class="math inline">\(\theta\)</span> with prior distribution <span class="math inline">\(P(\theta)\)</span> and data <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[
+P( \theta \mid x) = \frac{P(x \mid \theta) \times P(\theta)}{P(x)}, \text{  }
+\text{Posterior} = \frac{\text{Likelihood} \times Prior}{Evidence}
+\]</span></p>
+<p><strong>Posterior</strong> <span class="math inline">\(P(\theta \mid x)\)</span>: updated belief after seeing data</p>
+<p><strong>Prior</strong> <span class="math inline">\(P(\theta)\)</span>: belief before receiving data</p>
+<p><strong>Likelihood</strong> <span class="math inline">\(P(x \mid \theta)\)</span>: probability of the data given prior</p>
+<p><strong>Probability of the data/evidence</strong> <span class="math inline">\(P(x)\)</span>: think of it as a normalization factor (less important)</p>
 </section>
-<section id="priors-likelihood-posterior" class="slide level2">
-<h2>Priors, likelihood, posterior</h2>
+<section id="post-test-probability-as-bayesian-updating" class="slide level2">
+<h2>Post-test probability as Bayesian updating</h2>
+<p><span class="math display">\[
+P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+}) \times P(\text{disease+})}{P(\text{test+})}
+\]</span> What is my prior? Likelihood? Posterior?</p>
 </section>
 <section id="expected-value-of-a-random-variable" class="slide level2">
 <h2>Expected value of a random variable</h2>
@@ -501,18 +668,130 @@ E[x] = \int_{-\infty}^{\infty} x f(x)dx
 </div>
 </div>
 </section>
-<section id="beta-distribution" class="slide level2">
-<h2>Beta distribution</h2>
+<section id="belief-about-a-probability" class="slide level2">
+<h2>Belief about a probability</h2>
+<p>We model binary events with the <strong>Bernoulli</strong> distribution:</p>
+<p><span class="math display">\[
+x \sim Bernoulli(p) =
+\begin{cases}
+1 &amp; \text{with probability } p\\
+0 &amp; \text{with probability } 1-p
+\end{cases}
+\]</span></p>
+<p>The <strong>beta distribution</strong> can describe our belief about a probability <span class="math inline">\(p\)</span></p>
+<p><span class="math display">\[
+p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta - 1}
+\]</span></p>
 </section>
-<section id="sampling-from-distributions" class="slide level2">
-<h2>Sampling from distributions</h2>
+<section id="beta-distribution-properties" class="slide level2">
+<h2>Beta distribution properties</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li><p>Range <span class="math inline">\([0,1]\)</span></p></li>
+<li><p>Shape parameter <span class="math inline">\(\alpha &gt; 0\)</span></p></li>
+<li><p>Scale parameter <span class="math inline">\(\beta &gt; 0\)</span></p></li>
+<li><p>Mean <span class="math inline">\(E[X] = \frac{\alpha}{\alpha+\beta}\)</span></p></li>
+</ul>
+</div><div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="PDF_of_the_Beta_distribution.gif" width="400"></p>
+<p></p><figcaption>https://en.wikipedia.org/wiki/Beta_distribution</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="two-by-two-table" class="slide level2">
-<h2>Two-by-two table</h2>
-<p>http://courses.washington.edu/inde411/DecisionAnalysis2015(part1).pdf</p>
+<section id="beta-distribution-and-binomial-experiments" class="slide level2">
+<h2>Beta distribution and binomial experiments</h2>
+<ul>
+<li><p>In binomial experiments (repeated independent Bernoulli trials), we view several manifestations of a bernoulli variable</p>
+<ul>
+<li>Binomial distribution describes how many positives we expect to see based on probability <span class="math inline">\(p\)</span> and number of trials <span class="math inline">\(n\)</span></li>
+</ul></li>
+<li><p>If a binomial trial results in <span class="math inline">\(E\)</span> events and <span class="math inline">\(N\)</span> non-events, <span class="math inline">\(p \sim Beta(\alpha=E,\beta=N)\)</span> describes our uncertainty in <span class="math inline">\(p\)</span></p></li>
+</ul>
 </section>
-<section id="expected-payoff" class="slide level2">
-<h2>Expected payoff</h2>
+<section id="bayesian-updating-with-beta" class="slide level2">
+<h2>Bayesian updating with beta</h2>
+<p>In a small drug study, 1 in 3 patients had a side-effect. If we have no other information, our uncertainty in the probability of side-effects can be represented as:</p>
+<p><span class="math display">\[
+p \sim Beta(\alpha = 1, \beta = 2)
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length=</span><span class="dv">1000</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">plot</span>(p, <span class="fu">dbeta</span>(p, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">type=</span><span class="st">'l'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="bayesian-updating-with-beta-1" class="slide level2">
+<h2>Bayesian updating with beta</h2>
+<p>We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?</p>
+</section>
+<section id="bayesian-updating-with-beta-2" class="slide level2">
+<h2>Bayesian updating with beta</h2>
+<p>We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?</p>
+<p><span class="math display">\[
+p \sim Beta(\alpha = 5, \beta = 38)
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">plot</span>(p, <span class="fu">dbeta</span>(p, <span class="dv">5</span>, <span class="dv">38</span>), <span class="at">type=</span><span class="st">'l'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="bayesian-updating-with-beta-3" class="slide level2">
+<h2>Bayesian updating with beta</h2>
+<p>If we treat 10,000 patients and 1,230 have a side effect:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">plot</span>(p, <span class="fu">dbeta</span>(p, <span class="dv">1230</span>, <span class="dv">10000</span> <span class="sc">-</span> <span class="dv">1230</span>), <span class="at">type=</span><span class="st">'l'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="beta-distribution-summary" class="slide level2">
+<h2>Beta distribution summary</h2>
+<ul>
+<li><p>Describes our belief about a probability’s value</p></li>
+<li><p>Direct mapping between <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> and the success/failure count in repeated Bernoulli trials (binomial experiment)</p></li>
+<li><p>As we collect data:</p>
+<ul>
+<li><p><span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> grow</p></li>
+<li><p>Our certainty increases</p></li>
+<li><p>The distribution gets more concentrated</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="beta-updating-animation1" class="slide level2">
+<h2>Beta updating animation<sup>1</sup></h2>
+<div class="columns">
+<div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="priors.webp"></p>
+</figure>
+</div>
+<p>Priors ↑</p>
+<p>Posteriors ↓</p>
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="posteriors.webp"></p>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="updating_priors.webp"></p>
+</div><div class="column" style="width:35%;">
+<p><strong>Priors</strong>:</p>
+<p>Beta(5,5)</p>
+<p>Beta(75,75)</p>
+<p><strong>Data</strong>:</p>
+<p>145 successes</p>
+<p>208 trials</p>
+<p><strong>Posteriors</strong>:</p>
+<p>Beta(150, 68)</p>
+<p>Beta(220, 138)</p>
+</div>
+</div>
+<p><sup>1</sup> <a href="https://www.r-bloggers.com/2020/04/an-animated-example-of-bayesian-updating/" class="uri">https://www.r-bloggers.com/2020/04/an-animated-example-of-bayesian-updating/</a></p>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
@@ -521,18 +800,25 @@ E[x] = \int_{-\infty}^{\infty} x f(x)dx
 <li><p><strong>Decision trees</strong></p></li>
 </ul>
 </section>
-<section id="conventional-decision-tree-design" class="slide level2">
-<h2>Conventional decision tree design</h2>
+<section id="decision-tree-convention" class="slide level2">
+<h2>Decision tree convention</h2>
+<ul>
+<li><p>Nodes connected by branches</p></li>
+<li><p>Grows from left to right</p></li>
+<li><p>Starts with a ‘decision node’; ends in ‘terminal nodes’</p></li>
+<li><p>“Payoffs” received at terminal nodes (sometimes, receive payoff along the way)</p></li>
+</ul>
+</section>
+<section id="decision-tree-symbols" class="slide level2">
+<h2>Decision tree symbols</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li><p>Starts with one node; ends in terminal nodes</p></li>
-<li><p>Grows from left to right</p></li>
-<li><p>Nodes connected by edges</p></li>
-<li><p>“Payoff” received at terminal nodes (sometimes, receive payoff along the way)</p></li>
-</ul>
-</div><div class="column" style="width:50%;">
 <p><img data-src="decision_tree_nodes.svg"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Branches from decision trees represent choices or alternatives</p></li>
+<li><p>Branches from chance nodes represent random possibilities</p></li>
+</ul>
 </div>
 </div>
 </section>
@@ -564,23 +850,47 @@ E[x] = \int_{-\infty}^{\infty} x f(x)dx
 <section id="all-probabilities-are-conditional" class="slide level2">
 <h2>All probabilities are conditional</h2>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-</section>
 <section id="evaluating-decision-tree" class="slide level2">
 <h2>Evaluating decision tree</h2>
 </section>
 <section id="handling-multiple-decision-nodes" class="slide level2">
 <h2>Handling multiple decision nodes</h2>
 </section>
-<section id="strengths-of-decision-tree" class="slide level2">
-<h2>Strengths of decision tree</h2>
+<section id="strengths-of-decision-trees" class="slide level2">
+<h2>Strengths of decision trees</h2>
+<ul>
+<li><p>Intuitive to build and communicate</p></li>
+<li><p>Easy to quickly compute</p></li>
+<li><p>Can be combined with other modeling methods</p></li>
+</ul>
 </section>
-<section id="limitations-of-decision-tree" class="slide level2">
-<h2>Limitations of decision tree</h2>
+<section id="limitations-of-decision-trees" class="slide level2">
+<h2>Limitations of decision trees</h2>
+<ul>
+<li><p>Discrete possibility space</p></li>
+<li><p>No time dimension</p></li>
+<li><p>Not great for chronic conditions or recurring risks</p></li>
+</ul>
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
+<ul>
+<li><p>Key probability building blocks:</p>
+<ul>
+<li><p>Conditional probability</p></li>
+<li><p>Bayesian updating</p></li>
+<li><p>Beta distribution</p></li>
+</ul></li>
+<li><p>Decision trees are simple, flexible, useful decision models</p></li>
+<li><p>“Roll back” the decision tree to calculate the expected value of each outcome</p></li>
+</ul>
+</section>
+<section id="logistics-1" class="slide level2">
+<h2>Logistics</h2>
+<ul>
+<li><p>Assignment 0 due 11:59pm today</p></li>
+<li><p>Assignment 1 (cost-effectiveness, decision trees) due Wednesday 1/18</p></li>
+</ul>
 <div class="footer footer-default">
 
 </div>
@@ -796,6 +1106,44 @@ E[x] = \int_{-\infty}^{\infty} x f(x)dx
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

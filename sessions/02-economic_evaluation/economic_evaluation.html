@@ -401,13 +401,6 @@ Alton Russell
 
   <p class="date">1/6/23</p>
 </section>
-<section id="logistics" class="slide level2">
-<h2>Logistics</h2>
-<ul>
-<li><p>Assignment 0 due next Wednesday 1/11</p></li>
-<li><p>Assignment 1 available (due Wednesday 1/18)</p></li>
-</ul>
-</section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
 <ul>
@@ -417,9 +410,9 @@ Alton Russell
 <li><p>Incremental analysis (cost-effectiveness)</p></li>
 </ul>
 </section>
-<section id="purpose-of-decision-models" class="slide level2">
-<h2>Purpose of decision models</h2>
-<p>Clarify important elements of decision</p>
+<section id="purpose-of-decision-analysis" class="slide level2">
+<h2>Purpose of decision analysis</h2>
+<p>Systematically integrate key elements of decision</p>
 <ul>
 <li><p><strong>Alternatives:</strong> What can I do?</p></li>
 <li><p><strong>Information:</strong> What do I know?</p></li>
@@ -472,7 +465,7 @@ Alton Russell
 <div class="column" style="width:60%;">
 <p><em>Health states only</em></p>
 <ul>
-<li><p>Outcomes analysis <strong>(No decision)</strong></p>
+<li><p>Outcome projection <strong>(No decision)</strong></p>
 <ul>
 <li><em>How many cases/deaths?</em></li>
 </ul></li>
@@ -488,7 +481,7 @@ Alton Russell
 <div class="column" style="width:60%;">
 <p><em>Health states only</em></p>
 <ul>
-<li><p>Outcomes analysis <strong>(No decision)</strong></p>
+<li><p>Outcome projection <strong>(No decision)</strong></p>
 <ul>
 <li><em>How many cases/deaths?</em></li>
 </ul></li>
@@ -504,7 +497,7 @@ Alton Russell
 <div class="column" style="width:60%;">
 <p><em>Health states only</em></p>
 <ul>
-<li><p>Outcomes analysis <strong>(No decision)</strong></p>
+<li><p>Outcome projection <strong>(No decision)</strong></p>
 <ul>
 <li><em>How many cases/deaths?</em></li>
 </ul></li>
@@ -584,15 +577,20 @@ Alton Russell
 <p><strong><em>Differences</em></strong> in costs and outcomes (not total cost or outcome!)</p>
 <p>Typically</p>
 <ul>
-<li><p>Differences in cost, side-effects of the intervention(s)</p></li>
-<li><p>Differences in ‘Downstream’ health and costs</p></li>
+<li><p>Immediate cost, health impacts of the intervention(s)</p></li>
+<li><p>“Downstream” costs, health impacts</p>
+<ul>
+<li><p>Long-term disability</p></li>
+<li><p>Chronic disease</p></li>
+<li><p>Recurring risks</p></li>
+</ul></li>
 </ul>
 </section>
 <section id="time-horizon" class="slide level2">
 <h2>Time horizon</h2>
 <ul>
 <li><p>Should capture all relevant differences in costs &amp; health outcomes</p></li>
-<li><p>Sometimes, short time horizon OK</p>
+<li><p>Short time horizon sometimes OK</p>
 <ul>
 <li>No substantial cost/outcome differences expected after short period</li>
 </ul></li>
@@ -615,7 +613,6 @@ Alton Russell
 </section>
 <section id="example-health-measures" class="slide level2">
 <h2>Example health measures</h2>
-<p>Examples?</p>
 </section>
 <section id="example-health-measures-1" class="slide level2">
 <h2>Example health measures</h2>
@@ -642,7 +639,7 @@ Alton Russell
 <p><strong>Context-specific</strong> measures work within narrow context</p>
 <ul>
 <li><p>Blood pressure medication → mmHg blood pressure</p></li>
-<li><p>Hepatitis B screening strategies → % cases detected</p></li>
+<li><p>Hepatitis B screening strategies → % cases detected, incidence</p></li>
 <li><p>HIV antivirals → % with high CD4 level</p></li>
 </ul>
 <p><strong>General measures</strong> let you compare across contexts</p>
@@ -654,8 +651,8 @@ Alton Russell
 <section id="net-present-value" class="slide level2">
 <h2>Net present value</h2>
 <ul>
-<li><p>Benefits in further into future valued less (why?)</p></li>
-<li><p>Net present value of quantity <span class="math inline">\(Q\)</span>, <span class="math inline">\(t\)</span> years into the future, with a discount rate <span class="math inline">\(r\)</span>:</p></li>
+<li><p>Benefits further into future valued less (why?)</p></li>
+<li><p>Net present value (<span class="math inline">\(NPV\)</span>) of quantity <span class="math inline">\(Q\)</span>, <span class="math inline">\(t\)</span> years into the future, with a discount rate <span class="math inline">\(r\)</span>:</p></li>
 </ul>
 <p><span class="math display">\[
 NPV = Q \frac{1}{(1+r)^t}
@@ -663,7 +660,7 @@ NPV = Q \frac{1}{(1+r)^t}
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Q <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co">#dollars</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>t <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>r <span class="ot">&lt;-</span> .<span class="dv">05</span> <span class="co">#5 percent discount rate</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>r <span class="ot">&lt;-</span> .<span class="dv">05</span> <span class="co">#5 percent annual discount rate</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a>NPV <span class="ot">&lt;-</span> Q<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>r)<span class="sc">^</span>t)</span>
 <span id="cb1-5"><a href="#cb1-5"></a>NPV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -679,7 +676,7 @@ NPV = Q \frac{1}{(1+r)^t}
 <p><span class="math display">\[
 DLE = \sum_{t=0}^T LY_t \frac{1}{(1+r)^t}
 \]</span></p>
-<p><span class="math inline">\(LY_t\)</span> is life-years experienced at time t. The rest is the discounting multiplier for an annual discount rate of <span class="math inline">\(r\)</span> (typically ~ 0% to 7%)</p>
+<p><span class="math inline">\(LY_t\)</span> is life-years experienced in year t. <span class="math inline">\([1/(1+r)^t]\)</span> is the discounting multiplier for an annual discount rate of <span class="math inline">\(r\)</span> (typically ~ 0% to 7%)</p>
 </section>
 <section id="quality-adjusted-life-expectancy" class="slide level2">
 <h2>Quality-adjusted life expectancy</h2>
@@ -735,7 +732,10 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p>Lower bound of 0</p></li>
 <li><p>Potentially no upper limit</p></li>
 <li><p>Often vary considerably across patients</p></li>
-<li><p>Often right-skewed (a few high-cost patients)</p></li>
+<li><p><strong>Patient-level</strong> costs often right-skewed (a few high-cost patients)</p>
+<ul>
+<li>But, parameter of interest usually <strong>average cost</strong>, should be less skewed</li>
+</ul></li>
 </ul>
 </section>
 <section id="health-resources-and-costs" class="slide level2">
@@ -748,11 +748,10 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <section id="discounting-costs" class="slide level2">
 <h2>Discounting costs</h2>
 <ul>
-<li><p>Prefer getting money today vs.&nbsp;in the future?</p></li>
-<li><p>Losing money in today vs.&nbsp;in the future?</p></li>
+<li><p>People/organizations want to get paid sooner, make payments later</p></li>
 <li><p>Net present cost discounted just like outcomes: <span class="math inline">\(NPC = \sum_{t=0}^T c_t \frac{1}{(1+r)^t}\)</span></p></li>
 <li><p><a href="https://www.cadth.ca/guidelines-economic-evaluation-health-technologies-canada-4th-edition">CADTH recommends 1.5% discount rate</a> (sensitivity analysis at 3%)</p></li>
-<li><p>In practice, same discount rate used for costs &amp; outcomes (strongly contested in theory)</p></li>
+<li><p>Same discount rate used for costs &amp; outcomes (contested in theory but near universal practice)</p></li>
 </ul>
 </section>
 <section id="currency-exchange" class="slide level2">
@@ -761,7 +760,11 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p>Suggested to use purchasing power parity (estimated cost of a basket of goods) rather than exchange rate</p></li>
 <li><p>Available from OECD data: <a href="https://data.oecd.org/conversion/purchasing-power-parities-ppp.htm" class="uri">https://data.oecd.org/conversion/purchasing-power-parities-ppp.htm</a></p></li>
 <li><p>Measured as national currency per USD</p></li>
-<li><p>For non-USD currency, convert to USD and then to CAD</p></li>
+<li><p>For non-USD currency, convert to USD and then to CAD:</p>
+<ul>
+<li><p>[Value in Euro] / [PPP Euro/USD] = [Value in USD]</p></li>
+<li><p>[Value in USD] / [PPP CAD/USD] = [Value in CAD]</p></li>
+</ul></li>
 </ul>
 </section>
 <section id="adjust-for-inflation" class="slide level2">
@@ -772,15 +775,82 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p>Available from StatsCanada: <a href="https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1810000501" class="uri">https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1810000501</a></p></li>
 </ul>
 </section>
+<section id="currency-inflation" class="slide level2">
+<h2>Currency + inflation</h2>
+<p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>PPP_2006 <span class="ot">=</span> <span class="cn">NA</span>;    CPI_CAN_2006 <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>PPP_2021 <span class="ot">=</span> <span class="cn">NA</span>;    CPI_CAN_2021 <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="currency-inflation-1" class="slide level2">
+<h2>Currency + inflation</h2>
+<p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Currency then inflation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>cost_2021CAD <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="currency-inflation-2" class="slide level2">
+<h2>Currency + inflation</h2>
+<p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Currency then inflation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>cost_2021CAD <span class="ot">=</span> (cost_2006USD<span class="sc">/</span>PPP_2006)<span class="sc">*</span>(CPI_CAN_2021<span class="sc">/</span>CPI_CAN_2006)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>cost_2021CAD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5820.386</code></pre>
+</div>
+</div>
+</section>
+<section id="currency-inflation-3" class="slide level2">
+<h2>Currency + inflation</h2>
+<p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Inflation then currency:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>cost_2021CAD <span class="ot">=</span> (cost_2006USD<span class="sc">*</span>(CPI_CAN_2021<span class="sc">/</span>CPI_CAN_2006))<span class="sc">/</span>PPP_2021</span>
+<span id="cb10-2"><a href="#cb10-2"></a>cost_2021CAD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5674.406</code></pre>
+</div>
+</div>
+</section>
+<section id="inflation-currency-adjustment" class="slide level2">
+<h2>Inflation + Currency adjustment</h2>
+<ul>
+<li><p>Order can matter, especially with fluctuations</p></li>
+<li><p>I’m not aware of best practice recommendations</p></li>
+<li><p>If difference is substantial</p>
+<ul>
+<li><p>Widen your uncertainty range/distribution</p></li>
+<li><p>Consider scenario analysis</p></li>
+</ul></li>
+</ul>
+</section>
 <section id="productivity-costs" class="slide level2">
 <h2>Productivity costs</h2>
 <ul>
-<li><p>Typically largest cost “societal perspective only” cost</p></li>
+<li><p>Typically largest non-health cost in societal perspective</p></li>
 <li><p>Unpaid labor (housekeeping, child-rearing) can be costed as “opportunity cost”</p>
 <ul>
 <li>Use median wage for all individuals regardless of employment</li>
 </ul></li>
-<li><p>For death-related productivity loss, should tally “net productivity loss” by subtracting consumption</p></li>
+<li><p>For death-related productivity loss, we want “net productivity loss” with consumption subtracted out</p></li>
 </ul>
 </section>
 <section id="unrelated-medical-costs-in-life-years-gained" class="slide level2">
@@ -823,7 +893,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-2-1.png" width="480"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-9-1.png" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -841,16 +911,16 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-3-1.png" width="480"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-10-1.png" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <ul>
-<li><p><strong>Q2:</strong> alternative dominated by status quo</p>
+<li><p>Q2: alternative <strong>dominated by</strong> status quo</p>
 <ul>
 <li>Costlier, gives worse outcome</li>
 </ul></li>
-<li><p><strong>Q4:</strong> alternative dominates status quo</p>
+<li><p>Q4: alternative <strong>dominates</strong> status quo</p>
 <ul>
 <li>Cheaper, gives better health outcome</li>
 </ul></li>
@@ -864,7 +934,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-4-1.png" width="480"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-11-1.png" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -883,7 +953,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <section id="avoid-confusion-when-reporting-icers" class="slide level2">
 <h2>Avoid confusion when reporting ICERS</h2>
 <ul>
-<li><p>Don’t report negative ICER’s exact value, instead say strategy ‘<strong>dominated</strong>’ (Q4) or ‘<strong>dominant</strong>’ (Q2)</p></li>
+<li><p>Instead of reporting negative ICERs, say it’s ‘<strong>dominated</strong>’ (Q4) or ‘<strong>dominant</strong>’ (Q2)</p></li>
 <li><p>If in Q3, reverse comparison when reporting ICER</p>
 <ul>
 <li><p><strong>Alternative in Q1</strong>: Alternative costs $32,000 per QALY gained compared to status quo</p></li>
@@ -891,15 +961,15 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 </ul></li>
 </ul>
 </section>
-<section id="comparing-multiple-interventions" class="slide level2">
-<h2>Comparing multiple interventions</h2>
+<section id="evaluating-2-alternatives" class="slide level2">
+<h2>Evaluating &gt;2 alternatives</h2>
 <p>With &gt;2 alternatives, conduct incremental analysis:</p>
 <ol type="1">
 <li><p>Order by increasing effectiveness</p></li>
 <li><p>Remove dominated alternatives</p></li>
 <li><p>Calculate ICERs between non-dominated alternatives</p></li>
 </ol>
-<p>Always calculate ICER relative to <strong>next-least-effective, non-dominated</strong> intervention</p>
+<p>Each strategy’s ICER is relative to <strong>next-least-effective, non-dominated</strong> intervention</p>
 </section>
 <section id="strong-dominance" class="slide level2">
 <h2>Strong dominance</h2>
@@ -911,7 +981,34 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-5-1.png" width="480"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-12-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  alt effect  cost
+1   A     15  1000
+2   B     20  3100
+3   C     29  3500
+4   D     39 11000
+5   E     45 10000</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="strong-dominance-1" class="slide level2">
+<h2>Strong dominance</h2>
+<ul>
+<li><p>Dominated if ≥1 alt. cheaper and more effective</p></li>
+<li><p><strong>Check:</strong> Order by increasing effectiveness. Any alt. with higher cost than next alt. is dominated</p></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-14-1.png" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -940,7 +1037,34 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-7-1.png" width="480"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-16-1.png" width="480"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  alt effect  cost      ICER
+1   A     15  1000      &lt;NA&gt;
+2   B     20  3100       420
+3   C     29  3500      44.4
+4   D     39 11000 Dominated
+5   E     45 10000       406</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="extended-weak-dominance-1" class="slide level2">
+<h2>Extended (weak) dominance</h2>
+<ul>
+<li><p>Linear combo of 2 alternatives cheaper and more effective</p></li>
+<li><p><strong>Check:</strong> Calculate ICERS between undominated alts. Any alt. whose ICER exceeds next alt. is dominated</p></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-18-1.png" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -959,13 +1083,13 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 </div>
 </div>
 </section>
-<section id="efficiency-frontier" class="slide level2">
-<h2>Efficiency frontier</h2>
+<section id="efficiency-frontier-plot" class="slide level2">
+<h2>Efficiency frontier plot</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-9-1.png" width="480"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-20-1.png" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -993,12 +1117,12 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <li><p>Order alternatives by increasing effectiveness</p></li>
 <li><p>Remove strongly dominated <em>(cost exceeds next non-dominated)</em></p>
 <ul>
-<li>Repeat 2 until all strongly dominated removed</li>
+<li>Repeat until all strongly dominated removed</li>
 </ul></li>
 <li><p>Calculate ICERS between non-dominated</p></li>
 <li><p>Remove weakly dominated <em>(ICER exceeds next non-dominated)</em></p>
 <ul>
-<li>Repeat 3&amp;4 until all weakly dominated removed</li>
+<li>Repeat until all weakly dominated removed</li>
 </ul></li>
 </ol>
 </section>
@@ -1008,17 +1132,17 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:25%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-11-1.png" width="240"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-22-1.png" width="240"></p>
 </div>
 <div class="cell-output-display">
-<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-11-2.png" width="240"></p>
+<p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-22-2.png" width="240"></p>
 </div>
 </div>
 </div><div class="column" style="width:75%;">
 <ul>
 <li><p>Maximum cost per QALY considered cost-effective</p></li>
 <li><p>Related to opportunity cost</p></li>
-<li><p>CAD$50,000/QALY often cited by CADTH</p></li>
+<li><p>CAD$50,000/QALY cited in many CADTH reports</p></li>
 <li><p><a href="https://doi.org/10.1016/j.jval.2016.09.821">Griffiths and Vadlamudi (2016)</a> found drugs with ICERs up to $131,100 often approved</p></li>
 <li><p>WTP higher in some contexts (orphan drugs, blood safety)</p></li>
 </ul>
@@ -1035,24 +1159,21 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 NMB_a = \bar{c}_a + \bar{e}_a\times WTP
 \]</span></p>
 <ul>
-<li><span class="math inline">\(NMB_a &gt; NMB_b\)</span> → <span class="math inline">\(a\)</span> is cost-effective compared to <span class="math inline">\(b\)</span> (<span class="math inline">\(ICER_{\text{\{a vs. b\}}} \leq WTP\)</span>)</li>
+<li><span class="math inline">\(NMB_a \geq NMB_b \Leftrightarrow ICER_{\text{\{a vs. b\}}} \leq WTP\)</span>, both imply that <span class="math inline">\(a\)</span> is cost-effective compared to <span class="math inline">\(b\)</span></li>
 </ul>
 </section>
 <section id="cost-effective-affordable" class="slide level2">
 <h2>Cost effective ≠ affordable</h2>
 <ul>
-<li>Often, costs are front-loaded
+<li><p>Costs often “front-loaded”</p>
 <ul>
-<li>Upfront costs high; savings take years to realize</li>
+<li>Large upfront investment; gains take years to realize</li>
 </ul></li>
-</ul>
-<!-- -->
-<ul>
-<li><p>Party paying upfront cost may not benefit from cost offsets</p></li>
+<li><p>Payer for intervention may not realize cost savings</p></li>
 <li><p><strong>Example:</strong> <a href="https://doi.org/10.7326/M14-0602">Liu et. al.&nbsp;2014</a> found:</p>
 <ul>
-<li><p>Treating HCV+ prisoners with Sofosbuvir costs &lt;US$30,000 per QALY</p></li>
-<li><p>$32 billion upfront cost to correctional system</p></li>
+<li><p>Treating HCV+ prisoners with Sofosbuvir costs &lt;US$30,000 per QALY (yay!)</p></li>
+<li><p>$32 billion upfront cost, paid by correctional system</p></li>
 <li><p>Cost offsets after release benefit other payers</p></li>
 </ul></li>
 </ul>
@@ -1060,18 +1181,20 @@ NMB_a = \bar{c}_a + \bar{e}_a\times WTP
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
+<li><p>Decision analysis focuses on incremental impact of interventions</p></li>
 <li><p>Decision analyses that include costs are economic evaluations</p></li>
-<li><p>Cost-effectiveness analyses measure costs and health outcomes</p></li>
 <li><p>Cost-effectiveness determined with Incremental analysis, ICERs, and willingness-to-pay</p></li>
-<li><p>Concepts covered in great detail in PPHS 528 next fall</p></li>
 </ul>
 </section>
-<section id="logistics-1" class="slide level2">
+<section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
 <li>Assignment 0 due next Wednesday 1/11</li>
 <li>Complete reading before Wednesday’s class</li>
-<li>Assignment 1 due Wednesday 1/18</li>
+<li>Assignment 1 (cost-effectiveness and decision trees) available.
+<ul>
+<li>Due Wednesday 1/18</li>
+</ul></li>
 </ul>
 <div class="footer footer-default">
 

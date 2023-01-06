@@ -8,7 +8,58 @@ format:
 editor: visual
 ---
 
-## Differential equations model
+## Section 1: Differential equations model
+
+First, we'll develop a simple differential equation model and approximate it with difference equations. We'll analyze one of the simplest models: a susceptible-infectious-recovered (SIR\_ model for a closed population, without births or deaths. The model is defined by the following differential equations:
+
+$$
+\begin{aligned}
+\frac{dS}{dt}&=-\frac{\beta S I}{N}\\
+\frac{dI}{dt}&=\frac{\beta S I}{N} - \gamma I\\
+\frac{dR}{dt}&=\gamma I\\
+\end{aligned}
+$$
+
+To program this model, we use the following objects:
+
+-   **State variables**: The propostion of the population in compartment S, I, and R. We'll use a list called `states` where the `states[1]` is S, `states[2]` is I, and `states[3]` is R.
+
+-   **Parameters:** the parameters that govern transitions between states are `beta` (governs rate of transitioning from S to I) and `gamma` (governs rate of transitioning from I to R).
+
+-   **Time:** we create a vector of timesteps at which we can evaluate the model
+
+```{r}
+params <- list(
+  beta = 1,
+  gamma = 1
+)
+
+states_start <-list(
+  S = 999,
+  I = 1,
+  R = 0
+)
+
+#The SIR differential equations function
+sir_closed <- function (t, states, params) {
+  ## first extract the state variables
+  S <- states[1]
+  I <- states[2]
+  R <- states[3]
+  ## now extract the parameters
+  beta <- params["beta"]
+  gamma <- params["gamma"]
+  N <- S+I+R
+  ## now code the model equations
+  dSdt <- NA
+  dIdt <- NA
+  dRdt <- NA
+  ## combine results into a single vector
+  dxdt <- c(dSdt,dIdt,dRdt)
+  ## return result as a list!
+  return(list(dxdt))
+}
+```
 
 https://kinglab.eeb.lsa.umich.edu/480/nls/de.html#solving_odes_in_r
 

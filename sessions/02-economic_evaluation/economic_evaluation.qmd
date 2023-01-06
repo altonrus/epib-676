@@ -7,12 +7,6 @@ format: revealjs
 editor: visual
 ---
 
-## Logistics
-
--   Assignment 0 due next Wednesday 1/11
-
--   Assignment 1 available (due Wednesday 1/18)
-
 ## Today
 
 -   **Decision analytic frameworks**
@@ -23,9 +17,9 @@ editor: visual
 
 -   Incremental analysis (cost-effectiveness)
 
-## Purpose of decision models
+## Purpose of decision analysis
 
-Clarify important elements of decision
+Systematically integrate key elements of decision
 
 -   **Alternatives:** What can I do?
 
@@ -83,7 +77,7 @@ Provide insight to inform or guide decision making
 ::: {.column width="60%"}
 *Health states only*
 
--   Outcomes analysis **(No decision)**
+-   Outcome projection **(No decision)**
 
     -   *How many cases/deaths?*
 :::
@@ -99,7 +93,7 @@ Provide insight to inform or guide decision making
 ::: {.column width="60%"}
 *Health states only*
 
--   Outcomes analysis **(No decision)**
+-   Outcome projection **(No decision)**
 
     -   *How many cases/deaths?*
 :::
@@ -115,7 +109,7 @@ Provide insight to inform or guide decision making
 ::: {.column width="60%"}
 *Health states only*
 
--   Outcomes analysis **(No decision)**
+-   Outcome projection **(No decision)**
 
     -   *How many cases/deaths?*
 
@@ -197,15 +191,21 @@ Provide insight to inform or guide decision making
 
 Typically
 
--   Differences in cost, side-effects of the intervention(s)
+-   Immediate cost, health impacts of the intervention(s)
 
--   Differences in 'Downstream' health and costs
+-   "Downstream" costs, health impacts
+
+    -   Long-term disability
+
+    -   Chronic disease
+
+    -   Recurring risks
 
 ## Time horizon
 
 -   Should capture all relevant differences in costs & health outcomes
 
--   Sometimes, short time horizon OK
+-   Short time horizon sometimes OK
 
     -   No substantial cost/outcome differences expected after short period
 
@@ -228,8 +228,6 @@ Typically
 -   Incremental analysis (cost-effectiveness)
 
 ## Example health measures
-
-Examples?
 
 ## Example health measures
 
@@ -269,7 +267,7 @@ Survey-based score (e.g., overall health, anxiety)
 
 -   Blood pressure medication → mmHg blood pressure
 
--   Hepatitis B screening strategies → % cases detected
+-   Hepatitis B screening strategies → % cases detected, incidence
 
 -   HIV antivirals → % with high CD4 level
 
@@ -281,9 +279,9 @@ Survey-based score (e.g., overall health, anxiety)
 
 ## Net present value
 
--   Benefits in further into future valued less (why?)
+-   Benefits further into future valued less (why?)
 
--   Net present value of quantity $Q$, $t$ years into the future, with a discount rate $r$:
+-   Net present value ($NPV$) of quantity $Q$, $t$ years into the future, with a discount rate $r$:
 
 $$
 NPV = Q \frac{1}{(1+r)^t}
@@ -293,7 +291,7 @@ $$
 #| echo: true
 Q <- 100 #dollars
 t <- 5 #years into the future
-r <- .05 #5 percent discount rate
+r <- .05 #5 percent annual discount rate
 NPV <- Q*(1/(1+r)^t)
 NPV
 ```
@@ -306,7 +304,7 @@ $$
 DLE = \sum_{t=0}^T LY_t \frac{1}{(1+r)^t}
 $$
 
-$LY_t$ is life-years experienced at time t. The rest is the discounting multiplier for an annual discount rate of $r$ (typically \~ 0% to 7%)
+$LY_t$ is life-years experienced in year t. $[1/(1+r)^t]$ is the discounting multiplier for an annual discount rate of $r$ (typically \~ 0% to 7%)
 
 ## Quality-adjusted life expectancy
 
@@ -366,7 +364,9 @@ If no published estimate available:
 
 -   Often vary considerably across patients
 
--   Often right-skewed (a few high-cost patients)
+-   **Patient-level** costs often right-skewed (a few high-cost patients)
+
+    -   But, parameter of interest usually **average cost**, should be less skewed
 
 ## Health resources and costs?
 
@@ -376,15 +376,13 @@ If no published estimate available:
 
 ## Discounting costs
 
--   Prefer getting money today vs. in the future?
-
--   Losing money in today vs. in the future?
+-   People/organizations want to get paid sooner, make payments later
 
 -   Net present cost discounted just like outcomes: $NPC = \sum_{t=0}^T c_t \frac{1}{(1+r)^t}$
 
 -   [CADTH recommends 1.5% discount rate](https://www.cadth.ca/guidelines-economic-evaluation-health-technologies-canada-4th-edition) (sensitivity analysis at 3%)
 
--   In practice, same discount rate used for costs & outcomes (strongly contested in theory)
+-   Same discount rate used for costs & outcomes (contested in theory but near universal practice)
 
 ## Currency exchange
 
@@ -394,7 +392,11 @@ If no published estimate available:
 
 -   Measured as national currency per USD
 
--   For non-USD currency, convert to USD and then to CAD
+-   For non-USD currency, convert to USD and then to CAD:
+
+    -   \[Value in Euro\] / \[PPP Euro/USD\] = \[Value in USD\]
+
+    -   \[Value in USD\] / \[PPP CAD/USD\] = \[Value in CAD\]
 
 ## Adjust for inflation
 
@@ -404,15 +406,93 @@ If no published estimate available:
 
 -   Available from StatsCanada: <https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1810000501>
 
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+cost_2006USD = 5400
+PPP_2006 = NA;    CPI_CAN_2006 = NA
+PPP_2021 = NA;    CPI_CAN_2021 = NA
+```
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+cost_2006USD = 5400
+PPP_2006 = 1.205;   CPI_CAN_2006 = 109.1
+PPP_2021 = 1.236;   CPI_CAN_2021 = 141.7
+```
+
+Currency then inflation:
+
+```{r}
+#| echo: true
+cost_2021CAD = NA
+```
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+cost_2006USD = 5400
+PPP_2006 = 1.205;   CPI_CAN_2006 = 109.1
+PPP_2021 = 1.236;   CPI_CAN_2021 = 141.7
+```
+
+Currency then inflation:
+
+```{r}
+#| echo: true
+cost_2021CAD = (cost_2006USD/PPP_2006)*(CPI_CAN_2021/CPI_CAN_2006)
+cost_2021CAD
+```
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+PPP_2006 = 1.205;   CPI_CAN_2006 = 109.1
+PPP_2021 = 1.236;   CPI_CAN_2021 = 141.7
+```
+
+Inflation then currency:
+
+```{r}
+#| echo: true
+cost_2021CAD = (cost_2006USD*(CPI_CAN_2021/CPI_CAN_2006))/PPP_2021
+cost_2021CAD
+```
+
+## Inflation + Currency adjustment
+
+-   Order can matter, especially with fluctuations
+
+-   I'm not aware of best practice recommendations
+
+-   If difference is substantial
+
+    -   Widen your uncertainty range/distribution
+
+    -   Consider scenario analysis
+
 ## Productivity costs
 
--   Typically largest cost "societal perspective only" cost
+-   Typically largest non-health cost in societal perspective
 
 -   Unpaid labor (housekeeping, child-rearing) can be costed as "opportunity cost"
 
     -   Use median wage for all individuals regardless of employment
 
--   For death-related productivity loss, should tally "net productivity loss" by subtracting consumption
+-   For death-related productivity loss, we want "net productivity loss" with consumption subtracted out
 
 ## Unrelated medical costs in life-years gained
 
@@ -503,11 +583,11 @@ ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-1,0,1),effect=c(-1,0,1)))+
 :::
 
 ::: {.column width="50%"}
--   **Q2:** alternative dominated by status quo
+-   Q2: alternative **dominated by** status quo
 
     -   Costlier, gives worse outcome
 
--   **Q4:** alternative dominates status quo
+-   Q4: alternative **dominates** status quo
 
     -   Cheaper, gives better health outcome
 :::
@@ -551,7 +631,7 @@ Depends what we're willing to pay (WTP threshold)
 
 ## Avoid confusion when reporting ICERS
 
--   Don't report negative ICER's exact value, instead say strategy '**dominated**' (Q4) or '**dominant**' (Q2)
+-   Instead of reporting negative ICERs, say it's '**dominated**' (Q4) or '**dominant**' (Q2)
 
 -   If in Q3, reverse comparison when reporting ICER
 
@@ -559,7 +639,7 @@ Depends what we're willing to pay (WTP threshold)
 
     -   **Alternative in Q3**: Status quo costs \$32,000 per QALY gained compared to alternative
 
-## Comparing multiple interventions
+## Evaluating \>2 alternatives
 
 With \>2 alternatives, conduct incremental analysis:
 
@@ -569,7 +649,34 @@ With \>2 alternatives, conduct incremental analysis:
 
 3.  Calculate ICERs between non-dominated alternatives
 
-Always calculate ICER relative to **next-least-effective, non-dominated** intervention
+Each strategy's ICER is relative to **next-least-effective, non-dominated** intervention
+
+## Strong dominance
+
+-   Dominated if ≥1 alt. cheaper and more effective
+
+-   **Check:** Order by increasing effectiveness. Any alt. with higher cost than next alt. is dominated
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+df=data.frame(
+  alt=c("A","B","C","D","E"),
+  effect=c(15, 20, 29, 39,45),
+  cost=c(1000, 3100, 3500, 11000,10000))
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+#library(flextable)
+df
+```
+:::
+:::
 
 ## Strong dominance
 
@@ -622,6 +729,29 @@ ggplot(aes(x=effect, y=cost), data=df)+
 cbind(df,
       "ICER" = c(NA, 420, 44.4, "Dominated",406)) 
 ```
+:::
+:::
+
+## Extended (weak) dominance
+
+-   Linear combo of 2 alternatives cheaper and more effective
+
+-   **Check:** Calculate ICERS between undominated alts. Any alt. whose ICER exceeds next alt. is dominated
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+cbind(df,
+      "ICER" = c(NA, 420, 44.4, "Dominated",406)) 
+```
 
 **B dominated** (by linear combo of A and C)
 
@@ -629,7 +759,7 @@ Remove B and re-calculate ICERs
 :::
 :::
 
-## Efficiency frontier
+## Efficiency frontier plot
 
 ::: columns
 ::: {.column width="50%"}
@@ -661,13 +791,13 @@ Undominated alternatives form the **efficiency frontier**
 
 2.  Remove strongly dominated *(cost exceeds next non-dominated)*
 
-    -   Repeat 2 until all strongly dominated removed
+    -   Repeat until all strongly dominated removed
 
 3.  Calculate ICERS between non-dominated
 
 4.  Remove weakly dominated *(ICER exceeds next non-dominated)*
 
-    -   Repeat 3&4 until all weakly dominated removed
+    -   Repeat until all weakly dominated removed
 
 ## Willingness to pay (WTP)
 
@@ -711,7 +841,7 @@ ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-2,0,2),effect=c(-1,0,1)))+
 
 -   Related to opportunity cost
 
--   CAD\$50,000/QALY often cited by CADTH
+-   CAD\$50,000/QALY cited in many CADTH reports
 
 -   [Griffiths and Vadlamudi (2016)](https://doi.org/10.1016/j.jval.2016.09.821) found drugs with ICERs up to \$131,100 often approved
 
@@ -729,38 +859,35 @@ $$
 NMB_a = \bar{c}_a + \bar{e}_a\times WTP
 $$
 
--   $NMB_a > NMB_b$ → $a$ is cost-effective compared to $b$ ($ICER_{\text{\{a vs. b\}}} \leq WTP$)
+-   $NMB_a \geq NMB_b \Leftrightarrow ICER_{\text{\{a vs. b\}}} \leq WTP$, both imply that $a$ is cost-effective compared to $b$
 
 ## Cost effective ≠ affordable
 
--   Often, costs are front-loaded
-    -   Upfront costs high; savings take years to realize
+-   Costs often "front-loaded"
 
-```{=html}
-<!-- -->
-```
--   Party paying upfront cost may not benefit from cost offsets
+    -   Large upfront investment; gains take years to realize
+
+-   Payer for intervention may not realize cost savings
 
 -   **Example:** [Liu et. al. 2014](https://doi.org/10.7326/M14-0602) found:
 
-    -   Treating HCV+ prisoners with Sofosbuvir costs \<US\$30,000 per QALY
+    -   Treating HCV+ prisoners with Sofosbuvir costs \<US\$30,000 per QALY (yay!)
 
-    -   \$32 billion upfront cost to correctional system
+    -   \$32 billion upfront cost, paid by correctional system
 
     -   Cost offsets after release benefit other payers
 
 ## Recap
 
+-   Decision analysis focuses on incremental impact of interventions
+
 -   Decision analyses that include costs are economic evaluations
 
--   Cost-effectiveness analyses measure costs and health outcomes
-
 -   Cost-effectiveness determined with Incremental analysis, ICERs, and willingness-to-pay
-
--   Concepts covered in great detail in PPHS 528 next fall
 
 ## Logistics
 
 -   Assignment 0 due next Wednesday 1/11
 -   Complete reading before Wednesday's class
--   Assignment 1 due Wednesday 1/18
+-   Assignment 1 (cost-effectiveness and decision trees) available.
+    -   Due Wednesday 1/18

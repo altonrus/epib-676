@@ -9,7 +9,12 @@ editor: visual
 
 ## Logistics
 
--   Assignment 0 due today
+```{r}
+library(flextable)
+
+```
+
+-   Assignment 0 due 11:59pm today
 
 -   Assignment 1 due Wednesday 1/18
 
@@ -33,7 +38,7 @@ Measure of belief: how likely is the outcome?
 
 Relative frequency: long run average over many repetitions
 
-*How probabilities are estimated in clin/epi research*
+*How probabilities are estimated in frequentist statistics*
 
 <br>
 
@@ -53,7 +58,7 @@ Measure of belief: how likely is the outcome?
 
 ## Axioms of probability 1 & 2
 
-1.  Probability of an event is between 0 (can't happen) and 1 (will definitely happen)
+1.  Probability of an event is between 0 (can't happen) and 1 (must happen)
 
 $$ 0 \leq P(e) \leq 1 $$
 
@@ -136,7 +141,7 @@ P(B \mid AC) = P(B \mid C)\\
 P(AB \mid C) = P( A \mid C)P( B \mid C)
 $$
 
-Example: Are height and vocabulary independent?
+Example: Are human height and vocabulary independent?
 
 ## Conditional independence
 
@@ -148,9 +153,9 @@ P(B \mid AC) = P(B \mid C)\\
 P(AB \mid C) = P( A \mid C)P( B \mid C)
 $$
 
-Example: Are height and vocabulary independent?
+Example: Are human height and vocabulary independent?
 
-> No, shorter humans are often children with less vocabulary. But height and vocabulary are likely independent given (conditioned on) a person being \>19 years old
+> No, shorter humans tend to know less vocabulary because they are often children. But height and vocabulary are likely independent **conditioned on** a person is \>19 years old
 
 ## Bayes theorem
 
@@ -158,21 +163,127 @@ $$
 P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
 $$
 
-Classic example:
+<br>
+
+Estimating the post-test probability of disease is a classic example:
 
 $$
-P(\text{disease} | \text{test positive}) = \frac{P(\text{test positive} \mid \text{disease}) \times P(\text{disease})}{P(\text{test positive})}
+P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+}) \times P(\text{disease+})}{P(\text{test+})}
 $$
+
+## Contingency table for binary test
+
+Here is a **contingency table** (or 2x2 table) described a population of 10,000 who were screened for a disease with a test. It's useful to also have the marginal sums.
+
+<br>
+
+*Copy and paste this code and run on your computer*
+
+```{r}
+#| echo: true
+disease = c(rep(0,9500), rep(1,500))
+test_pos = c(rep(1,285), rep(0, 10000 - 285 - 163), rep(1, 163))
+table(disease, test_pos)|> addmargins()
+```
+
+## Prevalence, sensitivity, specificity
+
+```{r}
+#| echo: false
+disease = c(rep(0,9500), rep(1,500))
+test_pos = c(rep(1,285), rep(0, 10000 - 285 - 163), rep(1, 163))
+table(disease, test_pos)  |> addmargins()
+```
+
+<br>
+
+From the data, estimate:
+
+-   Prevalence $P(disease+)$
+
+-   Sensitivity $P(test + \mid disease+)$
+
+-   Specificity $P(test - \mid disease-)$
+
+## Prevalence, sensitivity, specificity
+
+```{r}
+#| echo: false
+disease = c(rep(0,9500), rep(1,500))
+test_pos = c(rep(1,285), rep(0, 10000 - 285 - 463), rep(1, 463))
+table(disease, test_pos)  |> addmargins()
+```
+
+Prevalence $P(disease+)$: `r sum(disease)/length(disease)`
+
+`sum(disease)/length(disease)`
+
+Sensitivity $P(test + \mid disease+)$: `r sum(test_pos*disease)/sum(disease)`
+
+`sum(test_pos*disease)/sum(disease)`
+
+Specificity $P(test - \mid disease-)$: `r sum((1-test_pos)*(1-disease))/sum(1-disease)`
+
+`sum((1-test_pos)*(1-disease))/sum(1-disease)`
+
+## Pre- and post-test probability
+
+```{r}
+#| echo: false
+disease = c(rep(0,9500), rep(1,500))
+test_pos = c(rep(1,285), rep(0, 10000 - 285 - 163), rep(1, 163))
+table(disease, test_pos)  |> addmargins()
+```
+
+We test a new person from the same population. What is their:
+
+-   Pre-test probability of having the disease?
+
+-   Post-test probability if they test positive (positive predictive value)?
+
+-   Post-test probability if they test negative (one minus negative predictive value)?
+
+## Pre- and post-test probability
+
+```{r}
+#| echo: false
+disease = c(rep(0,9500), rep(1,500))
+test_pos = c(rep(1,285), rep(0, 10000 - 285 - 163), rep(1, 163))
+table(disease, test_pos)  |> addmargins()
+```
+
+<br>
+
+Pre-test probability = prevalence = $P(disease+)=$ `r sum(disease)/length(disease)`
+
+PPV = $P(disease+ \mid test+)$ = `r sum(disease*test_pos)/sum(test_pos)` `sum(disease*test_pos)/sum(test_pos)`
+
+1 - NPV = $P(disease+ \mid test-)$= `r sum(disease*(1-test_pos))/sum(1-test_pos)`
+
+`sum(disease*(1-test_pos))/sum(1-test_pos)`
 
 ## Bayesian updating
 
-**Prior:** distribution
+Estimate parameter $\theta$ with prior distribution $P(\theta)$ and data $x$:
 
-**Posterior:** Probability
+$$
+P( \theta \mid x) = \frac{P(x \mid \theta) \times P(\theta)}{P(x)}, \text{  }
+\text{Posterior} = \frac{\text{Likelihood} \times Prior}{Evidence}
+$$
 
-**Likelihood:** distribution
+**Posterior** $P(\theta \mid x)$: updated belief after seeing data
 
-## Priors, likelihood, posterior
+**Prior** $P(\theta)$: belief before receiving data
+
+**Likelihood** $P(x \mid \theta)$: probability of the data given prior
+
+**Probability of the data/evidence** $P(x)$: think of it as a normalization factor (less important)
+
+## Post-test probability as Bayesian updating
+
+$$
+P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+}) \times P(\text{disease+})}{P(\text{test+})}
+$$ What is my prior? Likelihood? Posterior?
 
 ## Expected value of a random variable
 
@@ -200,15 +311,143 @@ $$
 :::
 :::
 
-## Beta distribution
+## Belief about a probability
 
-## Sampling from distributions
+We model binary events with the **Bernoulli** distribution:
 
-## Two-by-two table
+$$
+x \sim Bernoulli(p) =
+\begin{cases}
+1 & \text{with probability } p\\
+0 & \text{with probability } 1-p
+\end{cases}
+$$
 
-http://courses.washington.edu/inde411/DecisionAnalysis2015(part1).pdf
+The **beta distribution** can describe our belief about a probability $p$
 
-## Expected payoff
+$$
+p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta - 1}
+$$
+
+## Beta distribution properties
+
+::: columns
+::: {.column width="45%"}
+-   Range $[0,1]$
+
+-   Shape parameter $\alpha > 0$
+
+-   Scale parameter $\beta > 0$
+
+-   Mean $E[X] = \frac{\alpha}{\alpha+\beta}$
+:::
+
+::: {.column width="55%"}
+![https://en.wikipedia.org/wiki/Beta_distribution](PDF_of_the_Beta_distribution.gif){fig-align="center" width="400"}
+:::
+:::
+
+## Beta distribution and binomial experiments
+
+-   In binomial experiments (repeated independent Bernoulli trials), we view several manifestations of a bernoulli variable
+
+    -   Binomial distribution describes how many positives we expect to see based on probability $p$ and number of trials $n$
+
+-   If a binomial trial results in $E$ events and $N$ non-events, $p \sim Beta(\alpha=E,\beta=N)$ describes our uncertainty in $p$
+
+## Bayesian updating with beta
+
+In a small drug study, 1 in 3 patients had a side-effect. If we have no other information, our uncertainty in the probability of side-effects can be represented as:
+
+$$
+p \sim Beta(\alpha = 1, \beta = 2)
+$$
+
+```{r}
+#| echo: true
+p = seq(0, 1, length=1000)
+plot(p, dbeta(p, 1, 2), type='l')
+```
+
+## Bayesian updating with beta
+
+We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?
+
+## Bayesian updating with beta
+
+We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?
+
+$$
+p \sim Beta(\alpha = 5, \beta = 38)
+$$
+
+```{r}
+#| echo: true
+plot(p, dbeta(p, 5, 38), type='l')
+```
+
+## Bayesian updating with beta
+
+If we treat 10,000 patients and 1,230 have a side effect:
+
+```{r}
+#| echo: true
+plot(p, dbeta(p, 1230, 10000 - 1230), type='l')
+```
+
+## Beta distribution summary
+
+-   Describes our belief about a probability's value
+
+-   Direct mapping between $\alpha$ and $\beta$ and the success/failure count in repeated Bernoulli trials (binomial experiment)
+
+-   As we collect data:
+
+    -   $\alpha$ and $\beta$ grow
+
+    -   Our certainty increases
+
+    -   The distribution gets more concentrated
+
+## Beta updating animation^1^
+
+::: columns
+::: {.column width="25%"}
+![](priors.webp){fig-align="left"}
+
+Priors ↑
+
+Posteriors ↓
+
+![](posteriors.webp){fig-align="left"}
+:::
+
+::: {.column width="40%"}
+![](updating_priors.webp)
+:::
+
+::: {.column width="35%"}
+**Priors**:
+
+Beta(5,5)
+
+Beta(75,75)
+
+**Data**:
+
+145 successes
+
+208 trials
+
+**Posteriors**:
+
+Beta(150, 68)
+
+Beta(220, 138)
+:::
+:::
+
+^1^ <https://www.r-bloggers.com/2020/04/an-animated-example-of-bayesian-updating/>
 
 ## Today
 
@@ -216,21 +455,27 @@ http://courses.washington.edu/inde411/DecisionAnalysis2015(part1).pdf
 
 -   **Decision trees**
 
-## Conventional decision tree design
+## Decision tree convention
 
-::: columns
-::: {.column width="50%"}
--   Starts with one node; ends in terminal nodes
+-   Nodes connected by branches
 
 -   Grows from left to right
 
--   Nodes connected by edges
+-   Starts with a 'decision node'; ends in 'terminal nodes'
 
--   "Payoff" received at terminal nodes (sometimes, receive payoff along the way)
+-   "Payoffs" received at terminal nodes (sometimes, receive payoff along the way)
+
+## Decision tree symbols
+
+::: columns
+::: {.column width="50%"}
+![](decision_tree_nodes.svg)
 :::
 
 ::: {.column width="50%"}
-![](decision_tree_nodes.svg)
+-   Branches from decision trees represent choices or alternatives
+
+-   Branches from chance nodes represent random possibilities
 :::
 :::
 
@@ -270,14 +515,42 @@ http://courses.washington.edu/inde411/DecisionAnalysis2015(part1).pdf
 
 ## All probabilities are conditional
 
-## 
-
 ## Evaluating decision tree
 
 ## Handling multiple decision nodes
 
-## Strengths of decision tree
+## Strengths of decision trees
 
-## Limitations of decision tree
+-   Intuitive to build and communicate
+
+-   Easy to quickly compute
+
+-   Can be combined with other modeling methods
+
+## Limitations of decision trees
+
+-   Discrete possibility space
+
+-   No time dimension
+
+-   Not great for chronic conditions or recurring risks
 
 ## Recap
+
+-   Key probability building blocks:
+
+    -   Conditional probability
+
+    -   Bayesian updating
+
+    -   Beta distribution
+
+-   Decision trees are simple, flexible, useful decision models
+
+-   "Roll back" the decision tree to calculate the expected value of each outcome
+
+## Logistics
+
+-   Assignment 0 due 11:59pm today
+
+-   Assignment 1 (cost-effectiveness, decision trees) due Wednesday 1/18
