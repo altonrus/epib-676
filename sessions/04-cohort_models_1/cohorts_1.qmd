@@ -1,0 +1,292 @@
+---
+title: "Cohort models 1"
+subtitle: "EPIB  676 session 4, McGill University"
+author: "Alton Russell"
+date: "13 Jan 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Discrete-time cohort state-transition models**
+
+-   Matrix solution
+
+-   Cohort simulation
+
+## Packages
+
+```{r}
+#| echo: true
+library(heemod)
+
+```
+
+## **Cohort state-transition models**
+
+-   Dynamic mathematical model
+
+-   A hypothetical cohort of individuals transition between health states over time.
+
+-   Classical example is the Markov model, where transition probabilities
+
+    -   Are constant
+
+    -   Depend only on your current state
+
+## When to use?
+
+-   Decision problem has a dynamic component
+
+    -   Disease process can vary over time
+
+-   Can be described with a reasonable number of health states
+
+## **States**
+
+-   Mutually exclusive and exhaustive
+
+-   Individuals in the same state treated as identical
+
+    -   same costs, same health outcomes
+
+    -   same probability of transitioning out (no matter how long they've been there)
+
+-   **Possible state names:** healthy, acute infection, chronic infection, cirrhosis, untreated disease, in treatment, on wait list, lost to follow-up, dead...
+
+## Transitions, cycles, time horizon
+
+-   Only transition at end of a cycle
+
+-   Cycle duration is a design choice (second, day, month, quarter, year...)
+
+-   Time horizon = cycle duration x number of cycles
+
+## Transition matrix
+
+::: columns
+::: {.column width="50%"}
+$$
+\begin{bmatrix}
+p_{s_1 \rightarrow s_1} & p_{s_1 \rightarrow s_2} & p_{s_1 \rightarrow s_3}\\
+p_{s_2 \rightarrow s_1} & p_{s_2 \rightarrow s_2} & p_{s_2 \rightarrow s_3}\\
+p_{s_3 \rightarrow s_1} & p_{s_3 \rightarrow s_2} & p_{s_3 \rightarrow s_3}
+\end{bmatrix}
+$$
+:::
+
+::: {.column width="50%"}
+-   $n_s \times n_s$ matrix of transition probabilities
+
+-   Rows correspond to "**from**" state (sum to 1)
+
+-   Columns correspond to "**to**" states
+:::
+:::
+
+## Transition matrix example
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+#| eval: false
+mat_dim <- 
+  define_transition(
+    state_names = 
+      c('A', 'B', 'C'),
+   .3, .6, .1, 
+   .2, .5, .3,
+    0,  0,  1)
+
+plot(mat_dim)
+```
+
+::: {.column width="50%"}
+```{=tex}
+\begin{bmatrix}
+0.3 & 0.6 & 0.1\\
+0.2 & 0.5 & 0.3\\
+0 & 0 & 1
+\end{bmatrix}
+```
+:::
+:::
+
+::: {.column width="60%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+mat_dim <- define_transition(
+  state_names = 
+  c('A', 'B', 'C'),
+   .3, .6, .1, 
+   .2, .5, .3,
+    0,  0,  1)
+plot(mat_dim)
+
+```
+:::
+:::
+
+## Absorbing states
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+mat_dim <- 
+  define_transition(
+    state_names = 
+      c('Alive', 'Dead'),
+   .9, .1,
+   0, 1)
+plot(mat_dim)
+```
+
+$$
+\begin{bmatrix}
+0.9 & 0\\
+0 & 1
+\end{bmatrix}
+$$
+:::
+
+::: {.column width="50%"}
+-   No escape
+
+-   Most common example: death
+
+-   Transition matrix row has a 1 on diagonal entry, all other entries 0
+:::
+:::
+
+## Tunnel states
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+mat_dim <- 
+  define_transition(
+    state_names = 
+      c('HIV-', 'HIV infection', 'HIV+'),
+   .9, .1, 0,
+   0, 0, 1,
+   0, 0, 1)
+plot(mat_dim)
+```
+
+$$
+\begin{pNiceMatrix}[first-row,last-row,first-col,last-col]
+    & C_1 & C_2 & C_3 & C_4       \\
+L_1 & a   & b   & c   & d   & L_1 \\
+L_2 & e   & f   & g   & h   & L_2 \\
+L_3 & i   & j   & k   & l   & L_3 \\
+    & C_1 & C_2 & C_3 & C_4       \\
+\end{pNiceMatrix}
+$$
+
+-   Temporary state for 1 cycle
+
+-   A 'workaround' for the Markov property. If costs, outcomes, or transitions differ for beginning or end period of health condition, break it into tunnel states
+:::
+:::
+
+## Initial state vector $m_0$
+
+-   $1 \times n_s$ vector showing how cohort is distributed at time 0
+
+-   Sum of the vector is the total cohort size
+
+-   Everyone can be in one state
+
+::: {.column width="50%"}
+\begin{bmatrix}
+HIV- & 0.9 & 0.1 & 0\\
+HIV infection & 0 & 0 & 1\\
+HIV+ & 0 & 0 & 1
+\end{bmatrix}
+:::
+
+$$
+\begin{bmatrix}
+10,000 & 0 & 0 & 0\\
+\end{bmatrix}
+$$
+
+-   Or spread across the states
+
+```{=tex}
+\begin{bmatrix}
+2,000 & 3,000 & 1,000 & 4,000\\
+\end{bmatrix}
+```
+## Rates and probabilities
+
+-   Transition probabilities are probability of making the transition during a cycle
+
+-   Available data may
+
+    -   be a probability for a different cycle length (e.g., 2-year probability instead of 6 month)
+
+    -   Be reported as a rate (e.g., 200 events per person-year)
+
+-   Rates are instintaneous force of an event
+
+-   Probability is the cumulative risk over a defined period
+
+## Converting rates to probabilities
+
+Generating an annual probablity $p_{year}$ from an event rate $r$ with units events/year:
+
+$$
+p_{year} = 1 - exp(-r); r = log(
+$$
+
+Example:
+
+-   In a population of 800, 87 became ill over a 20 year period
+
+-   $r = 87/(2 \times 800) = 0.0544$ illnesses/year
+
+-   $p_{year} = 1 - exp(-0.0544) = 0.0529$
+
+## Prob → rate → prob
+
+-   If probability is for a duration that doesn't match your cycle length, you **can not** simply multiply/divide
+
+-   Instead convert to a rae
+
+## Time horizon
+
+## Closed and open populations
+
+## 
+
+## Today
+
+-   Discrete-time cohort state-transition models
+
+-   **Matrix solution**
+
+-   Cohort simulation
+
+## Today
+
+-   Discrete-time cohort state-transition models
+
+-   Matrix solution
+
+-   **Cohort simulation**
+
+## Recap
+
+## Logistics
+
+-   Assignment 1 (cost-effectiveness, decision trees) due Wednesday 1/18

@@ -7,18 +7,11 @@ format: revealjs
 editor: visual
 ---
 
-## Logistics
+## Today
 
 ```{r}
 library(flextable)
-
 ```
-
--   Assignment 0 due 11:59pm today
-
--   Assignment 1 due Wednesday 1/18
-
-## Today
 
 -   **Key probability concepts**
 
@@ -50,7 +43,7 @@ Measure of belief: how likely is the outcome?
 
 **Sample space (**$\Omega$**):** set of all possible outcomes
 
-**Event:** one outcome or a set of outcomes (subset of sample space)
+**Event:** one outcome or set of outcomes (subset of sample space)
 
 <br>
 
@@ -121,7 +114,7 @@ $$
 
 ## Independent events
 
-If $A \perp \!\!\! \perp B$, the A occurring doesn't effect B's probability and B occurring doesn't effect A's probability
+If $A \perp \!\!\! \perp B$, A occurring doesn't effect B's probability and B occurring doesn't effect A's probability
 
 $$
 P(A) = P(A \mid B)\\
@@ -160,7 +153,7 @@ Example: Are human height and vocabulary independent?
 ## Bayes theorem
 
 $$
-P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)}
 $$
 
 <br>
@@ -168,12 +161,12 @@ $$
 Estimating the post-test probability of disease is a classic example:
 
 $$
-P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+}) \times P(\text{disease+})}{P(\text{test+})}
+P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+})P(\text{disease+})}{P(\text{test+})}
 $$
 
 ## Contingency table for binary test
 
-Here is a **contingency table** (or 2x2 table) described a population of 10,000 who were screened for a disease with a test. It's useful to also have the marginal sums.
+This 2x2 table (with marginal totals) describes results from screening 10,000 people for a disease
 
 <br>
 
@@ -187,6 +180,9 @@ table(disease, test_pos)|> addmargins()
 ```
 
 ## Prevalence, sensitivity, specificity
+
+::: columns
+::: {.column width="65%"}
 
 ```{r}
 #| echo: false
@@ -204,6 +200,14 @@ From the data, estimate:
 -   Sensitivity $P(test + \mid disease+)$
 
 -   Specificity $P(test - \mid disease-)$
+:::
+
+::: {.column width="35%"}
+$$
+P(A \mid B)=\frac{P(AB)}{P(B)}
+$$
+:::
+:::
 
 ## Prevalence, sensitivity, specificity
 
@@ -267,7 +271,7 @@ PPV = $P(disease+ \mid test+)$ = `r sum(disease*test_pos)/sum(test_pos)` `sum(di
 Estimate parameter $\theta$ with prior distribution $P(\theta)$ and data $x$:
 
 $$
-P( \theta \mid x) = \frac{P(x \mid \theta) \times P(\theta)}{P(x)}, \text{  }
+P( \theta \mid x) = \frac{P(x \mid \theta)  P(\theta)}{P(x)}, \text{  }
 \text{Posterior} = \frac{\text{Likelihood} \times Prior}{Evidence}
 $$
 
@@ -277,7 +281,7 @@ $$
 
 **Likelihood** $P(x \mid \theta)$: probability of the data given prior
 
-**Probability of the data/evidence** $P(x)$: think of it as a normalization factor (less important)
+**Probability of the data/evidence** $P(x)$: think of it as a normalization factor
 
 ## Post-test probability as Bayesian updating
 
@@ -313,7 +317,7 @@ $$
 
 ## Belief about a probability
 
-We model binary events with the **Bernoulli** distribution:
+Binary random events follow a **Bernoulli** distribution:
 
 $$
 x \sim Bernoulli(p) =
@@ -323,7 +327,7 @@ x \sim Bernoulli(p) =
 \end{cases}
 $$
 
-The **beta distribution** can describe our belief about a probability $p$
+The **beta distribution** models our belief/uncertainty about a probability $p$
 
 $$
 p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta - 1}
@@ -339,7 +343,7 @@ $$
 
 -   Scale parameter $\beta > 0$
 
--   Mean $E[X] = \frac{\alpha}{\alpha+\beta}$
+-   Mean $E[p] = \frac{\alpha}{\alpha+\beta}$
 :::
 
 ::: {.column width="55%"}
@@ -349,18 +353,20 @@ $$
 
 ## Beta distribution and binomial experiments
 
--   In binomial experiments (repeated independent Bernoulli trials), we view several manifestations of a bernoulli variable
+-   In binomial experiments (repeated independent Bernoulli trials), we observe n realizations of a bernoulli variable (e.g., \[0,0,1,0,1,1,...\])
 
-    -   Binomial distribution describes how many positives we expect to see based on probability $p$ and number of trials $n$
+    -   Binomial distribution describes how many 1's we expect based on probability $p$ and number of trials $n$
 
--   If a binomial trial results in $E$ events and $N$ non-events, $p \sim Beta(\alpha=E,\beta=N)$ describes our uncertainty in $p$
+-   For a binomial trial with $E$ events (1's) and $N$ non-events (0's):
+
+    -   $p \sim Beta(\alpha=E,\beta=N)$ describes our uncertainty in $p$
 
 ## Bayesian updating with beta
 
 In a small drug study, 1 in 3 patients had a side-effect. If we have no other information, our uncertainty in the probability of side-effects can be represented as:
 
 $$
-p \sim Beta(\alpha = 1, \beta = 2)
+p \sim Beta(\alpha = 1, \beta = 2) \quad E[p] = 0.333
 $$
 
 ```{r}
@@ -378,7 +384,7 @@ We administer to 40 new patients, and 4 of them have a side effect. What distrib
 We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?
 
 $$
-p \sim Beta(\alpha = 5, \beta = 38)
+p \sim Beta(\alpha = 5, \beta = 38) \quad E[p] = 0.116
 $$
 
 ```{r}
@@ -390,6 +396,10 @@ plot(p, dbeta(p, 5, 38), type='l')
 
 If we treat 10,000 patients and 1,230 have a side effect:
 
+$$
+p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
+$$
+
 ```{r}
 #| echo: true
 plot(p, dbeta(p, 1230, 10000 - 1230), type='l')
@@ -399,7 +409,7 @@ plot(p, dbeta(p, 1230, 10000 - 1230), type='l')
 
 -   Describes our belief about a probability's value
 
--   Direct mapping between $\alpha$ and $\beta$ and the success/failure count in repeated Bernoulli trials (binomial experiment)
+-   Parameters $\alpha$ and $\beta$ map to event and non-event counts from a binomial experiment
 
 -   As we collect data:
 
@@ -468,21 +478,21 @@ Beta(220, 138)
 ## Decision tree symbols
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="40%"}
 ![](decision_tree_nodes.svg)
 :::
 
 ::: {.column width="50%"}
--   Branches from decision trees represent choices or alternatives
+-   Things we control are decisions
 
--   Branches from chance nodes represent random possibilities
+-   Random events are chances
 :::
 :::
 
-## Mapping parameters to decision tree structure
+## Parameters and tree structure
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="60%"}
 **Alternatives**
 
 **Random events**
@@ -494,16 +504,16 @@ Beta(220, 138)
 **Health effects (e.g., QALYs)**
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 ![](decision_tree_nodes.svg)
 :::
 :::
 
-## Mapping parameters to decision tree structure
+## Parameters and tree structure
 
-**Alternatives** → branches from a decision node **▢**
+**Alternatives (actions)** → branches from a decision node **▢**
 
-**Random events** → branches from a chance node ◯
+**Random events (reactions)** → branches from a chance node ◯
 
 **Probabilities** → assigned to branches from a chance node
 
@@ -511,13 +521,220 @@ Beta(220, 138)
 
 **Health effects** → Payoffs (at terminal nodes △ or along the way)
 
-## Example tree
+## Parameters are conditional
 
-## All probabilities are conditional
+::: columns
+::: {.column width="60%"}
+![](tree_example.svg)
+:::
 
-## Evaluating decision tree
+::: {.column width="40%"}
+-   Probabilities from chance nodes must sum to 1
 
-## Handling multiple decision nodes
+-   Probabilities conditional on earlier events
+
+-   Terminal node outcomes are specific to the path
+:::
+:::
+
+## Preventing stent for vascular disease[^1]
+
+[^1]: Source: [rdecision package vignette](https://cran.rstudio.com/web/packages/rdecision/vignettes/DT00-DecisionTreeTutorial.html)
+
+**Decision**: offer a diet or exercise program?
+
+**Chances**: will they need a stent?
+
+**Outcome**: cost, QALYs lost related to receiving a stent
+
+**Time horizon:** one year
+
+## Stent prevention tree
+
+```{r}
+#Use install.packages("XXXX") if you don't have any of these installed
+library(rdecision) #decision trees
+library(flextable) #Formatting tables to display (https://davidgohel.github.io/flextable/reference/index.html)
+library(ggplot2) #Plotting
+library(readxl) #for read_excel()
+library(dplyr) # I use mutate at one point
+theme_set(theme_bw()) #Makes ggplots look better
+
+# Decision problem: Should we use diet or excercise to reduce chance of needing a stent in a high-risk population?
+
+# Parameters
+c_diet <- 50 #cost of diet
+c_excercise <- 750 #cost of exercise
+c_stent <- 5000 #cost of a stent
+u_stent <- 0.75 #utility of getting a stent (relative to 1.0)
+p_stent_diet <- (68 - 12)/68 #probability needing stent if we diet
+p_stent_exercise <- (58 - 18)/58 #probability of needing a stent if we exercise
+
+#Build model using rdecision package
+
+#Create decision and chance nodes
+decision_node <- DecisionNode$new("Diet or excercise")
+chance_node_diet <- ChanceNode$new("Stent?")
+chance_node_exercise <- ChanceNode$new("Stent?")
+
+#Create leaf nodes
+leaf_node_diet_no_stent <- LeafNode$new("No stent")
+leaf_node_diet_stent <- LeafNode$new("Stent", utility = u_stent)
+leaf_node_exercise_no_stent <- LeafNode$new("No stent")
+leaf_node_exercise_stent <- LeafNode$new("Stent", utility = u_stent)
+
+#Create 'actions', paths from your decision node(s)
+action_diet <- Action$new(
+  decision_node, chance_node_diet, cost = c_diet, label = "Diet"
+)
+action_exercise <- Action$new(
+  decision_node, chance_node_exercise, cost = c_excercise, label = "Exercise"
+)
+
+#Create 'reactions', paths from your chance node(s)
+reaction_diet_success <- Reaction$new(
+  chance_node_diet, leaf_node_diet_no_stent, 
+  p = 1-p_stent_diet, cost = 0.0, label = "Did not need stent")
+
+reaction_diet_failure <- Reaction$new(
+  chance_node_diet, leaf_node_diet_stent, 
+  p = p_stent_diet, cost = c_stent, label = "Needed stent")
+
+reaction_exercise_success <- Reaction$new(
+  chance_node_exercise, leaf_node_exercise_no_stent, 
+  p = 1-p_stent_exercise, cost = 0.0, label = "Did not need stent")
+
+reaction_exercise_failure <- Reaction$new(
+  chance_node_exercise, leaf_node_exercise_stent, 
+  p = p_stent_exercise, cost = 5000.0, label = "Needed stent")
+
+#Create, draw, and evaluate the tree
+DT1 <- DecisionTree$new(
+  V = list(decision_node, #verticies (nodes)
+           chance_node_diet, 
+           chance_node_exercise, 
+           leaf_node_diet_no_stent, 
+           leaf_node_diet_stent, 
+           leaf_node_exercise_no_stent, 
+           leaf_node_exercise_stent),
+  E = list(action_diet, #edges (paths between nodes)
+           action_exercise,
+           reaction_diet_success,
+           reaction_diet_failure,
+           reaction_exercise_success,
+           reaction_exercise_failure)
+)
+
+DT1$draw() #Plot it
+```
+
+## Stent prevention data
+
+The healthcare provider cost of the stent is **5000 GBP**; the cost of providing lifestyle advice, an appointment with a dietician, is **50 GBP** and the cost of the exercise programme, is **750 GBP**.
+
+In a small trial of the "diet" programme, **12 out of 68** patients (17.6%) avoided having a procedure, and in a separate small trial of the "exercise" programme **18 out of 58** patients (31.0%) avoided the procedure (it is assumed that the baseline characteristics in the two trials were comparable). A stent leads to one year with a health state utility of **0.75**.
+
+## Stent prevention parameters
+
+```{r}
+#| echo: true
+# Parameters
+c_diet <- 50 #cost of diet intervention
+c_excercise <- 750 #cost of exercise
+c_stent <- 5000 #cost of a stent
+qaly_stent <- 0.75 #QALYs experienced with stent
+qaly_no_stent <- 1 #QALYs experienced withou stent
+p_stent_diet <- (68 - 12)/68 #prob. needing stent if diet
+p_stent_exercise <- (58 - 18)/58 #prob. needing a stent if exercise
+```
+
+## Evaluating (rolling back) a tree
+
+-   For each chance node from **right to left**, calculate the expected value of each outcome
+
+    -   Cost, health outcome, etc.
+
+-   Leaves us with expect value of each choice at the root decision node
+
+::: {.column width="50%"}
+$$
+E[x] = \sum_{i=1}^I x_iP(x_i)
+$$
+:::
+
+## Roll back: cost minimization example
+
+![](rollback_tree_1.svg)
+
+## Roll back: cost minimization example
+
+![](rollback_tree_2.svg)
+
+## Roll back: cost minimization example
+
+![](rollback_tree_3.png)
+
+## Stent prevention tree
+
+```{r}
+DT1$draw() #Plot it
+```
+
+## Roll back stent prevention
+
+```{r}
+#| echo: true
+# Parameters
+c_diet <- 50 #cost of diet intervention
+c_excercise <- 750 #cost of exercise
+c_stent <- 5000 #cost of a stent
+qaly_stent <- 0.75 #QALYs experienced with stent
+qaly_no_stent <- 1 #QALYs experienced withou stent
+p_stent_diet <- (68 - 12)/68 #prob. needing stent if diet
+p_stent_exercise <- (58 - 18)/58 #prob. needing a stent if exercise
+
+exp_tot_cost_diet = NA
+exp_tot_cost_excercise = NA
+exp_qaly_diet = NA
+exp_qaly_excercise = NA
+ICER = NA
+```
+
+## Roll back stent prevention
+
+```{r}
+#| echo: true
+exp_tot_cost_diet = c_diet + p_stent_diet*c_stent
+exp_tot_cost_diet
+exp_tot_cost_excercise = c_excercise + p_stent_exercise*c_stent
+exp_tot_cost_excercise
+exp_qaly_diet = qaly_stent*p_stent_diet + qaly_no_stent*(1-p_stent_diet)
+exp_qaly_diet
+exp_qaly_excercise = qaly_stent*p_stent_exercise + qaly_no_stent*(1-p_stent_exercise)
+exp_qaly_excercise
+ICER_excer_vs_diet = (exp_tot_cost_excercise - exp_tot_cost_diet)/(exp_qaly_excercise - exp_qaly_diet)
+ICER_excer_vs_diet #GBP per QALY
+```
+
+## Rollback with sequential decisions
+
+::: columns
+::: {.column width="65%"}
+![](sequential_tree.jpg){width="600"}
+
+Source: [Suner et. al. 2012](https://doi-org.proxy3.library.mcgill.ca/10.1016/j.artmed.2012.05.003)
+:::
+
+::: {.column width="35%"}
+For 'downstream' decision nodes:
+
+-   Roll back to each decision node
+
+-   Select the preferred branch (based on framework)
+
+-   Continue to root decision node
+:::
+:::
 
 ## Strengths of decision trees
 
@@ -543,11 +760,11 @@ Beta(220, 138)
 
     -   Bayesian updating
 
-    -   Beta distribution
+    -   Beta distribution for uncertainty in probabilities
 
 -   Decision trees are simple, flexible, useful decision models
 
--   "Roll back" the decision tree to calculate the expected value of each outcome
+-   "Roll back" the decision tree to calculate the expected value of each outcome under each alternative
 
 ## Logistics
 

@@ -46,7 +46,7 @@ In the following code block, simulate a single instance of the Monty Hall proble
 
 ```{r}
 
-# Randomly assign the prize to a door. Replace NA with a function that will return the number 1, 2, or 3 with equal probability. Hint: type ?sample in the console
+# Randomly assign the prize to a door. Replace NA with a function that will return the number 1, 2, or 3 with equal probability. Hint: type '?sample' in the console
 prize <- NA
 
 # Randomly pick a door. Should also be 1, 2, or 3 with equal probability
@@ -55,10 +55,10 @@ choice <- NA
 # List Monty's options for which door to reveal. He cannot reveal your choice or the door with the car (could be the same door). Start with the list 1, 2, or 3, but then remove the option(s) corresponding to the prize and to your choice.
 monty_options <- NA
 
-# Randomly select one of the doors in Monte's options for him to reveal
+# Randomly select one of the doors from Monty's options for him to reveal
 monty_reveal <- NA
 
-#Assign the variable optimal_choice with 'stay' if it's better to stay with your choice and with 'switch' if it's better to switch. Type ?ifelse into the console for help.
+#Assign the variable optimal_choice with 'stay' if it's better to stay with your choice and with 'switch' if it's better to switch. Type '?ifelse' into the console for help.
 optimal_choice <- NA
 
 # Check your output by printing each variable to the console. Rerun this whole code chunk multiple times and then look at the printed variables to make sure you see what you expect.

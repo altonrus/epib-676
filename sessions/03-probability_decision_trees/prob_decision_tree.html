@@ -401,18 +401,11 @@ Alton Russell
 
   <p class="date">1/11/23</p>
 </section>
-<section id="logistics" class="slide level2">
-<h2>Logistics</h2>
+<section id="today" class="slide level2">
+<h2>Today</h2>
 <div class="cell">
 
 </div>
-<ul>
-<li><p>Assignment 0 due 11:59pm today</p></li>
-<li><p>Assignment 1 due Wednesday 1/18</p></li>
-</ul>
-</section>
-<section id="today" class="slide level2">
-<h2>Today</h2>
 <ul>
 <li><p><strong>Key probability concepts</strong></p></li>
 <li><p>Decision trees</p></li>
@@ -436,7 +429,7 @@ Alton Russell
 <section id="sample-space-and-events" class="slide level2">
 <h2>Sample space and events</h2>
 <p><strong>Sample space (</strong><span class="math inline">\(\Omega\)</span><strong>):</strong> set of all possible outcomes</p>
-<p><strong>Event:</strong> one outcome or a set of outcomes (subset of sample space)</p>
+<p><strong>Event:</strong> one outcome or set of outcomes (subset of sample space)</p>
 <p><br></p>
 
 <img data-src="sample_space.svg" class="r-stretch"></section>
@@ -499,7 +492,7 @@ P(B \mid A) = 0
 </section>
 <section id="independent-events" class="slide level2">
 <h2>Independent events</h2>
-<p>If <span class="math inline">\(A \perp \!\!\! \perp B\)</span>, the A occurring doesn’t effect B’s probability and B occurring doesn’t effect A’s probability</p>
+<p>If <span class="math inline">\(A \perp \!\!\! \perp B\)</span>, A occurring doesn’t effect B’s probability and B occurring doesn’t effect A’s probability</p>
 <p><span class="math display">\[
 P(A) = P(A \mid B)\\
 P(B) = P(B \mid A)\\
@@ -533,17 +526,17 @@ P(AB \mid C) = P( A \mid C)P( B \mid C)
 <section id="bayes-theorem" class="slide level2">
 <h2>Bayes theorem</h2>
 <p><span class="math display">\[
-P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)}
 \]</span></p>
 <p><br></p>
 <p>Estimating the post-test probability of disease is a classic example:</p>
 <p><span class="math display">\[
-P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+}) \times P(\text{disease+})}{P(\text{test+})}
+P(\text{disease+} | \text{test+}) = \frac{P(\text{test+} \mid \text{disease+})P(\text{disease+})}{P(\text{test+})}
 \]</span></p>
 </section>
 <section id="contingency-table-for-binary-test" class="slide level2">
 <h2>Contingency table for binary test</h2>
-<p>Here is a <strong>contingency table</strong> (or 2x2 table) described a population of 10,000 who were screened for a disease with a test. It’s useful to also have the marginal sums.</p>
+<p>This 2x2 table (with marginal totals) describes results from screening 10,000 people for a disease</p>
 <p><br></p>
 <p><em>Copy and paste this code and run on your computer</em></p>
 <div class="cell">
@@ -561,6 +554,8 @@ disease     0     1   Sum
 </section>
 <section id="prevalence-sensitivity-specificity" class="slide level2">
 <h2>Prevalence, sensitivity, specificity</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>       test_pos
@@ -577,6 +572,12 @@ disease     0     1   Sum
 <li><p>Sensitivity <span class="math inline">\(P(test + \mid disease+)\)</span></p></li>
 <li><p>Specificity <span class="math inline">\(P(test - \mid disease-)\)</span></p></li>
 </ul>
+</div><div class="column" style="width:35%;">
+<p><span class="math display">\[
+P(A \mid B)=\frac{P(AB)}{P(B)}
+\]</span></p>
+</div>
+</div>
 </section>
 <section id="prevalence-sensitivity-specificity-1" class="slide level2">
 <h2>Prevalence, sensitivity, specificity</h2>
@@ -635,13 +636,13 @@ disease     0     1   Sum
 <h2>Bayesian updating</h2>
 <p>Estimate parameter <span class="math inline">\(\theta\)</span> with prior distribution <span class="math inline">\(P(\theta)\)</span> and data <span class="math inline">\(x\)</span>:</p>
 <p><span class="math display">\[
-P( \theta \mid x) = \frac{P(x \mid \theta) \times P(\theta)}{P(x)}, \text{  }
+P( \theta \mid x) = \frac{P(x \mid \theta)  P(\theta)}{P(x)}, \text{  }
 \text{Posterior} = \frac{\text{Likelihood} \times Prior}{Evidence}
 \]</span></p>
 <p><strong>Posterior</strong> <span class="math inline">\(P(\theta \mid x)\)</span>: updated belief after seeing data</p>
 <p><strong>Prior</strong> <span class="math inline">\(P(\theta)\)</span>: belief before receiving data</p>
 <p><strong>Likelihood</strong> <span class="math inline">\(P(x \mid \theta)\)</span>: probability of the data given prior</p>
-<p><strong>Probability of the data/evidence</strong> <span class="math inline">\(P(x)\)</span>: think of it as a normalization factor (less important)</p>
+<p><strong>Probability of the data/evidence</strong> <span class="math inline">\(P(x)\)</span>: think of it as a normalization factor</p>
 </section>
 <section id="post-test-probability-as-bayesian-updating" class="slide level2">
 <h2>Post-test probability as Bayesian updating</h2>
@@ -670,7 +671,7 @@ E[x] = \int_{-\infty}^{\infty} x f(x)dx
 </section>
 <section id="belief-about-a-probability" class="slide level2">
 <h2>Belief about a probability</h2>
-<p>We model binary events with the <strong>Bernoulli</strong> distribution:</p>
+<p>Binary random events follow a <strong>Bernoulli</strong> distribution:</p>
 <p><span class="math display">\[
 x \sim Bernoulli(p) =
 \begin{cases}
@@ -678,7 +679,7 @@ x \sim Bernoulli(p) =
 0 &amp; \text{with probability } 1-p
 \end{cases}
 \]</span></p>
-<p>The <strong>beta distribution</strong> can describe our belief about a probability <span class="math inline">\(p\)</span></p>
+<p>The <strong>beta distribution</strong> models our belief/uncertainty about a probability <span class="math inline">\(p\)</span></p>
 <p><span class="math display">\[
 p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\beta - 1}
 \]</span></p>
@@ -691,7 +692,7 @@ p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\b
 <li><p>Range <span class="math inline">\([0,1]\)</span></p></li>
 <li><p>Shape parameter <span class="math inline">\(\alpha &gt; 0\)</span></p></li>
 <li><p>Scale parameter <span class="math inline">\(\beta &gt; 0\)</span></p></li>
-<li><p>Mean <span class="math inline">\(E[X] = \frac{\alpha}{\alpha+\beta}\)</span></p></li>
+<li><p>Mean <span class="math inline">\(E[p] = \frac{\alpha}{\alpha+\beta}\)</span></p></li>
 </ul>
 </div><div class="column" style="width:55%;">
 <div class="quarto-figure quarto-figure-center">
@@ -706,18 +707,21 @@ p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\b
 <section id="beta-distribution-and-binomial-experiments" class="slide level2">
 <h2>Beta distribution and binomial experiments</h2>
 <ul>
-<li><p>In binomial experiments (repeated independent Bernoulli trials), we view several manifestations of a bernoulli variable</p>
+<li><p>In binomial experiments (repeated independent Bernoulli trials), we observe n realizations of a bernoulli variable (e.g., [0,0,1,0,1,1,…])</p>
 <ul>
-<li>Binomial distribution describes how many positives we expect to see based on probability <span class="math inline">\(p\)</span> and number of trials <span class="math inline">\(n\)</span></li>
+<li>Binomial distribution describes how many 1’s we expect based on probability <span class="math inline">\(p\)</span> and number of trials <span class="math inline">\(n\)</span></li>
 </ul></li>
-<li><p>If a binomial trial results in <span class="math inline">\(E\)</span> events and <span class="math inline">\(N\)</span> non-events, <span class="math inline">\(p \sim Beta(\alpha=E,\beta=N)\)</span> describes our uncertainty in <span class="math inline">\(p\)</span></p></li>
+<li><p>For a binomial trial with <span class="math inline">\(E\)</span> events (1’s) and <span class="math inline">\(N\)</span> non-events (0’s):</p>
+<ul>
+<li><span class="math inline">\(p \sim Beta(\alpha=E,\beta=N)\)</span> describes our uncertainty in <span class="math inline">\(p\)</span></li>
+</ul></li>
 </ul>
 </section>
 <section id="bayesian-updating-with-beta" class="slide level2">
 <h2>Bayesian updating with beta</h2>
 <p>In a small drug study, 1 in 3 patients had a side-effect. If we have no other information, our uncertainty in the probability of side-effects can be represented as:</p>
 <p><span class="math display">\[
-p \sim Beta(\alpha = 1, \beta = 2)
+p \sim Beta(\alpha = 1, \beta = 2) \quad E[p] = 0.333
 \]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length=</span><span class="dv">1000</span>)</span>
@@ -733,7 +737,7 @@ p \sim Beta(\alpha = 1, \beta = 2)
 <h2>Bayesian updating with beta</h2>
 <p>We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?</p>
 <p><span class="math display">\[
-p \sim Beta(\alpha = 5, \beta = 38)
+p \sim Beta(\alpha = 5, \beta = 38) \quad E[p] = 0.116
 \]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">plot</span>(p, <span class="fu">dbeta</span>(p, <span class="dv">5</span>, <span class="dv">38</span>), <span class="at">type=</span><span class="st">'l'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -743,6 +747,9 @@ p \sim Beta(\alpha = 5, \beta = 38)
 <section id="bayesian-updating-with-beta-3" class="slide level2">
 <h2>Bayesian updating with beta</h2>
 <p>If we treat 10,000 patients and 1,230 have a side effect:</p>
+<p><span class="math display">\[
+p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
+\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">plot</span>(p, <span class="fu">dbeta</span>(p, <span class="dv">1230</span>, <span class="dv">10000</span> <span class="sc">-</span> <span class="dv">1230</span>), <span class="at">type=</span><span class="st">'l'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
@@ -752,7 +759,7 @@ p \sim Beta(\alpha = 5, \beta = 38)
 <h2>Beta distribution summary</h2>
 <ul>
 <li><p>Describes our belief about a probability’s value</p></li>
-<li><p>Direct mapping between <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> and the success/failure count in repeated Bernoulli trials (binomial experiment)</p></li>
+<li><p>Parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> map to event and non-event counts from a binomial experiment</p></li>
 <li><p>As we collect data:</p>
 <ul>
 <li><p><span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> grow</p></li>
@@ -812,49 +819,176 @@ p \sim Beta(\alpha = 5, \beta = 38)
 <section id="decision-tree-symbols" class="slide level2">
 <h2>Decision tree symbols</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <p><img data-src="decision_tree_nodes.svg"></p>
 </div><div class="column" style="width:50%;">
 <ul>
-<li><p>Branches from decision trees represent choices or alternatives</p></li>
-<li><p>Branches from chance nodes represent random possibilities</p></li>
+<li><p>Things we control are decisions</p></li>
+<li><p>Random events are chances</p></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="mapping-parameters-to-decision-tree-structure" class="slide level2">
-<h2>Mapping parameters to decision tree structure</h2>
+<section id="parameters-and-tree-structure" class="slide level2">
+<h2>Parameters and tree structure</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:60%;">
 <p><strong>Alternatives</strong></p>
 <p><strong>Random events</strong></p>
 <p><strong>Probabilities</strong></p>
 <p><strong>Costs</strong></p>
 <p><strong>Health effects (e.g., QALYs)</strong></p>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:40%;">
 <p><img data-src="decision_tree_nodes.svg"></p>
 </div>
 </div>
 </section>
-<section id="mapping-parameters-to-decision-tree-structure-1" class="slide level2">
-<h2>Mapping parameters to decision tree structure</h2>
-<p><strong>Alternatives</strong> → branches from a decision node <strong>▢</strong></p>
-<p><strong>Random events</strong> → branches from a chance node ◯</p>
+<section id="parameters-and-tree-structure-1" class="slide level2">
+<h2>Parameters and tree structure</h2>
+<p><strong>Alternatives (actions)</strong> → branches from a decision node <strong>▢</strong></p>
+<p><strong>Random events (reactions)</strong> → branches from a chance node ◯</p>
 <p><strong>Probabilities</strong> → assigned to branches from a chance node</p>
 <p><strong>Costs</strong> → Payoffs (at terminal nodes △ or along the way)</p>
 <p><strong>Health effects</strong> → Payoffs (at terminal nodes △ or along the way)</p>
 </section>
-<section id="example-tree" class="slide level2">
-<h2>Example tree</h2>
+<section id="parameters-are-conditional" class="slide level2">
+<h2>Parameters are conditional</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="tree_example.svg"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li><p>Probabilities from chance nodes must sum to 1</p></li>
+<li><p>Probabilities conditional on earlier events</p></li>
+<li><p>Terminal node outcomes are specific to the path</p></li>
+</ul>
+</div>
+</div>
 </section>
-<section id="all-probabilities-are-conditional" class="slide level2">
-<h2>All probabilities are conditional</h2>
+<section id="preventing-stent-for-vascular-disease1" class="slide level2">
+<h2>Preventing stent for vascular disease<sup>1</sup></h2>
+<p><strong>Decision</strong>: offer a diet or exercise program?</p>
+<p><strong>Chances</strong>: will they need a stent?</p>
+<p><strong>Outcome</strong>: cost, QALYs lost related to receiving a stent</p>
+<p><strong>Time horizon:</strong> one year</p>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Source: <a href="https://cran.rstudio.com/web/packages/rdecision/vignettes/DT00-DecisionTreeTutorial.html">rdecision package vignette</a></p></li></ol></aside></section>
+<section id="stent-prevention-tree" class="slide level2">
+<h2>Stent prevention tree</h2>
+
+<img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="stent-prevention-data" class="slide level2">
+<h2>Stent prevention data</h2>
+<p>The healthcare provider cost of the stent is <strong>5000 GBP</strong>; the cost of providing lifestyle advice, an appointment with a dietician, is <strong>50 GBP</strong> and the cost of the exercise programme, is <strong>750 GBP</strong>.</p>
+<p>In a small trial of the “diet” programme, <strong>12 out of 68</strong> patients (17.6%) avoided having a procedure, and in a separate small trial of the “exercise” programme <strong>18 out of 58</strong> patients (31.0%) avoided the procedure (it is assumed that the baseline characteristics in the two trials were comparable). A stent leads to one year with a health state utility of <strong>0.75</strong>.</p>
 </section>
-<section id="evaluating-decision-tree" class="slide level2">
-<h2>Evaluating decision tree</h2>
+<section id="stent-prevention-parameters" class="slide level2">
+<h2>Stent prevention parameters</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Parameters</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>c_diet <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="co">#cost of diet intervention</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>c_excercise <span class="ot">&lt;-</span> <span class="dv">750</span> <span class="co">#cost of exercise</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>c_stent <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co">#cost of a stent</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>qaly_stent <span class="ot">&lt;-</span> <span class="fl">0.75</span> <span class="co">#QALYs experienced with stent</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>qaly_no_stent <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co">#QALYs experienced withou stent</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>p_stent_diet <span class="ot">&lt;-</span> (<span class="dv">68</span> <span class="sc">-</span> <span class="dv">12</span>)<span class="sc">/</span><span class="dv">68</span> <span class="co">#prob. needing stent if diet</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>p_stent_exercise <span class="ot">&lt;-</span> (<span class="dv">58</span> <span class="sc">-</span> <span class="dv">18</span>)<span class="sc">/</span><span class="dv">58</span> <span class="co">#prob. needing a stent if exercise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="handling-multiple-decision-nodes" class="slide level2">
-<h2>Handling multiple decision nodes</h2>
+<section id="evaluating-rolling-back-a-tree" class="slide level2">
+<h2>Evaluating (rolling back) a tree</h2>
+<ul>
+<li><p>For each chance node from <strong>right to left</strong>, calculate the expected value of each outcome</p>
+<ul>
+<li>Cost, health outcome, etc.</li>
+</ul></li>
+<li><p>Leaves us with expect value of each choice at the root decision node</p></li>
+</ul>
+<div class="column" style="width:50%;">
+<p><span class="math display">\[
+E[x] = \sum_{i=1}^I x_iP(x_i)
+\]</span></p>
+</div>
+</section>
+<section id="roll-back-cost-minimization-example" class="slide level2">
+<h2>Roll back: cost minimization example</h2>
+
+<img data-src="rollback_tree_1.svg" class="r-stretch"></section>
+<section id="roll-back-cost-minimization-example-1" class="slide level2">
+<h2>Roll back: cost minimization example</h2>
+
+<img data-src="rollback_tree_2.svg" class="r-stretch"></section>
+<section id="roll-back-cost-minimization-example-2" class="slide level2">
+<h2>Roll back: cost minimization example</h2>
+
+<img data-src="rollback_tree_3.png" class="r-stretch"></section>
+<section id="stent-prevention-tree-1" class="slide level2">
+<h2>Stent prevention tree</h2>
+
+<img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section id="roll-back-stent-prevention" class="slide level2">
+<h2>Roll back stent prevention</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Parameters</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>c_diet <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="co">#cost of diet intervention</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>c_excercise <span class="ot">&lt;-</span> <span class="dv">750</span> <span class="co">#cost of exercise</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>c_stent <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co">#cost of a stent</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>qaly_stent <span class="ot">&lt;-</span> <span class="fl">0.75</span> <span class="co">#QALYs experienced with stent</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>qaly_no_stent <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co">#QALYs experienced withou stent</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>p_stent_diet <span class="ot">&lt;-</span> (<span class="dv">68</span> <span class="sc">-</span> <span class="dv">12</span>)<span class="sc">/</span><span class="dv">68</span> <span class="co">#prob. needing stent if diet</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>p_stent_exercise <span class="ot">&lt;-</span> (<span class="dv">58</span> <span class="sc">-</span> <span class="dv">18</span>)<span class="sc">/</span><span class="dv">58</span> <span class="co">#prob. needing a stent if exercise</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a></span>
+<span id="cb11-10"><a href="#cb11-10"></a>exp_tot_cost_diet <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>exp_tot_cost_excercise <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a>exp_qaly_diet <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a>exp_qaly_excercise <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a>ICER <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="roll-back-stent-prevention-1" class="slide level2">
+<h2>Roll back stent prevention</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>exp_tot_cost_diet <span class="ot">=</span> c_diet <span class="sc">+</span> p_stent_diet<span class="sc">*</span>c_stent</span>
+<span id="cb12-2"><a href="#cb12-2"></a>exp_tot_cost_diet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4167.647</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>exp_tot_cost_excercise <span class="ot">=</span> c_excercise <span class="sc">+</span> p_stent_exercise<span class="sc">*</span>c_stent</span>
+<span id="cb14-2"><a href="#cb14-2"></a>exp_tot_cost_excercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4198.276</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>exp_qaly_diet <span class="ot">=</span> qaly_stent<span class="sc">*</span>p_stent_diet <span class="sc">+</span> qaly_no_stent<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_stent_diet)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>exp_qaly_diet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7941176</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>exp_qaly_excercise <span class="ot">=</span> qaly_stent<span class="sc">*</span>p_stent_exercise <span class="sc">+</span> qaly_no_stent<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_stent_exercise)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>exp_qaly_excercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8275862</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>ICER_excer_vs_diet <span class="ot">=</span> (exp_tot_cost_excercise <span class="sc">-</span> exp_tot_cost_diet)<span class="sc">/</span>(exp_qaly_excercise <span class="sc">-</span> exp_qaly_diet)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>ICER_excer_vs_diet <span class="co">#GBP per QALY</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 915.1515</code></pre>
+</div>
+</div>
+</section>
+<section id="rollback-with-sequential-decisions" class="slide level2">
+<h2>Rollback with sequential decisions</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><img data-src="sequential_tree.jpg" width="600"></p>
+<p>Source: <a href="https://doi-org.proxy3.library.mcgill.ca/10.1016/j.artmed.2012.05.003">Suner et. al.&nbsp;2012</a></p>
+</div><div class="column" style="width:35%;">
+<p>For ‘downstream’ decision nodes:</p>
+<ul>
+<li><p>Roll back to each decision node</p></li>
+<li><p>Select the preferred branch (based on framework)</p></li>
+<li><p>Continue to root decision node</p></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="strengths-of-decision-trees" class="slide level2">
 <h2>Strengths of decision trees</h2>
@@ -879,13 +1013,13 @@ p \sim Beta(\alpha = 5, \beta = 38)
 <ul>
 <li><p>Conditional probability</p></li>
 <li><p>Bayesian updating</p></li>
-<li><p>Beta distribution</p></li>
+<li><p>Beta distribution for uncertainty in probabilities</p></li>
 </ul></li>
 <li><p>Decision trees are simple, flexible, useful decision models</p></li>
-<li><p>“Roll back” the decision tree to calculate the expected value of each outcome</p></li>
+<li><p>“Roll back” the decision tree to calculate the expected value of each outcome under each alternative</p></li>
 </ul>
 </section>
-<section id="logistics-1" class="slide level2">
+<section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
 <li><p>Assignment 0 due 11:59pm today</p></li>
@@ -895,6 +1029,7 @@ p \sim Beta(\alpha = 5, \beta = 38)
 
 </div>
 </section>
+
     </div>
   </div>
 
