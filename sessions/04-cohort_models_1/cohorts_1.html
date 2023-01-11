@@ -493,11 +493,16 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 <span id="cb2-9"><a href="#cb2-9"></a><span class="fu">plot</span>(mat_dim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="column" style="width:50%;">
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\begin{array}{c}\begin{matrix}a &amp; b &amp; c \end{matrix}
+\\\left[\
+\begin{matrix}
 0.3 &amp; 0.6 &amp; 0.1\\
 0.2 &amp; 0.5 &amp; 0.3\\
 0 &amp; 0 &amp; 1
-\end{bmatrix}\]</span>
+\end{matrix}\ \right]
+\end{array}
+\]</span></p>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="cell">
@@ -518,15 +523,18 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 </div>
 </div>
 <p><span class="math display">\[
-\begin{bmatrix}
+\begin{array}{c}\begin{matrix}alive &amp; dead \end{matrix}
+\\\left[\
+\begin{matrix}
 0.9 &amp; 0\\
 0 &amp; 1
-\end{bmatrix}
+\end{matrix}\ \right]
+\end{array}
 \]</span></p>
 </div><div class="column" style="width:50%;">
 <ul>
 <li><p>No escape</p></li>
-<li><p>Most common example: death</p></li>
+<li><p>Death is common example</p></li>
 <li><p>Transition matrix row has a 1 on diagonal entry, all other entries 0</p></li>
 </ul>
 </div>
@@ -542,65 +550,66 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 </div>
 </div>
 <p><span class="math display">\[
-\begin{pNiceMatrix}[first-row,last-row,first-col,last-col]
-    &amp; C_1 &amp; C_2 &amp; C_3 &amp; C_4       \\
-L_1 &amp; a   &amp; b   &amp; c   &amp; d   &amp; L_1 \\
-L_2 &amp; e   &amp; f   &amp; g   &amp; h   &amp; L_2 \\
-L_3 &amp; i   &amp; j   &amp; k   &amp; l   &amp; L_3 \\
-    &amp; C_1 &amp; C_2 &amp; C_3 &amp; C_4       \\
-\end{pNiceMatrix}
+\begin{array}{c}\begin{matrix}HIV- &amp; Infected &amp; HIV+\end{matrix}
+\\\left[\
+\begin{matrix}
+0.9 &amp; .1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1
+\end{matrix}\ \right]
+\end{array}
 \]</span></p>
+</div><div class="column" style="width:50%;">
 <ul>
-<li><p>Temporary state for 1 cycle</p></li>
-<li><p>A ‘workaround’ for the Markov property. If costs, outcomes, or transitions differ for beginning or end period of health condition, break it into tunnel states</p></li>
+<li><p>Temporary state, 1 cycle only</p></li>
+<li><p>A ‘workaround’ for the Markov property.</p></li>
+<li><p>If costs, outcomes, or transitions differ for beginning or end of health condition, break into tunnel states</p></li>
 </ul>
 </div>
 </div>
+</section>
+<section id="tunnel-state-example" class="slide level2">
+<h2>Tunnel state example</h2>
 </section>
 <section id="initial-state-vector-m_0" class="slide level2">
 <h2>Initial state vector <span class="math inline">\(m_0\)</span></h2>
 <ul>
 <li><p><span class="math inline">\(1 \times n_s\)</span> vector showing how cohort is distributed at time 0</p></li>
 <li><p>Sum of the vector is the total cohort size</p></li>
-<li><p>Everyone can be in one state</p></li>
-</ul>
-<div class="column" style="width:50%;">
-<span class="math display">\[\begin{bmatrix}
-HIV- &amp; 0.9 &amp; 0.1 &amp; 0\\
-HIV infection &amp; 0 &amp; 0 &amp; 1\\
-HIV+ &amp; 0 &amp; 0 &amp; 1
-\end{bmatrix}\]</span>
-</div>
+<li><p>Everyone can be in one state</p>
 <p><span class="math display">\[
+m_0 =
 \begin{bmatrix}
 10,000 &amp; 0 &amp; 0 &amp; 0\\
 \end{bmatrix}
-\]</span></p>
-<ul>
-<li>Or spread across the states</li>
+\]</span></p></li>
+<li><p>Or spread across the states</p></li>
 </ul>
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+m_0 =
+\begin{bmatrix}
 2,000 &amp; 3,000 &amp; 1,000 &amp; 4,000\\
-\end{bmatrix}\]</span>
+\end{bmatrix}
+\]</span></p>
 </section>
 <section id="rates-and-probabilities" class="slide level2">
 <h2>Rates and probabilities</h2>
 <ul>
-<li><p>Transition probabilities are probability of making the transition during a cycle</p></li>
-<li><p>Available data may</p>
+<li><p><strong>Rates</strong> are instintaneous force of an event</p></li>
+<li><p><strong>Probabilities</strong> is the cumulative risk over a defined period</p></li>
+<li><p>We need: transition probabilities specific to cycle length</p></li>
+<li><p>We may have:</p>
 <ul>
-<li><p>be a probability for a different cycle length (e.g., 2-year probability instead of 6 month)</p></li>
-<li><p>Be reported as a rate (e.g., 200 events per person-year)</p></li>
+<li><p>probability for different cycle length (2-year instead of 6 month)</p></li>
+<li><p>rate (e.g., 200 events per person-year)</p></li>
 </ul></li>
-<li><p>Rates are instintaneous force of an event</p></li>
-<li><p>Probability is the cumulative risk over a defined period</p></li>
 </ul>
 </section>
 <section id="converting-rates-to-probabilities" class="slide level2">
 <h2>Converting rates to probabilities</h2>
 <p>Generating an annual probablity <span class="math inline">\(p_{year}\)</span> from an event rate <span class="math inline">\(r\)</span> with units events/year:</p>
 <p><span class="math display">\[
-p_{year} = 1 - exp(-r); r = log(
+p_{year} = 1 - exp(-r) \quad r = log(
 \]</span></p>
 <p>Example:</p>
 <ul>

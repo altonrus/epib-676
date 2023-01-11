@@ -104,13 +104,16 @@ plot(mat_dim)
 ```
 
 ::: {.column width="50%"}
-```{=tex}
-\begin{bmatrix}
+$$
+\begin{array}{c}\begin{matrix}a & b & c \end{matrix} 
+\\\left[\ 
+\begin{matrix}
 0.3 & 0.6 & 0.1\\
 0.2 & 0.5 & 0.3\\
 0 & 0 & 1
-\end{bmatrix}
-```
+\end{matrix}\ \right]
+\end{array}
+$$
 :::
 :::
 
@@ -148,17 +151,20 @@ plot(mat_dim)
 ```
 
 $$
-\begin{bmatrix}
+\begin{array}{c}\begin{matrix}alive & dead \end{matrix} 
+\\\left[\ 
+\begin{matrix}
 0.9 & 0\\
 0 & 1
-\end{bmatrix}
+\end{matrix}\ \right]
+\end{array}
 $$
 :::
 
 ::: {.column width="50%"}
 -   No escape
 
--   Most common example: death
+-   Death is common example
 
 -   Transition matrix row has a 1 on diagonal entry, all other entries 0
 :::
@@ -175,7 +181,7 @@ $$
 mat_dim <- 
   define_transition(
     state_names = 
-      c('HIV-', 'HIV infection', 'HIV+'),
+      c('HIV-', 'Infected', 'HIV+'),
    .9, .1, 0,
    0, 0, 1,
    0, 0, 1)
@@ -183,20 +189,27 @@ plot(mat_dim)
 ```
 
 $$
-\begin{pNiceMatrix}[first-row,last-row,first-col,last-col]
-    & C_1 & C_2 & C_3 & C_4       \\
-L_1 & a   & b   & c   & d   & L_1 \\
-L_2 & e   & f   & g   & h   & L_2 \\
-L_3 & i   & j   & k   & l   & L_3 \\
-    & C_1 & C_2 & C_3 & C_4       \\
-\end{pNiceMatrix}
+\begin{array}{c}\begin{matrix}HIV- & Infected & HIV+\end{matrix} 
+\\\left[\ 
+\begin{matrix}
+0.9 & .1 & 0\\
+0 & 0 & 1\\
+0 & 0 & 1
+\end{matrix}\ \right]
+\end{array}
 $$
+:::
 
--   Temporary state for 1 cycle
+::: {.column width="50%"}
+-   Temporary state, 1 cycle only
 
--   A 'workaround' for the Markov property. If costs, outcomes, or transitions differ for beginning or end period of health condition, break it into tunnel states
+-   A 'workaround' for the Markov property.
+
+-    If costs, outcomes, or transitions differ for beginning or end of health condition, break into tunnel states
 :::
 :::
+
+## Tunnel state example
 
 ## Initial state vector $m_0$
 
@@ -206,47 +219,42 @@ $$
 
 -   Everyone can be in one state
 
-::: {.column width="50%"}
-\begin{bmatrix}
-HIV- & 0.9 & 0.1 & 0\\
-HIV infection & 0 & 0 & 1\\
-HIV+ & 0 & 0 & 1
-\end{bmatrix}
-:::
-
-$$
-\begin{bmatrix}
-10,000 & 0 & 0 & 0\\
-\end{bmatrix}
-$$
+    $$
+    m_0 =
+    \begin{bmatrix}
+    10,000 & 0 & 0 & 0\\
+    \end{bmatrix}
+    $$
 
 -   Or spread across the states
 
-```{=tex}
+$$
+m_0 = 
 \begin{bmatrix}
 2,000 & 3,000 & 1,000 & 4,000\\
 \end{bmatrix}
-```
+$$
+
 ## Rates and probabilities
 
--   Transition probabilities are probability of making the transition during a cycle
+-   **Rates** are instintaneous force of an event
 
--   Available data may
+-   **Probabilities** is the cumulative risk over a defined period
 
-    -   be a probability for a different cycle length (e.g., 2-year probability instead of 6 month)
+-   We need: transition probabilities specific to cycle length
 
-    -   Be reported as a rate (e.g., 200 events per person-year)
+-   We may have:
 
--   Rates are instintaneous force of an event
+    -   probability for different cycle length (2-year instead of 6 month)
 
--   Probability is the cumulative risk over a defined period
+    -   rate (e.g., 200 events per person-year)
 
 ## Converting rates to probabilities
 
 Generating an annual probablity $p_{year}$ from an event rate $r$ with units events/year:
 
 $$
-p_{year} = 1 - exp(-r); r = log(
+p_{year} = 1 - exp(-r) \quad r = log(
 $$
 
 Example:

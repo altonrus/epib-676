@@ -4,6 +4,7 @@ author: "YOUR NAME HERE"
 format:
     html:
       toc: true
+      embed-resources: true
 editor: visual
 ---
 
