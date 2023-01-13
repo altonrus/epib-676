@@ -687,6 +687,16 @@ ggplot(data=t_trace_compare, aes(x=Cycle_num, y=Count, color=State))+
 
 -   Time-varying transitions solved using 3D transition array
 
+## Next class: More cohort models
+
+-   Costs, health outcomes, discounting
+
+-   Discounting
+
+-   State residence dependence
+
+-   Correcting for discretization error
+
 ## Logistics
 
 -   Assignment 1 (cost-effectiveness, decision trees) due Wednesday 1/18

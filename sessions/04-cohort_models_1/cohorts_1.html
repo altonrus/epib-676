@@ -405,21 +405,28 @@ Alton Russell
 <h2>Today</h2>
 <ul>
 <li><p><strong>Discrete-time cohort state-transition models</strong></p></li>
-<li><p>Matrix solution</p></li>
-<li><p>Cohort simulation</p></li>
+<li><p>Markov model solution</p></li>
+<li><p>Time-varying transitions</p></li>
 </ul>
 </section>
 <section id="packages" class="slide level2">
 <h2>Packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(heemod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(heemod) <span class="co">#health economic markov models</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(expm) <span class="co">#for raising matrices to exponents with %^%</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyr) <span class="co">#for spread function for wide-to-long table formating</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#use install.packages("Package") for any you don't have already</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="cohort-state-transition-models" class="slide level2">
-<h2><strong>Cohort state-transition models</strong></h2>
+<section id="cohort-state-transition-model" class="slide level2">
+<h2><strong>Cohort state-transition model</strong></h2>
 <ul>
 <li><p>Dynamic mathematical model</p></li>
-<li><p>A hypothetical cohort of individuals transition between health states over time.</p></li>
+<li><p>A hypothetical cohort of individuals move between health states over time.</p></li>
 <li><p>Classical example is the Markov model, where transition probabilities</p>
 <ul>
 <li><p>Are constant</p></li>
@@ -430,15 +437,16 @@ Alton Russell
 <section id="when-to-use" class="slide level2">
 <h2>When to use?</h2>
 <ul>
-<li><p>Decision problem has a dynamic component</p>
-<ul>
-<li>Disease process can vary over time</li>
-</ul></li>
+<li><p>Decision problem has a dynamic component</p></li>
+<li><p>Disease process can vary over time</p></li>
 <li><p>Can be described with a reasonable number of health states</p></li>
 </ul>
 </section>
 <section id="states" class="slide level2">
 <h2><strong>States</strong></h2>
+<blockquote>
+<p>Healthy, acute infection, chronic infection, cirrhosis, untreated disease, in treatment, on wait list, lost to follow-up, dead…</p>
+</blockquote>
 <ul>
 <li><p>Mutually exclusive and exhaustive</p></li>
 <li><p>Individuals in the same state treated as identical</p>
@@ -446,14 +454,13 @@ Alton Russell
 <li><p>same costs, same health outcomes</p></li>
 <li><p>same probability of transitioning out (no matter how long they’ve been there)</p></li>
 </ul></li>
-<li><p><strong>Possible state names:</strong> healthy, acute infection, chronic infection, cirrhosis, untreated disease, in treatment, on wait list, lost to follow-up, dead…</p></li>
 </ul>
 </section>
 <section id="transitions-cycles-time-horizon" class="slide level2">
 <h2>Transitions, cycles, time horizon</h2>
 <ul>
 <li><p>Only transition at end of a cycle</p></li>
-<li><p>Cycle duration is a design choice (second, day, month, quarter, year…)</p></li>
+<li><p>Cycle duration is design choice (second, day, month, quarter, year…)</p></li>
 <li><p>Time horizon = cycle duration x number of cycles</p></li>
 </ul>
 </section>
@@ -470,7 +477,10 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 \]</span></p>
 </div><div class="column" style="width:50%;">
 <ul>
-<li><p><span class="math inline">\(n_s \times n_s\)</span> matrix of transition probabilities</p></li>
+<li><p><span class="math inline">\(n_s \times n_s\)</span> matrix of transition probabilities</p>
+<ul>
+<li><span class="math inline">\(n_s\)</span> is number of states</li>
+</ul></li>
 <li><p>Rows correspond to “<strong>from</strong>” state (sum to 1)</p></li>
 <li><p>Columns correspond to “<strong>to</strong>” states</p></li>
 </ul>
@@ -562,14 +572,28 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 </div><div class="column" style="width:50%;">
 <ul>
 <li><p>Temporary state, 1 cycle only</p></li>
+<li><p>No self-loop (0 on diagonal)</p></li>
 <li><p>A ‘workaround’ for the Markov property.</p></li>
 <li><p>If costs, outcomes, or transitions differ for beginning or end of health condition, break into tunnel states</p></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="tunnel-state-example" class="slide level2">
-<h2>Tunnel state example</h2>
+<section id="example-transfusion-transmitted-chronic-conditions" class="slide level2">
+<h2>Example: Transfusion-transmitted chronic conditions</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="ghana_markov_schematics.png"></p>
+</div><div class="column" style="width:50%;">
+<p>TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis.</p>
+<p><a href="www.doi.org/0.1111/trf.16704">Russell et. al.&nbsp;2021</a></p>
+</div>
+</div>
+</section>
+<section id="transition-matrix-for-hiv-model" class="slide level2">
+<h2>Transition matrix for HIV model</h2>
+
+<img data-src="hiv_transition_matrix.png" class="r-stretch"><p>TU=treatment uptake; OCM=other cause mortality; SC=subclinical; ART=antiviral therapy; TE=treatment effectiveness, NH=natural history. <a href="www.doi.org/0.1111/trf.16704">Russell et. al.&nbsp;2021</a></p>
 </section>
 <section id="initial-state-vector-m_0" class="slide level2">
 <h2>Initial state vector <span class="math inline">\(m_0\)</span></h2>
@@ -607,56 +631,532 @@ m_0 =
 </section>
 <section id="converting-rates-to-probabilities" class="slide level2">
 <h2>Converting rates to probabilities</h2>
-<p>Generating an annual probablity <span class="math inline">\(p_{year}\)</span> from an event rate <span class="math inline">\(r\)</span> with units events/year:</p>
+<p>Generating an annual probablity <span class="math inline">\(p(t)\)</span> from an event rate <span class="math inline">\(r\)</span> with units events/year:</p>
 <p><span class="math display">\[
-p_{year} = 1 - exp(-r) \quad r = log(
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 \]</span></p>
 <p>Example:</p>
 <ul>
-<li><p>In a population of 800, 87 became ill over a 20 year period</p></li>
+<li><p>In a population of 800, 87 became ill over a 2 year period</p></li>
 <li><p><span class="math inline">\(r = 87/(2 \times 800) = 0.0544\)</span> illnesses/year</p></li>
-<li><p><span class="math inline">\(p_{year} = 1 - exp(-0.0544) = 0.0529\)</span></p></li>
+<li><p><span class="math inline">\(p_{0.5 year} = 1 - e^{-0.0544(0.5)} = 0.0268\)</span></p></li>
 </ul>
 </section>
 <section id="prob-rate-prob" class="slide level2">
 <h2>Prob → rate → prob</h2>
 <ul>
-<li><p>If probability is for a duration that doesn’t match your cycle length, you <strong>can not</strong> simply multiply/divide</p></li>
-<li><p>Instead convert to a rae</p></li>
+<li><p>If probability is for a duration that doesn’t match your cycle length, you <strong>can not</strong> simply multiply/divide the probability</p></li>
+<li><p>Instead convert to a rate then convert back to a probability</p></li>
 </ul>
+<p>Example: The one-year probability of developing cancer is 0.2. If you are building a model with a 1-month cycle length, what probabilty should you use?</p>
+<p><span class="math display">\[
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
+\]</span></p>
 </section>
-<section id="time-horizon" class="slide level2">
-<h2>Time horizon</h2>
-</section>
-<section id="closed-and-open-populations" class="slide level2">
-<h2>Closed and open populations</h2>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
+<section id="prob-rate-prob-1" class="slide level2">
+<h2>Prob → rate → prob</h2>
+<p>Wrong way</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>p_2yr <span class="ot">=</span> <span class="fl">0.2</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>p_1month <span class="ot">=</span> p_2yr<span class="sc">/</span><span class="dv">24</span>; p_1month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.008333333</code></pre>
+</div>
+</div>
+<p>Right way</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>rate <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="fl">-0.2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>rate <span class="co">#events/year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1115718</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p_1month <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>rate<span class="sc">/</span><span class="dv">12</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>p_1month <span class="co">#probability developing cancer in 1-month period</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.009254558</code></pre>
+</div>
+</div>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
 <li><p>Discrete-time cohort state-transition models</p></li>
-<li><p><strong>Matrix solution</strong></p></li>
-<li><p>Cohort simulation</p></li>
+<li><p><strong>Markov model solution</strong></p></li>
+<li><p>Time-varying transitions</p></li>
 </ul>
 </section>
+<section id="matrix-calculations-in-r" class="slide level2">
+<h2>Matrix calculations in R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>A;B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    3
+[2,]    2    4</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5    7
+[2,]    6    8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#element-wise multiplication</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>A <span class="sc">*</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5   21
+[2,]   12   32</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#matrix multiplication</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>A <span class="sc">%*%</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]   23   31
+[2,]   34   46</code></pre>
+</div>
+</div>
+</section>
+<section id="markov-model-components" class="slide level2">
+<h2>Markov model components</h2>
+<p>Transition matrix</p>
+<p><span class="math display">\[
+\begin{array}{c}\begin{matrix}Healthy &amp; moderate &amp; severe &amp; dead \end{matrix}
+\\\left[\
+\begin{matrix}
+p_{H \rightarrow H} &amp; p_{H \rightarrow M} &amp; p_{H \rightarrow S} &amp; p_{H \rightarrow D}\\
+p_{M \rightarrow H} &amp; p_{M \rightarrow M} &amp; p_{M \rightarrow S} &amp; p_{M \rightarrow D}\\
+p_{S \rightarrow H} &amp; p_{S \rightarrow M} &amp; p_{S \rightarrow S} &amp; p_{S \rightarrow D}\\
+p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_{D \rightarrow D}
+\end{matrix}\ \right]
+\end{array}
+\]</span></p>
+<p>initial distribution: <span class="math inline">\(m_0 = \begin{bmatrix} 2000 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}\)</span></p>
+<p>20 cycles, cycle length 1 year</p>
+</section>
+<section id="parameterizing-the-matrix" class="slide level2">
+<h2>Parameterizing the matrix</h2>
+<p>Copy/paste and fill in the transition matrix. Use variable names rather than typing the numbers directly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>p_HtoM <span class="ot">=</span> <span class="fl">0.2</span> <span class="co">#otherwise stays in healthy</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span> <span class="co">#otherwise stay in moderate</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span> <span class="co">#otherwise stay in severe</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a></span>
+<span id="cb16-10"><a href="#cb16-10"></a>n_cycles <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb16-13"><a href="#cb16-13"></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb16-14"><a href="#cb16-14"></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb16-15"><a href="#cb16-15"></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
+<span id="cb16-16"><a href="#cb16-16"></a>               <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
+<span id="cb16-17"><a href="#cb16-17"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names,</span>
+<span id="cb16-18"><a href="#cb16-18"></a>                               v_state_names))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parameterizing-the-transition-matrix" class="slide level2">
+<h2>Parameterizing the transition matrix</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
+<span id="cb17-2"><a href="#cb17-2"></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
+<span id="cb17-3"><a href="#cb17-3"></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
+<span id="cb17-4"><a href="#cb17-4"></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
+<span id="cb17-5"><a href="#cb17-5"></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names,</span>
+<span id="cb17-7"><a href="#cb17-7"></a>                              v_state_names))</span>
+<span id="cb17-8"><a href="#cb17-8"></a>mat_P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    H    M   S    D
+H 0.8 0.20 0.0 0.00
+M 0.4 0.19 0.4 0.01
+S 0.1 0.00 0.6 0.30
+D 0.0 0.00 0.0 1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#Check: do all rows sum to 1?</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">rowSums</span>(mat_P)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>H M S D 
+1 1 1 1 </code></pre>
+</div>
+</div>
+</section>
+<section id="running-the-model" class="slide level2">
+<h2>Running the model</h2>
+<p>Definition: <span class="math inline">\(m_t\)</span> is a <span class="math inline">\(1 \times n_s\)</span> matrix with the distribution of the cohort after cycle <span class="math inline">\(t\)</span>. <span class="math inline">\(P\)</span> is our transition probability matrix (dimensions <span class="math inline">\(n_s \times n_s\)</span>).</p>
+<p><span class="math display">\[
+m_t = m_{t-1} T
+\]</span></p>
+<p><span class="math display">\[
+\begin{bmatrix}
+m^{t-1}_A &amp; m^{t-1}_B\\
+\end{bmatrix}
+\begin{bmatrix}
+p_{A \rightarrow A} &amp; p_{A \rightarrow B}\\
+p_{B \rightarrow A} &amp; p_{B \rightarrow B}\\
+\end{bmatrix}\\
+=\\
+\begin{bmatrix}
+m^{t-1}_A(p_{A \rightarrow A})+ m^{t-1}_B(p_{B \rightarrow A})&amp;
+m^{t-1}_A(p_{A \rightarrow B})+ m^{t-1}_B(p_{B \rightarrow B})\\
+\end{bmatrix}
+\]</span></p>
+</section>
+<section id="run-our-model" class="slide level2">
+<h2>Run our model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>m_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    H M S D
+ 2000 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>m_1 <span class="ot">=</span> m_0 <span class="sc">%*%</span> mat_P</span>
+<span id="cb23-2"><a href="#cb23-2"></a>m_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    H   M S D
+ 1600 400 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>m_2 <span class="ot">=</span> m_1 <span class="sc">%*%</span> mat_P</span>
+<span id="cb25-2"><a href="#cb25-2"></a>m_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    H   M   S D
+ 1440 396 160 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>m_3 <span class="ot">=</span> m_2 <span class="sc">%*%</span> mat_P</span>
+<span id="cb27-2"><a href="#cb27-2"></a>m_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      H      M     S     D
+ 1326.4 363.24 254.4 55.96</code></pre>
+</div>
+</div>
+</section>
+<section id="matrix-solution" class="slide level2">
+<h2>Matrix solution</h2>
+<p>Note the following</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; m_1 = m_{0} P\\
+&amp; m_{2} = m_{1}P = (m_0P)P = m_0P^2\\
+&amp; m_{3} = m_{2} P = (m_0 P^2)P = m_0 P^3\\
+\end{aligned}
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+m_t = m_0 P^t
+\]</span></p>
+</section>
+<section id="matrix-solution-code" class="slide level2">
+<h2>Matrix solution code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#m_20 = m_0 %*% (mat_P %^% 20)</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>cycles_to_print <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="cf">for</span> (i <span class="cf">in</span> cycles_to_print){</span>
+<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"t="</span>,i))</span>
+<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">print</span>(m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> i))</span>
+<span id="cb29-6"><a href="#cb29-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "t=2"
+    H   M   S D
+ 1440 396 160 4
+[1] "t=10"
+        H       M        S        D
+ 829.5648 221.819 259.3707 689.2455
+[1] "t=20"
+        H        M       S        D
+ 439.2979 117.3868 138.721 1304.594</code></pre>
+</div>
+</div>
+</section>
+<section id="storing-the-state-transitions" class="slide level2">
+<h2>Storing the state transitions</h2>
+<p>Matrix <span class="math inline">\(M\)</span> with <span class="math inline">\(n_s\)</span> columns corresponding to our states and <span class="math inline">\(T+1\)</span> rows corresponding to our state distribution after the <span class="math inline">\(0th,1st,…,Tth\)</span> cycles</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
+<span id="cb31-2"><a href="#cb31-2"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">21</span>){</span>
+<span id="cb31-4"><a href="#cb31-4"></a>  M[i,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> (i<span class="dv">-1</span>))</span>
+<span id="cb31-5"><a href="#cb31-5"></a>}</span>
+<span id="cb31-6"><a href="#cb31-6"></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           H        M        S         D
+0  2000.0000   0.0000   0.0000    0.0000
+1  1600.0000 400.0000   0.0000    0.0000
+2  1440.0000 396.0000 160.0000    4.0000
+3  1326.4000 363.2400 254.4000   55.9600
+4  1231.8560 334.2956 297.9360  135.9124
+5  1148.9966 309.8874 312.4798  228.6362
+6  1074.4002 288.6779 311.4428  325.4790
+7  1006.1356 269.7289 302.3369  421.7986
+8   943.0337 252.4756 289.2937  515.1970
+9   884.3466 236.5771 274.5664  604.5098
+10  829.5648 221.8190 259.3707  689.2455
+11  778.3165 208.0586 244.3500  769.2749
+12  730.3116 195.1944 229.8334  844.6605
+13  685.3104 183.1493 215.9778  915.5625
+14  643.1058 171.8604 202.8464  982.1873
+15  603.5135 161.2746 190.4520 1044.7599
+16  566.3658 151.3449 178.7811 1103.5082
+17  531.5087 142.0287 167.8066 1158.6560
+18  498.7991 133.2872 157.4954 1210.4183
+19  468.1037 125.0844 147.8121 1258.9998
+20  439.2979 117.3868 138.7210 1304.5942</code></pre>
+</div>
+</div>
+</section>
+<section id="markov-trace-diagram" class="slide level2">
+<h2>Markov trace diagram</h2>
+<p>Line plot of number of people (y-axis) in each health state (x-axis)</p>
+<p>Convert <span class="math inline">\(M\)</span> into long-format data table for plotting</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>t_trace <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M) <span class="co">#convert from matrix</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>t_trace<span class="sc">$</span>Cycle_num <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span> <span class="co">#add col for cycle number</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>t_trace <span class="ot">&lt;-</span> t_trace <span class="sc">|&gt;</span> <span class="co">#Long to wide</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">gather</span>(M, <span class="at">key=</span>State, <span class="at">value=</span>Count, H<span class="sc">:</span>D) <span class="co">#wide to long format</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>t_trace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 84 × 3
+   Cycle_num State Count
+       &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1         0 M        0 
+ 2         1 M      400 
+ 3         2 M      396 
+ 4         3 M      363.
+ 5         4 M      334.
+ 6         5 M      310.
+ 7         6 M      289.
+ 8         7 M      270.
+ 9         8 M      252.
+10         9 M      237.
+# … with 74 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="markov-trace-diagram-1" class="slide level2">
+<h2>Markov trace diagram</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_trace, <span class="fu">aes</span>(<span class="at">x=</span>Cycle_num, <span class="at">y=</span>Count, <span class="at">color=</span>State))<span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
 <section id="today-2" class="slide level2">
 <h2>Today</h2>
 <ul>
 <li><p>Discrete-time cohort state-transition models</p></li>
-<li><p>Matrix solution</p></li>
-<li><p><strong>Cohort simulation</strong></p></li>
+<li><p>Markov model solution</p></li>
+<li><p><strong>Time-varying transitions</strong></p></li>
 </ul>
 </section>
+<section id="limit-of-true-markov-model" class="slide level2">
+<h2>Limit of true Markov model</h2>
+<p>Matrix solution only works for a pure Markov model</p>
+<p>In practice, most multi-year models have transition probabilities that can depend on</p>
+<ul>
+<li><p><strong>simulation time:</strong> how long the model has been running</p></li>
+<li><p><strong>state residence time:</strong> how long someone has been in a state</p></li>
+</ul>
+</section>
+<section id="classic-use-case-for-simulation-time-dependent-probs" class="slide level2">
+<h2>Classic use case for simulation time dependent probs</h2>
+<ul>
+<li><p>Over several years, cohort will die from “other causes” (not the disease modeled)</p></li>
+<li><p>Usually approximated with country-specific life tables</p></li>
+<li><p><a href="https://www150.statcan.gc.ca/n1/pub/84-537-x/84-537-x2021001-eng.htm">Canadian life tables available from StatsCan</a></p></li>
+<li><p>Use “Death probability between age X and X+1”</p></li>
+</ul>
+</section>
+<section id="life-table-data" class="slide level2">
+<h2>2020 life table data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>t_other_cause_death <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"prob_death_by_age_2020_StatsCan.csv"</span>,</span>
+<span id="cb36-2"><a href="#cb36-2"></a>                                 <span class="at">sep=</span><span class="st">","</span>)</span>
+<span id="cb36-3"><a href="#cb36-3"></a>t_other_cause_death<span class="sc">$</span>prob_death<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(t_other_cause_death<span class="sc">$</span>prob_death)</span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_other_cause_death, <span class="fu">aes</span>(<span class="at">x=</span>Age, <span class="at">y=</span>prob_death))<span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<section id="d-transition-array-for-time-dependence" class="slide level2">
+<h2>3-D transition array for time dependence</h2>
+<p>Transition matrix can be different for each cycle.</p>
+<p>Use a 3D array to store:</p>
+<ul>
+<li><p>Dim 1: “From” health state</p></li>
+<li><p>Dim 2: “To” health state</p></li>
+<li><p>Dim 3: Correspond to cycle <span class="math inline">\(1,\ldots,t,\ldots,T\)</span></p></li>
+</ul>
+<p><span class="math inline">\(T[i,j,t]\)</span> is probability of transitioning from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p>
+</section>
+<section id="one-approach-to-age-specific-other-cause-death" class="slide level2">
+<h2>One approach to age-specific other cause death</h2>
+<p>Multiply all transitions by <span class="math inline">\((1 - P_{OCM})\)</span> (age-specific probability of other cause mortality), then add <span class="math inline">\(P_{OCM}\)</span> to the probability of transitioning to death.</p>
+<p>For <span class="math inline">\(P_{i \rightarrow j}\)</span> for all <span class="math inline">\(i,j \neq Death\)</span>:</p>
+<p><span class="math display">\[
+P_{i \rightarrow j}^{adjusted} = P_{i \rightarrow j}^{orig}. (1 - P_{OCM})
+\]</span></p>
+<p>For <span class="math inline">\(P_{i \rightarrow D}\)</span> for all <span class="math inline">\(i \neq Death\)</span>:</p>
+<p><span class="math display">\[
+P_{i \rightarrow D}^{adjusted} = P_{i \rightarrow D}^{orig}. (1 - P_{OCM})+P_{OCM}
+\]</span></p>
+</section>
+<section id="example-from-moderate-row-of-transition-matrix" class="slide level2">
+<h2>Example: ‘from moderate’ row of transition matrix</h2>
+<p>Without other cause mortality:</p>
+<p><span class="math display">\[
+\begin{array}{c}\begin{matrix}H &amp; M &amp; S &amp; D \end{matrix}
+\\\left[\
+\begin{matrix}
+0.40 &amp; 0.19 &amp; 0.40 &amp; 0.01\\
+\end{matrix}\ \right]
+\end{array}
+\]</span></p>
+<p>With <span class="math inline">\(P_{OCM}=0.03\)</span>:</p>
+<p><span class="math display">\[
+\begin{array}{c}\begin{matrix} H &amp; M &amp; S &amp; D \end{matrix}
+\\\left[\
+\begin{matrix}
+0.40(0.97) &amp; 0.19(0.97) &amp; 0.40(0.97) &amp; 0.01(0.97)+0.03\\
+\end{matrix}\ \right]
+\end{array}
+\]</span></p>
+<p><span class="math display">\[
+\begin{bmatrix}
+0.388 &amp; 0.1843 &amp; 0.388 &amp; 0.0397\\
+\end{bmatrix}
+\]</span></p>
+</section>
+<section id="age-specific-death-transition-matrix" class="slide level2">
+<h2>Age-specific death: transition matrix</h2>
+<p>Cycle length is 1 year, cohort is age 50 at time 0.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># Pre-allocate 3D transition array</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>arr_P <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,</span>
+<span id="cb37-3"><a href="#cb37-3"></a>              <span class="at">dim=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">21</span>),</span>
+<span id="cb37-4"><a href="#cb37-4"></a>              <span class="at">dimnames=</span><span class="fu">list</span>(v_state_names, v_state_names, <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>))</span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="co">#enter transition matrix</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="cf">for</span>(year <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb37-7"><a href="#cb37-7"></a>  age <span class="ot">=</span> <span class="dv">50</span><span class="sc">+</span>year</span>
+<span id="cb37-8"><a href="#cb37-8"></a>  p_OCM <span class="ot">&lt;-</span> t_other_cause_death[t_other_cause_death<span class="sc">$</span>Age<span class="sc">==</span>age,<span class="st">"prob_death"</span>]</span>
+<span id="cb37-9"><a href="#cb37-9"></a>  mat_P_this_year <span class="ot">=</span> mat_P<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_OCM)</span>
+<span id="cb37-10"><a href="#cb37-10"></a>  mat_P_this_year[,<span class="st">"D"</span>]<span class="ot">&lt;-</span>mat_P_this_year[,<span class="st">"D"</span>]<span class="sc">+</span>p_OCM</span>
+<span id="cb37-11"><a href="#cb37-11"></a>  arr_P[ , , year<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> mat_P_this_year</span>
+<span id="cb37-12"><a href="#cb37-12"></a>}</span>
+<span id="cb37-13"><a href="#cb37-13"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">21</span>){</span>
+<span id="cb37-14"><a href="#cb37-14"></a>  <span class="fu">print</span>(<span class="fu">rowSums</span>(arr_P[ , , <span class="dv">1</span>]))</span>
+<span id="cb37-15"><a href="#cb37-15"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 
+H M S D 
+1 1 1 1 </code></pre>
+</div>
+</div>
+</section>
+<section id="age-specific-death-transition-matrix-1" class="slide level2">
+<h2>Age-specific death: transition matrix</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co">#can inspect our transition array</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>arr_P</span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="co">#Verify that for each cycle, rows of transition matrix sum to 1</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="cf">for</span> (cycle <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb39-5"><a href="#cb39-5"></a>  <span class="fu">print</span>(<span class="fu">rowSums</span>(arr_P[ , , cycle<span class="sc">+</span><span class="dv">1</span>]))</span>
+<span id="cb39-6"><a href="#cb39-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="age-specific-death-m-matrix" class="slide level2">
+<h2>Age-specific death: M matrix</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>M_OCM <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
+<span id="cb40-2"><a href="#cb40-2"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb40-3"><a href="#cb40-3"></a>M_OCM[<span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0 <span class="co">#save initial distribution of cohort</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){ <span class="co">#calculate distribution after each cycle</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a>  M_OCM[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (arr_P[ , , i] <span class="sc">%^%</span> i)</span>
+<span id="cb40-6"><a href="#cb40-6"></a>}</span>
+<span id="cb40-7"><a href="#cb40-7"></a>M_OCM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           H         M        S          D
+0  2000.0000   0.00000   0.0000    0.00000
+1  1595.8240 398.95600   0.0000    5.22000
+2  1431.8899 393.76971 159.0989   15.24157
+3  1314.3400 359.93731 252.0869   73.63580
+4  1215.6758 329.90469 294.0227  160.39682
+5  1128.6330 304.39523 306.9418  260.03005
+6  1049.6928 282.03934 304.2808  363.98711
+7   976.8567 261.87964 293.5388  467.72490
+8   909.1029 243.39140 278.8847  568.62098
+9   845.5671 226.20297 262.5264  665.70347
+10  785.6833 210.08542 245.6508  758.58049
+11  729.1871 194.92536 228.9260  846.96152
+12  675.8299 180.63279 212.6877  930.84961
+13  625.1729 167.07750 197.0253 1010.72433
+14  577.2256 154.25494 182.0667 1086.45278
+15  531.6225 142.06349 167.7652 1158.54879
+16  488.3517 130.49787 154.1549 1226.99552
+17  447.1861 119.49618 141.1845 1292.13321
+18  408.0078 109.02629 128.8281 1354.13778
+19  370.7264  99.06370 117.0635 1413.14641
+20  335.3462  89.60936 105.8953 1469.14921</code></pre>
+</div>
+</div>
+</section>
+<section id="markov-trace-with-and-without-age-specific-other-cause-mortality" class="slide level2">
+<h2>Markov trace with and without age-specific other cause mortality</h2>
+
+<img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
+<ul>
+<li><p>Cohort models simulate moving between health states over time</p></li>
+<li><p>Markov models have constant transitions allowing matrix solution</p></li>
+<li><p>Time-varying transitions solved using 3D transition array</p></li>
+</ul>
 </section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
 <li>Assignment 1 (cost-effectiveness, decision trees) due Wednesday 1/18</li>
+<li>Assignment 2 will be posted by Monday</li>
 </ul>
 <div class="footer footer-default">
 
