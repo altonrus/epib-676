@@ -856,7 +856,7 @@ ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-2,0,2),effect=c(-1,0,1)))+
 -   Net Monetary Benefit uses WTP to monetize health benefits:
 
 $$
-NMB_a = \bar{c}_a + \bar{e}_a\times WTP
+NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 $$
 
 -   $NMB_a \geq NMB_b \Leftrightarrow ICER_{\text{\{a vs. b\}}} \leq WTP$, both imply that $a$ is preferred (cost-effective) compared to $b$
