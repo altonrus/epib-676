@@ -5,10 +5,56 @@ date: today
 format:
     html:
       toc: true
+      embed-resources: true
 editor: visual
 ---
 
-## Section 1: Differential equations model
+## Section 1: Discrete time cohort model
+
+```{r}
+#Use install.packages("XXXX") if you don't have any of these installed
+library(rdecision) #decision trees
+library(flextable) #Formatting tables to display (https://davidgohel.github.io/flextable/reference/index.html)
+library(ggplot2) #Plotting
+library(readxl) #for read_excel()
+library(dplyr) # I use mutate at one point
+theme_set(theme_bw()) #Makes ggplots look better
+
+#read table from Excel
+t_params <- read_excel('params_assign2.xlsx', sheet = "OTSc")
+#Display it nicely
+t_params |>
+  flextable() |> #turn into flextable object
+  merge_v(j=1) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
+  theme_box() |> #Apply a theme for aesthetics
+  autofit() #automatically set column widths to reasonable values
+```
+
+In this section, you are going to construct functions that can be used for a generic Markov model as long as inputs are provided in a specific way. This will help you learn how to make modular code, where a larger task is broken out into small functions, and some of the functions call other functions. Ww will then use the functions you've created to run simplified versions of Markov models for two transfusion transmitted infections in Ghana from [one of my publications](https://doi.org/10.1111/trf.16704). Note that due to the simplifications, your outputs will not match those in the paper.
+
+## 1A: Functions for Markov model
+
+```{r}
+sim_markov <- function(n_cycles, #or T
+                       cycle_length=1, #numeric, in years
+                       state_names, #N_s-length vector of strings
+                       cost_states, #N_s-length vector OR T x N_s matrix if time-dependent
+                       transition_costs=NA, #N_s x N_s matrix
+                       state_utilities, #N_s vector OR T x N_s matrix if time-dependent
+                       m_0 #N_s-length vector of numbers
+                       ){
+  #Contstruct
+  
+  
+  
+  
+}
+
+```
+
+## 1B: Estimating transfusion-transmitted infection outcome
+
+## Section 2: Differential equations model
 
 First, we'll develop a simple differential equation model and approximate it with difference equations. We'll analyze one of the simplest models: a susceptible-infectious-recovered (SIR\_ model for a closed population, without births or deaths. The model is defined by the following differential equations:
 
@@ -63,6 +109,4 @@ sir_closed <- function (t, states, params) {
 
 https://kinglab.eeb.lsa.umich.edu/480/nls/de.html#solving_odes_in_r
 
-## Markov model
-
-## Semi-Markov model
+## 

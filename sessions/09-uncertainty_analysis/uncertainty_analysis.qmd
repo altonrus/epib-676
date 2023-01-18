@@ -1,0 +1,43 @@
+---
+title: "Cohort models 1"
+subtitle: "EPIB  676 session 4, McGill University"
+author: "Alton Russell"
+date: "13 Jan 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+## Packages
+
+```{r}
+#| echo: true
+library(heemod) #health economic markov models
+library(expm) #for raising matrices to exponents with %^%
+library(tidyr) #for spread function for wide-to-long table formating
+library(ggplot2) #plotting
+
+#use install.packages("Package") for any you don't have already
+
+theme_set(theme_bw()) #set ggplot theme
+```
+
+## Notes
+
+-   Model function maping inputs to outputs. Parametric uncertainty analysis is just changing inputs
+
+-   How model is structured has implications for uncertainty analysis
+
+    -   Using multipliers rather than absolute probabilities can let you enforce certain relationships
+
+-   Dirichlet distribution
+
+## Recap
+
+## Next class: More cohort models
+
+## Logistics
+
+-   Assignment 1 due 11:59pm today
+-   Assignment 2 due Wednesday, Jan 25

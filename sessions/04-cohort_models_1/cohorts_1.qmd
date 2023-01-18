@@ -311,8 +311,8 @@ Wrong way
 
 ```{r}
 #| echo: true
-p_2yr = 0.2
-p_1month = p_2yr/24; p_1month
+p_1yr = 0.2
+p_1month = p_1yr/12; p_1month
 ```
 
 Right way
@@ -320,7 +320,7 @@ Right way
 ```{r}
 #| echo: true
 
-rate = -1*(1/2)*log(1-0.2)
+rate = -1*log(1-0.2)
 rate #events/year
 p_1month = 1 - exp(-1*rate/12)
 p_1month #probability developing cancer in 1-month period
@@ -411,7 +411,7 @@ rowSums(mat_P)
 
 ## Running the model
 
-Definition: $m_t$ is a $1 \times n_s$ matrix with the distribution of the cohort after cycle $t$. $P$ is our transition probability matrix (dimensions $n_s \times n_s$).
+Definition: $m_t$ is a $1 \times n_s$ matrix with the distribution of the cohort after cycle $t$. $T$ is our transition probability matrix (dimensions $n_s \times n_s$).
 
 $$
 m_t = m_{t-1} T
@@ -629,9 +629,7 @@ for(year in 0:20){
   mat_P_this_year[,"D"]<-mat_P_this_year[,"D"]+p_OCM
   arr_P[ , , year+1] <- mat_P_this_year
 }
-for (row in 1:21){
-  print(rowSums(arr_P[ , , 1]))
-}
+
 ```
 
 ## Age-specific death: transition matrix
