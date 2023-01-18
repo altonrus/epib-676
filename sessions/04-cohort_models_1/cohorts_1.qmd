@@ -74,6 +74,7 @@ theme_set(theme_bw()) #set ggplot theme
 ::: columns
 ::: {.column width="50%"}
 $$
+P=\\
 \begin{bmatrix}
 p_{s_1 \rightarrow s_1} & p_{s_1 \rightarrow s_2} & p_{s_1 \rightarrow s_3}\\
 p_{s_2 \rightarrow s_1} & p_{s_2 \rightarrow s_2} & p_{s_2 \rightarrow s_3}\\
