@@ -2,20 +2,14 @@
 title: "Reproducible modeling workflow"
 subtitle: "EPIB  676 session 2, McGill University"
 author: "Alton Russell"
-date: "2 Feb 2023"
+date: "19 Jan 2023"
 format: revealjs
 editor: visual
 ---
 
-## Logistics
-
--   Assignment 4 due Friday 2/10
-
--   Project proposal due Friday 2/17
-
 ## Today
 
--   Open science / reproducible research
+-   **Open and reproducible principles**
 
 -   Example R Project workflow
 
@@ -27,9 +21,7 @@ Can be exactly redone, given same materials
 
 -   Environment
 
--   Data[^1]
-
-[^1]: Adapted from [Telling Stories with Data by Rohan Alexander](https://tellingstorieswithdata.com/04-workflow.html)
+-   Data
 
 ## Reproducible for whom?
 
@@ -39,9 +31,9 @@ Can be exactly redone, given same materials
 
 -   Can **"future-you"** run your entire workflow again?
 
--   Can **"future-another-person"** run your entire workflow again?[^2]
+-   Can **"future-another-person"** run your entire workflow again?[^1]
 
-[^2]: Adapted from [Telling Stories with Data by Rohan Alexander](https://tellingstorieswithdata.com/04-workflow.html)
+[^1]: Adapted from [Telling Stories with Data by Rohan Alexander](https://tellingstorieswithdata.com/04-workflow.html)
 
 ## Reproducible outputs
 
@@ -57,7 +49,7 @@ Necessary conditions
 :::
 
 ::: {.column width="50%"}
-Overachieving
+"Overachieving"
 
 -   Code-generated manuscripts
 
@@ -69,39 +61,31 @@ Overachieving
 
 ## Paradigm shift
 
-Manuscript is an advertisement
+Manuscript is an advertisement, not the product.
 
-"Product" is:
+<br>
 
--   Code
+Product is code, data, Shiny tool, etc.
 
--   Data
+> An article about computational result is advertising, not scholarship. The **actual scholarship is the full software environment, code and data, that produced the result.**
 
--   Shiny tool
+[Buckheit and Donoho (1995)](https://statweb.stanford.edu/~wavelab/Wavelab_850/wavelab.pdf)
 
--   etc.
+## Why people don't share code?
 
 ## Why people don't share code?
 
 -   Didn't have to
 
--   It's not 'clean enough'
-
--   Want to keep competitive edge
-
--   Mistakes might be found
-
-## Why people don't share code?
-
--   Didn't have to
-
--   It's not 'clean enough'
+-   Not camera ready
 
 -   Want to keep competitive edge
 
 -   Mistakes might be found
 
 Usually, not good reasons
+
+## Why should we share code?
 
 ## Why should we share code?
 
@@ -119,9 +103,9 @@ Usually, not good reasons
 
 ## "Data available on request"
 
-Gabelica et. al.[^3] found:
+Gabelica et. al.[^2] found:
 
-[^3]: Gabelica, Bojčić, and Puljakc 2022. *Journal of Clinical Epidemiology* 2022. <https://doi.org/10.1016/j.jclinepi.2022.05.019>
+[^2]: Gabelica, Bojčić, and Puljakc 2022. *Journal of Clinical Epidemiology* 2022. <https://doi.org/10.1016/j.jclinepi.2022.05.019>
 
 -   3416 of 3556 articles (96%) included data availability statements
 
@@ -135,7 +119,11 @@ Gabelica et. al.[^3] found:
 
 ## "Research should be as open as possible and as closed as necessary"
 
-H2020 Program Guidelines on FAIR Data, European Commission
+*H2020 Program Guidelines on FAIR Data, European Commission*
+
+<br>
+
+Data sharing isn't always possible
 
 ## Can't share data due to privacy?
 
@@ -161,7 +149,7 @@ Increase reproducibility without sharing data with
 
     -   [renv package](https://rstudio.github.io/renv/) for **r**eproducible **env**ironments
 
-    -   Docker containers
+    -   [Docker containers](https://colinfay.me/docker-r-reproducibility/) (self-contained environment)
 
 ## R projects
 
@@ -177,7 +165,7 @@ Increase reproducibility without sharing data with
 
 ## Each script should run error-free in new session
 
-Use console when designing code, but 'restart r and clear output' for 'production.
+Use console when designing code, but 'restart r and clear output' before final check.
 
 Change global options to maximize reproducibility
 
@@ -193,13 +181,25 @@ Idea of Donald Knuth: Code snippets and 'natural language' (English) intersperse
 
 -   **Quarto documents** R, Python, Julia
 
+    -   In 2022, RStudio the company re-branded to Posit and released Quarto
+
 ## Repositories
 
-Zenodo, CEVR repo, etc.
+Put all materials in one publicly-accessable spot.
+
+Permanent third-party repo \> github repo
+
+-   [Zenodo.org](https://zenodo.org/): general purpose, can link to a github release, creates DOI for citation
+
+-   [OSF.io](OSF.io): open science framework
+
+-   [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/ghcearegistry/)
+
+-   [SMDM COVID-19 modeling repository](https://smdm.org/news/detail/smdm-covid-19-modeling-special-committee-creating-a-platform-for-collaborat)
 
 ## Today
 
--   Open science / reproducible research
+-   **pen and reproducible principles**
 
 -   **Example R Project workflow**
 
@@ -223,25 +223,78 @@ Zenodo, CEVR repo, etc.
 :::
 :::
 
-## .gitignore
+## Data folder best practices
+
+-   Put data documentation (data dictionary, meta-data) here as well
+
+-   Can share info on data even if it's in the private folder
+
+-   I put model parameter tables in Excel (Assign2 has good example)
+
+    -   Read by RScript to run the model
+
+    -   Read by manuscript Rmd/Quarto to display in maintext or supplement
+
+-   Line-level data in csv, json or [feather or parquet](https://arrow.apache.org/docs/index.html)
+
+## Intermediate and Output folders
+
+-   Anything made in a script should go to intermediate or output folder (**not data**!)
+
+-   Intermediate can de-clutter output, can skip for smaller projects
+
+-   Be careful not to post 'hidden' patient level data
+
+    -   e.g., train object from caret contains data embedded
+
+## Figures
+
+-   Better to save in the script vs. RStudio viewer
+
+-   Save to file before fine-tuning
+
+-   Vector format like svg preferred
+
+```{r}
+#| eval: false
+#| echo: true
+ggsave("./4_output/plt_prob_ce_grid.svg",
+       width=7,
+       height=8,
+       unit="in")
+```
+
+## Scripts folder best practices
 
 ::: columns
-::: {.column width="30%"}
-![](figs/gitignore-example.png)
+::: {.column width="60%"}
+-   Each script should run in a new, clean environment
+
+-   Any output that gets 'passed' to next script must be saved
+
+-   Name: Numbers then verbs
+
+-   00 is "helper functions" file
+
+    -   To de-clutter analysis scripts, collect functions here and call `source("00-helper-functions.R)` in script
 :::
 
-::: {.column width="70%"}
-Any folder or file you don't want on github
-
--   "local" folder for data use agreements, conference presentations, etc.
-
--   "private" folders for objects that cannot be made public
-
-I keep Github repos private at first, but they become public when I publish.
-
-**If sensitive data were ever in repo, hard to remove!**
+::: {.column width="40%"}
+![](rscript_examples.png)
 :::
 :::
+
+## Functionalize code
+
+Often develops over time:
+
+-   At first, write code directly in scripts
+
+-   Then, break key parts into functions
+
+-   As number of functions grow, move into `00-hepler-functions` script and `source()` into analysis scripts
+
+Smaller functions calling each other \> massive function
 
 ## **Git**hub in RStudio
 
@@ -258,6 +311,46 @@ I keep Github repos private at first, but they become public when I publish.
 -   Also works in Rstudio server!
 :::
 :::
+
+## .gitignore
+
+::: columns
+::: {.column width="30%"}
+![](figs/gitignore-example.png)
+:::
+
+::: {.column width="70%"}
+Any folder or file you don't want on github
+
+-   "local" folder (data use agreements, conference presentations, etc.)
+
+-   "private" folders for objects that cannot be made public
+
+I keep Github repos private at first, but they become public when I publish.
+
+**If sensitive data were ever in repo, hard to remove! (just nuke and re-create before making public)**
+:::
+:::
+
+## Merge conflict
+
+Caused when:
+
+-   Two users edit same line of file
+
+-   Someone edits and another person deletes
+
+```{=html}
+<!-- -->
+```
+    If you have questions, please
+    <<<<<<< HEAD
+    open an issue
+    =======
+    ask your question in IRC.
+    >>>>>>> branch-a
+
+Avoid by committing AND pushing often!
 
 ## RMarkdown/Quarto documents
 
@@ -294,6 +387,16 @@ fread("1_data/data.csv")
 ↓
 
 > The mean cost per person was \$1,212
+
+## Why use inline code?
+
+It talks longer to write inline code than hard-code numbers.
+
+**But:**
+
+-   If you change parameter and rerun scrips, all results will update
+
+-   Reduces risk of transcription error (still risk of coding error)
 
 ## My Manuscript template
 
@@ -374,25 +477,33 @@ fread("1_data/data.csv")
 :::
 :::
 
+## New! Better BibTex add-on + Zotero
+
+::: columns
+::: {.column width="50%"}
+I just learned of [Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) from [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc)
+
+-   Auto-assign citation keys and prevents duplicates
+
+-   If you export to "Better bibtex" format, with "Keep updated" checked, .bib file auto-updates whenever the Zenodo collection changes
+:::
+
+::: {.column width="50%"}
+![](BetterBibTeX.png)
+:::
+:::
+
 ## Zenodo repository
 
 <https://zenodo.org/>
 
 -   Permanent
 
--   Assigned a DOI (citable)
+-   Assigned a DOI (cite the repo in the manuscript!)
 
 -   Can drag-and-drop files or auto-add a 'release' from Github
 
-## Agenda
-
--   Overview
-
--   My workflow
-
--   **Example**
-
-## Evaluating quarantine and testing policies for arriving travelers
+## Example: Evaluating COVID-19 quarantine and testing policies for arriving travelers
 
 -   Manuscript: <https://doi.org/10.1101/2020.11.02.20224568>
 
@@ -402,9 +513,17 @@ fread("1_data/data.csv")
 
 -   Shiny app: <https://shiny.mchi.mcgill.ca/arussel/quarantineTesting/>
 
+## Coming up: Report on published study
+
+-   Find decision analysis with open source code
+
+-   Read it, run and inspect it
+
+-   Give brief presentation on your experience (March 10)
+
 ## Learn more
 
--   [Decision modeling lab manual](https://altonrus.quarto.pub/decision-modeling-lab-manual/)
+-   [D3Mod lab manual](https://altonrus.quarto.pub/decision-modeling-lab-manual/)
 
 -   [Reproducible Analytical Pipelines Course](https://rap4mads.eu/) by Bruno Rodrigues
 
@@ -412,4 +531,18 @@ fread("1_data/data.csv")
 
 -   ["Telling Stories with Data"](https://tellingstorieswithdata.com/04-workflow.html) Ch. 4 by Rohan Alexander
 
+-   [Good enough practices in scientific computing](https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&type=printable) (2017) Wilson et. al.
+
 -   [Intro to Dockers for R Users](https://colinfay.me/docker-r-reproducibility/) by Colin Fay
+
+-   [ISPOR open source models interest group](https://www.ispor.org/member-groups/special-interest-groups/open-source-models)
+
+## Logistics
+
+-   Assignment 1 due tonight at 11:59pm
+
+-   Assignment 2 due Friday, Jan 27
+
+-   Office hours now in Conference room #1103
+
+-   Next class: Microsimulation models
