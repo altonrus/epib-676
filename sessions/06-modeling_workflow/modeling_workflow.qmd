@@ -61,7 +61,7 @@ Necessary conditions
 
 ## Paradigm shift
 
-Manuscript is an advertisement, not the product.
+Manuscript is an advertisement. Product is what you publish with it.
 
 <br>
 
@@ -83,7 +83,7 @@ Product is code, data, Shiny tool, etc.
 
 -   Mistakes might be found
 
-Usually, not good reasons
+**Usually, not good reasons**
 
 ## Why should we share code?
 
@@ -193,13 +193,13 @@ Permanent third-party repo \> github repo
 
 -   [OSF.io](OSF.io): open science framework
 
--   [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/ghcearegistry/)
+-   [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/orchard/open-source-model-clearinghouse) (16 models; 4 in R)
 
 -   [SMDM COVID-19 modeling repository](https://smdm.org/news/detail/smdm-covid-19-modeling-special-committee-creating-a-platform-for-collaborat)
 
 ## Today
 
--   **pen and reproducible principles**
+-   Open and reproducible principles
 
 -   **Example R Project workflow**
 
@@ -225,15 +225,15 @@ Permanent third-party repo \> github repo
 
 ## Data folder best practices
 
--   Put data documentation (data dictionary, meta-data) here as well
+-   Also put data documentation (dictionary, meta-data) here
 
--   Can share info on data even if it's in the private folder
+    -   Make meta-data public even if data can't be
 
--   I put model parameter tables in Excel (Assign2 has good example)
+-   Put model parameter tables in Excel (Assign2 has example)
 
-    -   Read by RScript to run the model
+    -   Read by RScript to run model
 
-    -   Read by manuscript Rmd/Quarto to display in maintext or supplement
+    -   Read by manuscript Rmd/Quarto to display in main text or supplement
 
 -   Line-level data in csv, json or [feather or parquet](https://arrow.apache.org/docs/index.html)
 
@@ -241,19 +241,21 @@ Permanent third-party repo \> github repo
 
 -   Anything made in a script should go to intermediate or output folder (**not data**!)
 
--   Intermediate can de-clutter output, can skip for smaller projects
+-   Intermediate for non-final objects (that are later read into another script)
 
 -   Be careful not to post 'hidden' patient level data
 
-    -   e.g., train object from caret contains data embedded
+    -   e.g., train object from caret has training data embedded
 
 ## Figures
 
--   Better to save in the script vs. RStudio viewer
+-   Better to save programmatically vs. RStudio viewer
 
 -   Save to file before fine-tuning
 
--   Vector format like svg preferred
+-   Vector format (svg, pdf) preferred
+
+    -   PDF figures don't play nice with Word
 
 ```{r}
 #| eval: false
@@ -276,7 +278,7 @@ ggsave("./4_output/plt_prob_ce_grid.svg",
 
 -   00 is "helper functions" file
 
-    -   To de-clutter analysis scripts, collect functions here and call `source("00-helper-functions.R)` in script
+    -   To de-clutter analysis scripts, collect functions here and call `source("00-helper-functions.R")` in script
 :::
 
 ::: {.column width="40%"}
@@ -295,6 +297,18 @@ Often develops over time:
 -   As number of functions grow, move into `00-hepler-functions` script and `source()` into analysis scripts
 
 Smaller functions calling each other \> massive function
+
+## Use headings in code
+
+-   `# Text -----` will create a section for your outline
+
+    -   Again, verb-based sections good
+
+-   Neat hack: `#| Text ----` can create 'subsections'
+
+-   Figures also show up in outline
+
+![](rscript_examples.jpg)
 
 ## **Git**hub in RStudio
 
@@ -336,13 +350,13 @@ I keep Github repos private at first, but they become public when I publish.
 
 Caused when:
 
--   Two users edit same line of file
+-  Two users edit same line of file
+    
 
 -   Someone edits and another person deletes
 
-```{=html}
 <!-- -->
-```
+
     If you have questions, please
     <<<<<<< HEAD
     open an issue
@@ -351,6 +365,10 @@ Caused when:
     >>>>>>> branch-a
 
 Avoid by committing AND pushing often!
+
+::: callout-note
+This is why if you edit the assignments you may be unable to pull the class repo. Solution: Copy anything you want to edit into another location so you can always pull.
+:::
 
 ## RMarkdown/Quarto documents
 

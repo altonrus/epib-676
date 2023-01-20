@@ -448,7 +448,7 @@ Alton Russell
 </section>
 <section id="paradigm-shift" class="slide level2">
 <h2>Paradigm shift</h2>
-<p>Manuscript is an advertisement, not the product.</p>
+<p>Manuscript is an advertisement. Product is what you publish with it.</p>
 <p><br></p>
 <p>Product is code, data, Shiny tool, etc.</p>
 <blockquote>
@@ -467,7 +467,7 @@ Alton Russell
 <li><p>Want to keep competitive edge</p></li>
 <li><p>Mistakes might be found</p></li>
 </ul>
-<p>Usually, not good reasons</p>
+<p><strong>Usually, not good reasons</strong></p>
 </section>
 <section id="why-should-we-share-code" class="slide level2">
 <h2>Why should we share code?</h2>
@@ -564,14 +564,14 @@ Alton Russell
 <ul>
 <li><p><a href="https://zenodo.org/">Zenodo.org</a>: general purpose, can link to a github release, creates DOI for citation</p></li>
 <li><p><a href="OSF.io">OSF.io</a>: open science framework</p></li>
-<li><p><a href="http://ghcearegistry.org/ghcearegistry/">Global Health CEA open-source model clearinghouse</a></p></li>
+<li><p><a href="http://ghcearegistry.org/orchard/open-source-model-clearinghouse">Global Health CEA open-source model clearinghouse</a> (16 models; 4 in R)</p></li>
 <li><p><a href="https://smdm.org/news/detail/smdm-covid-19-modeling-special-committee-creating-a-platform-for-collaborat">SMDM COVID-19 modeling repository</a></p></li>
 </ul>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p><strong>pen and reproducible principles</strong></p></li>
+<li><p>Open and reproducible principles</p></li>
 <li><p><strong>Example R Project workflow</strong></p></li>
 </ul>
 </section>
@@ -594,12 +594,14 @@ Alton Russell
 <section id="data-folder-best-practices" class="slide level2">
 <h2>Data folder best practices</h2>
 <ul>
-<li><p>Put data documentation (data dictionary, meta-data) here as well</p></li>
-<li><p>Can share info on data even if it’s in the private folder</p></li>
-<li><p>I put model parameter tables in Excel (Assign2 has good example)</p>
+<li><p>Also put data documentation (dictionary, meta-data) here</p>
 <ul>
-<li><p>Read by RScript to run the model</p></li>
-<li><p>Read by manuscript Rmd/Quarto to display in maintext or supplement</p></li>
+<li>Make meta-data public even if data can’t be</li>
+</ul></li>
+<li><p>Put model parameter tables in Excel (Assign2 has example)</p>
+<ul>
+<li><p>Read by RScript to run model</p></li>
+<li><p>Read by manuscript Rmd/Quarto to display in main text or supplement</p></li>
 </ul></li>
 <li><p>Line-level data in csv, json or <a href="https://arrow.apache.org/docs/index.html">feather or parquet</a></p></li>
 </ul>
@@ -608,19 +610,22 @@ Alton Russell
 <h2>Intermediate and Output folders</h2>
 <ul>
 <li><p>Anything made in a script should go to intermediate or output folder (<strong>not data</strong>!)</p></li>
-<li><p>Intermediate can de-clutter output, can skip for smaller projects</p></li>
+<li><p>Intermediate for non-final objects (that are later read into another script)</p></li>
 <li><p>Be careful not to post ‘hidden’ patient level data</p>
 <ul>
-<li>e.g., train object from caret contains data embedded</li>
+<li>e.g., train object from caret has training data embedded</li>
 </ul></li>
 </ul>
 </section>
 <section id="figures" class="slide level2">
 <h2>Figures</h2>
 <ul>
-<li><p>Better to save in the script vs.&nbsp;RStudio viewer</p></li>
+<li><p>Better to save programmatically vs.&nbsp;RStudio viewer</p></li>
 <li><p>Save to file before fine-tuning</p></li>
-<li><p>Vector format like svg preferred</p></li>
+<li><p>Vector format (svg, pdf) preferred</p>
+<ul>
+<li>PDF figures don’t play nice with Word</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">ggsave</span>(<span class="st">"./4_output/plt_prob_ce_grid.svg"</span>,</span>
@@ -639,7 +644,7 @@ Alton Russell
 <li><p>Name: Numbers then verbs</p></li>
 <li><p>00 is “helper functions” file</p>
 <ul>
-<li>To de-clutter analysis scripts, collect functions here and call <code>source("00-helper-functions.R)</code> in script</li>
+<li>To de-clutter analysis scripts, collect functions here and call <code>source("00-helper-functions.R")</code> in script</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
@@ -657,6 +662,18 @@ Alton Russell
 </ul>
 <p>Smaller functions calling each other &gt; massive function</p>
 </section>
+<section id="use-headings-in-code" class="slide level2">
+<h2>Use headings in code</h2>
+<ul>
+<li><p><code># Text -----</code> will create a section for your outline</p>
+<ul>
+<li>Again, verb-based sections good</li>
+</ul></li>
+<li><p>Neat hack: <code>#| Text ----</code> can create ‘subsections’</p></li>
+<li><p>Figures also show up in outline</p></li>
+</ul>
+
+<img data-src="rscript_examples.jpg" class="r-stretch"></section>
 <section id="github-in-rstudio" class="slide level2">
 <h2><strong>Git</strong>hub in RStudio</h2>
 <div class="columns">
@@ -702,6 +719,19 @@ open an issue
 ask your question in IRC.
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-a</code></pre>
 <p>Avoid by committing AND pushing often!</p>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>This is why if you edit the assignments you may be unable to pull the class repo. Solution: Copy anything you want to edit into another location so you can always pull.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="rmarkdownquarto-documents" class="slide level2">
 <h2>RMarkdown/Quarto documents</h2>
