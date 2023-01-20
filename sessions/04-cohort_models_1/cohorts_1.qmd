@@ -501,7 +501,7 @@ Convert $M$ into long-format data table for plotting
 t_trace <- as_tibble(M) #convert from matrix
 t_trace$Cycle_num <- 0:20 #add col for cycle number
 t_trace <- t_trace |> #Long to wide
-  gather(M, key=State, value=Count, H:D) #wide to long format
+  gather(key=State, value=Count, H:D) #wide to long format
 t_trace
 ```
 
