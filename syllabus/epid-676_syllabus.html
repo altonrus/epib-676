@@ -82,7 +82,7 @@ ul.task-list{list-style: none;}
 </header>
 
 <!--
-Clicking"render" will only do the first format and delete any other copies. 
+Clicking"render" will only do the first format (html) and delete any other versions (pdf). 
 To render both html and pdf, use 
 
 quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
@@ -107,7 +107,7 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 <section id="class-sessions-office-hours" class="level2">
 <h2 class="anchored" data-anchor-id="class-sessions-office-hours">Class sessions &amp; office hours</h2>
 <p><strong>Class sessions</strong> will be held 10:05am – 11:25am on Wednesdays and Fridays at 2001 McGill College Ave in room #1203. Attendance is required.</p>
-<p><strong>Office hours</strong> will be held directly after class, 11:25am - 12pm Wednesday and Friday, in Alton’s office (#1113, 11th floor). If you are not available then, please email to arrange an alternative time.</p>
+<p><strong>Office hours</strong> will be held directly after class, 11:25am - 12pm Wednesday and Friday. <strong>Starting Jan 20, OH will be in conference room 1103</strong>. If you are not available then, please email to arrange an alternative time.</p>
 </section>
 <section id="target-audience" class="level2">
 <h2 class="anchored" data-anchor-id="target-audience">Target audience</h2>
@@ -243,19 +243,28 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 </tr>
 <tr class="even">
 <td><strong>1/20 F</strong></td>
-<td><p><strong>6. Microsimulation I</strong></p>
+<td><p><strong>6. Modeling workflow</strong></p>
+<ul>
+<li>Open science practices</li>
+<li>R project workflow</li>
+<li>Version control</li>
+</ul>
+<p><a href="https://www.doi.org/10.1177/0272989X12454579"><em>Eddy et. al.&nbsp;2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report</em></a></p></td>
+</tr>
+<tr class="odd">
+<td><strong>1/25 W</strong></td>
+<td><p><strong>7. Microsimulation I</strong></p>
 <ul>
 <li>Monte Carlo simulation</li>
 <li>Simulating decision trees</li>
 <li>Probabilistic sensitivity analysis</li>
 <li><strong>Assignment 3 available (simulation)</strong></li>
 </ul>
-<p><a href="http://www.doi.org/10.1177/0272989X18754513"><em>Krijkamp et. al.&nbsp;2018. Microsimulation modeling for health decision sciences Using R: A tutorial</em></a><br>
-</p></td>
+<p><a href="http://www.doi.org/10.1177/0272989X18754513"><em>Krijkamp et. al.&nbsp;2018. Microsimulation modeling for health decision sciences Using R: A tutorial</em></a></p></td>
 </tr>
-<tr class="odd">
-<td><strong>1/25 W</strong></td>
-<td><p><strong>7. Microsimulation II</strong></p>
+<tr class="even">
+<td><strong>1/27 F</strong></td>
+<td><p><strong>8. Microsimulation II</strong></p>
 <ul>
 <li>Tracking individual attributes</li>
 <li>Deciding on number of iterations</li>
@@ -265,9 +274,9 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 <p>Sections 1.4 and Ch. 2 (pg. 15 - 17, 23 - 64) from <a href="https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689"><em>Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.</em></a><br>
 </p></td>
 </tr>
-<tr class="even">
-<td><strong>1/27 F</strong></td>
-<td><p><strong>8. Other simulation types</strong></p>
+<tr class="odd">
+<td><strong>2/1 W</strong></td>
+<td><p><strong>9. Other simulation types</strong></p>
 <ul>
 <li>Discreet event</li>
 <li>Agent based</li>
@@ -276,9 +285,9 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 <p><a href="https://doi.org/10.1007/s40273-015-0254-2"><em>Chhatwal &amp; He (2015). Economic evaluations with agent-based modelling: An introduction.</em></a><br>
 </p></td>
 </tr>
-<tr class="odd">
-<td><strong>2/1 W</strong></td>
-<td><p><strong>9. Uncertainty analysis</strong></p>
+<tr class="even">
+<td><strong>2/3 F</strong></td>
+<td><p><strong>10. Uncertainty analysis</strong></p>
 <ul>
 <li>Probabilistic sensitivity analysis</li>
 <li>Credible intervals</li>
@@ -290,9 +299,9 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 <p><a href="https://doi.org/10.1177/0272989X12458348"><em>Briggs et. al.&nbsp;2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report</em></a><br>
 </p></td>
 </tr>
-<tr class="even">
-<td><strong>2/3 F</strong></td>
-<td><p><strong>10. Designing &amp; parameterizing an analysis</strong></p>
+<tr class="odd">
+<td><strong>2/8 W</strong></td>
+<td><p><strong>11. Designing &amp; parameterizing an analysis</strong></p>
 <ul>
 <li>Perspective, time horizons, comparators</li>
 <li>Deciding on scope &amp; structure</li>
@@ -303,20 +312,8 @@ quarto::quarto_render("syllabus/epid-676_syllabus.qmd")
 <ol type="1">
 <li><a href="https://doi.org/10.1016/j.jval.2012.06.016"><em>Roberts et. al.&nbsp;2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force</em></a><br>
 </li>
-<li>Ch 8 (pg 209 - 236) ‘Finding and summarizing the evidence’ from <a href="https://doi.org/10.1017/CBO9781139506779.011"><em>Decision Making in Health and Medicine (2014) by Hunink et. al.</em></a><br>
-</li>
+<li>Ch 8 (pg 209 - 236) ‘Finding and summarizing the evidence’ from <a href="https://doi.org/10.1017/CBO9781139506779.011"><em>Decision Making in Health and Medicine (2014) by Hunink et. al.</em></a></li>
 </ol></td>
-</tr>
-<tr class="odd">
-<td><strong>2/8 W</strong></td>
-<td><p><strong>11. Modeling workflow</strong></p>
-<ul>
-<li>Open science practices</li>
-<li>R project workflow</li>
-<li>Version control</li>
-</ul>
-<p><a href="https://www.doi.org/10.1177/0272989X12454579"><em>Eddy et. al.&nbsp;2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report</em></a><br>
-</p></td>
 </tr>
 <tr class="even">
 <td><strong>2/10 F</strong></td>
