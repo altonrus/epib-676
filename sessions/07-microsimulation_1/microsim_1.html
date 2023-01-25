@@ -600,13 +600,13 @@ Alton Russell
 <span id="cb2-3"><a href="#cb2-3"></a>v_isFemale <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">100</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">p=</span>p_female)</span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="fu">sum</span>(v_isFemale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 74</code></pre>
+<pre><code>[1] 65</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#Sampling gender for 100 simulants (random number)</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>v_isFemale <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(<span class="at">n=</span><span class="dv">100</span>) <span class="sc">&lt;</span> <span class="fl">0.7</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="fu">sum</span>(v_isFemale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 78</code></pre>
+<pre><code>[1] 68</code></pre>
 </div>
 </div>
 </section>
@@ -625,14 +625,14 @@ Alton Russell
 <div class="cell-output cell-output-stdout">
 <pre><code>v_race
      black indigenous     latino      other      white 
-         8          2         17         20         53 </code></pre>
+         9          6         30         12         43 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Distribution of race in simulated population</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="fu">table</span>(v_race)<span class="sc">/</span><span class="fu">length</span>(v_race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>v_race
      black indigenous     latino      other      white 
-      0.08       0.02       0.17       0.20       0.53 </code></pre>
+      0.09       0.06       0.30       0.12       0.43 </code></pre>
 </div>
 </div>
 </section>
@@ -646,7 +646,7 @@ Alton Russell
 <span id="cb10-4"><a href="#cb10-4"></a><span class="co">#Can sample with replacement</span></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="fu">sample</span>(v_emp_cost_per_pt, <span class="at">size=</span><span class="dv">10</span>, <span class="at">replace =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 560 503 345 260 240 560 240 560 345 123</code></pre>
+<pre><code> [1]  231 1100  257  191  345  434  503  560  260  345</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#Can plot cumulative distribution function</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">plot</span>(cost_emp_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -768,14 +768,14 @@ rate  0.9084043 1.0000000</code></pre>
 <span id="cb19-2"><a href="#cb19-2"></a>t_simulants <span class="ot">&lt;-</span> t_cohort[idx_sample,]; t_simulants</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      units_rbc units_plt units_ffp age_group is_female
-20015         2         0         0        80         0
-18579         3         2         4        45         0
-19731         3         0         0        75         0
-24304         8         0         3        70         0
-29823         1         0         0        70         0
-32042        32         0        23        75         0
-47749         2         0         2        80         1
-26333         2         0         0        75         0</code></pre>
+6772          8         0         0        75         1
+17311         6         0         2        75         1
+65387         5         0         0        60         0
+15931         1         0         0        85         0
+56746         2         0         0        65         0
+61886         2         0         0        85         1
+15043         2         0         0        60         0
+54620         3         0         0        70         0</code></pre>
 </div>
 </div>
 </section>
@@ -813,14 +813,14 @@ rate  0.9084043 1.0000000</code></pre>
 <span id="cb22-9"><a href="#cb22-9"></a>  <span class="fu">mutate</span>(<span class="at">infected =</span> v_rand <span class="sc">&lt;</span> p_transmit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      units_rbc units_plt units_ffp age_group is_female p_transmit infected
-20015         2         0         0        80         0  0.0768000    FALSE
-18579         3         2         4        45         0  0.3419550    FALSE
-19731         3         0         0        75         0  0.1106560    FALSE
-24304         8         0         3        70         0  0.3606033    FALSE
-29823         1         0         0        70         0  0.0400000    FALSE
-32042        32         0        23        75         0  0.7845992     TRUE
-47749         2         0         2        80         1  0.1760625     TRUE
-26333         2         0         0        75         0  0.0768000    FALSE</code></pre>
+6772          8         0         0        75         1  0.2433906     TRUE
+17311         6         0         2        75         1  0.2831801     TRUE
+65387         5         0         0        60         0  0.1704592    FALSE
+15931         1         0         0        85         0  0.0400000    FALSE
+56746         2         0         0        65         0  0.0768000    FALSE
+61886         2         0         0        85         1  0.0768000    FALSE
+15043         2         0         0        60         0  0.0768000    FALSE
+54620         3         0         0        70         0  0.1106560    FALSE</code></pre>
 </div>
 </div>
 </section>
@@ -878,6 +878,7 @@ rate  0.9084043 1.0000000</code></pre>
 <li>Assignment 2 due 11:59 Friday, Jan 27</li>
 <li>Assignment 3 to be posted tomorrow, due Friday, Feb 3</li>
 <li>Office hours in conference room #1103 (11th floor near kitchen)</li>
+<li>Added <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">info for non-programming assignments</a> in ‘syllabus’ folder</li>
 </ul>
 <div class="footer footer-default">
 
