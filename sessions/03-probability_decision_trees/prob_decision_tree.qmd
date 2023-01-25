@@ -183,7 +183,6 @@ table(disease, test_pos)|> addmargins()
 
 ::: columns
 ::: {.column width="65%"}
-
 ```{r}
 #| echo: false
 disease = c(rep(0,9500), rep(1,500))

@@ -1,8 +1,8 @@
 ---
-title: "Cohort models 1"
-subtitle: "EPIB  676 session 4, McGill University"
+title: "Uncertainty analysis"
+subtitle: "EPIB  676 session 10, McGill University"
 author: "Alton Russell"
-date: "13 Jan 2023"
+date: "2 Feb 2023"
 format: revealjs
 editor: visual
 ---
@@ -23,6 +23,22 @@ library(ggplot2) #plotting
 theme_set(theme_bw()) #set ggplot theme
 ```
 
+## 1st and 2nd order uncertainty
+
+-   **First order** **(stochastic) uncertainty:** variation between statistically identical patients
+
+-   **Second order (parameter) uncertainty:** uncertainty in a population parameter
+
+In a cohort model first order uncertainty is ignored; everyone in cohort is modeled as the "average" person
+
+In microsimulation, both first and second order undertainty are modeled
+
+## 1st and second order uncertainty in Bayesian terms
+
+![](sampling_dists_posterior_statisticalRethinking.png)
+
+## Distributions for data-free parameters
+
 ## Notes
 
 -   Model function maping inputs to outputs. Parametric uncertainty analysis is just changing inputs
@@ -35,9 +51,6 @@ theme_set(theme_bw()) #set ggplot theme
 
 ## Recap
 
-## Next class: More cohort models
-
 ## Logistics
 
--   Assignment 1 due 11:59pm today
--   Assignment 2 due Wednesday, Jan 25
+-   

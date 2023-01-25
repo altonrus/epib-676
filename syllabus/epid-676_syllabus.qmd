@@ -49,7 +49,7 @@ The ideal preparation of this course would include (1) a course in probability, 
 
 ## Readings
 
-Readings drawn from various sources are assigned before many class sessions as indicated in the schedule below. PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.
+Readings drawn from various sources are assigned before most class sessions as indicated in the schedule below. PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.
 
 ## Laptops and software
 
@@ -59,7 +59,7 @@ Students should bring a personal laptop to every class. Please reach out to the 
 
 This course is designed to give student hands-on experience applying course concepts early and often. The course has two distinct phases:
 
--   **Methods phase (weeks 1-7)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students should run on their own computers before class. Some classes will include running sample code on your own laptop. Six programming assignments will provide hands-on experience coding model-based analyses.
+-   **Methods phase (weeks 1-7)** focuses on understanding methods and building programming skills. Class readings will include tutorials accompanied by R code, which students are encouraged to run on their own computers before class. Some classes will include running sample code on your own laptop. Six programming assignments will provide hands-on experience coding model-based decision analyses.
 -   **Application phase (weeks 8-13)** focuses on applying decision analytic modeling to inform health policy and clinical practice. Students will be exposed to several published model-based decision analyses through guest lectures and an assignment in which students analyze an existing open source modeling study. Students will also develop their own model-based decision analysis in a course project.
 
 ## Assignments & evaluation
@@ -79,15 +79,15 @@ A series of programming assignments will provide hands-on experience developing 
 4.  Sensitivity analysis (7%)
 5.  Calibration, validation, and value of information (7%)
 
-Out of fairness to your classmates, assignments will only be accepted after the deadline in exceptional circumstances. All assignments will be available at least 1/5 weeks before their deadline. You are encouraged to start early and work on the assignments for shorter periods over several days.
+Out of fairness to your classmates, assignments will only be accepted after the deadline in exceptional circumstances. All assignments will be available more than one week before their deadline. You are encouraged to start early, work on the assignments for a short period over several days instead of all at once, and come to office hours with questions.
 
 ### Open-source modeling study report (10%)
 
-Students will select a published decision-analytic modeling study with open source code. Students will need to run the code on their own machine and give a class presentation about the analysis and what they learned by downloading and running the code.
+Students will select a published decision-analytic modeling study with open source code. Students will need to run the code on their own machine and give a class presentation about the analysis and what they learned.
 
 ### Course project (38%)
 
-Students will develop a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Students may work alone or in pairs.
+The default course project entails developing a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Other project topics, such as developing or assessing a novel method or using modeling methods for an application that is not a decision analysis, may be approved by the instructor on a case-by-case basic. Students may work alone or in pairs.
 
 1.  Proposal (2%)
 2.  Class presentation (12%)

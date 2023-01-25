@@ -1,0 +1,28 @@
+---
+title: "Cohort models 2"
+subtitle: "EPIB  676 session 5, McGill University"
+author: "Alton Russell"
+date: "20 Jan 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   Choosing distributions
+
+-   Sampling from dataset
+
+-   Integrating data-driven modeling
+
+-   Efficiency improvement technique
+
+## Recap
+
+-   
+
+## Logistics
+
+-   Assignment 1 due 11:59pm today
+-   Assignment 2 due 11:59 Friday, Jan 27
+-   **New!** Office hours in conference room #1103 for the rest of the semester

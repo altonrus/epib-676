@@ -1,6 +1,6 @@
 ---
 title: "Reproducible modeling workflow"
-subtitle: "EPIB  676 session 2, McGill University"
+subtitle: "EPIB  676 session 6, McGill University"
 author: "Alton Russell"
 date: "19 Jan 2023"
 format: revealjs
@@ -350,8 +350,7 @@ I keep Github repos private at first, but they become public when I publish.
 
 Caused when:
 
--  Two users edit same line of file
-    
+-   Two users edit same line of file
 
 -   Someone edits and another person deletes
 

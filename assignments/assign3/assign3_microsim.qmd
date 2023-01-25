@@ -1,0 +1,36 @@
+---
+title: "Assignment 2: Discrete time cohort models"
+author: "YOUR NAME HERE"
+date: today
+format:
+    html:
+      toc: true
+      embed-resources: true
+editor: visual
+---
+
+```{r}
+#Use install.packages("XXXX") if you don't have any of these installed
+library(flextable) #Formatting tables to display 
+# https://davidgohel.github.io/flextable/reference/index.html
+library(ggplot2) #Plotting
+theme_set(theme_bw()) #Makes ggplots look better
+#library(readxl) #for read_excel()
+#library(tidyr) #for gather()
+#library(dplyr) #for filter()
+#library(tibble) #for working with tibbles (optional)
+```
+
+# 1. Simulating decision tree
+
+In this section, you will implement a version of the simulated decision tree to estimate the cost-effectiveness of screening the US blood supply for Zika virus, as discussed in Session 7.
+
+# 2. Simulating
+
+# Last two questions
+
+-   About how much time did you spend on the assignment? **Replace with your answer**
+
+-   Did you find any errors or have suggestions to improve it? **Replace with your answer**
+
+Fin.

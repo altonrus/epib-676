@@ -1,0 +1,46 @@
+---
+title: "More simulation types"
+subtitle: "EPIB  676 session 5, McGill University"
+author: "Alton Russell"
+date: "20 Jan 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   Discrete event simulation
+
+-   Agent based model
+
+-   System dynamics
+
+-   Choosing a model structure
+
+## Choosing model structure
+
++--------------------+----------------------------------------------------+-------------------------------------------------------------+
+|                    | Cohort                                             | Individuals                                                 |
++====================+====================================================+=============================================================+
+| **No interaction** | Decision tree                                      | Simulated decision tree                                     |
+|                    |                                                    |                                                             |
+|                    | (Semi-)Markov discrete time state transition model | Simulated cohort model (discrete time steps)                |
+|                    |                                                    |                                                             |
+|                    |                                                    | Discrete event continuous time simulation                   |
++--------------------+----------------------------------------------------+-------------------------------------------------------------+
+| **Interaction**    | Compartmental differential equations model         | Discrete event simulation (capacity limits, queues, delays) |
+|                    |                                                    |                                                             |
+|                    | Difference equation approximation                  | Agent based model (contagion, complex interactions)         |
+|                    |                                                    |                                                             |
+|                    | System dynamics model                              |                                                             |
++--------------------+----------------------------------------------------+-------------------------------------------------------------+
+
+## Recap
+
+-   
+
+## Logistics
+
+-   Assignment 1 due 11:59pm today
+-   Assignment 2 due 11:59 Friday, Jan 27
+-   **New!** Office hours in conference room #1103 for the rest of the semester

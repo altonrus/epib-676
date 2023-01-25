@@ -1,0 +1,80 @@
+---
+title: "Info for non-programming assignments"
+author: "Alton Russell"
+format:
+  html:
+    toc: true
+editor: visual
+---
+
+## **Open-source modeling study presentation (10% final grade)**
+
+Students will select a published decision-analytic modeling study with open source code. Students will need to run the code on their own computer and give a class presentation about the analysis and what they learned by downloading and running the code.
+
+-   Can be done alone or in pairs.
+
+-   Oral presentation with slides only (no written report)
+
+-   Presentation should be under 6 minutes if alone and under 9 minutes if a pair
+
+-   When you select your paper, post the citation on the MyCourses discussion forum to avoid duplicates
+
+-   Try to run the code early so you can switch papers if there are major issues
+
+### Your presentation should address
+
+-   How did you find/select this paper?
+
+-   In brief, what is the decision problem, setting, alternatives, perspective, time horizon?
+
+-   What modeling method was used and why is it (or isn't it) a good choice?
+
+-   How difficult was it to get the code running?
+
+-   Regarding the reporting, code, and reproducibility:
+
+    -   What good practices do you observe?
+
+    -   What could be improved?
+
+### Assessment criteria
+
+-   Addresses all points
+
+-   Demonstrates understanding of decision-analytic modeling and reproducible research
+
+-   Presentation is clear
+
+## Course project (38% final grade)
+
+Students will develop a decision-analytic model and use it to analyze a decision from health policy or clinical practice. The project should demonstrate all major components of a decision analysis: a clear decision problem, framework, and alternatives; inputs from appropriate sources; a working model, outputs, and uncertainty analysis. But a thorough analysis is not expected. Several aspects of the analysis may be simplified compared to what would be submitted to a peer-reviewed journal. It's suggested that you get a simple model working quickly, even if the parameters are completely fictitious, and then refine it. Students are encouraged to analyze a decision problem related to their research interests, and you are welcome to engage with domain experts outside the class when applicable. Students may work alone or in pairs.
+
+While an applied decision analysis is the default project type, other ideas may be considered on a case-by-case basis and must be approved by the instructor before the project proposal deadline.
+
+### Project proposal (2% final grade)
+
+This should be about one page, and feel free to use bullet points. The aim is just to make sure you have an appropriate topic and have done some initial research into it's viability. You can adjust the project between the proposal and the final version.
+
+Provide your initial plans as to the following:
+
+-   Decision problem you wish to model
+
+-   At least two alternatives
+
+-   Analytic framework (e.g., cost minimization, comparative effectiveness, cost-utility)
+
+-   Modeling method
+
+-   Planned measure(s) of health outcome and, if applicable, identified data sources
+
+-   Included costs and, if applicable, identified data sources
+
+-   Does this build on your research, work you began before this semester, or others' modeling work?
+
+### Project presentation (12% final grade)
+
+Info coming soon
+
+### Project report with code (24% final grade)
+
+Info coming soon
