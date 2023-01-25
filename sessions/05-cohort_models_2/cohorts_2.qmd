@@ -128,7 +128,7 @@ $$
 
 -   Can have rewards depend on cycle by adding 3rd dimension (3D reward array)
 
--   $\textbf{C}[i,j,t]$ and $\textbf{Q}[i,j,t]$ are cost/QALYs of transition from state $i$ to $j$ in cycle $i$
+-   $\textbf{C}[i,j,t]$ and $\textbf{Q}[i,j,t]$ are cost/QALYs of transition from state $i$ to $j$ in cycle $t$
 
 -   $\hat{C}_t =m_{t-1} (P \bigodot C[:,:,t])$ or $\hat{Q}_t = m_{t-1} (P \bigodot Q[:,:,t])$ gives costs/QALYs in each state in cycle $t$
 
@@ -229,7 +229,7 @@ S**impson's 3/8 method** (cubic approximation; requires that number of cycles ar
 
 -   Can be implemented as like transition rewards in a reward matrix
 
-$\hat{C}_t =m_{t-1} (T \bigodot C)$ or $\hat{Q}_t =m_{t-1} (T \bigodot Q)$ with C and Q as given on next slide
+$\hat{C}_t =m_{t-1} (P \bigodot C)$ or $\hat{Q}_t =m_{t-1} (P \bigodot Q)$ with C and Q as given on next slide
 
 ## Cycle tree transition reward matrices
 

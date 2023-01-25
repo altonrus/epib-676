@@ -266,7 +266,7 @@ gen_arr_P_with_OCM <- function(m_P, #transition matrix without other cause morta
     #. Because some life tables have annual probability for e.g, age 1-5
     #. we need to use findInterval to get the right probability
     #. I did this part for you
-    p_OCM <- t_OCM[findInterval(current_age, t_OCM$age)]$p_death_annual
+    p_OCM <- t_ocm[findInterval(current_age, t_ocm$age_lower), ]$p_death_annual
     
     #If cycle lengthe is not a year, we need to convert p_OCM which is
     #. an annual probability into a probability for our cycle length
