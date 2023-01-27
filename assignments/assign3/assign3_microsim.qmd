@@ -21,11 +21,388 @@ theme_set(theme_bw()) #Makes ggplots look better
 #library(tibble) #for working with tibbles (optional)
 ```
 
-# 1. Simulating decision tree
+# 1. Vectorization and profiling
 
-In this section, you will implement a version of the simulated decision tree to estimate the cost-effectiveness of screening the US blood supply for Zika virus, as discussed in Session 7.
+In this section, we are going to take two versions of the microsimlation model from the 2018 tutorial by Krijkamp et. al. and compare their runtime. This will help us see the benefits of vectorization in your microsimulation and also introduce you to tools in R for profiling your code. Profiling helps us identify which parts of our code are slowest so we can improve them. Code can always be more efficient, so our goal should be "fast enough", not "optimized".
 
-# 2. Simulating
+First, install [the profvis r package](http://rstudio.github.io/profvis/index.html) from cran by running:
+
+    install.packages("profvis")
+
+In the next three chunks, I've provided the code from the microsimulation tutorial. In the fourth chunk, I've provided code to profile this code using the profvis package. You don't need to change anything in any of these code chunks. Just run all 4 in order and then answer the questions at the bottom using the Profile1 and Profile2 graphical user interfaces that are created after running the fourth code chunk.
+
+## Parameters
+
+```{r params}
+#| code-fold: true
+# Model input
+n.i   <- 100000                # number of simulated individuals
+n.t   <- 30                    # time horizon, 30 cycles
+v.n   <- c("H","S1","S2","D")  # the model states: Healthy (H), Sick (S1), Sicker (S2), Dead (D)
+n.s   <- length(v.n)           # the number of health states
+v.M_1 <- rep("H", n.i)         # everyone begins in the healthy state 
+d.c   <- d.e <- 0.03           # equal discounting of costs and QALYs by 3%
+v.Trt <- c("No Treatment", "Treatment") # store the strategy names
+
+# Transition probabilities (per cycle)
+p.HD    <- 0.005               # probability to die when healthy
+p.HS1   <- 0.15          	     # probability to become sick when healthy
+p.S1H   <- 0.5           	     # probability to become healthy when sick
+p.S1S2  <- 0.105         	     # probability to become sicker when sick
+rr.S1   <- 3             	     # rate ratio of death when sick vs healthy
+rr.S2   <- 10            	     # rate ratio of death when sicker vs healthy 
+r.HD    <- -log(1 - p.HD) 	   # rate of death when healthy 
+r.S1D   <- rr.S1 * r.HD  	     # rate of death when sick
+r.S2D   <- rr.S2 * r.HD  	     # rate of death when sicker
+p.S1D   <- 1 - exp(- r.S1D)    # probability to die when sick
+p.S2D   <- 1 - exp(- r.S2D)    # probability to die when sicker
+
+# Cost and utility inputs 
+c.H     <- 2000                # cost of remaining one cycle healthy
+c.S1    <- 4000                # cost of remaining one cycle sick 
+c.S2    <- 15000               # cost of remaining one cycle sicker
+c.Trt   <- 12000               # cost of treatment (per cycle)
+  
+u.H     <- 1                   # utility when healthy 
+u.S1    <- 0.75                # utility when sick 
+u.S2    <- 0.5                 # utility when sicker 
+u.Trt   <- 0.95                # utility when sick(er) and being treated
+```
+
+## Unvectorized model functions
+
+```{r unvectorized-fns}
+#| code-fold: true
+# The MicroSim function for the simple microsimulation of the 'Sick-Sicker' model keeps track of what happens to each individual during each cycle. 
+
+MicroSim <- function(v.M_1, n.i, n.t, v.n, d.c, d.e, TR.out = TRUE, TS.out = TRUE, Trt = FALSE, seed = 1) {
+# Arguments:  
+  # v.M_1:   vector of initial states for individuals 
+  # n.i:     number of individuals
+  # n.t:     total number of cycles to run the model
+  # v.n:     vector of health state names
+  # d.c:     discount rate for costs
+  # d.e:     discount rate for health outcome (QALYs)
+  # TR.out:  should the output include a microsimulation trace? (default is TRUE)
+  # TS.out:  should the output include a matrix of transitions between states? (default is TRUE)
+  # Trt:     are the n.i individuals receiving treatment? (scalar with a Boolean value, default is FALSE)
+  # seed:    starting seed number for random number generator (default is 1)
+# Makes use of:
+  # Probs:   function for the estimation of transition probabilities
+  # Costs:   function for the estimation of cost state values
+  # Effs:    function for the estimation of state specific health outcomes (QALYs)
+ 
+  v.dwc <- 1 / (1 + d.c) ^ (0:n.t)   # calculate the cost discount weight based on the discount rate d.c 
+  v.dwe <- 1 / (1 + d.e) ^ (0:n.t)   # calculate the QALY discount weight based on the discount rate d.e
+  
+ # create the matrix capturing the state name/costs/health outcomes for all individuals at each time point 
+  m.M <- m.C <- m.E <-  matrix(nrow = n.i, ncol = n.t + 1, 
+                               dimnames = list(paste("ind", 1:n.i, sep = " "), 
+                                               paste("cycle", 0:n.t, sep = " ")))  
+  
+  m.M[, 1] <- v.M_1                     # indicate the initial health state   
+  
+  for (i in 1:n.i) {
+    set.seed(seed + i)                  # set the seed for every individual for the random number generator
+    m.C[i, 1] <- Costs(m.M[i, 1], Trt)  # estimate costs per individual for the initial health state conditional on treatment
+    m.E[i, 1] <- Effs (m.M[i, 1], Trt)  # estimate QALYs per individual for the initial health state conditional on treatment
+    
+    for (t in 1:n.t) {
+      v.p <- Probs(m.M[i, t])           # calculate the transition probabilities at cycle t 
+      
+      m.M[i, t + 1] <- sample(v.n, prob = v.p, size = 1)  # sample the next health state and store that state in matrix m.M 
+      m.C[i, t + 1] <- Costs(m.M[i, t + 1], Trt)   # estimate costs per individual during cycle t + 1 conditional on treatment
+      m.E[i, t + 1] <- Effs( m.M[i, t + 1], Trt)   # estimate QALYs per individual during cycle t + 1 conditional on treatment
+      
+    } # close the loop for the time points 
+    if(i/100 == round(i/100,0)) {          # display the progress of the simulation
+      cat('\r', paste(i/n.i * 100, "% done", sep = " "))
+    }
+  } # close the loop for the individuals 
+  
+  tc <- m.C %*% v.dwc       # total (discounted) cost per individual
+  te <- m.E %*% v.dwe       # total (discounted) QALYs per individual 
+  
+  tc_hat <- mean(tc)        # average (discounted) cost 
+  te_hat <- mean(te)        # average (discounted) QALYs
+
+  if (TS.out == TRUE) {  # create a  matrix of transitions across states
+    TS <- paste(m.M, cbind(m.M[, -1], NA), sep = "->") # transitions from one state to the other
+    TS <- matrix(TS, nrow = n.i)
+    rownames(TS) <- paste("Ind",   1:n.i, sep = " ")   # name the rows 
+    colnames(TS) <- paste("Cycle", 0:n.t, sep = " ")   # name the columns 
+  } else {
+    TS <- NULL
+  }
+  
+  if (TR.out == TRUE) { # create a trace from the individual trajectories
+    TR <- t(apply(m.M, 2, function(x) table(factor(x, levels = v.n, ordered = TRUE))))
+    TR <- TR / n.i                                       # create a distribution trace
+    rownames(TR) <- paste("Cycle", 0:n.t, sep = " ")     # name the rows 
+    colnames(TR) <- v.n                                  # name the columns 
+  } else {
+    TR <- NULL
+  }
+  
+  results <- list(m.M = m.M, m.C = m.C, m.E = m.E, tc = tc, te = te, tc_hat = tc_hat, te_hat = te_hat, TS = TS, TR = TR) # store the results from the simulation in a list  
+  return(results)  # return the results
+}  # end of the MicroSim function  
+
+
+#### Probability function
+# The Probs function that updates the transition probabilities of every cycle is shown below.
+
+Probs <- function(M_it) { 
+  # M_it:    health state occupied by individual i at cycle t (character variable)
+
+  v.p.it <- rep(NA, n.s)     # create vector of state transition probabilities
+  names(v.p.it) <- v.n       # name the vector
+  
+  # update v.p.it with the appropriate probabilities   
+  v.p.it[M_it == "H"]  <- c(1 - p.HS1 - p.HD, p.HS1, 0, p.HD)                  # transition probabilities when healthy
+  v.p.it[M_it == "S1"] <- c(p.S1H, 1- p.S1H - p.S1S2 - p.S1D, p.S1S2, p.S1D)   # transition probabilities when sick
+  v.p.it[M_it == "S2"] <- c(0, 0, 1 - p.S2D, p.S2D)                            # transition probabilities when sicker
+  v.p.it[M_it == "D"]  <- c(0, 0, 0, 1)                                        # transition probabilities when dead   
+  ifelse(sum(v.p.it) == 1, return(v.p.it), print("Probabilities do not sum to 1")) # return the transition probabilities or produce an error
+}       
+
+
+### Costs function
+# The Costs function estimates the costs at every cycle.
+
+Costs <- function (M_it, Trt = FALSE) {
+  # M_it: health state occupied by individual i at cycle t (character variable)
+  # Trt:  is the individual being treated? (default is FALSE) 
+  
+  c.it <- 0                                  # by default the cost for everyone is zero 
+  c.it[M_it == "H"]  <- c.H                  # update the cost if healthy
+  c.it[M_it == "S1"] <- c.S1 + c.Trt * Trt   # update the cost if sick conditional on treatment
+  c.it[M_it == "S2"] <- c.S2 + c.Trt * Trt   # update the cost if sicker conditional on treatment
+  return(c.it)        		                   # return the costs
+}
+
+
+### Health outcome function 
+# The Effs function to update the utilities at every cycle.
+
+Effs <- function (M_it, Trt = FALSE, cl = 1) {
+  # M_it: health state occupied by individual i at cycle t (character variable)
+  # Trt:  is the individual treated? (default is FALSE) 
+  # cl:   cycle length (default is 1)
+  
+  u.it <- 0                      # by default the utility for everyone is zero
+  u.it[M_it == "H"]  <- u.H      # update the utility if healthy
+  u.it[M_it == "S1"] <- Trt * u.Trt + (1 - Trt) * u.S1  # update the utility if sick conditional on treatment
+  u.it[M_it == "S2"] <- u.S2     # update the utility if sicker
+  QALYs <-  u.it * cl            # calculate the QALYs during cycle t
+  return(QALYs)                  # return the QALYs
+}
+```
+
+## Vectorized model functions
+
+```{r vectorized-fns}
+#| code-fold: true
+
+# THE NEW samplev() FUNCTION
+# efficient implementation of the rMultinom() function of the Hmisc package #### 
+
+samplev <- function (probs, m) {
+  d <- dim(probs)
+  n <- d[1]
+  k <- d[2]
+  lev <- dimnames(probs)[[2]]
+  if (!length(lev)) 
+    lev <- 1:k
+  ran <- matrix(lev[1], ncol = m, nrow = n)
+  U <- t(probs)
+  for(i in 2:k) {
+    U[i, ] <- U[i, ] + U[i - 1, ]
+  }
+  if (any((U[k, ] - 1) > 1e-05))
+    stop("error in multinom: probabilities do not sum to 1")
+  
+  for (j in 1:m) {
+    un <- rep(runif(n), rep(k, n))
+    ran[, j] <- lev[1 + colSums(un > U)]
+  }
+  ran
+}
+# The MicroSim function for the simple microsimulation of the 'Sick-Sicker' model keeps track of what happens to each individual during each cycle. 
+
+MicroSim_vectorized <- function(v.M_1, n.i, n.t, v.n, d.c, d.e, TR.out = TRUE, TS.out = TRUE, 
+                     Trt = FALSE, seed = 1) {
+# Arguments:  
+  # v.M_1:   vector of initial states for individuals
+  # n.i:     number of individuals
+  # n.t:     total number of cycles to run the model
+  # v.n:     vector of health state names
+  # d.c:     discount rate for costs
+  # d.e:     discount rate for health outcome (QALYs)
+  # TR.out:  should the output include a Microsimulation trace? (default is TRUE)
+  # TS.out:  should the output include a matrix of transitions between states? (default is TRUE)
+  # Trt:     are the n.i individuals receiving treatment? (scalar with a Boolean value, default is FALSE)
+  # seed:    starting seed number for random number generator (default is 1)
+# Makes use of:
+  # Probs:   function for the estimation of transition probabilities
+  # Costs:   function for the estimation of cost state values
+  # Effs:    function for the estimation of state specific health outcomes (QALYs)
+ 
+  v.dwc <- 1 / (1 + d.c) ^ (0:n.t)   # calculate the cost discount weight based on the discount rate d.c 
+  v.dwe <- 1 / (1 + d.e) ^ (0:n.t)   # calculate the QALY discount weight based on the discount rate d.e
+  
+ # Create the matrix capturing the state name/costs/health outcomes for all individuals at each time point 
+  m.M <- m.C <- m.E <-  matrix(nrow = n.i, ncol = n.t + 1, 
+                               dimnames = list(paste("ind", 1:n.i, sep = " "), 
+                                               paste("cycle", 0:n.t, sep = " ")))  
+  
+  m.M[, 1] <- v.M_1                     # indicate the initial health state   
+  
+    set.seed(seed)                  # set the seed for every individual for the random number generator
+    m.C[, 1] <- Costs_vectorized(m.M[, 1], Trt)  # estimate costs per individual for the initial health state
+    m.E[, 1] <- Effs_vectorized(m.M[, 1], Trt)  # estimate QALYs per individual for the initial health state
+    
+    for (t in 1:n.t) {
+      m.p <- Probs_vectorized(m.M[, t])           # calculate the transition probabilities at cycle t 
+      
+      m.M[, t + 1] <- samplev( prob = m.p, m = 1)  # sample the next health state and store that state in matrix m.M 
+      m.C[, t + 1] <- Costs_vectorized(m.M[, t + 1], Trt)   # estimate costs per individual during cycle t + 1 conditional on treatment
+      m.E[, t + 1] <- Effs_vectorized( m.M[, t + 1], Trt)   # estimate QALYs per individual during cycle t + 1 conditional on treatment
+        cat('\r', paste(round(t/n.t * 100), "% done", sep = " "))       # display the progress of the simulation
+      
+    } # close the loop for the time points 
+
+  
+  tc <- m.C %*% v.dwc       # total (discounted) cost per individual
+  te <- m.E %*% v.dwe       # total (discounted) QALYs per individual 
+  
+  tc_hat <- mean(tc)        # average (discounted) cost 
+  te_hat <- mean(te)        # average (discounted) QALYs
+
+  if (TS.out == TRUE) {  # create a matrix of transitions across states
+    TS <- paste(m.M, cbind(m.M[, -1], NA), sep = "->") # transitions from one state to the other
+    TS <- matrix(TS, nrow = n.i)
+    rownames(TS) <- paste("Ind",   1:n.i, sep = " ")   # name the rows 
+    colnames(TS) <- paste("Cycle", 0:n.t, sep = " ")   # name the columns 
+  } else {
+    TS <- NULL
+  }
+  
+  if (TR.out == TRUE) {
+    TR <- t(apply(m.M, 2, function(x) table(factor(x, levels = v.n, ordered = TRUE))))
+    TR <- TR / n.i                                       # create a distribution trace
+    rownames(TR) <- paste("Cycle", 0:n.t, sep = " ")     # name the rows 
+    colnames(TR) <- v.n                                  # name the columns 
+  } else {
+    TR <- NULL
+  }
+  results <- list(m.M = m.M, m.C = m.C, m.E = m.E, tc = tc, te = te, tc_hat = tc_hat, te_hat = te_hat, TS = TS, TR = TR) # store the results from the simulation in a list  
+  return(results)  # return the results
+}  # end of the MicroSim function  
+
+
+#### Probability function
+# The Probs function that updates the transition probabilities of every cycle is shown below.
+
+Probs_vectorized <- function(M_it) { 
+  # M_it:    health state occupied by individual i at cycle t (character variable)
+
+  m.p.it <- matrix(NA, n.s, n.i)     # create vector of state transition probabilities
+  rownames(m.p.it) <- v.n            # assign names to the vector
+  
+  # update the v.p with the appropriate probabilities   
+  m.p.it[,M_it == "H"]  <- c(1 - p.HS1 - p.HD, p.HS1, 0, p.HD)                  # transition probabilities when healthy
+  m.p.it[,M_it == "S1"] <- c(p.S1H, 1- p.S1H - p.S1S2 - p.S1D, p.S1S2, p.S1D)   # transition probabilities when sick
+  m.p.it[,M_it == "S2"] <- c(0, 0, 1 - p.S2D, p.S2D)                            # transition probabilities when sicker
+  m.p.it[,M_it == "D"]  <- c(0, 0, 0, 1)                                        # transition probabilities when dead   
+  ifelse(colSums(m.p.it) == 1, return(t(m.p.it)), print("Probabilities do not sum to 1")) # return the transition probabilities or produce an error
+}       
+
+
+### Costs function
+# The Costs function estimates the costs at every cycle.
+
+Costs_vectorized <- function (M_it, Trt = FALSE) {
+  # M_it: health state occupied by individual i at cycle t (character variable)
+  # Trt:  is the individual being treated? (default is FALSE) 
+  
+  c.it <- 0                                  # by default the cost for everyone is zero 
+  c.it[M_it == "H"]  <- c.H                  # update the cost if healthy
+  c.it[M_it == "S1"] <- c.S1 + c.Trt * Trt   # update the cost if sick conditional on treatment
+  c.it[M_it == "S2"] <- c.S2 + c.Trt * Trt   # update the cost if sicker conditional on treatment
+  c.it[M_it == "D"]  <- 0                    # update the cost if dead
+  
+  return(c.it)        		                   # return the costs
+}
+
+
+### Health outcome function 
+# The Effs function to update the utilities at every cycle.
+
+Effs_vectorized <- function (M_it, Trt = FALSE, cl = 1) {
+  # M_it: health state occupied by individual i at cycle t (character variable)
+  # Trt:  is the individual treated? (default is FALSE) 
+  # cl:   cycle length (default is 1)
+  
+  u.it <- 0                      # by default the utility for everyone is zero
+  u.it[M_it == "H"]  <- u.H      # update the utility if healthy
+  u.it[M_it == "S1"] <- Trt * u.Trt + (1 - Trt) * u.S1  # update the utility if sick conditional on treatment
+  u.it[M_it == "S2"] <- u.S2     # update the utility if sicker
+  u.it[M_it == "D"]  <- 0        # update the utility if dead
+  
+  QALYs <-  u.it * cl            # calculate the QALYs during cycle t
+  return(QALYs)                  # return the QALYs
+}
+
+```
+
+## Profiling
+
+When looking at the .qmd file, you'll see `#| eval: false` at the top of the chunk. this tells R not to run this chunk whenever you render your document. You should run this code chunk in Rstudio, after running the prior chunks in this section, in order to profile the code with the profvis package. This will create two different "Profile" tabs in RStudio which you will analyze to answer the questions below.
+
+```{r}
+#| eval: false
+library(profvis)
+# Profile the vectorized version
+profvis({
+  sim_no_trt_vectorized  <- MicroSim_vectorized(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = FALSE) # run for no treatment
+sim_trt_vectorized     <- MicroSim_vectorized(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = TRUE)  # run for treatment
+})
+# Profile the unvectorized version
+profvis({
+sim_no_trt  <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = FALSE) # run for no treatment
+sim_trt     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = TRUE)  # run for treatment
+})
+
+```
+
+Two answer these questions, look at the "Data" tab of the Profile1 and Profile2 documents in Rstudio.
+
+What was the total time in miliseconds to run the vectorized and unvectorized versions of the simulation function? How many times slower is the unvectorized version compared to the vectorized version?
+
+> Your answer here.
+
+Within the microsim() function, what sub-function was being run for the greatest amount of time (non-vectorized version)?
+
+> Your answer here
+
+Within the microsim_vectorized() function, what sub-function was being run for the greatest amount of time (vectorized version)?
+
+> Your answer here
+
+# 2. Simulating decision tree
+
+In this section, you will implement a version of the simulated decision tree to estimate the cost-effectiveness of screening the US blood supply for Zika virus we discused in class (see [2019 publication](https://doi.org/10.7326/M18-2238) and [2022 follow-up](https://doi.org/10.7326/M20-6879)). You will use the conditional Monte Carlo technique to improve estimation of the consequences of rare events. Here is a schematic of decision tree being simulated:
+
+![](simulated_decision_tree_zika.png)
+
+## Sample recipient and generate characteristics
+
+## Calculate outcomes with and without Zika
+
+## Run the simulation model
+
+
 
 # Last two questions
 

@@ -390,7 +390,7 @@ t_simulants |>
   mutate(infected = v_rand < p_transmit)
 ```
 
-## TT-Zika parameters depend on age, sex, component mix 
+## TT-Zika parameters depend on age, sex, component mix
 
 ![](simulated_decision_tree_zika.png)
 
