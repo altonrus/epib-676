@@ -457,7 +457,7 @@ Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation
 
 -   Improve microsim efficiency by reducing duration of runs or reducing total runs
 
--   First get your model running, then use profiler to decide how much to optimize
+-   First get your model running, if needed, use profiler to decide where to optimize
 
     -   Your time value \>\>\>\> computer time value!
 
@@ -473,9 +473,9 @@ Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation
 
 ## Logistics
 
--   Assignment 1 due 11:59pm today
--   Assignment 2 due 11:59 Friday, Jan 27
+-   Assignment 2 due 11:59pm today
+-   Assignment 3 due 11:59 Friday, Feb 3
     -   Question 1 available now
 
     -   Will send email when question 2 available (tomorrow at the latest)
--   Office hours in conference room #1103 now
+-   Office hours in conference room #1103 starting now

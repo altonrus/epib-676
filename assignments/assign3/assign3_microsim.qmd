@@ -1,5 +1,5 @@
 ---
-title: "Assignment 2: Discrete time cohort models"
+title: "Assignment 3: Microsimulation"
 author: "YOUR NAME HERE"
 date: today
 format:
@@ -10,31 +10,36 @@ editor: visual
 ---
 
 ```{r}
+#| warning: false
+
 #Use install.packages("XXXX") if you don't have any of these installed
-library(flextable) #Formatting tables to display 
-# https://davidgohel.github.io/flextable/reference/index.html
-library(ggplot2) #Plotting
+library(readxl)
+library(flextable)
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(data.table)
 theme_set(theme_bw()) #Makes ggplots look better
-#library(readxl) #for read_excel()
-#library(tidyr) #for gather()
-#library(dplyr) #for filter()
-#library(tibble) #for working with tibbles (optional)
 ```
 
 # 1. Vectorization and profiling
 
-In this section, we are going to take two versions of the microsimlation model from the 2018 tutorial by Krijkamp et. al. and compare their runtime. This will help us see the benefits of vectorization in your microsimulation and also introduce you to tools in R for profiling your code. Profiling helps us identify which parts of our code are slowest so we can improve them. Code can always be more efficient, so our goal should be "fast enough", not "optimized".
+In this section, we are going to take two versions of the microsimlation model from the 2018 tutorial by Krijkamp et. al. and compare their runtime. This will help us see the benefits of vectorization for microsimulation models and provide practice with profiling code. Profiling helps us identify which parts of our code are slowest so we can improve them. Code can always be more efficient, but our time is limited. The goal should be "fast enough", not "fully optimized".
 
-First, install [the profvis r package](http://rstudio.github.io/profvis/index.html) from cran by running:
+First, install [the profvis r package](http://rstudio.github.io/profvis/index.html) from CRAN by running:
 
     install.packages("profvis")
 
 In the next three chunks, I've provided the code from the microsimulation tutorial. In the fourth chunk, I've provided code to profile this code using the profvis package. You don't need to change anything in any of these code chunks. Just run all 4 in order and then answer the questions at the bottom using the Profile1 and Profile2 graphical user interfaces that are created after running the fourth code chunk.
 
+This code is meant to be run by you in Rstudio but doesn't need to be re-run each time you render the document to HTML, which is why the "eval: false" option is at the top of each code chunk.
+
 ## Parameters
 
 ```{r params}
+#| eval: false
 #| code-fold: true
+
 # Model input
 n.i   <- 100000                # number of simulated individuals
 n.t   <- 30                    # time horizon, 30 cycles
@@ -72,6 +77,7 @@ u.Trt   <- 0.95                # utility when sick(er) and being treated
 ## Unvectorized model functions
 
 ```{r unvectorized-fns}
+#| eval: false
 #| code-fold: true
 # The MicroSim function for the simple microsimulation of the 'Sick-Sicker' model keeps track of what happens to each individual during each cycle. 
 
@@ -202,6 +208,7 @@ Effs <- function (M_it, Trt = FALSE, cl = 1) {
 ## Vectorized model functions
 
 ```{r vectorized-fns}
+#| eval: false
 #| code-fold: true
 
 # THE NEW samplev() FUNCTION
@@ -376,7 +383,7 @@ sim_trt     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = TRUE)  # run for t
 
 ```
 
-Two answer these questions, look at the "Data" tab of the Profile1 and Profile2 documents in Rstudio.
+To answer these questions, look at the "Data" tabs of the Profile1 and Profile2 widgets that will appear when you run the above code in Rstudio.
 
 What was the total time in miliseconds to run the vectorized and unvectorized versions of the simulation function? How many times slower is the unvectorized version compared to the vectorized version?
 
@@ -390,19 +397,439 @@ Within the microsim_vectorized() function, what sub-function was being run for t
 
 > Your answer here
 
-# 2. Simulating decision tree
+# 2. Simulated decision tree
 
-In this section, you will implement a version of the simulated decision tree to estimate the cost-effectiveness of screening the US blood supply for Zika virus we discused in class (see [2019 publication](https://doi.org/10.7326/M18-2238) and [2022 follow-up](https://doi.org/10.7326/M20-6879)). You will use the conditional Monte Carlo technique to improve estimation of the consequences of rare events. Here is a schematic of decision tree being simulated:
+In this section, you will implement a version of the simulated decision tree from my papers about transfusion-transmitted Zika virus, discussed in class (see [Russell et. al. 2019](https://doi.org/10.7326/M18-2238), [Russell et. al. 2021](https://www.doi.org/10.1007/s10729-021-09557-1), and [Russell 2022](https://doi.org/10.7326/M20-6879)). Your model will use two variation reduction techniques: conditional Monte Carlo and simulating outcomes on the same cohort across each scenario, to improve the efficiency of the analysis. Lets get started!
+
+We will assess a hypothetical pathogen inactivation technlogy that reduces the risk of transfusion-transmitted Zika by 95% and costs \$18 per component transfused. As depicted below, my full simulation model consider adverse events to the transfusion recipient, their sexual partner, and an infant born to the transfusion recipient (if pregnant at the time of transfusion) or sexual partner (if pregnant at the time of sexual transmission). However, we're going to only include adverse outcomes experienced by the tranfusion recipients and infants they have if they are pregnant at the time of transfusion. We will also simplify by ignoring cost and QALY discounting and productivity loss due to illness or death. I've also inflated the probability of Guillain-Barre Syndrome so that we can get a stable solution while simulating a smaller number of transfusion recipeints.
 
 ![](simulated_decision_tree_zika.png)
 
-## Sample recipient and generate characteristics
+Model parameters are provided in an Excel file. This chunk reads in and displays the parameters. Note that some parameters are age specific. For a given transfusion recipient, we want to use the row with the largest value in `age_lower` that is below the transfusion recipient's age. Parameters that do not vary by recipient age are entered only once and have 0 as the age_lower.
 
-## Calculate outcomes with and without Zika
+```{r}
+t_params <- read_excel("params_assign3.xlsx", sheet="params")
+t_params |>
+  flextable() |>
+  merge_v(j=c(1, 2, 3)) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
+  set_formatter(Value = label_comma()) |>
+  theme_box() |> #Apply a theme for aesthetics
+  autofit() #automatically set column widths to reasonable values
+```
 
-## Run the simulation model
+I've put the parameters into a named list `l_params` for you. Note that parameters that depend on age are in the list as a tibble instead of a single value
 
+```{r}
+# Put parameters into named list l_params
+params_freq_table <- table(t_params$rname)
+l_params <- list()
+for (param in names(params_freq_table)){
+  if(params_freq_table[param]== 1){
+    l_params[param]<-t_params[t_params$rname==param,]$value
+  } else {
+    l_params[[param]]<-tibble(
+      "age_lower" = t_params[t_params$rname==param,]$age_lower,
+      "value" = t_params[t_params$rname==param,]$value
+    )
+  }
+}
+```
 
+## Sample cohort and baseline characteristics
+
+In this code chunk, you should read in the file `transfusion_cohort.csv` and randomly sample 10,000 transfusion recipients. We also want to add a new column `age`, which assign an interger age to each transfusion recipient that is equally likely to be the age from the `age_group` column or any year up to four years older (e.g., if `age_group=45`, the recipient's age should be 45, 46, 47, 48, or 49 with equal probability (hint: this is equivalent to adding a random number between 0 and 4 to age_group).
+
+```{r sample-recipients}
+# Read in dataset
+t_transfusion_cohort <- NA
+
+# Sample 3,000 recipients
+t_sim_cohort <- NA
+
+# Assign their age
+# t_sim_cohort <- t_sim_cohort |>
+#   mutate(age = NA)
+```
+
+We want to simulate the recipients' baseline survival: the number of years they will live post-transfusion assuming no transfusion transmission of Zika. Since post-transfusion survival data based on age and component mix transfused were not available for the US, survival is estimated with what I call a "Frankenstein approach". The estimate combines 1-, 2-, 3-, 4-, and 5-year post-transfusion survival estimates from a US insurance claims analysis published in 2003 by Kleinman et. al., which is broken out only by 3 age groups, with multipliers derived from post-transfusion survival data from the SCANDAT database based on age and the number of red blood cell (RBC), platelet (PLT) and plasma (FFP) components transfused. The Kleinman US-based post-transfusion survival data are in an Excel sheet we'll load as `t_US_survival` and the multipliers from SCANDAT are in another Excel sheet we'll load as `t_SCANDAT_mult`. We also include background other cause mortality based on a lifetable, which we'll read in as `t_ocm`.
+
+```{r}
+#Read in other cause mortality table and display first few rows
+t_ocm <- read_excel("params_assign3.xlsx", sheet="other_cause_mortality")
+t_ocm |> head() |> flextable()
+#Read in SCANDAT mortality multiplier table and display first few rows
+t_SCANDAT_mult <- read_excel("params_assign3.xlsx", sheet="SCANDAT_death_multipliers")
+t_SCANDAT_mult |> head() |> flextable()
+#Read in US post-transfusion survival data and display first few rows
+t_US_survival <- read_excel("params_assign3.xlsx", sheet="US_posttransfusion_surv")
+t_US_survival |> head() |> flextable()
+```
+
+Next we write a function that, for each recipient (row) in `t_sim_cohort,` first creates a vector of the probability of surviving to year `i`, then randomly samples a baseline survival duration (survival without transfusion-transmitted Zika) from this distribution. Complete this function using the information in the comments.
+
+NOTE: this function could probably be made more efficient using vectorization.
+
+```{r}
+#Takes t_sim_cohort and uBaseline, calculates remaining life years and QALYs assuming no transfusion-transmitted Zika and adds these as additional columns to t_sim_cohort
+get_survival <- function(t_sim_cohort, #needs columsn units_rbc, units_plt, units_ffp and age
+                         uBaseline){
+  
+  for (row in 1:nrow(t_sim_cohort)){
+    #Preallocate v_survProb, a vector with the recipient's cumulative 
+    #. survival probability (e.g., probability of surviving to post-
+    #. transfusion year X). The vector length should be 100 minus their 
+    #. age at the time of transfusion
+    age <- NA
+    v_survProb <- NA
+  
+    #SURVIVING YEAR 0
+    #. Since tidyverse was too slow and I had to use
+    #. data.table, I'm providing all the year 0
+    #. code for you.
+    
+    #from t_US_survival, get the probabiltiy of surviving to post-
+    #. transfusion year 1 based on the age at transfusion
+    p_surv_unadjusted <- t_US_survival[year_posttransfusion==0 & 
+                                         age_lower <= recip_age,][
+                                           age_lower==max(age_lower), value]
+    
+    #use t_ocm to calculate the probability they DON'T die from another cause
+    p_survive_OCM <- 1 - t_ocm[age== recip_age, annual_prob_death]
+    
+
+    # Extract SCANDAT survival multiplier based on recipient's age 
+    #. and units transfused
+    survival_multiplier <- t_SCANDAT_mult[RBC_lower <= t_sim_cohort[row,]$units_rbc &
+                                          RBC_lower <= t_sim_cohort[row,]$units_rbc &
+                                          RBC_lower <= t_sim_cohort[row,]$units_rbc &
+                                          age_lower <= recip_age,][
+                                            age_lower == max(age_lower) &
+                                            RBC_lower == max(RBC_lower) &
+                                            PLT_lower == max(PLT_lower) &
+                                            FFP_lower == max(FFP_lower),
+                                            multiplier]
+
+    
+    #Calculate probability recipient survives to 1 year post-transfusion
+    #No need to edit
+    v_survProb[[1]]<- p_surv_unadjusted + 
+      survival_multiplier*(p_survive_OCM - p_surv_unadjusted)
+    
+    #Calculate cumulative probability of surviving post-transfusion years 2-5
+    #Applying same adjustment to the US survival data
+    for (i in 2:5){
+      recip_age <- NA
+      p_survive_OCM <- NA 
+      p_surv_unadjusted <- NA
+      
+      v_survProb[i] <- p_surv_unadjusted + 
+        survival_multiplier*(p_survive_OCM - p_surv_unadjusted)
+    }
+    #Beyond post-transfusion year 5, cumulative survival is based only 
+    #. on the annual probablity of other cause death
+    for(i in 6:length(v_survProb)){
+      p_survive_OCM <- NA
+      v_survProb[i] <- v_survProb[i-1]*p_survive_OCM
+    }
+    
+    #sample recipeint's survival (number of post-transfusion years) and add as a 
+    #. column to t_sim_cohort
+    #. I provide the calculation for you;
+    #. see if you can figure out why this works
+    survival <- sum(1-cumSurv > runif(1))
+    t_sim_cohort[row,]$survival <- survival
+  }
+  
+  #Add a colument baseline_QALYs to t_sim_cort, based on the survival and uBaseline
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(baseline_QALYs = NA) #your code here
+  
+  return(t_sim_cohort)
+}
+```
+
+Test it out: add survival to your cohort
+
+```{r}
+# Uncomment and add the arguments
+
+# t_sim_cohort <- get_survival(NA)
+
+# Uncomment to take a look
+# summary(t_sim_cohort$survival)
+# summary(t_sim_cohort$baseline_QALYs)
+```
+
+We want to add two more columns: a variable `p_pregnant` containing the probability a recipient is pregnant based on their sex and age, and a binary variable called `isPregnant` where we simulate whether they are pregnant or not.
+
+```{r}
+getPregnant <- function(t_sim_cohort, l_params){
+  
+  #use l_params$p_recip_pregnant_by_age to get probability femail
+  #.  recipients are pregnant by age, assigning a probability
+  #.  of 0 to male recipients
+  #.  I did this for you
+  setDT(t_sim_cohort)
+  t_preg_by_age <- data.table(l_params$p_recip_pregnant_by_age)
+  setnames(t_preg_by_age, 
+           c("age_lower", "value"),
+           c("age", "p_pregnant"))
+  t_sim_cohort <- t_preg_by_age[t_sim_cohort, roll = Inf, on="age"]
+  
+  #overwrite with 0 if recipient is male
+  t_sim_cohort[, p_pregnant:=ifelse(is_female==0,
+                                    0,
+                                    p_pregnant)]
+  
+  # Now we'll create a vector of ranom numbers the same length 
+  #. as our recipients and use this to determine which 
+  #. recipients are pregnant
+  rand_pregnant <- NA
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(isPregnant = NA)
+  
+  return(t_sim_cohort)
+}
+```
+
+Now apply your function to add the pregnancy variables `t_sim_cohort` and take a look at them.
+
+```{r}
+# Uncomment and add the arguments
+
+# t_sim_cohort <- getPregnant(NA)
+
+# Uncomment to take a look
+# summary(t_sim_cohort$p_pregnant)
+# summary(t_sim_cohort$isPregnant)
+```
+
+## Outcomes of transfusion-transmitted Zika
+
+We first simulate outcomes assuming that Zika transmitted to the transfusion recipient by writing a series of functions that take `t_sim_cohort` as an input, calculate some outcomes, append these to the table, and return it.
+
+```{r recipient-outcomes}
+#Calculates recipient outcomes if transfusion-transmitted Zika occurs
+recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
+  
+  # Add age/sex-specific parameters to t_sim_cohort based on the
+  #.  lookup tables stored in 1_params
+  setDT(t_sim_cohort)
+  
+  #uFlu male
+  t_uFluMale <- data.table(l_params$uFluMale)
+  setnames(t_uFluMale, 
+           c("age_lower", "value"),
+           c("age", "uFluMale"))
+  t_sim_cohort <- t_uFluMale[t_sim_cohort, roll = Inf, on="age"]
+  
+  #uFlu female
+  NA # your code here
+  
+  #uFlu (uFluFemale if is_female = 1; otherwise uFluMale)
+  NA # your code here
+  
+  #p_GBS_perm
+  t_GBS_perm <- data.table(l_params$p_GBS_perm)
+  NA #your code here
+  
+  #Add columns to t_sim_cohort to track outcomes
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(flulike=F,
+               GBS=F,
+               p_GBS_perm=0,
+               GBS_perm=F,
+               GBS_death=F,
+               cost_zika_symptoms=0,
+               QALYs_zika_symptoms=0)
+  
+  # Simulate whether flu-like symptoms or Guillain-Barre syndrom occur
+  #.  I coded this part for you
+  rand_recip <- runif(nrow(t_sim_cohort))
+  
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(flulike = (rand_recip < l_params$p_flu_like_symptoms),
+           GBS = (rand_recip > l_params$p_flu_like_symptoms & 
+                    rand_recip <= l_params$p_flu_like_symptoms + l_params$p_GBS))
+  
+  # Simulate whetehr GBS was fatal or lead to permanent disability
+  #.  based on the lookup table in l_params$p_GBS_perm if 
+  #.  GBS==True (it should be 0 if GBS==F)
+  #.  Then replace 0's in the mutate function with functions to simulate
+  #.  whether permanent disability or death occur
+  #.  remember: only recipients who experienced GBS can experience
+  #.  permanent disability or death. Tou can achieve this
+  #.  by multiplying your expression by GBS.
+  rand_GBS <- runif(nrow(t_sim_cohort))
+  
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(GBS_perm = GBS*(rand_GBS < p_GBS_perm), 
+           GBS_death = F) #replace F
+  
+  
+  # Calculate costs and QALYs
+  #.  I've done some of this for you; complete by replacing 
+  #.  NAs with code that works
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      cost_zika_symptoms=case_when(
+        GBS_death ~ NA,
+        flulike ~ l_params$costFluR,
+        GBS_perm ~ NA, #Note; l_params$costGBS_perm is per year remaining
+        GBS ~ NA,
+        T ~ 0), #otherwise no cost
+      QALYs_zika_symptoms=case_when(
+        GBS_death ~ 0,
+        flulike ~ baseline_QALYs - uFlu*l_params$durationFlu/365,
+        GBS_perm ~ NA, #experience uGBS for all remaining years
+        GBS ~ NA, #experience uGBS for 1 year
+        T ~ baseline_QALYs) #Otherwise same QALYs as baseline
+    )
+  return(t_sim_cohort)
+  
+}
+```
+
+Try this function on `t_sim_cohort`
+
+```{r}
+# t_sim_cohort <- recipient_outcomes_ttz(t_sim_cohort, l_params)
+```
+
+We also need to simulate outcomes to the infant for any pregnant women transfused
+
+```{r infant-outcomes}
+
+infant_outcomes_ttz <- function(t_sim_cohort, l_params){
+  
+  # For pregnant recipients, simulate whether
+  #. congenital zika syndrom occurs
+  rand_CZS <- NA
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      CZS = F
+    )
+  
+  # For recipients whose infant contracted congenital
+  #. zika syndrom, calculate their outcome
+  rand_CZS_stillbirth <- NA
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      CZS_stillbirth = F
+    )
+  
+  # Add costs and infant_QALY_loss
+  #. if CZS occurs, we incur a QALY toll
+  #.  equivalent to the net present life expectancy
+  #.  regardless of whether CZS led to a stillbirth
+  #.  or live birth with permanent disability
+  #. (this is a pessimistic assumption but since
+  #.  CZS is so rare it won't substantially impact
+  #.  results)
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      #If stillbirth: cost_CZS = costStillBirth - costDelivery 
+      #.   (stillbirth cheaper than deliviery)
+      #If CZS live birth: cost_CZS = costCZS_birth+costCZS_lifetime 
+      cost_CZS = NA, 
+      QALY_toll_CZS = -1*l_params$CZS_QALYloss*CZS
+    )
+  return(t_sim_cohort)
+}
+```
+
+Try this function on `t_sim_cohort`
+
+```{r}
+# t_sim_cohort <- infant_outcomes_ttz(t_sim_cohort, l_params)
+```
+
+## Policies & cost-effectiveness
+
+We will now write a function to calculate blood center costs and the probability of transfusion-transmitted Zika under each of our testing strategies: no testing, MP-NAT, and ID-NAT
+
+```{r}
+#COMPLETED ALREADY: this function calculates the probability
+#. of transfusion transmitted Zika
+getProbZika <- function(probZika=0.0001, 
+                        units_rbc, 
+                        units_plt, 
+                        units_ffp,
+                        l_params){
+  p_neg_unit = 1 - probZika
+  return(
+    1 - (
+      (1-l_params$p_transmit_RBC*(1-p_neg_unit^units_rbc))*
+        (1-l_params$p_transmit_PLT*(1-p_neg_unit^units_plt))*
+        (1-l_params$p_transmit_FFP*(1-p_neg_unit^units_ffp))
+    ))}
+
+getPolOutcomes <- function(t_sim_cohort, l_params, prev=0.0001){
+  # DO NOTHIING SCENARIO
+  #. calculate cost to blood center
+  #. and each recipient's risk of transfusion-
+  #. transmitted Zika
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      cost_bloodCenter_doNothing = 0,
+      p_TTZ_doNothing = NA)
+  
+  # PATHOGEN INACTIVATION
+  #. calculate cost to blood center
+  #. and each recipient's risk of transfusion-
+  #. transmitted Zika
+  #. cost_athInact is per unit transfused (RBC+PLT+FFP)
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      cost_bloodCenter_pathInact = NA,
+      p_TTZ_pathInact = NA) #use p_TTZ_doNothing and p_pathInact_prevent_TTZ
+  
+  #Calculate total costs and QALYs under each scenario
+  t_sim_cohort <- t_sim_cohort |>
+    mutate(
+      tot_cost_doNothing = NA,
+      tot_cost_pathInact = NA,
+      tot_QALYs_doNothing = NA,
+      tot_QALYs_pathInact = NA
+    )
+}
+```
+
+Finally, use the functions above to run `t_sim_cohort` through the simulation. Calculate the incremental costs, incremental QALYs, and cost-effectiveness of pathogen inactivation for preventing transfusion-transmitted Zika.
+
+```{r}
+# COST-EFFECTIVENESS WITH ZIKA PREVALENCE OF 0.0001 (1 in 10,000 donations)
+
+# Simulate t_sim_cohort
+
+# Calculate incremental cost
+IC_pathInact_vs_doNothing <- NA
+IC_pathInact_vs_doNothing
+
+# Calculate incremental QALYs
+IQ_pathInact_vs_doNothing <- NA
+IQ_pathInact_vs_doNothing
+
+# Calculate cost-effectiveness
+ICER <- NA
+ICER
+
+# COST-EFFECTIVENESS WITH ZIKA PREVALENCE OF 0.01 (1 in 100 donations)
+
+# Simulate t_sim_cohort
+
+# Calculate incremental cost
+IC_pathInact_vs_doNothing <- NA
+IC_pathInact_vs_doNothing
+
+# Calculate incremental QALYs
+IQ_pathInact_vs_doNothing <- NA
+IQ_pathInact_vs_doNothing
+
+# Calculate cost-effectiveness
+ICER <- NA
+ICER
+```
 
 # Last two questions
 
