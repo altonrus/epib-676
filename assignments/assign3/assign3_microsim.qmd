@@ -437,7 +437,7 @@ for (param in names(params_freq_table)){
 
 ## Sample cohort and baseline characteristics
 
-In this code chunk, you should read in the file `transfusion_cohort.csv` and randomly sample 10,000 transfusion recipients. We also want to add a new column `age`, which assign an interger age to each transfusion recipient that is equally likely to be the age from the `age_group` column or any year up to four years older (e.g., if `age_group=45`, the recipient's age should be 45, 46, 47, 48, or 49 with equal probability (hint: this is equivalent to adding a random number between 0 and 4 to age_group).
+In this code chunk, you should read in the file `transfusion_cohort.csv` and randomly sample 3,000 transfusion recipients. We also want to add a new column `age`, which assign an interger age to each transfusion recipient that is equally likely to be the age from the `age_group` column or any year up to four years older (e.g., if `age_group=45`, the recipient's age should be 45, 46, 47, 48, or 49 with equal probability (hint: this is equivalent to adding a random number between 0 and 4 to age_group).
 
 ```{r sample-recipients}
 # Read in dataset
@@ -455,13 +455,16 @@ We want to simulate the recipients' baseline survival: the number of years they 
 
 ```{r}
 #Read in other cause mortality table and display first few rows
-t_ocm <- read_excel("params_assign3.xlsx", sheet="other_cause_mortality")
+t_ocm <- read_excel("params_assign3.xlsx", sheet="other_cause_mortality") |>
+  data.table()
 t_ocm |> head() |> flextable()
 #Read in SCANDAT mortality multiplier table and display first few rows
 t_SCANDAT_mult <- read_excel("params_assign3.xlsx", sheet="SCANDAT_death_multipliers")
-t_SCANDAT_mult |> head() |> flextable()
+t_SCANDAT_mult |> head() |> flextable() |>
+  data.table()
 #Read in US post-transfusion survival data and display first few rows
-t_US_survival <- read_excel("params_assign3.xlsx", sheet="US_posttransfusion_surv")
+t_US_survival <- read_excel("params_assign3.xlsx", sheet="US_posttransfusion_surv") |>
+  data.table()
 t_US_survival |> head() |> flextable()
 ```
 
@@ -473,13 +476,13 @@ NOTE: this function could probably be made more efficient using vectorization.
 #Takes t_sim_cohort and uBaseline, calculates remaining life years and QALYs assuming no transfusion-transmitted Zika and adds these as additional columns to t_sim_cohort
 get_survival <- function(t_sim_cohort, #needs columsn units_rbc, units_plt, units_ffp and age
                          uBaseline){
-  
+  t_sim_cohort$survival <- 0
   for (row in 1:nrow(t_sim_cohort)){
     #Preallocate v_survProb, a vector with the recipient's cumulative 
     #. survival probability (e.g., probability of surviving to post-
     #. transfusion year X). The vector length should be 100 minus their 
     #. age at the time of transfusion
-    age <- NA
+    recip_age <- NA
     v_survProb <- NA
   
     #SURVIVING YEAR 0
@@ -528,6 +531,7 @@ get_survival <- function(t_sim_cohort, #needs columsn units_rbc, units_plt, unit
     #Beyond post-transfusion year 5, cumulative survival is based only 
     #. on the annual probablity of other cause death
     for(i in 6:length(v_survProb)){
+      recip_age <- NA
       p_survive_OCM <- NA
       v_survProb[i] <- v_survProb[i-1]*p_survive_OCM
     }
@@ -536,7 +540,7 @@ get_survival <- function(t_sim_cohort, #needs columsn units_rbc, units_plt, unit
     #. column to t_sim_cohort
     #. I provide the calculation for you;
     #. see if you can figure out why this works
-    survival <- sum(1-cumSurv > runif(1))
+    survival <- sum(1-v_survProb > runif(1))
     t_sim_cohort[row,]$survival <- survival
   }
   

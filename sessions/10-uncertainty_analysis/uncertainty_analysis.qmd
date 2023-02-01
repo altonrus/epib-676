@@ -23,6 +23,20 @@ library(ggplot2) #plotting
 theme_set(theme_bw()) #set ggplot theme
 ```
 
+## Today
+
+-   **Univariate and scenario analysis**
+
+-   Probabilistic sensitivity analysis
+
+## Decision-analytic model
+
+-   Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
+-   Propagate uncertainty
+    -   Uncertain inputs → uncertain outputs
+
+![](model-inputs-outputs.svg)
+
 ## 1st and 2nd order uncertainty
 
 -   **First order** **(stochastic) uncertainty:** variation between statistically identical patients
@@ -31,13 +45,41 @@ theme_set(theme_bw()) #set ggplot theme
 
 In a cohort model first order uncertainty is ignored; everyone in cohort is modeled as the "average" person
 
-In microsimulation, both first and second order undertainty are modeled
+In microsimulation, both first and second order uncertainty are modeled
 
 ## 1st and second order uncertainty in Bayesian terms
 
 ![](sampling_dists_posterior_statisticalRethinking.png)
 
+## One-way sensitivity analysis
+
+## R example
+
+## Tornado diagram
+
+## Scenario analysis
+
+## Today
+
+-   **Univariate and scenario analysis**
+
+-   Probabilistic sensitivity analysis
+
 ## Distributions for data-free parameters
+
+## Picking a distribution
+
+## Fitting a distribution
+
+## Bootstrapping
+
+## What parameters to vary
+
+**Uncertain parameters** should all be varies in PSA
+
+**Design parameters** like discount rate, time horizon can be varied in scenario analysis
+
+## Credible intervals
 
 ## Notes
 
