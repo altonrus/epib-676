@@ -503,8 +503,8 @@ get_survival <- function(t_sim_cohort, #needs columsn units_rbc, units_plt, unit
     # Extract SCANDAT survival multiplier based on recipient's age 
     #. and units transfused
     survival_multiplier <- t_SCANDAT_mult[RBC_lower <= t_sim_cohort[row,]$units_rbc &
-                                          RBC_lower <= t_sim_cohort[row,]$units_rbc &
-                                          RBC_lower <= t_sim_cohort[row,]$units_rbc &
+                                          PLT_lower <= t_sim_cohort[row,]$units_plt &
+                                          FFP_lower <= t_sim_cohort[row,]$units_ffp &
                                           age_lower <= recip_age,][
                                             age_lower == max(age_lower) &
                                             RBC_lower == max(RBC_lower) &
@@ -641,7 +641,6 @@ recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
   t_sim_cohort <- t_sim_cohort |>
     mutate(flulike=F,
                GBS=F,
-               p_GBS_perm=0,
                GBS_perm=F,
                GBS_death=F,
                cost_zika_symptoms=0,

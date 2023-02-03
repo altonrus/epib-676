@@ -255,7 +255,7 @@ for (row in 1:nrow(t_twoway)){
   l_prms_temp[["prob_death_noTreat"]] <- t_twoway[row,"prob_death_noTreat"]
   t_twoway[row,"ICER"] <- model(l_prms_temp)$ICER_treat
 }
-t_twoway$preferred <- ifelse(t_twoway$ICER > 50000, "Treat", "No treat")
+t_twoway$preferred <- ifelse(t_twoway$ICER > 50000, "Do not treat", "Treat")
 head(t_twoway)
 ```
 
@@ -491,7 +491,6 @@ Great for
 
 ```{r}
 #| echo: true
-
 data("example_psa") # create named list "example_psa"
 example_psa$strategies
 head(example_psa$cost, 3)
@@ -566,11 +565,11 @@ p_ceac <- plot(ceac_obj)+ylab("Pr Most Cost-Effective"); p_ceac
 
 ## Frontier on CEAC
 
--   Intervention who's line is highest is the most likely to be cost-effectve for given WTP
+-   Intervention who's line is highest is the most likely to be cost-effective for given WTP
 
 -   Frontier is the intervention with the greatest expected NMB
 
-    -   Optimal decision is to chose intervention on the frontier, not intervention with the greatest probability of being cost-effective
+    -   Optimal strategy is one that maximizes expected NMB, not necessarily the one with the greatest probability of being cost-effective (usually same for most WTPs though)
 
 ## CEAC with Pr(cost-effective) on Y axis
 

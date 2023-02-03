@@ -700,16 +700,16 @@ $ICER_treat
 <span id="cb15-11"><a href="#cb15-11"></a>  l_prms_temp[[<span class="st">"prob_death_noTreat"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"prob_death_noTreat"</span>]</span>
 <span id="cb15-12"><a href="#cb15-12"></a>  t_twoway[row,<span class="st">"ICER"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
 <span id="cb15-13"><a href="#cb15-13"></a>}</span>
-<span id="cb15-14"><a href="#cb15-14"></a>t_twoway<span class="sc">$</span>preferred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t_twoway<span class="sc">$</span>ICER <span class="sc">&gt;</span> <span class="dv">50000</span>, <span class="st">"Treat"</span>, <span class="st">"No treat"</span>)</span>
+<span id="cb15-14"><a href="#cb15-14"></a>t_twoway<span class="sc">$</span>preferred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t_twoway<span class="sc">$</span>ICER <span class="sc">&gt;</span> <span class="dv">50000</span>, <span class="st">"Do not treat"</span>, <span class="st">"Treat"</span>)</span>
 <span id="cb15-15"><a href="#cb15-15"></a><span class="fu">head</span>(t_twoway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rr_death_drug prob_death_noTreat     ICER preferred
-1     0.2000000               0.16 40062.50  No treat
-2     0.2210526               0.16 41118.24  No treat
-3     0.2421053               0.16 42232.64  No treat
-4     0.2631579               0.16 43410.71  No treat
-5     0.2842105               0.16 44658.09  No treat
-6     0.3052632               0.16 45981.06  No treat</code></pre>
+1     0.2000000               0.16 40062.50     Treat
+2     0.2210526               0.16 41118.24     Treat
+3     0.2421053               0.16 42232.64     Treat
+4     0.2631579               0.16 43410.71     Treat
+5     0.2842105               0.16 44658.09     Treat
+6     0.3052632               0.16 45981.06     Treat</code></pre>
 </div>
 </div>
 </section>
@@ -950,13 +950,13 @@ $ICER_treat
 <span id="cb27-13"><a href="#cb27-13"></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cost_treat prob_death_noTreat rr_death_drug QALY_survive cost_survive
-1   6533.225          0.4123621     0.5594642     15.68275     11702.38
-2   7601.567          0.3708475     0.4284573     12.69422     15433.09
-3   4597.490          0.3547730     0.4503136     13.77117     12244.70
+1   4802.979          0.2770431     0.5042585    10.121722     12394.27
+2   8693.217          0.2283859     0.4993486    11.592130     12404.91
+3   7838.766          0.2513338     0.5476379     9.088813     12572.29
   tot_cost_noTreat tot_cost_treat tot_QALY_noTreat tot_QALY_treat ICER_treat
-1         7433.965       13396.24          8.53691       10.57297   2928.348
-2         9709.770       20582.46          7.98660       10.67721   4040.984
-3         7900.612       14885.99          8.88553       11.57110   2601.079</code></pre>
+1         7902.084       16213.14         8.778685       10.47650   4895.162
+2         9571.803       19683.42         8.944651       10.27011   7628.735
+3         9412.452       18680.61         6.804487        7.83783   8969.107</code></pre>
 </div>
 </div>
 </section>
@@ -1079,9 +1079,9 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb40-3"><a href="#cb40-3"></a><span class="fu">head</span>(ceac_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    WTP Strategy Proportion On_Frontier
-1     0    Chemo     0.0063       FALSE
+1     0    Chemo     0.0064       FALSE
 2     0    Radio     0.7880        TRUE
-3     0  Surgery     0.2057       FALSE
+3     0  Surgery     0.2056       FALSE
 4 10000    Chemo     0.0461       FALSE
 5 10000    Radio     0.6574        TRUE
 6 10000  Surgery     0.2965       FALSE</code></pre>
@@ -1098,10 +1098,10 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="frontier-on-ceac" class="slide level2">
 <h2>Frontier on CEAC</h2>
 <ul>
-<li><p>Intervention who’s line is highest is the most likely to be cost-effectve for given WTP</p></li>
+<li><p>Intervention who’s line is highest is the most likely to be cost-effective for given WTP</p></li>
 <li><p>Frontier is the intervention with the greatest expected NMB</p>
 <ul>
-<li>Optimal decision is to chose intervention on the frontier, not intervention with the greatest probability of being cost-effective</li>
+<li>Optimal strategy is one that maximizes expected NMB, not necessarily the one with the greatest probability of being cost-effective (usually same for most WTPs though)</li>
 </ul></li>
 </ul>
 </section>
@@ -1132,16 +1132,26 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb44-2"><a href="#cb44-2"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">025</span>),<span class="dv">2</span>),<span class="st">" to "</span>,</span>
 <span id="cb44-3"><a href="#cb44-3"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                             cost_treat                      prob_death_noTreat 
-"6216.75 (95% CrI 3573.36 to 10320.13)"            "0.3 (95% CrI 0.16 to 0.46)" 
-                          rr_death_drug                            QALY_survive 
-            "0.5 (95% CrI 0.42 to 0.6)"         "12.07 (95% CrI 8.84 to 15.27)" 
-                           cost_survive                        tot_cost_noTreat 
- "12154.66 (95% CrI 9081.1 to 15805.9)"  "8463.34 (95% CrI 5660.22 to 11649.3)" 
-                         tot_cost_treat                        tot_QALY_noTreat 
-"16511.9 (95% CrI 12382.13 to 21483.9)"           "8.4 (95% CrI 5.77 to 11.23)" 
-                         tot_QALY_treat                              ICER_treat 
-        "10.22 (95% CrI 7.45 to 12.91)"   "4782.1 (95% CrI 2448.59 to 9157.36)" </code></pre>
+<pre><code>                               cost_treat 
+   "6257.14 (95% CrI 3466.06 to 10185.8)" 
+                       prob_death_noTreat 
+             "0.3 (95% CrI 0.17 to 0.46)" 
+                            rr_death_drug 
+              "0.5 (95% CrI 0.42 to 0.6)" 
+                             QALY_survive 
+          "12.01 (95% CrI 9.06 to 15.24)" 
+                             cost_survive 
+ "12238.09 (95% CrI 8978.82 to 16443.29)" 
+                         tot_cost_noTreat 
+   "8564.7 (95% CrI 5740.45 to 12149.31)" 
+                           tot_cost_treat 
+"16652.99 (95% CrI 12489.42 to 21784.73)" 
+                         tot_QALY_noTreat 
+           "8.41 (95% CrI 5.81 to 11.42)" 
+                           tot_QALY_treat 
+           "10.2 (95% CrI 7.54 to 13.22)" 
+                               ICER_treat 
+    "4852.97 (95% CrI 2510.3 to 9195.65)" </code></pre>
 </div>
 </div>
 </section>
