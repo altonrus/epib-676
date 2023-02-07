@@ -563,13 +563,15 @@ head(ceac_obj)
 p_ceac <- plot(ceac_obj)+ylab("Pr Most Cost-Effective"); p_ceac
 ```
 
-## Frontier on CEAC
+## CEAC Frontier
 
--   Intervention who's line is highest is the most likely to be cost-effective for given WTP
+-   Y-axis: estimated probability intervention preferred (most cost-effective) given WTP
 
--   Frontier is the intervention with the greatest expected NMB
+-   Frontier: intervention with the greatest expected NMB
 
-    -   Optimal strategy is one that maximizes expected NMB, not necessarily the one with the greatest probability of being cost-effective (usually same for most WTPs though)
+    -   Optimal strategy is one that maximizes expected NMB
+    -   May be different from strategy with the greatest probability of being preferred
+    -   But often the same for most WTPs
 
 ## CEAC with Pr(cost-effective) on Y axis
 

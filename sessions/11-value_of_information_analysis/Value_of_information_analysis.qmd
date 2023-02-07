@@ -1,0 +1,45 @@
+---
+title: "Value of information analysis"
+subtitle: "EPIB  676 session 11, McGill University"
+author: "Alton Russell"
+date: "8 Feb 2023"
+format: revealjs
+editor: visual
+---
+
+## Packages
+
+```{r}
+#| echo: true
+library(ggplot2) #plotting
+library(dampack) #cost-effectiveness sensitivity analysis
+library(rriskDistributions) #fit distn to quantile
+# https://github.com/DARTH-git/dampack
+theme_set(theme_bw()) #set ggplot theme
+```
+
+## Today
+
+-   Wrapping up probabilistic sensitivity analysis
+
+-   Value of information analysis
+
+    -   Expected value of perfect information
+
+    -   Expected value of partially perfect information
+
+    -   Expected value of sample information
+
+## Switch over to "Research prioritization and study design using VoI analysis" by Anna Heath, Natalia Kunst, and Jeremy Goldhaber-Fiebert
+
+PDF slides on MyCourses.
+
+## Fitting Fenwick et. al. 2020 figure
+
+![](VoI_process.png)
+
+## Logistics
+
+-   Assignment 4 due Monday, February 13
+
+-   Office hours in conference room #1103 starting now
