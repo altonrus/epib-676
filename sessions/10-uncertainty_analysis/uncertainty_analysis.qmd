@@ -622,7 +622,7 @@ Can fit multivariate distributions to data
 
 -   See supplement of [Fairley et. al. 2021](www.doi.org/10.1001/jamapsychiatry.2021.0247) for an example
 
-## Handling corr. #2: relative parameters
+## Handling corr.: relative params
 
 -   Defining some parameters relative to others can enforce certain relationships
 
@@ -630,13 +630,13 @@ Can fit multivariate distributions to data
 
     -   P(death no naloxone): 0.3 (0.2 to 0.4)
 
-    -   P(death with naloxone): 0.15 (0.1 to 0.2)
+    -   P(death with naloxone): 0.2 (0.1 to 0.25)
 
 -   Ex: relative parameters
 
     -   P(death no naloxone): 0.3 (0.2 to 0.4)
 
-    -   RR(death with naloxone): 0.5 (0.33 to 0.66)
+    -   RR(death with naloxone): 0.66 (0.33 to 0.83)
 
 -   Not perfect but easier to implement
 

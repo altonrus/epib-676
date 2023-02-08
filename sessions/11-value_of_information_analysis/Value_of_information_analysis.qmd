@@ -7,17 +7,6 @@ format: revealjs
 editor: visual
 ---
 
-## Packages
-
-```{r}
-#| echo: true
-library(ggplot2) #plotting
-library(dampack) #cost-effectiveness sensitivity analysis
-library(rriskDistributions) #fit distn to quantile
-# https://github.com/DARTH-git/dampack
-theme_set(theme_bw()) #set ggplot theme
-```
-
 ## Today
 
 -   Wrapping up probabilistic sensitivity analysis
@@ -30,11 +19,17 @@ theme_set(theme_bw()) #set ggplot theme
 
     -   Expected value of sample information
 
-## Switch over to "Research prioritization and study design using VoI analysis" by Anna Heath, Natalia Kunst, and Jeremy Goldhaber-Fiebert
+## Switch over
 
-PDF slides on MyCourses.
+[Session 10: Uncertainty Analysis, slides on cost-effectiveness acceptabilty curve](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/10-uncertainty_analysis/uncertainty_analysis.html#/cost-effectiveness-acceptability-curve)
 
-## Fitting Fenwick et. al. 2020 figure
+## Switch over
+
+"Research prioritization and study design using VoI analysis" by Anna Heath, Natalia Kunst, and Jeremy Goldhaber-Fiebert
+
+[Materials on MyCourses](https://mycourses2.mcgill.ca/d2l/le/lessons/624791/topics/6929073)
+
+## Fenwick et. al. 2020 figure
 
 ![](VoI_process.png)
 

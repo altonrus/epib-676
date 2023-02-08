@@ -950,13 +950,13 @@ $ICER_treat
 <span id="cb27-13"><a href="#cb27-13"></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cost_treat prob_death_noTreat rr_death_drug QALY_survive cost_survive
-1   5077.848          0.2752510     0.4351394     14.91888     9766.334
-2   5384.183          0.3066358     0.4851209     11.50608    10932.393
-3   5968.279          0.2805700     0.5937999     12.72197    14523.399
+1   8089.228          0.1617521     0.5468251     13.12921     12447.77
+2   6454.444          0.3873728     0.5416518     11.69058     11956.12
+3   9179.789          0.2564494     0.5776391     12.90147     12619.04
   tot_cost_noTreat tot_cost_treat tot_QALY_noTreat tot_QALY_treat ICER_treat
-1         9285.143       18635.16         8.083788       9.061328   9564.843
-2         7580.130       14690.32         7.977902       9.794486   3914.047
-3        10448.570       18072.04         9.152570      10.602462   5257.961</code></pre>
+1         8311.883       16764.85         8.949051       10.12323   7199.036
+2         7324.644       15901.92         7.161968        9.23765   4132.268
+3         9382.893       19929.50         9.592897       10.99031   7547.243</code></pre>
 </div>
 </div>
 </section>
@@ -1079,12 +1079,12 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb40-3"><a href="#cb40-3"></a><span class="fu">head</span>(ceac_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    WTP Strategy Proportion On_Frontier
-1     0    Chemo     0.0063       FALSE
+1     0    Chemo     0.0064       FALSE
 2     0    Radio     0.7880        TRUE
-3     0  Surgery     0.2057       FALSE
+3     0  Surgery     0.2056       FALSE
 4 10000    Chemo     0.0461       FALSE
-5 10000    Radio     0.6575        TRUE
-6 10000  Surgery     0.2964       FALSE</code></pre>
+5 10000    Radio     0.6574        TRUE
+6 10000  Surgery     0.2965       FALSE</code></pre>
 </div>
 </div>
 </section>
@@ -1135,25 +1135,25 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb44-3"><a href="#cb44-3"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                               cost_treat 
-  "6185.63 (95% CrI 3467.36 to 10178.86)" 
+   "6220.82 (95% CrI 3600.79 to 9920.53)" 
                        prob_death_noTreat 
-            "0.31 (95% CrI 0.17 to 0.47)" 
+            "0.31 (95% CrI 0.17 to 0.45)" 
                             rr_death_drug 
-             "0.5 (95% CrI 0.42 to 0.59)" 
+             "0.5 (95% CrI 0.41 to 0.61)" 
                              QALY_survive 
-          "12.06 (95% CrI 8.84 to 15.24)" 
+          "11.99 (95% CrI 8.73 to 15.12)" 
                              cost_survive 
-  "12079.47 (95% CrI 8980.2 to 15666.44)" 
+ "12129.82 (95% CrI 8789.23 to 16330.65)" 
                          tot_cost_noTreat 
-  "8369.03 (95% CrI 5495.03 to 11918.29)" 
+  "8421.12 (95% CrI 5525.94 to 11884.75)" 
                            tot_cost_treat 
-"16409.43 (95% CrI 12312.32 to 21665.11)" 
+"16483.86 (95% CrI 12243.26 to 21948.16)" 
                          tot_QALY_noTreat 
-            "8.34 (95% CrI 5.7 to 11.31)" 
+           "8.32 (95% CrI 5.64 to 11.41)" 
                            tot_QALY_treat 
-          "10.19 (95% CrI 7.52 to 13.07)" 
+          "10.15 (95% CrI 7.35 to 13.11)" 
                                ICER_treat 
-    "4704.5 (95% CrI 2452.75 to 9072.89)" </code></pre>
+   "4785.53 (95% CrI 2460.97 to 9082.32)" </code></pre>
 </div>
 </div>
 </section>
@@ -1175,19 +1175,19 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <li><p>See supplement of <a href="www.doi.org/10.1001/jamapsychiatry.2021.0247">Fairley et. al.&nbsp;2021</a> for an example</p></li>
 </ul>
 </section>
-<section id="handling-corr.-2-relative-parameters" class="slide level2">
-<h2>Handling corr. #2: relative parameters</h2>
+<section id="handling-corr.-relative-params" class="slide level2">
+<h2>Handling corr.: relative params</h2>
 <ul>
 <li><p>Defining some parameters relative to others can enforce certain relationships</p></li>
 <li><p>Ex: absolute parameters:</p>
 <ul>
 <li><p>P(death no naloxone): 0.3 (0.2 to 0.4)</p></li>
-<li><p>P(death with naloxone): 0.15 (0.1 to 0.2)</p></li>
+<li><p>P(death with naloxone): 0.2 (0.1 to 0.25)</p></li>
 </ul></li>
 <li><p>Ex: relative parameters</p>
 <ul>
 <li><p>P(death no naloxone): 0.3 (0.2 to 0.4)</p></li>
-<li><p>RR(death with naloxone): 0.5 (0.33 to 0.66)</p></li>
+<li><p>RR(death with naloxone): 0.66 (0.33 to 0.83)</p></li>
 </ul></li>
 <li><p>Not perfect but easier to implement</p></li>
 </ul>
