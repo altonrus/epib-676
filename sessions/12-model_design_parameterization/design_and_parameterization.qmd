@@ -1,0 +1,454 @@
+---
+title: "Design and parameterization of analyses"
+subtitle: "EPIB  676 session 12, McGill University"
+author: "Alton Russell"
+date: "10 Feb 2023"
+format: revealjs
+editor: visual
+---
+
+## R packages
+
+```{r}
+#| echo: true
+library(dplyr)
+```
+
+## Today
+
+-   **Well-framed, simple models**
+
+-   Conceptualizing a model/analysis
+
+-   Parameterizing a model
+
+-   Discuss course project
+
+## Decision analysis as science + art
+
+-   **Science:** developing and coding modeling methods correctly
+
+-   **Art:** decide on analytic framework, relevant trade-offs, model structure, outcomes captured, parameter values and ranges, reporting (interpretation and contextualization)
+
+-   Models are simplifications of reality, but deciding what to simplify is hard!
+
+## Developing a decision analysis
+
+1.  Define the decision context
+
+2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+
+3.  Identify alternatives
+
+4.  **Estimate outcomes under each alternative → Modeling**
+
+5.  **Perform sensitivity analysis → Modeling**
+
+6.  Consider non-quantifiable factors
+
+7.  Interpret the results
+
+## Free condoms at school?
+
+A high school is considering offering free condoms to students. Some parents are concerned this will encourage students to have more sex, thereby **increasing** the spread of sexually transmissible infections.
+
+<br>
+
+**Purported risk:**
+
+Condom availability $\rightarrow$ more sex $\rightarrow$ more STIs
+
+## Lets define parameters
+
+-   $U$ number of unprotected exposures
+
+-   $P$ number of protected exposures
+
+-   $\alpha$ chance of infection from unprotected exposure
+
+-   $\gamma$ relative STI risk for protected exposures (with condom)
+
+-   $\Delta$ number of additional protected exposures per exposure 'converted' to protected by free condoms
+
+Assumption: constant prevalence (risk) of STIs
+
+## Calculations
+
+Infections without free condoms
+
+$$
+\alpha(U  + P \gamma)
+$$
+
+Infections with free condoms:
+
+$$
+\alpha(U-1  + (P+1+ \Delta) \gamma)
+$$
+
+## For free condoms to increase STIs
+
+Infections with free condoms \> infections without
+
+$$
+\begin{align}
+\alpha(U-1  + (P+1+ \Delta) \gamma) &> \alpha(U  + P \gamma)\\
+U-1  + (P+1+ \Delta) \gamma &> U  + P \gamma\\
+P \gamma + \gamma + \Delta \gamma - 1 &> P \gamma\\
+\gamma - 1 &> -\Delta \gamma\\
+\Delta &\geq \frac{1 - \gamma}{\gamma}
+\end{align}
+$$
+
+## Assessing for different STI risk reduction factors
+
+```{r}
+#| echo: true
+t_twoway <- tibble(
+  rr_STI_with_condom = seq(0.05, 0.25, by=0.05)
+) |>
+  mutate(delta_for_STI_inc = (1 - rr_STI_with_condom)/
+           rr_STI_with_condom)
+t_twoway
+```
+
+## Should Canada screen immigrants for HIV?
+
+-   In 1989, US banned HIV+ immigrants
+
+-   Canadian politicians advocating for a ban
+
+Zowell et. al. (1990) [HIV antibody screening among immigrants: a cost-benefit analysis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1452105/). *CMAJ* 143(2): 101-107
+
+## Framing
+
+-   Fair policy would be consistent with other diseases for which immigrants could be screened
+
+-   Compare with potential screening for coronary heart disease (CHD)
+
+-   Calculate economic burden of each disease over 10 years
+
+## Prevalence and screening results
+
+-   161,929 immigrants to Canada in 1988
+
+-   Estimated \# HIV-infected immigrants in 1988 = (# immigrants)×(Estimated % HIV+) = 484
+
+-   Expected screening test results:
+
+    -   438 true positive
+
+    -   16 false positive
+
+    -   46 false negative
+
+## Secondary infections
+
+How many other people would these immigrants infect?
+
+-   Newborns:\
+    51% of immigrants are women $\rightarrow$ 247 women infected $\rightarrow$ 6.3 births from infected women $\rightarrow$ 1.9 HIV+ babies
+
+Adults (sexual contact):
+
+-   Calculated separately for gay men, other men, women:
+
+-   (# new partners)×(p(transmission)) = \# HIV+ adults
+
+-   Estimated that 54 adult sexual partners would become HIV infected
+
+## Costs
+
+-   Screening costs
+
+    -   \$ 3.2 m -- initial HIV screening
+
+    -   \$ .1 m -- confirmatory tests
+
+    -   **\$ 3.3 m -- Total screening costs**
+
+-   HIV care costs:
+
+    -   \$ 17.1 m -- care for HIV+ immigrants
+
+    -   \$ 1.0 m -- care for HIV+ adult contacts
+
+    -   \$ .4 m -- care for HIV+ newborns
+
+    -   **\$ 18.5 m -- Total HIV care costs**
+
+## Burden of Chronic Heart Disease in immigrants
+
+-   1.6% of immigrants would have CHD
+
+    -   2,558 primary events (MI, CHF, etc.)
+
+    -   651 recurrent events
+
+    -   984 surgical procedures (pacemaker, etc.)
+
+-   Total CHD care cost: \$21.6 m
+
+## Conclusions from study
+
+-   Focusing on HIV infection is arbitrary (and discriminatory?)
+
+-   Screening for any disease that is ubiquitous and costly could save money
+
+-   Other considerations
+
+    -   Health of other Canadians
+
+    -   Individual responsibility
+
+    -   Other infectious diseases of immigrants (e.g., hepatitis)
+
+## HIV and immigration since 1990
+
+-   2010: US lifted ban on HIV-infected immigrants
+
+-   2015: Singapore changed laws to allow visits, but not immigration
+
+-   Some countries still ban immigrants living with HIV (Russia, Iran, UAE)
+
+## Other simple model examples
+
+![](kaplan_scratch_model_paper.png)
+
+[Kaplan 2020, *MSOM*](https://doi.org/10.1287/msom.2020.0891)
+
+## Simple models takeaway
+
+<br>
+
+Simple models that get to the heart of decision-makers' (or critics') concerns can be a powerful tool towards informing a decision.
+
+## Today
+
+-   Well-framed, simple models
+
+-   **Conceptualizing a model/analysis**
+
+-   Parameterizing a model
+
+-   Discuss course project
+
+## Designing a decision analysis
+
+-   Objectives
+
+-   Research question
+
+-   Perspective(s)
+
+-   Intervention(s)/comparators
+
+-   Target population
+
+-   Scope
+
+-   Time horizon
+
+-   Analysis plan
+
+## Defining objectives
+
+If the goal is to inform policy, analysis must
+
+-   Consider the policy context and controversies
+
+-   Take a perspective/perspectives relevant to the audience(s)
+
+Health policy is a collaborative process with many stakeholders. One must identify the target audience and understand their concerns.
+
+## What if vs. what is?
+
+**What is? studies**
+
+-   Inform choice between existing options for current context
+
+-   Data on cost and effectiveness available or can be estimated
+
+**What if? studies**
+
+-   Inform choice between potential options for future contexts with incomplete information
+
+    -   How cheap does drug need to be?
+
+    -   How much potential benefit from developing improved technology?
+
+## Choosing analytic framework
+
+::: columns
+::: {.column width="50%"}
+-   Audience and objective should inform type of analysis
+
+-   Multiple results can and should be reported i.e. -- a good CEA reports costs and consequences as well!
+
+-   Preliminary results can also inform what additional analysis is needed
+:::
+
+::: {.column width="50%"}
+![](flowchart.png)
+:::
+:::
+
+## Defining alternatives
+
+-   Many variations often possible
+
+    -   Example: Breast cancer surveillance: Self-exam? Clinical exam? Mammography? Combinations? Every year? Every 2 years? 4 years? Changed based on age?
+
+-   All interventions that would be realistically considered should be included
+
+-   In practice, a limited set of interventions are sometimes used for feasibility
+
+-   "Do nothing" or "status quo" should always be included!
+
+## Including all alternatives
+
+![](include_all_alternatives.png)
+
+## Define target population
+
+-   Often defined by age, sex, geography, disease status, risk profile, etc.
+
+-   Examples:
+
+    -   40-year-old patient presenting for the first time with an adenomatous rectal polyp \>2 cm in diameter
+
+    -   All blood transfusion recipients in the 50 United States
+
+    -   People who inject drugs between the ages of 12 and 40
+
+-   Often, results are reported for different segments of the target populations
+
+## Time horizon
+
+-   Long enough to capture the differential costs and effects
+
+-   Patient lifetime is often needed when policies influence when patients die
+
+-   Often, the intervention is 'active' for a short period, but longer time horizon used to sum costs and effects
+
+    -   We estimated the costs and effects of transfusion-transmitted Zika over the l**ifetime of infected transfusion recipients** that resulted from **one year of screening** under each policy
+
+## Today
+
+-   Well-framed, simple models
+
+-   Conceptualizing a model/analysis
+
+-   **Parameterizing a model**
+
+-   Discuss course project
+
+## Parameters are critical
+
+"Garbage in garbage out" applies to decision models
+
+<br>
+
+Should we not make a model if too much is unknown?
+
+-   Decision must be made either way
+
+-   Model with poor data can help elucidate trade-offs, (un)importance of knowledge gaps
+
+-   Uncertainty analysis & foregrounding limitations is critical!
+
+## Quantitative data sources
+
+A single large, rigorous randomized controlled trial (RCT) collects all relevant cost and effectiveness (QALY) data on all relevant interventions to enable a CEA (Most convenient but rare) A single large, rigorous RCT or a well-done meta-analysis estimates effectiveness (not QALY) for relevant interventions, but costs & utility must be estimated from other sources. (More common) Many sources are used to inform the different parameter values under different interventions, with no head-to-head trial comparing all of the interventions (Most common)
+
+## Quantitative data sources
+
+Cohrane library Synthesize data from many studies on important questions Google Scholar Pubmed Most relevant English-language publications indexed in Pubmed and in Google Scholar Sometimes good to search both Tufts CEVR Cost Effectiveness Registry Most \$/QALY analyses indexed Can search for prior work on topic Can also search for ICERS and utilities from other studies
+
+## Imperfect hierarchy of evidence
+
+-   Well conducted systematic review
+
+-   Single best study
+
+-   Subjective estimate
+
+## Mini meta-analysis for key parameters
+
+![](meta_analysis.png)
+
+[Hewitson et. al. 2007](https://doi.org/10.1002/14651858.cd001216.pub2)
+
+## Mini meta-analysis for key parameters
+
+![](pooling_studies.png)
+
+[Russell et. al. 2022](https://doi.org/10.1111/trf.16704)
+
+## Sourcing parameters from modeling studies
+
+-   A recent model of same health condition in same population is a great source
+
+-   Can even borrow some of their model structure
+
+-   **BUT**, should always find root source of parameter values
+
+    -   Can site both the modeling study and underlying data source
+
+## Expert opinion
+
+-   Informal methods (e.g., ask clinical collaborator) common
+
+-   Should clarify difference between first order and second order uncertainty
+
+    -   Largest plausible average cost \<\< largest plausible patient cost
+
+-   Formal elicitation sometimes warranted
+
+    -   Semi-Delphi processes popular
+
+    -   "Use (and abuse) of expert elicitation in support of decision making for public policy", [Morgan (2013) *PNAS*](https://www.pnas.org/doi/full/10.1073/pnas.1319946111)
+
+## Collaborators can help you
+
+For students doing applied decision analysis, should have (at least)
+
+-   One mentor/collaborator with experience doing cost-effectiveness
+
+-   One mentor/collaborator with domain area expertise
+
+## An iterative process
+
+Develop analysis framework (states, time horizon, consequences, etc) Search for data to instantiate model framework Change model structure because data are formatted differently Add a new policy you did not initially know about Remove an intervention that is no longer recommended .....
+
+Start simple and focus on what's important! A model should not perfectly mirror reality, but rather capture most important trade-offs of the decision
+
+## Today
+
+-   Well-framed, simple models
+
+-   Conceptualizing a model/analysis
+
+-   Parameterizing a model
+
+-   **Discuss course project**
+
+## Course project proposal
+
+Switch to ["Info for non-programming assignments"](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html) in syllabus folder of Github.
+
+## Recap
+
+-   Well-framed simple models can be effective
+
+-   Best available parameter sources should be used with careful consideration of uncertainty
+
+-   Balance of simple/transparent while complex enough to capture important trade-offs is important yet challenging
+
+## Logistics
+
+-   Assignment 4 due Wednesday, February 15
+
+-   Project proposal due Wednesday, February 22
+
+-   Office hours in conference room #1103 starting now
