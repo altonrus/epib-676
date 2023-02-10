@@ -416,12 +416,13 @@ Alton Russell
 <li><p>Discuss course project</p></li>
 </ul>
 </section>
-<section id="decision-analysis-as-science-art" class="slide level2">
-<h2>Decision analysis as science + art</h2>
+<section id="model-based-decision-analysis-as-science-art" class="slide level2">
+<h2>Model-based decision analysis as science + art</h2>
 <ul>
 <li><p><strong>Science:</strong> developing and coding modeling methods correctly</p></li>
-<li><p><strong>Art:</strong> decide on analytic framework, relevant trade-offs, model structure, outcomes captured, parameter values and ranges, reporting (interpretation and contextualization)</p></li>
+<li><p><strong>Art:</strong> decide on analytic framework, relevant trade-offs, model structure, outcomes captured, parameter values/ranges/distributions, reporting (interpretation and contextualization)</p></li>
 <li><p>Models are simplifications of reality, but deciding what to simplify is hard!</p></li>
+<li><p>Perfect models don’t get finished</p></li>
 </ul>
 </section>
 <section id="developing-a-decision-analysis" class="slide level2">
@@ -438,13 +439,13 @@ Alton Russell
 </section>
 <section id="free-condoms-at-school" class="slide level2">
 <h2>Free condoms at school?</h2>
-<p>A high school is considering offering free condoms to students. Some parents are concerned this will encourage students to have more sex, thereby <strong>increasing</strong> the spread of sexually transmissible infections.</p>
+<p>A high school is considering offering free condoms to students. Some are concerned this will encourage students to have more sex, thereby <strong>increasing</strong> the spread of sexually transmissible infections.</p>
 <p><br></p>
 <p><strong>Purported risk:</strong></p>
 <p>Condom availability <span class="math inline">\(\rightarrow\)</span> more sex <span class="math inline">\(\rightarrow\)</span> more STIs</p>
 </section>
 <section id="lets-define-parameters" class="slide level2">
-<h2>Lets define parameters</h2>
+<h2>Let’s define parameters</h2>
 <ul>
 <li><p><span class="math inline">\(U\)</span> number of unprotected exposures</p></li>
 <li><p><span class="math inline">\(P\)</span> number of protected exposures</p></li>
@@ -482,27 +483,28 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <h2>Assessing for different STI risk reduction factors</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>t_twoway <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">rr_STI_with_condom =</span> <span class="fu">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.25</span>, <span class="at">by=</span><span class="fl">0.05</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">rr_STI_with_condom =</span> <span class="fu">seq</span>(<span class="fl">0.02</span>, <span class="fl">0.22</span>, <span class="at">by=</span><span class="fl">0.04</span>)</span>
 <span id="cb2-3"><a href="#cb2-3"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">mutate</span>(<span class="at">delta_for_STI_inc =</span> (<span class="dv">1</span> <span class="sc">-</span> rr_STI_with_condom)<span class="sc">/</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>           rr_STI_with_condom)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">mutate</span>(<span class="at">delta_for_STI_inc =</span> <span class="fu">round</span>((<span class="dv">1</span> <span class="sc">-</span> rr_STI_with_condom)<span class="sc">/</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>           rr_STI_with_condom, <span class="at">digits=</span><span class="dv">1</span>))</span>
 <span id="cb2-6"><a href="#cb2-6"></a>t_twoway</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
+<pre><code># A tibble: 6 × 2
   rr_STI_with_condom delta_for_STI_inc
                &lt;dbl&gt;             &lt;dbl&gt;
-1               0.05             19   
-2               0.1               9   
-3               0.15              5.67
-4               0.2               4   
-5               0.25              3   </code></pre>
+1               0.02              49  
+2               0.06              15.7
+3               0.1                9  
+4               0.14               6.1
+5               0.18               4.6
+6               0.22               3.5</code></pre>
 </div>
 </div>
 </section>
 <section id="should-canada-screen-immigrants-for-hiv" class="slide level2">
 <h2>Should Canada screen immigrants for HIV?</h2>
 <ul>
-<li><p>In 1989, US banned HIV+ immigrants</p></li>
+<li><p>In 1980s, US banned HIV+ immigrants</p></li>
 <li><p>Canadian politicians advocating for a ban</p></li>
 </ul>
 <p>Zowell et. al.&nbsp;(1990) <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1452105/">HIV antibody screening among immigrants: a cost-benefit analysis</a>. <em>CMAJ</em> 143(2): 101-107</p>
@@ -535,7 +537,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li>Newborns:<br>
 51% of immigrants are women <span class="math inline">\(\rightarrow\)</span> 247 women infected <span class="math inline">\(\rightarrow\)</span> 6.3 births from infected women <span class="math inline">\(\rightarrow\)</span> 1.9 HIV+ babies</li>
 </ul>
-<p>Adults (sexual contact):</p>
+<p>Adults (sexual contact or blood transfusion):</p>
 <ul>
 <li><p>Calculated separately for gay men, other men, women:</p></li>
 <li><p>(# new partners)×(p(transmission)) = # HIV+ adults</p></li>
@@ -590,18 +592,16 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <ul>
 <li><p>2010: US lifted ban on HIV-infected immigrants</p></li>
 <li><p>2015: Singapore changed laws to allow visits, but not immigration</p></li>
-<li><p>Some countries still ban immigrants living with HIV (Russia, Iran, UAE)</p></li>
+<li><p>Some countries still ban immigrants living with HIV</p>
+<ul>
+<li>Russia, Iran, UAE</li>
+</ul></li>
 </ul>
 </section>
 <section id="other-simple-model-examples" class="slide level2">
 <h2>Other simple model examples</h2>
 
 <img data-src="kaplan_scratch_model_paper.png" class="r-stretch"><p><a href="https://doi.org/10.1287/msom.2020.0891">Kaplan 2020, <em>MSOM</em></a></p>
-</section>
-<section id="simple-models-takeaway" class="slide level2">
-<h2>Simple models takeaway</h2>
-<p><br></p>
-<p>Simple models that get to the heart of decision-makers’ (or critics’) concerns can be a powerful tool towards informing a decision.</p>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
@@ -700,7 +700,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li><p>Patient lifetime is often needed when policies influence when patients die</p></li>
 <li><p>Often, the intervention is ‘active’ for a short period, but longer time horizon used to sum costs and effects</p>
 <ul>
-<li>We estimated the costs and effects of transfusion-transmitted Zika over the l<strong>ifetime of infected transfusion recipients</strong> that resulted from <strong>one year of screening</strong> under each policy</li>
+<li>We estimated the costs and effects of transfusion-transmitted Zika over the <strong>lifetime of infected transfusion recipients</strong> that resulted from <strong>one year of screening</strong> under each policy</li>
 </ul></li>
 </ul>
 </section>
@@ -726,11 +726,28 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </section>
 <section id="quantitative-data-sources" class="slide level2">
 <h2>Quantitative data sources</h2>
-<p>A single large, rigorous randomized controlled trial (RCT) collects all relevant cost and effectiveness (QALY) data on all relevant interventions to enable a CEA (Most convenient but rare) A single large, rigorous RCT or a well-done meta-analysis estimates effectiveness (not QALY) for relevant interventions, but costs &amp; utility must be estimated from other sources. (More common) Many sources are used to inform the different parameter values under different interventions, with no head-to-head trial comparing all of the interventions (Most common)</p>
+<ul>
+<li><p>A single large, rigorous randomized controlled trial (RCT) collects all relevant cost and effectiveness (QALY) data on all relevant interventions to enable a CEA <strong>(Rare)</strong></p></li>
+<li><p>A single large, rigorous RCT or a well-done meta-analysis estimates effectiveness for relevant interventions, but costs &amp; utility must be estimated from other sources. <strong>(More common)</strong></p></li>
+<li><p>Many sources are used to inform the different parameter values under different interventions, with no head-to-head trial comparing all of the interventions <strong>(Most common)</strong></p></li>
+</ul>
 </section>
 <section id="quantitative-data-sources-1" class="slide level2">
 <h2>Quantitative data sources</h2>
-<p>Cohrane library Synthesize data from many studies on important questions Google Scholar Pubmed Most relevant English-language publications indexed in Pubmed and in Google Scholar Sometimes good to search both Tufts CEVR Cost Effectiveness Registry Most $/QALY analyses indexed Can search for prior work on topic Can also search for ICERS and utilities from other studies</p>
+<ul>
+<li><p><strong>Cohrane reports</strong> synthesize data from many studies on policy relevant topics</p></li>
+<li><p><strong>Google Scholar and Pubmed</strong></p>
+<ul>
+<li><p>Most relevant English-language publications in both</p></li>
+<li><p>Good to search both</p></li>
+</ul></li>
+<li><p><strong>Tufts CEVR Cost Effectiveness Registry</strong></p>
+<ul>
+<li><p>Most $/QALY analyses indexed</p></li>
+<li><p>Can search for prior work on topic</p></li>
+<li><p>Can also search for ICERS and utilities from other studies</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="imperfect-hierarchy-of-evidence" class="slide level2">
 <h2>Imperfect hierarchy of evidence</h2>
@@ -738,6 +755,11 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li><p>Well conducted systematic review</p></li>
 <li><p>Single best study</p></li>
 <li><p>Subjective estimate</p></li>
+</ul>
+<p>Murky in practice</p>
+<ul>
+<li><p>How comparable are studies in systematic reviews?</p></li>
+<li><p>How well do they map to your target population?</p></li>
 </ul>
 </section>
 <section id="mini-meta-analysis-for-key-parameters" class="slide level2">
@@ -753,8 +775,8 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <section id="sourcing-parameters-from-modeling-studies" class="slide level2">
 <h2>Sourcing parameters from modeling studies</h2>
 <ul>
-<li><p>A recent model of same health condition in same population is a great source</p></li>
-<li><p>Can even borrow some of their model structure</p></li>
+<li><p>Recent model of same health condition in same population is a great source</p></li>
+<li><p>Can borrow their methods (with citation)</p></li>
 <li><p><strong>BUT</strong>, should always find root source of parameter values</p>
 <ul>
 <li>Can site both the modeling study and underlying data source</li>
@@ -778,16 +800,28 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </section>
 <section id="collaborators-can-help-you" class="slide level2">
 <h2>Collaborators can help you</h2>
-<p>For students doing applied decision analysis, should have (at least)</p>
+<p>Students doing applied decision analysis, should have</p>
 <ul>
-<li><p>One mentor/collaborator with experience doing cost-effectiveness</p></li>
-<li><p>One mentor/collaborator with domain area expertise</p></li>
+<li><p><span class="math inline">\(\geq 1\)</span> mentor/collaborator with experience in decision-analytic modeling</p></li>
+<li><p><span class="math inline">\(\geq 1\)</span> mentor/collaborator with domain area expertise</p></li>
 </ul>
 </section>
 <section id="an-iterative-process" class="slide level2">
 <h2>An iterative process</h2>
-<p>Develop analysis framework (states, time horizon, consequences, etc) Search for data to instantiate model framework Change model structure because data are formatted differently Add a new policy you did not initially know about Remove an intervention that is no longer recommended …..</p>
-<p>Start simple and focus on what’s important! A model should not perfectly mirror reality, but rather capture most important trade-offs of the decision</p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<ul>
+<li><p>Develop analysis framework (states, time horizon, consequences, etc)</p></li>
+<li><p>Search for data to instantiate</p></li>
+<li><p>Change model structure because data are formatted differently</p></li>
+<li><p>Add a new policy you did not initially know about</p></li>
+<li><p>Remove an intervention no longer recommended</p></li>
+<li><p>…</p></li>
+</ul>
+</div><div class="column" style="width:35%;">
+<p><strong>Start simple and focus on what’s important! A model should capture important tradeoffs, not not perfectly mirror reality</strong></p>
+</div>
+</div>
 </section>
 <section id="today-3" class="slide level2">
 <h2>Today</h2>

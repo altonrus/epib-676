@@ -24,13 +24,15 @@ library(dplyr)
 
 -   Discuss course project
 
-## Decision analysis as science + art
+## Model-based decision analysis as science + art
 
 -   **Science:** developing and coding modeling methods correctly
 
--   **Art:** decide on analytic framework, relevant trade-offs, model structure, outcomes captured, parameter values and ranges, reporting (interpretation and contextualization)
+-   **Art:** decide on analytic framework, relevant trade-offs, model structure, outcomes captured, parameter values/ranges/distributions, reporting (interpretation and contextualization)
 
 -   Models are simplifications of reality, but deciding what to simplify is hard!
+
+-   Perfect models don't get finished
 
 ## Developing a decision analysis
 
@@ -50,7 +52,7 @@ library(dplyr)
 
 ## Free condoms at school?
 
-A high school is considering offering free condoms to students. Some parents are concerned this will encourage students to have more sex, thereby **increasing** the spread of sexually transmissible infections.
+A high school is considering offering free condoms to students. Some are concerned this will encourage students to have more sex, thereby **increasing** the spread of sexually transmissible infections.
 
 <br>
 
@@ -58,7 +60,7 @@ A high school is considering offering free condoms to students. Some parents are
 
 Condom availability $\rightarrow$ more sex $\rightarrow$ more STIs
 
-## Lets define parameters
+## Let's define parameters
 
 -   $U$ number of unprotected exposures
 
@@ -105,16 +107,16 @@ $$
 ```{r}
 #| echo: true
 t_twoway <- tibble(
-  rr_STI_with_condom = seq(0.05, 0.25, by=0.05)
+  rr_STI_with_condom = seq(0.02, 0.22, by=0.04)
 ) |>
-  mutate(delta_for_STI_inc = (1 - rr_STI_with_condom)/
-           rr_STI_with_condom)
+  mutate(delta_for_STI_inc = round((1 - rr_STI_with_condom)/
+           rr_STI_with_condom, digits=1))
 t_twoway
 ```
 
 ## Should Canada screen immigrants for HIV?
 
--   In 1989, US banned HIV+ immigrants
+-   In 1980s, US banned HIV+ immigrants
 
 -   Canadian politicians advocating for a ban
 
@@ -149,7 +151,7 @@ How many other people would these immigrants infect?
 -   Newborns:\
     51% of immigrants are women $\rightarrow$ 247 women infected $\rightarrow$ 6.3 births from infected women $\rightarrow$ 1.9 HIV+ babies
 
-Adults (sexual contact):
+Adults (sexual contact or blood transfusion):
 
 -   Calculated separately for gay men, other men, women:
 
@@ -209,19 +211,15 @@ Adults (sexual contact):
 
 -   2015: Singapore changed laws to allow visits, but not immigration
 
--   Some countries still ban immigrants living with HIV (Russia, Iran, UAE)
+-   Some countries still ban immigrants living with HIV
+
+    -   Russia, Iran, UAE
 
 ## Other simple model examples
 
 ![](kaplan_scratch_model_paper.png)
 
 [Kaplan 2020, *MSOM*](https://doi.org/10.1287/msom.2020.0891)
-
-## Simple models takeaway
-
-<br>
-
-Simple models that get to the heart of decision-makers' (or critics') concerns can be a powerful tool towards informing a decision.
 
 ## Today
 
@@ -331,7 +329,7 @@ Health policy is a collaborative process with many stakeholders. One must identi
 
 -   Often, the intervention is 'active' for a short period, but longer time horizon used to sum costs and effects
 
-    -   We estimated the costs and effects of transfusion-transmitted Zika over the l**ifetime of infected transfusion recipients** that resulted from **one year of screening** under each policy
+    -   We estimated the costs and effects of transfusion-transmitted Zika over the **lifetime of infected transfusion recipients** that resulted from **one year of screening** under each policy
 
 ## Today
 
@@ -359,11 +357,29 @@ Should we not make a model if too much is unknown?
 
 ## Quantitative data sources
 
-A single large, rigorous randomized controlled trial (RCT) collects all relevant cost and effectiveness (QALY) data on all relevant interventions to enable a CEA (Most convenient but rare) A single large, rigorous RCT or a well-done meta-analysis estimates effectiveness (not QALY) for relevant interventions, but costs & utility must be estimated from other sources. (More common) Many sources are used to inform the different parameter values under different interventions, with no head-to-head trial comparing all of the interventions (Most common)
+-   A single large, rigorous randomized controlled trial (RCT) collects all relevant cost and effectiveness (QALY) data on all relevant interventions to enable a CEA **(Rare)**
+
+-   A single large, rigorous RCT or a well-done meta-analysis estimates effectiveness for relevant interventions, but costs & utility must be estimated from other sources. **(More common)**
+
+-   Many sources are used to inform the different parameter values under different interventions, with no head-to-head trial comparing all of the interventions **(Most common)**
 
 ## Quantitative data sources
 
-Cohrane library Synthesize data from many studies on important questions Google Scholar Pubmed Most relevant English-language publications indexed in Pubmed and in Google Scholar Sometimes good to search both Tufts CEVR Cost Effectiveness Registry Most \$/QALY analyses indexed Can search for prior work on topic Can also search for ICERS and utilities from other studies
+-   **Cohrane reports** synthesize data from many studies on policy relevant topics
+
+-   **Google Scholar and Pubmed**
+
+    -   Most relevant English-language publications in both
+
+    -   Good to search both
+
+-   **Tufts CEVR Cost Effectiveness Registry**
+
+    -   Most \$/QALY analyses indexed
+
+    -   Can search for prior work on topic
+
+    -   Can also search for ICERS and utilities from other studies
 
 ## Imperfect hierarchy of evidence
 
@@ -372,6 +388,12 @@ Cohrane library Synthesize data from many studies on important questions Google 
 -   Single best study
 
 -   Subjective estimate
+
+Murky in practice
+
+-   How comparable are studies in systematic reviews?
+
+-   How well do they map to your target population?
 
 ## Mini meta-analysis for key parameters
 
@@ -387,9 +409,9 @@ Cohrane library Synthesize data from many studies on important questions Google 
 
 ## Sourcing parameters from modeling studies
 
--   A recent model of same health condition in same population is a great source
+-   Recent model of same health condition in same population is a great source
 
--   Can even borrow some of their model structure
+-   Can borrow their methods (with citation)
 
 -   **BUT**, should always find root source of parameter values
 
@@ -411,17 +433,33 @@ Cohrane library Synthesize data from many studies on important questions Google 
 
 ## Collaborators can help you
 
-For students doing applied decision analysis, should have (at least)
+Students doing applied decision analysis, should have
 
--   One mentor/collaborator with experience doing cost-effectiveness
+-   $\geq 1$ mentor/collaborator with experience in decision-analytic modeling
 
--   One mentor/collaborator with domain area expertise
+-   $\geq 1$ mentor/collaborator with domain area expertise
 
 ## An iterative process
 
-Develop analysis framework (states, time horizon, consequences, etc) Search for data to instantiate model framework Change model structure because data are formatted differently Add a new policy you did not initially know about Remove an intervention that is no longer recommended .....
+::: columns
+::: {.column width="65%"}
+-   Develop analysis framework (states, time horizon, consequences, etc)
 
-Start simple and focus on what's important! A model should not perfectly mirror reality, but rather capture most important trade-offs of the decision
+-   Search for data to instantiate
+
+-   Change model structure because data are formatted differently
+
+-   Add a new policy you did not initially know about
+
+-   Remove an intervention no longer recommended
+
+-   ...
+:::
+
+::: {.column width="35%"}
+**Start simple and focus on what's important! A model should capture important tradeoffs, not not perfectly mirror reality**
+:::
+:::
 
 ## Today
 
