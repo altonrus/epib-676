@@ -439,7 +439,7 @@ Students doing applied decision analysis, should have
 
 -   $\geq 1$ mentor/collaborator with domain area expertise
 
-## An iterative process
+## Iterative process
 
 ::: columns
 ::: {.column width="65%"}

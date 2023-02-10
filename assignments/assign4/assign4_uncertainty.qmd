@@ -52,7 +52,7 @@ t_rewards |>
 #read table from Excel, make it a tibble, and add FromTo column
 t_probs <- read_excel('params_assign4.xlsx', sheet = "p_transitions") |>
   as_tibble() |>
-  mutate(FromTo = paste0(From, ".","To"))
+  mutate(FromTo = paste0(From, ".",To,".",Cohort))
 #Display it nicely
 t_probs |>
   flextable() |> #turn into flextable object
@@ -114,6 +114,10 @@ sim_strategies <- function(t_probs, l_rewards, t_ocm,
   return(list(
     QALY_peds_noDetect = NA,
     QALY_adult_noDetect = NA,
+    QALY_peds_Detect = NA,
+    QALY_adult_Detect = NA,
+    Cost_peds_noDetect = NA,
+    Cost_adult_noDetect = NA,
     Cost_peds_Detect = NA,
     Cost_adult_Detect = NA,
     Incr_cost_adult = NA,
@@ -124,7 +128,7 @@ sim_strategies <- function(t_probs, l_rewards, t_ocm,
 }
 ```
 
-Test it out! use `run_hiv_cea()` using all of your base-case parameters to calculate outcomes for each cohort.
+Test it out! use `sim_strategies()` using all of your base-case parameters to calculate outcomes for each cohort.
 
 ```{r}
 #calculate and print basecase analysis
@@ -429,7 +433,18 @@ t_probs_temp <- cbind(t_probs)
 # Preallocate matrix to store PSA output
 #. columns should have same names as l_output_names
 #. number of rows should match n_psa_iter
-l_output_names <- list("QALY_peds_noDetect", "QALY_adult_noDetect", "Cost_peds_Detect", "Cost_adult_Detect", "Incr_cost_adult", "Incr_cost_peds", "ICER_adult", "ICER_peds")
+l_output_names <- list("QALY_peds_noDetect",
+    "QALY_adult_noDetect",
+    "QALY_peds_Detect",
+    "QALY_adult_Detect",
+    "Cost_peds_noDetect",
+    "Cost_adult_noDetect",
+    "Cost_peds_Detect",
+    "Cost_adult_Detect",
+    "Incr_cost_adult",
+    "Incr_cost_peds",
+    "ICER_adult",
+    "ICER_peds")
 
 m_psa_output <- NA #can do m_psa_output if you prefer matrix
 
