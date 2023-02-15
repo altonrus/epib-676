@@ -1,0 +1,655 @@
+---
+title: "Calibration and validation"
+subtitle: "EPIB  676 session 13, McGill University"
+author: "Alton Russell"
+date: "15 Feb 2023"
+format: revealjs
+editor: visual
+---
+
+## R packages
+
+```{r}
+#| echo: true
+library(ggplot2)
+theme_set(theme_bw())
+
+# calibration functionality
+library(lhs)
+
+# visualization
+library(psych)
+```
+
+## Today
+
+-   **Model calibration**
+
+    -   Concept
+
+    -   Deterministic methods
+
+    -   Bayesian methods
+
+-   Model validation
+
+## Models combine multiple sources of evidence
+
+![](model_inputs_outputs.png)
+
+Modeled outcomes are complex functions of multiple parameters
+
+## Model as a function
+
+![](model_as_function.png)
+
+## Estimating parameter values
+
+-   **Direct estimation:** with primary data or literature report
+
+-   **Expert or data-informed estimation**: based on imperfect or semi-applicable data and/or expert opinion, develop reasonable estimates/uncertainty ranges
+
+-   **Calibration:** use data on ***outcomes*** to estimate parameters
+
+## Model as function 2
+
+![](model_as_function_2.png)
+
+Calibration uses data on modeled outcomes to estimate model parameters (and sometimes model structure)
+
+## Calibration
+
+Using data on **outcomes** to estimate **parameters**
+
+![](calibration_schematic.png)
+
+## Steps in model calibration
+
+1.  Derive calibration targets from real-world data
+
+2.  Structure model to produce measures analagous to targets
+
+3.  Identify model parameters to be targeted
+
+4.  Implement a calibration algorithm
+
+    -   Ad hoc
+
+    -   Optimization
+
+    -   Bayesian
+
+## Hands on model calibration in R
+
+[Guided tutorial by DARTH working group](https://darth-git.github.io/calibSMDM2018-materials/)
+
+Eva Enns, Fernando Alarid-Escudero, and Caleb Easterly 2018
+
+## Calibration task
+
+::: columns
+::: {.column width="65%"}
+![](Alarid%20CRC%20diagram.jpeg)
+
+[Alarid-Escudero et. al. 2018](https://doi.org/10.1177/0272989X18792283)
+:::
+
+::: {.column width="35%"}
+Calibrate `p.Mets` and `p.DieMets` by fitting to observed survival data
+:::
+:::
+
+## Target data
+
+```{r}
+#| echo: true
+load("CRSTargets.RData")
+CRS.targets
+```
+
+## Plot target data
+
+```{r}
+#| echo: true
+p_target <- ggplot(CRS.targets$Surv, aes(x=Time, y=value))+
+  geom_point()+
+  geom_errorbar(aes(ymin=lb, ymax =ub))+
+  ylab("Pr Survive")
+p_target
+
+```
+
+## Load and run model
+
+```{r}
+#| echo: true
+source("markov_crs.R")
+v.params.test <- c(p.Mets = 0.1, p.DieMets = 0.2)
+test_results <- markov_crs(v.params.test)
+str(test_results)
+head(test_results$Surv)
+```
+
+## Compare model to targets
+
+```{r}
+#| echo: true
+t_compare <- cbind(CRS.targets$Surv,
+                   output = test_results$Surv)
+ggplot(t_compare, aes(x=Time, y=value))+
+  geom_point()+geom_errorbar(aes(ymin=lb, ymax =ub))+
+  geom_point(color="darkred", aes(y=output))+
+  ylab("Pr Survive")
+```
+
+## Random search method
+
+-   Specify parameter value range
+
+-   Sample several sets (pairs) of parameters
+
+-   Identify best-fitting set
+
+    -   Minimize error/maximize goodness-of-fit
+
+## Latin hypercube sampling
+
+::: columns
+::: {.column width="60%"}
+![](lhs_figure.png)
+
+From [LHS basic vignette 2022](https://cran.r-project.org/web/packages/lhs/vignettes/lhs_basics.html)
+:::
+
+::: {.column width="40%"}
+-   Using partitions to ensuring samples are well-dispersed across the parameter space
+
+-   Lots of variants
+
+-   Can use uniform random method then 'rescale' to fit our range or distribution
+:::
+:::
+
+## Code: latin hypercube sampling
+
+```{r}
+#| echo: true
+set.seed(1010)
+param.names <- c("p.Mets","p.DieMets")
+n.param <- length(param.names)
+rs.n.samp <- 3000
+# lower bound
+lb <- c(p.Mets = 0.04, p.DieMets = 0.04) 
+# upper bound
+ub <- c(p.Mets = 0.16, p.DieMets = 0.16)
+# Sample unit Latin Hypercube (uniform random!)
+m.lhs.unit <- lhs::randomLHS(rs.n.samp, n.param)
+colnames(m.lhs.unit) <- param.names
+
+```
+
+## Plot LHS samples
+
+```{r}
+#| echo: true
+ggplot(data=data.frame(m.lhs.unit), aes(x=p.Mets, y=p.DieMets))+geom_point()
+```
+
+## Rescale parameters
+
+```{r}
+#| echo: true
+# Rescale to min/max of each parameter
+rs.param.samp <- matrix(nrow=rs.n.samp,ncol=n.param)
+colnames(rs.param.samp) <- param.names
+for (i in 1:n.param){
+  rs.param.samp[,i] <- qunif(m.lhs.unit[,i],
+                           min = lb[i],
+                           max = ub[i])
+}
+```
+
+## View LHS-sampled parameters
+
+```{r}
+#| echo: true
+psych::pairs.panels(rs.param.samp)
+```
+
+## Likelihood function
+
+-   Asks, how likely is the modeled output given the target data?
+
+-   Higher likelihood $\rightarrow$ modeled output consistent with data
+
+-   We'll use normal likelihood
+
+-   For numerical stability, we compute log-likelihood
+
+## Goodness-of-fit function
+
+```{r}
+#| echo: true
+rs.GOF <- rep(0, rs.n.samp)
+gof_norm_loglike <- function(target_mean, target_sd, model_output){
+  sum(dnorm(x = target_mean,
+            mean = model_output,
+            sd = target_sd,
+            log = TRUE))
+}
+```
+
+## Compute GOF for each parameter set
+
+```{r}
+#| echo: true
+for (j in 1:rs.n.samp){
+  
+  ###  Run model for a given parameter set  ###
+  model.res = markov_crs(v.params = rs.param.samp[j, ])
+  
+  ###  Calculate goodness-of-fit of model outputs to targets  ###
+  # log likelihood of the model output given the targets
+  rs.GOF[j] = gof_norm_loglike(model_output = model.res$Surv,
+                               target_mean = CRS.targets$Surv$value,
+                               target_sd = CRS.targets$Surv$se)
+}
+```
+
+## Identify best-fitting parameters
+
+```{r}
+# Arrange parameter sets in order of fit
+rs.calib.res <- cbind(rs.param.samp, rs.GOF)
+rs.calib.res <- rs.calib.res[order(-rs.calib.res[,"rs.GOF"]),]
+
+# Examine the top 10 best-fitting sets
+ggplot(data = data.frame(rs.calib.res), aes(x=p.Mets, y=p.DieMets, colour = exp(rs.GOF)))+
+         geom_point()+scale_colour_gradient(low="skyblue",high="darkred")
+```
+
+## Plot calibrated model vs. target
+
+```{r}
+#| echo: true
+rs_best_fit_params <- c(rs.calib.res[1, c("p.Mets",  "p.DieMets")])
+rs_best_fit_model <- markov_crs(rs_best_fit_params)
+
+t_compare <- cbind(CRS.targets$Surv,
+                   random_search = rs_best_fit_model$Surv)
+ggplot(t_compare, aes(x=Time, y=value))+
+  geom_point()+geom_errorbar(aes(ymin=lb, ymax =ub))+
+  geom_point(color="red", aes(y=random_search))+
+  ylab("Pr Survive")
+```
+
+## Alternative goodness-of-fit measures
+
+Can use other likelihood functions
+
+-   Loglikelihood for a different distribution
+
+-   Weighted sum of square error
+
+Can also define \>1 target
+
+-   Judge parameter set based on combined measure, e.g., weighted sum
+
+## Nelder-Mead calibration
+
+Whereas random search is undirected, Nelder-Mead is directed
+
+Sample several starting points with goal of finding global optimum
+
+## Local and global optima
+
+![](local_optima_illustration.png)
+
+Source: [Chao Jin 2015](http://dx.doi.org/10.13140/RG.2.2.32537.83041)
+
+## NM calibration: sample starting values
+
+```{r}
+#| echo: true
+n.init <- 100
+nm.params.init <- matrix(nrow=n.init,ncol=n.param)
+set.seed(101)
+for (i in 1:n.param){
+  nm.params.init[,i] <- runif(n.init,min=lb[i],max=ub[i])
+}
+colnames(nm.params.init) <- param.names
+head(nm.params.init, 6)
+```
+
+## NM calibration: objective function
+
+```{r}
+#| echo: true
+nm_objective = function(v.params){
+  ###   Run model for parametr set "v.params" ###
+  model.res = markov_crs(v.params)
+
+  # log likelihood  
+  v.GOF = gof_norm_loglike(target_mean = CRS.targets$Surv$value,
+                              model_output = model.res$Surv,
+                              target_sd = CRS.targets$Surv$se)
+  return(v.GOF)
+}
+
+```
+
+## NM calibration: run the calibration
+
+**optim**: General-purpose optimization based on Nelder--Mead, quasi-Newton and conjugate-gradient algorithms.
+
+```{r}
+#| echo: true
+nm.calib.res <- matrix(nrow = n.init, ncol = n.param+1)
+colnames(nm.calib.res) <- c(param.names, "Overall_fit")
+for (j in 1:n.init){
+  
+  fit.nm <- optim(nm.params.init[j,], nm_objective, 
+                 control = list(fnscale = -1, #switches from minimization to maximization
+                                maxit = 1000), 
+                 hessian = T)
+  nm.calib.res[j,] <- c(fit.nm$par,fit.nm$value)
+}
+
+```
+
+## NM calibration: results
+
+```{r}
+#| echo: true
+# Arrange parameter sets in order of fit
+nm.calib.res <- nm.calib.res[order(-nm.calib.res[,"Overall_fit"]),]
+# Examine the top 10 best-fitting sets
+nm.calib.res[1:10,]
+
+
+```
+
+## NM calibration: results
+
+```{r}
+#| echo: true
+ggplot(data=data.frame(nm.calib.res))+
+  geom_point(aes(x=p.Mets, y=p.DieMets, overall_fit=Overall_fit))
+```
+
+## Compare results
+
+```{r}
+#| echo: true
+#| eval: false
+nm_best_fit_params <- c(nm.calib.res[1, c("p.Mets",  "p.DieMets")])
+nm_best_fit_model <- markov_crs(nm_best_fit_params)
+
+t_compare <- cbind(t_compare,
+                   nelder_mead = nm_best_fit_model$Surv)
+
+ggplot(t_compare, aes(x=Time, y=value))+
+  geom_point()+
+  geom_errorbar(aes(ymin=lb, ymax =ub))+
+  geom_point(color="red", aes(y=random_search))+
+  ylab("Pr Survive")+
+  geom_point(color="green", alpha = 0.5, aes(y=nelder_mead))
+```
+
+## Compare results
+
+```{r}
+#| echo: false
+nm_best_fit_params <- c(nm.calib.res[1, c("p.Mets",  "p.DieMets")])
+nm_best_fit_model <- markov_crs(nm_best_fit_params)
+
+t_compare <- cbind(t_compare,
+                   nelder_mead = nm_best_fit_model$Surv)
+
+ggplot(t_compare, aes(x=Time, y=value))+
+  geom_point()+
+  geom_errorbar(aes(ymin=lb, ymax =ub))+
+  geom_point(color="red", aes(y=random_search))+
+  ylab("Pr Survive")+
+  geom_point(color="green", alpha = 0.25, aes(y=nelder_mead))
+```
+
+## Bayesian probabilistic calibration
+
+-   **Deterministic:** "What's the best-fitting parameter set?"
+
+-   **Probabilsitic:** "What joint distribution of parameters is consistent with the uncertainty in my calibration targets"
+
+-   Bayesian methods allow us to also use data on both parameters and outcomes to estimate parameters
+
+    -   Can quantify uncertainty even when parameters are non-identifiable!
+
+## Bayesian updating
+
+![](bayesian_updating.png)
+
+## Bayesian calibration
+
+![](bayesian_calibration.png)
+
+## Bayesian calibration ins and outs
+
+![](Bayesian_calib_inputS_outputs.png)
+
+## Sample importance resampling (SIR) method
+
+![](SIR_1.png)
+
+## Sample importance resampling (SIR) method
+
+![](SIR_2.png)
+
+## Sample importance resampling (SIR) method
+
+![](SIR_3.png)
+
+## Sample importance resampling (SIR) method
+
+![](SIR_4.png)
+
+## Alternatives to SIR
+
+Incremental-mixture importance sampling ([Raftery et. al. 2010](https://doi.org/10.1111/j.1541-0420.2010.01399.x), [Menzies et. al. 2017](https://doi.org/10.1007/s40273-017-0494-4))
+
+-   More efficient than SIR and fully Bayesian
+
+Approximate bayesian computation ([Shewmaker et. al. 2022](https://doi.org/10.1177/0272989X221085569))
+
+-   Use target ranges instead of likelihood
+
+Incremental mixture approximate Bayesian computation ([Rutter et. al. 2019](doi.org/10.1214/19-AOAS1279))
+
+## Bayesian calibration tutorial
+
+Let's take a quick look at the [Bayesian tutorial by Enns et. al](https://darth-git.github.io/calibSMDM2018-materials/tutorials/imis_3state.html).
+
+## In summary
+
+-   Calibration identifies parameter values that produce modeled outcomes consisent with target data
+
+-   Deterministic methods identify best-fitting point estimates
+
+-   Bayesian methods can approximate parameter draws over joint distribution of all parameters
+
+## Today
+
+-   Model calibration
+
+-   **Model validation**
+
+## Model credibility
+
+-   **Transparency:** clearly documenting, justifying, and publicizing model perspective, framing, structure, parameters, assumptions, limitations
+
+-   **Validation**:judging how accurately a model captures reality
+
+## Model repurposing
+
+-   Some models developed as multipurpose
+
+    -   Oncosim (Canada) or MISCAN (USA)
+
+-   In other cases, we can get more 'mileage' out of a model by applying to new decision problem
+
+-   Must consider how decision-relevant trade-offs differ from original intent
+
+-   A model can have different level of validity for different application
+
+## Types of validity
+
+-   Face validity
+
+-   Verification (internal validity)
+
+-   Cross validity
+
+-   External validity
+
+-   Predictive validity
+
+Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeling Good Research Practices Task Force](doi.org/10.1177/0272989X12454579)
+
+## Face validity
+
+-   Model and assumptions reflect current evidence as judged by domain experts (e.g. clinicians) and policy makers
+
+-   Multiple aspects
+
+    -   Model structure
+
+    -   Data sources
+
+    -   Problem formulation
+
+    -   Results
+
+-   Subjective and challenging (e.g., over vs. under-simplified)
+
+## Face validity best practice
+
+> Validation should include an evaluation of face validity of a model's structure, evidence, problem formulation, and results. A description of the process used to evaluate face validity should be made available on request. To the greatest extent possible, evaluation of face validity should be made by people who have expertise in the problem area but are impartial and preferably blinded to the results of the analysis.If face validation raises questions, these issues should be discussed in the report.
+
+## Verification
+
+-   Internal or technical validity
+
+-   Are the calculations all correct?
+
+-   Can enhance through
+
+    -   Code documentation
+
+    -   Double programming
+
+    -   'Trace analysis'
+
+## Verification best practice
+
+> Models should be subjected to rigorous verification. The methods should be described in the model's nontechnical documentation. Pertinent results of verification should be made available on request.
+
+## Cross validation
+
+-   How consistent is your model outputs with other models of same decision problem or biological/social phenomena?
+
+-   If multiple modelers reach same conclusion, trust in conclusions higher
+
+-   More meaningful when models with differing creators, data, methods compared
+
+## Cross validation best practice
+
+> Modelers should search for modeling analyses of the same or similar problems and discuss insights gained from similarities and differences in results.
+
+## External validation
+
+-   Comparison to real-world data (e.g., trial or epidemiological data)
+
+    -   Usually only possible for some aspects of model
+
+        -   Disease progression, treatment efficacy, population distribution, etc.
+
+-   Steps
+
+    -   Identify data sources to simulate
+
+    -   Generate comparable measures from model
+
+    -   Compare
+
+## Data for external validation
+
+-   **Sources:** Population statistics, epidemiological studies, surveys, clinical trials, claims data, electronic health records
+
+-   Independent external validation (gold standard) is with data that was not used in model development or calibration
+
+-   Ideally, validation plan developed before any modeled results generated
+
+## External validation best practice 1
+
+> Formal process that includes:
+>
+> -   Systematic identification of
+>
+>     -   Suitable data sources
+>
+>     -   Justification of the selection
+>
+>     -   Specification of whether a data source is dependent, partially dependent, or independent
+>
+>     -   Description of which model parts are evaluated by each source
+>
+> -   Simulation of each source
+
+## External validation best practice 1
+
+-   <div>
+
+    > -   Comparison of results, including descriptions of
+    >
+    >     -   Data source
+    >
+    >     -   Simulation setup
+    >
+    >     -   Discrepancies between source and simulation and their implications
+    >
+    >     -   Discrepancies between simulation and observed results
+    >
+    >     -   Sensitivity analyses
+    >
+    > -   Quantitative measures of how well the model's results match the source outcomes
+
+    </div>
+
+## External validation best practice 2 & 3
+
+> Modelers should make available on request a description of the external validation process and results, identify model parts that cannot be validated given lack of suitable sources, and describe how uncertainty about those parts was addressed.
+
+> For multiapplication models, modelers should describe criteria for determining when validations should be repeated and/or expanded.
+
+## Predictive validation best practice
+
+> When feasible with respect to the decision being addressed and a future source's availability, a model should be tested for its prediction of future events. Builders of multiple-use models should seek opportunities to conduct predictive validations.
+
+## In summary
+
+-   Important to convince reader of model validity
+
+-   External validation is great when feasible but highly dependent on context
+
+    -   If we use the best data to parameterize/calibrate, what's left for external validation
+
+## Logistics
+
+-   Assignment 4 due tonight
+
+-   Project proposal due Monday, February 22
+
+-   Assignment 5 (last one!) to be posted by next Monday, due Wednesday March 8
+
+-   **To discuss:** Presentation on published open science report assignment
+
+-   Office hours in conference room #1103 starting now
