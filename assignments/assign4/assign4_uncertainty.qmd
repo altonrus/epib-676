@@ -481,7 +481,7 @@ psa_obj_peds <- NA
 psa_obj_adults <- NA
 
 # Plot CEACS: one for pediatric and one for adult (can use this WTP sequence)
-wtp <- seq(from=0, to=400000, by=10000)
+wtp <- seq(from=0, to=100, by=1)
 
 ```
 
@@ -500,7 +500,6 @@ m_owsa_result <- matrix(
     cols = c("input_low", "input_high", "ICER_detect_low", "ICER_detect_high")
   )
 )
-
 
 #Conduct OWSA on each parameter in t_rewards
 for (param in reward_param_names){
@@ -531,9 +530,9 @@ for (param in reward_param_names){
 #   theme(legend.position = "None")+
 #   coord_flip()+
 #   geom_hline(yintercept = l_basecase_results$ICER_treat, color="black")+
-#   geom_hline(yintercept = 50000, alpha = 0.5, color = "red")+
+#   geom_hline(yintercept = 30, alpha = 0.5, color = "red")+#WTP threshold
 #   scale_alpha_manual(values = c(1, 0))+
-#   scale_y_continuous(labels = function(x){paste0("$",x/1e3,"K")},
+#   scale_y_continuous(labels = function(x){paste0("$",x)},
 #                      )+
 #   xlab("")+
 #   ylab("ICER of treatment vs. no treatment")
@@ -550,7 +549,7 @@ $$
 EVPI = E_\mathbb\theta [\max_t \text{NMB}_t (\mathbb\theta)] - \max_t E_\mathbb\theta [\text{NMB}_t (\mathbb\theta)]
 $$
 
-Compute the expected value of perfect information for our adult and pediatric cohorts at a willingness-to-pay threshold of \$50,000.
+Compute the expected value of perfect information for our adult and pediatric cohorts at a willingness-to-pay threshold of \$30.
 
 ```{r}
 
