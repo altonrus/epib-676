@@ -1,0 +1,495 @@
+---
+title: "Equity and fairness considerations"
+subtitle: "EPIB  676 session 13, McGill University"
+author: "Alton Russell"
+date: "17 Feb 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Equity/fairness from health systems perspective**
+
+-   Methods for incorporating equity in decision analyses
+
+-   Distributional cost-effectiveness tutorial
+
+## Health systems perspective on equity
+
+-   Several dimensions of concern
+
+    -   Health, wealth, race, sex, gender, age, (dis)ability, socioeconomic status, neighborhood...
+
+-   Portfolio of services may be viewed as unfair if:
+
+    -   Provides unequal benefit
+
+    -   Creates unequal access
+
+    -   Improves or worsen existing inequities in health outcomes
+
+-   Fairness/equity criteria can conflict with efficiency **and each other!**
+
+## Lorenz curve
+
+::: columns
+::: {.column width="60%"}
+![](Lorenz_curve.png)
+:::
+
+::: {.column width="40%"}
+-   Analyzes distribution of wealth (or health) in population
+
+-   GINI coefficient: A/(A+B)
+
+-   Basis for several measures of equity
+:::
+:::
+
+## Lorenz curve for longevity
+
+![](Lorenz_longevity.png)
+
+[Shkolnikov et. al. 2003](https://doi.org/10.4054/DemRes.2003.8.11)
+
+## The traditional CEA approach
+
+-   Objective: Maximize total health benefit achieved through limited funds
+
+-   No consideration for distribution of benefits across population
+
+-   "A QALY is a QALY is a QALY"
+
+-   Some decision-making bodies disagree
+
+## Norway's 3 criteria for health technology assessment
+
+-   **Health-benefit criterion:** The priority of an intervention increases with the expected health benefit (and other relevant welfare benefits) from the intervention
+
+-   **Resource criterion:** The priority of an intervention increases, the less resources it requires
+
+-   **Health-loss criterion:** The priority of an intervention increases with the expected lifetime health loss of the beneficiary in the absence of such an intervention.
+
+[Ottersen et. al. 2016](https://doi.org/10.1016/j.healthpol.2016.01.012)
+
+## Norway's health-loss criterion categorizations
+
+![](Norway_health_loss_classification.jpeg)
+
+## 'Staircase' cost-effectiveness thresholds
+
+![](Norway_threshold_by_class.jpg)
+
+## Proportional shortfall (Dutch approach)
+
+For a disease
+
+$$
+\text{Proportional shortfall}=\frac{\text{Disease-related QALY loss}}{\text{Expeted QALYs without disease}}
+$$
+
+For a treatment
+
+$$
+\text{Proportional shortfall}=1-\frac{\text{Expected QALYs without treatment}}{\text{Expected QALYs without disease}}
+$$
+
+[Reckers-Droog et. al. 2018](https://doi.org/10.1016/j.healthpol.2018.04.001)
+
+## Challenges with these approaches
+
+-   Usually used to decide whether to add drugs/technology to formulary, not individual patient decisions
+
+-   Same intervention, once approved, used for patients with differing severity
+
+-   Assigning patient population to severity group challenging
+
+    -   [Severity-adjusted probability cost-effective](https://doi.org/10.1007/s40273-019-00810-8) couuld help
+
+-   Do we consider age?
+
+    -   Individual patient age not considered, but average patient age often is
+
+## Support of severity-adjusted thresholds mixed
+
+![](Reckers-Droog%20support%20proportional%20shortfall.png)
+
+## Today
+
+-   Equity/fairness from health systems perspective
+
+-   **Methods for incorporating equity in decision analyses**
+
+-   Distributional cost-effectiveness tutorial
+
+## Incorporating equity
+
+Four types of analysis
+
+1.  Equity evidence review
+
+2.  Equity constraint analysis
+
+3.  Equity distribution analysis
+
+4.  Equity trade-off analysis
+
+Mirelman (2015) [Methods for incorporating health equity impacts in economic evaluation with applications to low and middle income countries](https://www.york.ac.uk/che/seminars/economic-evaluation/2015/andrew-mirelman/)
+
+## Equity evidence review
+
+-   What are the equity issues?
+
+-   What is known about them?
+
+-   What do stakeholders think?
+
+**Pro:** no quantitative analysis
+
+**Con:** less clear guidance for decision (& depends on available data)
+
+## Equity constraint analysis
+
+-   How much benefit is foregone is the most cost-effective option is ruled out on equity grounds?
+
+**Pro:** flexible because 'equity grounds' not defined
+
+**Con:** no explicit quantification of inequity. Only addresses 1/2 of equity-efficiency trade-off
+
+## Equity distribution analysis
+
+-   How much do different groups gain and lose?
+
+**Pro:** provides specific information on gains/losses by subgroup
+
+**Con:** requires subgroup data that may not exist
+
+## Equity trade-off analysis
+
+-   Which intervention optimally balances efficiency and equity?
+
+**Pro:** articulates and applies clear decision criterion
+
+**Con:** complex calculation, and agreeing on the criterion may be challenging
+
+## Equity-efficiency plane
+
+![](equity_efficiency_plane.png){fig-align="center"}
+
+## Standard economic evaluation
+
+![](equity_efficiency_2.png){fig-align="center"}
+
+## Adding equity dimension
+
+![](equity_efficiency_3.png){fig-align="center"}
+
+## Equity-efficiency trade off
+
+![](equity_efficiency_4.png){fig-align="center"}
+
+## Equity evidence review
+
+![](equity_efficiency_5.png){fig-align="center"}
+
+## Evidence review: premature neonates in India
+
+![](Miljeteig%20et%20al%20outcomes.png)
+
+[Miljeteig et. al. 2010](http://dx.doi.org/10.1136/jme.2010.035535)
+
+## Premature neonates in India
+
+![](Miljeteig%20et%20al%20benefits%20burdens.png)
+
+## Equity constraint analysis
+
+![](equity_efficiency_6.png){fig-align="center"}
+
+## Example of equity constraints
+
+![](Cleary%20equity-efficiency%20HIV.png)
+
+## Example of equity constraints
+
+![](Cleary_equity_constraints.jpeg)
+
+## Equity distributional analysis
+
+![](equity_efficiency_7.png)
+
+## Extended cost-effectiveness analysis
+
+![](ECEA_1.png)
+
+[Stéphane Verguet, Harvard](https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/)
+
+## Extended cost-effectiveness analysis structure
+
+![](ECEA2.png)
+
+[Stéphane Verguet, Harvard](https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/)
+
+## ECEA: Tobacco tax in China
+
+![](verguet%202015%20China%20tobacco%20tax.png)
+
+[Verguet et. al. 2015](https://doi.org/10.1016/s2214-109x(15)70095-1)
+
+## Equity trade-off analysis
+
+![](equity_efficiency_8.png)
+
+## Today
+
+-   Equity/fairness from health systems perspective
+
+-   Methods for incorporating equity in decision analyses
+
+-   **Distributional cost-effectiveness tutorial**
+
+## DCEA: distributional cost-effectiveness
+
+-   For health sector decisions with objective of reducing health inequities
+
+-   Focuses on health benefits and opportunity costs assuming fixed health sector budget
+
+-   Twin policy goals
+
+    -   Improve overall health
+
+    -   Reduce health inequities
+
+Asaria et. al. 2016 [Distributional cost-effectiveness: A tutorial](doi.org/10.1177/0272989X15583266)
+
+## DCEA: Two stages
+
+1.  Model social distribution of health for each strategy
+
+2.  Evaluate social distributions of health
+
+## DCEA modeling stage
+
+-   1a. estimate the baseline health distribution
+-   1b. model changes due to interventions being compared, allowing for the distribution of opportunity costs from additional resource use
+-   1c. adjust the resulting modeled health distributions for alternative social value judgments about fair and unfair sources of health variation.
+
+## DCEA evaluation stage
+
+-   2a. use the estimated distributions to quantify the change in total population health and unfair health inequality due to each intervention
+
+-   2b. rank the interventions based on dominance criteria;
+
+-   2c. analyze tradeoffs between improving population health and reducing unfair health inequality, allowing for alternative specifications of the social welfare function.
+
+## Example application
+
+-   NHS Bowel Cancer Screening Program: Every 2 years age 60 - 74, participants mail stool samples for fecal immunochemical testing.
+
+-   Pilot data reveals variation in uptake by neighborhood social deprivation, sex, and ethnicity
+
+-   Impact on morbidity and mortality estimated via modeling
+
+## Decision problem
+
+Should we promote participation?
+
+1.  **No screening**
+
+2.  **Status quo**
+
+3.  **Targeted reminder:** letter signed by GP + info packet to:
+
+    -   Most income-deprived neighborhoods (40%)
+
+    -   Neighborhoods with highest % from Indian subcontinent (20%)
+
+4.  **Universal reminders:** GP-endorsed letter to all patients
+
+## Baseline distribution of health
+
+-   Measured in interpersonally-comparable ratio scale
+
+-   Include full general population (resources used for strategy have opportunity cost for whole society)
+
+-   Describe variation in health across multiple subgroups (correlation of dimensions)
+
+    -   Dimensions with cost/benefit variation and or equtiy concerns
+
+## Baseline distribution of health
+
+In cancer screening example:
+
+-   Measured quality-adjusted life expectancy at birth
+
+-   Subgroups defined by sex, neighborhood deprivation quintile, neighborhood ethnic diversity (% from Indian subcontinent)
+
+## Baseline distribution of health
+
+![](DCEA_QALE_by_quintile.png)
+
+## Distribution of health changes
+
+-   Difference in costs and effects of intervention in subgroups
+
+-   Parameters can vary by subgroup
+
+    -   Disease prevalence, severity, mortality, natural history
+
+    -   Intervention uptake
+
+    -   Intervention direct costs
+
+    -   Intervention health effects
+
+    -   Opportunity costs from displaced activities
+
+    -   Other cause mortality
+
+## Distribution of health changes
+
+-   Difference in costs and effects of intervention in subgroups
+
+-   Parameters can vary by subgroup
+
+    -   Disease prevalence, severity, mortality, natural history
+
+    -   **Intervention uptake**
+
+    -   Intervention direct costs
+
+    -   **Intervention health effects**
+
+    -   Health opportunity costs from displaced activities[^1]
+
+    -   **Other cause mortality**
+
+[^1]: Sensitivity analysis only
+
+## Intervention uptake
+
+::: columns
+::: {.column width="50%"}
+**No screen:** None
+
+**Status quo:** apply odds of participating from pilot study to status quo participation counts
+
+**Reminder scenarios:** costs and effects from literature; assume equal for all subgroups
+:::
+
+::: {.column width="50%"}
+![](DCEA_OR_FIT_uptake.png)
+:::
+:::
+
+## Intervention uptake
+
+![](DCEA_uptake_prob.png)
+
+## Intervention health effects
+
+-   Assume cancer incidence, costs, effects same in each subgroup
+
+-   Compute quality-adjusted life expectancy (QALE) gains that factor in subgroup-specific other-cause mortality and quality-adjustments
+
+-   Main differences come from differences in uptake
+
+## Health opportunity costs
+
+-   Sum all costs
+
+-   Convert to 'Health opportunity cost' in quality adjusted life years
+
+    -   Divide costs by £20,000/QALY willingness-to-pay threshold
+
+-   Base case: All subgroups benefit equally from opportunity cost
+
+-   Extreme scenarios: all opportunity costs go to
+
+    -   Worst-off quintile
+
+    -   Best-off quintile
+
+## Net health gains by subgroup
+
+Example calculation for Women in areas with low % from Indian subcontinent in deprivation quintile Q3
+
+-   Total lifetime net present costs (all subgroups)
+
+    -   £72 million
+
+-   Health opportunity cost (all subgroup)
+
+    -   £72 million/£20,000 per QALY = 3600 QALYs
+
+-   \% population this subgroup: 10%
+
+    -   Allocated health opportuntiy cost: 360 QALYs
+
+-   Net health gains = QALY gains from program minus 360 QALYs
+
+## QALE by subgroup by strategy
+
+![](DCEA_QALE_by_subgroup.png)
+
+## Fairness adjusted health distributions
+
+-   Equity analysis should focus on variation in health deemed unfair by social value judgement
+
+-   May view some unequal outcomes as "fair" and others as "inequities"
+
+-   Can collapse subgroups together along dimension that isn't of equity concern before evaluating social distribution of health
+
+## Identify dominated interventions
+
+-   Interventions should only remain if they maximize benefit in at least one subgroup
+
+-   Can also apply more complex dominance rules
+
+-   In our example, "no screening" and "standard screening" are strictly dominated by "Universal screening"
+
+## Analyze trade-offs using social welfare indices
+
+::: columns
+::: {.column width="60%"}
+-   Can calculate *equally distributed equivalent* level of health
+
+-   Difference between mean health in distribution and EDE represents amount of health we will sacrifice to achieve full equality
+
+-   Can consider absolute inequality (Atkinson) or relative inequality (Kolm)
+:::
+
+::: {.column width="40%"}
+
+![](social_welfare_indices.png)
+:::
+:::
+
+## Preferred intervention by welfare index
+
+![](DCEA_prefered_int_by_welfare_index.png)
+
+For low inequality aversion levels, we prefer universal reminders. For higher inequality aversion, we prefer targeted reminders
+
+## Sensitivity analysis: who 'pays' opportunity cost?
+
+![](DCEA_opp_cost_sens_analysis.png)
+
+## Recap
+
+-   Equity considerations must be considered at health system level and in individual decision problems
+
+-   Comprehensive analysis of equity implications in model possible with right data and methods, but challenging
+
+-   Many frameworks but no consensus on optimal equity-efficiency trade-off
+
+## Logistics
+
+-   Assignment 4 due tonight
+
+-   Project proposal due Friday, February 24
+
+-   Assignment 5 to be posted by next Monday, due Wednesday March 8
+
+-   Office hours in conference room #1103 starting now
