@@ -411,7 +411,7 @@ ggplot(t_compare, aes(x=Time, y=value))+
   geom_errorbar(aes(ymin=lb, ymax =ub))+
   geom_point(color="red", aes(y=random_search))+
   ylab("Pr Survive")+
-  geom_point(color="green", alpha = 0.25, aes(y=nelder_mead))
+  geom_point(color="green", alpha = 0.5, aes(y=nelder_mead))
 ```
 
 ## Bayesian probabilistic calibration
@@ -606,23 +606,19 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
 ## External validation best practice 1
 
--   <div>
-
-    > -   Comparison of results, including descriptions of
-    >
-    >     -   Data source
-    >
-    >     -   Simulation setup
-    >
-    >     -   Discrepancies between source and simulation and their implications
-    >
-    >     -   Discrepancies between simulation and observed results
-    >
-    >     -   Sensitivity analyses
-    >
-    > -   Quantitative measures of how well the model's results match the source outcomes
-
-    </div>
+> -   Comparison of results, including descriptions of
+>
+>     -   Data source
+>
+>     -   Simulation setup
+>
+>     -   Discrepancies between source and simulation and their implications
+>
+>     -   Discrepancies between simulation and observed results
+>
+>     -   Sensitivity analyses
+>
+> -   Quantitative measures of how well the model's results match the source outcomes
 
 ## External validation best practice 2 & 3
 

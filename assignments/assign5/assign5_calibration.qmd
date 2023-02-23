@@ -1,0 +1,681 @@
+---
+title: "Assignment 5: Calibration and validation"
+author: "YOUR NAME HERE"
+date: today
+format:
+    html:
+      toc: true
+      embed-resources: true
+editor: visual
+---
+
+```{r}
+#| warning: false
+
+#Use install.packages("XXXX") if you don't have any of these installed
+library(lhs) #Latin hypercube sampling
+library(ggplot2)
+library(GGally) #for ggplairs() correlation matrix plot
+theme_set(theme_bw()) #Makes ggplots look better
+
+```
+
+# Model calibration
+
+## The model
+
+Building on the tutorial by Menzies et. al. 2017, we are going to calibrate a model of HIV in high-burden settings. Here I've shared the paper's description of the model, schematic, and parameter table:
+
+> The model is adapted from approaches for modeling human immunodeficiency virus in high-burden settings, simplified for ease of exposition for this example. The population is divided into five health states including nonsusceptible ($N$), susceptible ($S$), early disease ($E$), late disease ($L$), and treatment ($T$). The number of individuals by state and year (t) is given by
+>
+> $N_t, S_t, E_t, L_t$, and $T_t$, respectively. Individuals enter the model distributed across the N and S states, and transition between states to allow for infection (S to E), disease progression (E to L), treatment initiation (E and L to T), and death (N, S, E, L and T to D) via background and disease-specific mortality. The force of infection ($\lambda_t$) is calculated as $\lambda_t = \rho \frac{E_t + L_t}{S_t + E_t + L_t + T_t}$, where q represents the effective contact rate (the rate of infection for a susceptible individual exposed to 100% infected contacts). This formulation assumes a fraction of the population (N) is not sexually active. A model simulation is initiated 30 years in the past (t = 0) when the epidemic is believed to have started, and run forward to provide historical and future estimates for various outcomes. The analysis adopts a 20-year time horizon, with the incremental cost-effectiveness ratio (ICER) representing the ratio of incremental costs to incremental life-years lived for the proposed policy vs. status quo (both undiscounted).
+
+![Model schematic from Menzies et.al. 2017](Menzies_schematic.png)
+
+![Model parameters from Menzies et. al. 2017](Menzies_param_table.png){width="750"}
+
+This code chunk contains the model. It's set up to take a vector of model parameters. It also has a boolean (true/false) argument `project_future` with a default value of false. For calibration, we will only use past data.
+
+If `project_future` is true, it returns list with four elements:
+
+-   A cohort trace of scenario 1 (status quo treatment access)
+
+-   A cohort trace of scenario 2 (expanded treatment access)
+
+-   Incremental life years (expanded access vs. status quo)
+
+-   Incremental cost (expanded access vs. status quo)
+
+If `project_future` is true, it returns three outcomes for us to compare to calibration targers;
+
+-   Prevalence of HIV at 10, 20, and 30 years
+
+-   HIV survival without treatment by year
+
+-   Number of people in HIV treatment at 30 years
+
+**Model function code (unfold to view)**
+
+```{r mod_function}
+#| include: true
+#| code-fold: true
+##############################################
+################### MODEL ####################
+##############################################
+# This function estimates outcomes describing epidemiology of a hypothetical disease
+# as well as outcomes (life-years, costs) for estimating cost-effectiveness of a policy 
+# to expand treatment access to individual's with early stage disease.
+
+  mod <- function(par_vector,project_future=FALSE) {
+    # par_vector: a vector of model parameters
+    # project_future: TRUE/FALSE, whether to project future outcomes for policy comparison
+    pop_size   <- 1e6             # population size hard-coded as 1 million
+    mu_b       <- 0.015           # background mortality rate hard-coded as 0.015
+    mu_e       <- par_vector[1]   # cause-specific mortality rate with early-stage disease
+    mu_l       <- par_vector[2]   # cause-specific mortality rate with late-stage disease
+    mu_t       <- par_vector[3]   # cause-specific mortality rate on treatment
+    p          <- par_vector[4]   # transtion rate from early to late-stage disease
+    r_l <- r_e <- par_vector[5]   # rate of uptake onto treatment (r_l = late-stage disease;r_e = early-stage disease)
+    rho        <- par_vector[6]   # effective contact rate 
+    b          <- par_vector[7]   # fraction of population in at-risk group
+    c          <- par_vector[8]   # annual cost of treatment  
+
+    ######## Prepare to run model ###################
+    n_yrs    <- if(project_future) { 51 } else { 30 }  # no. years to simulate (30 to present, 51 for 20 year analytic horizon)
+    sim      <- if(project_future) { 1:2 } else { 1 }  # which scenarios to simulate: 1 = base case, 2 = expanded treatment access
+    v_mu     <- c(0,0,mu_e,mu_l,mu_t)+mu_b             # vector of mortality rates
+    births   <- pop_size*mu_b*c(1-b,b)                 # calculate birth rate for equilibrium population before epidemic
+    init_pop <- pop_size*c(1-b,b-0.001,0.001,0,0,0)    # creates starting vector for population
+    trace    <- matrix(NA,12*n_yrs,6)                  # creates a table to store simulation trace
+    colnames(trace) <- c("N","S","E","L","T","D")
+    results  <- list()                                 # creates a list to store results
+  
+    ######## Run model ###################
+    for(s in sim) {
+      P0 <- P1 <- init_pop 
+      for(m in 1:(12*n_yrs)) {
+        lambda    <- rho*sum(P0[3:4])/sum(P0[2:5]) # calculates force of infection
+        P1[1:2]   <- P1[1:2]+births/12             # births
+        P1[-6]    <- P1[-6]-P0[-6]*v_mu/12         # deaths: N, S, E, L, T, to D
+        P1[6]     <- P1[6]+sum(P0[-6]*v_mu/12)     # deaths:N, S, E, L, T, to D
+        P1[2]     <- P1[2]-P0[2]*lambda/12         # infection: S to E
+        P1[3]     <- P1[3]+P0[2]*lambda/12         # infection: S to E
+        P1[3]     <- P1[3]-P0[3]*p/12              # progression: E to L
+        P1[4]     <- P1[4]+P0[3]*p/12              # progression: E to L
+        P1[4]     <- P1[4]-P0[4]*r_l/12            # treatment uptake: L to T
+        P1[5]     <- P1[5]+P0[4]*r_l/12            # treatment uptake: L to T
+        if(s==2 & m>(12*30)) {
+          P1[3]   <- P1[3]-P0[3]*r_e/12            # treatment uptake: E to T (scenario 2)
+          P1[5]   <- P1[5]+P0[3]*r_e/12            # treatment uptake: E to T (scenario 2)
+        }
+        trace[m,] <- P0 <- P1                      # fill trace, reset pop vectors
+      }
+      results[[s]] <- trace                        # save results for each scenario
+    }
+  
+    ######## Report results ###################
+    if(project_future==FALSE) {
+      ## Return calibration metrics, if project_future = FALSE
+      return(list(prev = (rowSums(trace[,3:5])/rowSums(trace[,1:5]))[c(10,20,30)*12],  # Prevalence at 10,20,30 years
+                  surv = 1/(v_mu[3]+p)+ p/(v_mu[3]+p)*(1/v_mu[4]),                     # HIV survival without treatment
+                  tx   = trace[30*12,5]                                                # Treatment volume at 30 years
+                  ) )
+    } else {
+    ## Policy projections for CE analysis, if project_future = TRUE
+      return(list(trace0   = results[[1]],     # Trace without expanded treatment access
+                  trace1   = results[[2]],     # Trace with expanded treatment access
+                  inc_LY   = sum(results[[2]][(30*12+1):(51*12),-6]-results[[1]][(30*12+1):(51*12),-6])/12,  # incr. LY lived with expanded tx
+                  inc_cost = sum(results[[2]][(30*12+1):(51*12),5]-results[[1]][(30*12+1):(51*12),5])*c/12   # incr. cost  with expanded tx                  
+                  ) )  
+    }
+  }
+```
+
+First, let's make sure the model runs with our base case parameters at their mean value. In this code chunk, run the model with each parameter set to the mean value of its prior distribution (see table above), with `project_future=T`.
+
+```{r}
+# create vector that uses the mean value from the 
+#.  table above for each parameter
+v_param_means <- v_param_means <- c(
+  NA, #mu_E
+  NA, #mu_L
+  NA, #mu_t
+  NA, #p
+  NA, #r_L
+  NA, #rho
+  NA, #b
+  NA #c
+  )  
+
+# run the model on the mean parameter set 
+#. with project_future = T. Print inc_LY and inc_cost to console
+NA
+
+# run the model on the mean parameter set 
+#.  with project_future = F and print all measures to console
+NA
+```
+
+## Prior & uncalibrated model
+
+We need to create an R function to sample from the prior distribution on each of our parameters. For simplicity, we sample each prior parameter from an independent distribution, ignoring correlation.
+
+We'll use a log-normal distribution for most of these parameters. The mean of a log-normal distribution is $m=e^{\mu+\sigma^2/2}$ where $\mu$ and $\sigma$ are the mean and standard deviation of a normal distribution on a log scale. We can calculate $\mu$ (which is the argument `meanlog` for the r functions `rlnorm` or `qlnorm`) from $m$ (the mean of the distribution) as $\mu = \log m - \frac{1}{2} \sigma^2$. The `sdlog` argument for the r functions `rlnorm` and `qlnorm` should be the standard deviation as provided in the parameter table above.
+
+In this code block, complete the function to create a set of draws from the prior distribution for our 8 parameters sampled using latin hypercube sampling. Recall from lecture, the `randomLHS` function samples random parameter sets on the uniform unit hypercube (each parameter uniformly distributed between 0 and 1). We can use the [inverse tranform method](https://en.wikipedia.org/wiki/Inverse_transform_sampling) to transform the original random numbers into random draws from our specified prior distributions. I've completed the first three parameters for you.
+
+```{r sample_prior}
+
+### sample_prior 
+# This function returns a sample from the prior parameter distribution,
+# with each column a different parameter and each row a different parameter set.  
+# we use a latin-hypercube sample of the parameter space.
+
+sample_prior <- function(n) {
+  # n: the number of samples desired
+  draws0 <- randomLHS(n=n,k=8)
+  draws  <- data.frame( mu_e  = qlnorm(draws0[,1],log(0.05)-1/2*0.5^2,0.5),
+                        mu_l  = qlnorm(draws0[,2],log(0.25)-1/2*0.5^2,0.5),
+                        mu_t  = qlnorm(draws0[,3],log(0.025)-1/2*0.5^2,0.5),
+                        p     = 0,
+                        r_l   = 0,
+                        rho   = 0,
+                        b     = 0,
+                        c     = 0,
+                        )
+  return(as.matrix(draws))
+}
+
+```
+
+Make sure your `sample_prior` function works by sampling 4 parameter sets from the prior distribution and display them in the console.
+
+```{r}
+NA
+```
+
+Next, we'll generate uncalibrated results where we conduct probabilistic sensitivity analysis by sampling from the prior distributions. In the next two code chunks:
+
+-   Sample 10,000 parameter sets from the prior distribution.
+
+    -   I suggest you use a smaller number for `n_samples`, like 500, while you're getting your code working and then increase to 10,000 before submitting.
+
+-   Loop over each row of prior parameter sets and compute the incremental cost and incremental life years.
+
+-   With `geom_density()`, make a density plot of the incremental costs and of the incremental life years (two plots)
+
+-   Generate point estimates and 95% credible intervals around the incremental life years, incremental costs, and ICER for expanded treatment vs. status quo.
+
+```{r gen_uncalibrated_results}
+#| output: false
+
+# Draw sample from prior
+set.seed(1234)   # set random seed for reproducibility
+n_samples <- 1e4 #Generate 10,000 draws from prior
+m_samp <- NA #matrix of samples from prior distribution
+
+# Generate estimates for inc cost and inc LY via MC simulation (may take a while)
+# pre-allocate vectors to collect results
+IncCost <- IncLY <- rep(NA,n_samples)     
+
+#For each row of the model
+for(i in 1:n_samples) { # i=1
+  #Run the model with project_future set to T
+  # extract the inc_LY and inc_cost
+  NA
+  
+  if(i/100==round(i/100,0)) { 
+    cat('\r',paste(i/n_samples*100,"% done",sep="")) 
+  } 
+}
+
+Uncalib <- list(m_samp=m_samp,IncCost=IncCost,IncLY=IncLY)
+```
+
+```{r disp_uncalibrated_results}
+# Plot distribution of inc costs and inc LY (2 separate plots)
+NA
+
+
+# Calculate mean and 95% credible interval around
+#. Incremental cost
+NA
+
+#. Intremental life years
+NA
+
+#. ICER (cost per life year)
+NA
+```
+
+For Bayesian calibration, we need a function to calculate the likelihood of each parameter set given the data, analogous to $p(\theta)$ from our posterior calculation $p(\theta \mid Y) \propto p(\theta) \times p(Y \mid M(\theta))$. For efficient computation, we will compute the log-prior likelihood, and we will make it a 'vectorized' function that can compute the likelihood of the prior for several parameter set at once. I've done most of this for you, but you need to replace the 0's in the last two lines inside the function with the likelihood of the parameters rho and b from par_vector.
+
+Note that since the annual cost of treatment parameter is completely independent of each of our calibration targets, we have omitted it from the `l_prior` function. Pay attention to the distribution for each parameter's prior given in the parameter table above.
+
+```{r l_prior}
+  l_prior <- function(par_vector) {
+  # par_vector: a vector (or matrix) of model parameters (omits c)
+    if(is.null(dim(par_vector))) par_vector <- t(par_vector)
+    lprior <- rep(0,nrow(par_vector))
+    lprior <- lprior+dlnorm(par_vector[,1],log(0.05 )-1/2*0.5^2,0.5,log=TRUE)    # mu_e
+    lprior <- lprior+dlnorm(par_vector[,2],log(0.25 )-1/2*0.5^2,0.5,log=TRUE)    # mu_l
+    lprior <- lprior+dlnorm(par_vector[,3],log(0.025)-1/2*0.5^2,0.5,log=TRUE)    # mu_t
+    lprior <- lprior+dlnorm(par_vector[,4],log(0.1  )-1/2*0.5^2,0.5,log=TRUE)    # p
+    lprior <- lprior+dlnorm(par_vector[,5],log(0.5  )-1/2*0.5^2,0.5,log=TRUE)    # r_l
+    lprior <- lprior+0    # rho CORRECT THIS LINE
+    lprior <- lprior+0    # b CORRECT THIS LINE
+    return(lprior)
+  }
+```
+
+Check that it works: Create a matrix where the first row is `v_param_means` from above and the second row is just 0.5 repeated 8 times, and compute `l_prior` on this matrix. Which parameter set do you expect to have a larger likelihood based on the prior distribution? Is that what you observe?
+
+```{r}
+NA #your code here
+```
+
+## Likelihood given the data
+
+As summarized in the table below, we are able to construct calibration targets from multiple data sources on different model outcomes: prevalence over time, survival after infection, and treatment volume in year T.
+
+![Calibration data and likelihoods from Menzies et. al. 2016](Menzies_likelihood_table.png)
+
+We must create a function `l_likelihood` that takes in a matrix of model parameters like that produced by `sample_prior`, runs the model for each parameter set, and then computes the log likelihood.
+
+This function is already complete, but take a look at the calculation, comparing it to the likelihood function description in the table, to try and understand why it's correct.
+
+```{r}
+### l_likelihood
+# This function calculates the log-likelihood for a parameter
+# set or matrix of parameter sets excluding c,
+# the parameter for treatment cost. c is fixed at an arbitrary value 
+# (1) as it has no role in the calibration.
+
+# THIS IS COMPLETE; YOU DON'T NEED TO EDIT
+
+l_likelihood <- function(par_vector) {
+  # par_vector: a vector (or matrix) of model parameters
+  if(is.null(dim(par_vector))) par_vector <- t(par_vector)
+  llik <- rep(0,nrow(par_vector))
+  for(j in 1:nrow(par_vector)) {
+    jj <- tryCatch( {
+      #Run model
+      res_j <- mod(c(as.numeric(par_vector[j,]),1))
+      
+      # calcuate prevalence likelihood
+      llik[j] <- llik[j]+sum(dbinom(c(25,75,50),500,res_j[["prev"]], log=TRUE))
+      
+      # calculate survival likelihood
+      llik[j] <- llik[j]+dnorm(10,res_j[["surv"]],2/1.96, log=TRUE) 
+      
+      # calculate treatment volume likelihood
+      llik[j] <- llik[j]+dnorm(75000,res_j[["tx"]],5000/1.96, log=TRUE)         
+    }, error = function(e) NA)
+    if(is.na(jj)) { llik[j] <- -Inf } 
+  }
+  return(llik)
+}
+
+```
+
+## Maximum a posteriori estimation
+
+In this section, we'll identify the single best set of parameters that maximizes the sum of the log-prior and the log-posterior using the `optim` function. Type `?optim` in the console to view the help file
+
+```{r}
+#| warning: false
+
+# Function for log-posterior
+# Function should sum the log prior and log likelihood for a given parameter set.
+l_post <- function(par_vector) {
+  return(NA)
+}
+  
+# Optimize with optim(). 
+#.  Aim is to find parameter values that maximize the log posterior function
+#.  Use 0.5 as the starting value for each of our 7 parameters we are calibrating
+#.  (we are omitting cost) and use the BFGS optimization method
+opt_params <- NA
+
+#Extract parameters from opt_output and append the mean value for cost
+v_params_opt <- NA
+
+#  Run the optimal parametes through your model with project_future=T
+#.  pring the results to console
+
+```
+
+## Sample importance resample
+
+The sample importance resample is a simple calibration method with three steps:
+
+-   **Sample:** draw 10,000 parameter sets from the prior distribution (already done above, saved as `m_samp`)
+
+-   **Importance:** generates weights for each parameter set based on their relative likelihood as calculated with in the `l_likelihood` function
+
+-   **Resample:** Generate a weighted resampled set from the original sample of the same size (sampling with replacement)
+
+```{r gen_SIR_result}
+#| output: false
+# For each parameter set in samp, calculate the log-likelihood
+v_llik_samps <- rep(NA,n_samples) #Pre-allocate vector
+
+for(i in 1:n_samples){
+  NA #your code here
+  
+  if(i/100==round(i/100,0)) { 
+      cat('\r',paste(i/n_samples*100,"% done",sep="")) 
+  } 
+}
+
+# Calculate likelihood of each sample by exponentiating
+#.  the loglikelihood. We subtract the max
+#.  log likelihood before exponentiating to avoid 
+#. numerical overflow which could produce Inf values
+# just uncomment this once v_llik_samps is correct
+
+#lik_samps <- exp(v_llik_samps - max(v_llik_samps))
+
+```
+
+```{r analyze_SIR_result}
+#Calculate probability weights for each sample in vector
+#.  Probabability of being sampled should be proportional
+#.  to the likelihood
+v_resample_weights <- NA
+
+# Generate m_resamples, a matrix whose rows are resampled
+#. from m_samples with replacement using v_resample_weights
+#. as probability of being sampled
+m_resamples <- NA
+
+#Calculate the number of unique parameter sets
+SIR_unique_sets <- NA
+SIR_unique_sets
+```
+
+## Incremental mixture importance resampling
+
+SIR is a straightforward method but is not very efficient: often, many iterations are needed to produce a fairly small number of unique parameter sets. Whereas SIR is a single-shot method, IMIS is an iterative method that builds up a better importance sampling function over different 'batches' of draws from the prior distribution for more efficient computation. You don't need to understand the full technical details to apply it.
+
+**Model function code (no need to edit; unfold to view)**
+
+```{r IMIS_function}
+#| include: true
+#| code-fold: true
+
+IMIS <- function(B=10, B.re=3000, number_k=100, D=0,t_cohort){
+  B0 = B*10
+  X_all = X_k = sample.prior(B0)				# Draw initial samples from the prior distribution
+  if (is.vector(X_all))	Sig2_global = var(X_all)	# the prior covariance
+  if (is.matrix(X_all))	Sig2_global = cov(X_all)	# the prior covariance
+  stat_all = matrix(NA, 6, number_k)				# 6 diagnostic statistics at each iteration
+  center_all = prior_all = like_all = NULL			# centers of Gaussian components, prior densities, and likelihoods
+  sigma_all = list()						# covariance matrices of Gaussian components
+  if (D>=1)	option.opt = 1					# use optimizer
+  if (D==0){	option.opt = 0; D=1	}			# NOT use optimizer
+  
+  for (k in 1:number_k ){
+    
+    ptm.like = proc.time()
+    prior_all = c(prior_all, prior(X_k))		# Calculate the prior densities
+    like_all = c(like_all, likelihood(X_k, t_cohort))		# Calculate the likelihoods
+    ptm.use = (proc.time() - ptm.like)[3]
+    if (k==1)	print(paste(B0, "likelihoods are evaluated in", round(ptm.use/60,2), "minutes"))
+    
+    if (k==1)	envelop_all = prior_all			# envelop stores the sampling densities
+    if (k>1)	envelop_all = apply( rbind(prior_all*B0/B, gaussian_all), 2, sum) / (B0/B+D+(k-2))
+    Weights = prior_all*like_all / envelop_all	# importance weight is determined by the posterior density divided by the sampling density
+    stat_all[1,k] = log(mean(Weights))			# the raw marginal likelihood
+    Weights = Weights / sum(Weights)			
+    stat_all[2,k] = sum(1-(1-Weights)^B.re)		# the expected number of unique points
+    stat_all[3,k] = max(Weights)				# the maximum weight
+    stat_all[4,k] = 1/sum(Weights^2)			# the effictive sample size
+    stat_all[5,k] = -sum(Weights*log(Weights), na.rm = TRUE) / log(length(Weights))	# the entropy relative to uniform
+    stat_all[6,k] = var(Weights/mean(Weights))	# the variance of scaled weights
+    if (k==1)	print("Stage   MargLike   UniquePoint   MaxWeight   ESS")
+    print(c(k, round(stat_all[1:4,k], 3)))
+    
+    if (k==1 & option.opt==1){
+      if (is.matrix(X_all))	Sig2_global = cov(X_all[which(like_all>min(like_all)),])
+      X_k = which_exclude = NULL					# exclude the neighborhood of the local optima 
+      label_weight = sort(Weights, decreasing = TRUE, index=TRUE)
+      which_remain = which(Weights>label_weight$x[B0]) 	# the candidate inputs for the starting points
+      size_remain = length(which_remain)
+      for (i in 1:D){
+        important = NULL
+        if (length(which_remain)>0)
+          important = which_remain[which(Weights[which_remain]==max(Weights[which_remain]))]
+        if (length(important)>1)	important = sample(important,1)	
+        if (is.vector(X_all))	X_imp = X_all[important]
+        if (is.matrix(X_all))	X_imp = X_all[important,]
+        # Remove the selected input from candidates
+        which_exclude = union( which_exclude, important )
+        which_remain = setdiff(which_remain, which_exclude)
+        posterior = function(theta){	-log(prior(theta))-log(likelihood(theta)) } 
+        
+        if (is.vector(X_all)){
+          if (length(important)==0)	X_imp = center_all[1]
+          optimizer = optim(X_imp, posterior, method="BFGS", hessian=TRUE, 
+                            control=list(parscale=sqrt(Sig2_global)/10,maxit=5000))
+          print(paste("maximum posterior=", round(-optimizer$value,2), ", likelihood=", round(log(likelihood(optimizer$par)),2), 
+                      ", prior=", round(log(prior(optimizer$par)),2), ", time used=", round(ptm.use/60,2), "minutes, convergence=", optimizer$convergence))
+          center_all = c(center_all, optimizer$par)
+          sigma_all[[i]] = solve(optimizer$hessian)
+          X_k = c(X_k, rnorm(B, optimizer$par, sqrt(sigma_all[[i]])) )			# Draw new samples
+          distance_remain = abs(X_all[which_remain]-optimizer$par)
+        }
+        if (is.matrix(X_all)){	
+          # The rough optimizer uses the Nelder-Mead algorithm.
+          if (length(important)==0)	X_imp = center_all[1,]
+          ptm.opt = proc.time()
+          optimizer = optim(X_imp, posterior, method="Nelder-Mead", 
+                            control=list(maxit=1000, parscale=sqrt(diag(Sig2_global))) )
+          theta.NM = optimizer$par
+          
+          # The more efficient optimizer uses the BFGS algorithm 
+          optimizer = optim(theta.NM, posterior, method="BFGS", hessian=TRUE,
+                            control=list(parscale=sqrt(diag(Sig2_global)), maxit=1000))
+          ptm.use = (proc.time() - ptm.opt)[3]
+          print(paste("maximum posterior=", round(-optimizer$value,2), ", likelihood=", round(log(likelihood(optimizer$par)),2), 
+                      ", prior=", round(log(prior(optimizer$par)),2), ", time used=", round(ptm.use/60,2), "minutes, convergence=", optimizer$convergence))
+          center_all = rbind(center_all, optimizer$par)						# the center of new samples
+          if (min(eigen(optimizer$hessian)$values)>0)
+            sigma_all[[i]] = solve(optimizer$hessian)						# the covariance of new samples
+          if (min(eigen(optimizer$hessian)$values)<=0){						# If the hessian matrix is not positive definite, we define the covariance as following
+            eigen.values = eigen(optimizer$hessian)$values
+            eigen.values[which(eigen.values<0)] = 0
+            hessian = eigen(optimizer$hessian)$vectors %*% diag(eigen.values) %*% t(eigen(optimizer$hessian)$vectors)
+            sigma_all[[i]] = solve(hessian + diag(1/diag(Sig2_global)) )
+          }
+          X_k = rbind(X_k, rmvnorm(B, optimizer$par, sigma_all[[i]]) )			# Draw new samples
+          distance_remain = mahalanobis(X_all[which_remain,], optimizer$par, diag(diag(Sig2_global)) )
+        }
+        # exclude the neighborhood of the local optima 
+        label_dist = sort(distance_remain, decreasing = FALSE, index=TRUE)
+        which_exclude = union( which_exclude, which_remain[label_dist$ix[1:floor(size_remain/D)]])
+        which_remain = setdiff(which_remain, which_exclude)
+      }
+      if (is.matrix(X_all))	X_all = rbind(X_all, X_k)
+      if (is.vector(X_all))	X_all = c(X_all, X_k)
+    }
+    
+    if (k>1 | option.opt==0){
+      important = which(Weights == max(Weights))
+      if (length(important)>1)	important = important[1]
+      if (is.matrix(X_all))	X_imp = X_all[important,]				# X_imp is the maximum weight input
+      if (is.vector(X_all))	X_imp = X_all[important]
+      if (is.matrix(X_all))	center_all = rbind(center_all, X_imp)
+      if (is.vector(X_all))	center_all = c(center_all, X_imp)
+      if (is.matrix(X_all))	distance_all = mahalanobis(X_all, X_imp, diag(diag(Sig2_global)) )
+      if (is.vector(X_all))	distance_all = abs(X_all-X_imp)			# Calculate the distances to X_imp
+      label_nr = sort(distance_all, decreasing = FALSE, index=TRUE)		# Sort the distances
+      which_var = label_nr$ix[1:B]								# Pick B inputs for covariance calculation
+      if (is.matrix(X_all))	Sig2 = cov.wt(X_all[which_var,], wt = Weights[which_var]+1/length(Weights), cor = FALSE, center = X_imp, method = "unbias")$cov
+      if (is.vector(X_all)){
+        Weights_var = Weights[which_var]+1/length(X_all)
+        Weights_var = Weights_var/sum(Weights_var)
+        Sig2 = (X_all[which_var]-X_imp)^2 %*% Weights_var
+      }
+      sigma_all[[D+k-1]] = Sig2
+      if (is.matrix(X_all))	X_k = rmvnorm(B, X_imp, Sig2)				# Draw new samples
+      if (is.vector(X_all))	X_k = rnorm(B, X_imp, sqrt(Sig2))			# Draw new samples
+      if (is.matrix(X_all))	X_all = rbind(X_all, X_k)
+      if (is.vector(X_all))	X_all = c(X_all, X_k)
+    }
+    
+    if (k==1){
+      gaussian_all = matrix(NA, D, B0+D*B)
+      for (i in 1:D){
+        if (is.matrix(X_all))	gaussian_all[i,] = dmvnorm(X_all, center_all[i,], sigma_all[[i]])
+        if (is.vector(X_all))	gaussian_all[i,] = dnorm(X_all, center_all[i], sqrt(sigma_all[[i]]))
+      }
+    }
+    if (k>1){
+      if (is.vector(X_all))	gaussian_new = matrix(0, D+k-1, length(X_all) )
+      if (is.matrix(X_all))	gaussian_new = matrix(0, D+k-1, dim(X_all)[1] )
+      if (is.matrix(X_all)){
+        gaussian_new[1:(D+k-2), 1:(dim(X_all)[1]-B)] = gaussian_all
+        gaussian_new[D+k-1, ] = dmvnorm(X_all, X_imp, sigma_all[[D+k-1]])
+        for (j in 1:(D+k-2))	gaussian_new[j, (dim(X_all)[1]-B+1):dim(X_all)[1] ] = dmvnorm(X_k, center_all[j,], sigma_all[[j]])
+      }
+      if (is.vector(X_all)){
+        gaussian_new[1:(D+k-2), 1:(length(X_all)-B)] = gaussian_all
+        gaussian_new[D+k-1, ] = dnorm(X_all, X_imp, sqrt(sigma_all[[D+k-1]]))
+        for (j in 1:(D+k-2))	gaussian_new[j, (length(X_all)-B+1):length(X_all) ] = dnorm(X_k, center_all[j], sqrt(sigma_all[[j]]))
+      }
+      gaussian_all = gaussian_new
+    }
+    if (stat_all[2,k] > (1-exp(-1))*B.re)	break
+  } # end of k
+  
+  nonzero = which(Weights>0)
+  which_X = sample(nonzero, B.re, replace = TRUE, prob = Weights[nonzero])
+  if (is.matrix(X_all))	resample_X = X_all[which_X,]
+  if (is.vector(X_all))	resample_X = X_all[which_X]
+  
+  return(list(stat=t(stat_all), resample=resample_X, center=center_all))
+} # end of IMIS
+```
+
+To run IMIS, we will need a few functions:
+
+-   Sample prior: we already have
+
+-   Prior: evaluates the prior density of parameter sets. Since we already have a function to calculate the log prior, we can just exponentiate the output of that function.
+
+-   Likelihood: evaluates the likelihood of parameter sets. Since we already have a function for the log likelihood, we can just exponentiate it.
+
+```{r gen_IMIS_results}
+#   prior -- evaluates prior density of a parameter set or sets
+prior <- function(par_vector) { 
+  NA
+}
+
+#   likelihood -- evaluates likelihood of a parameter set or sets
+likelihood <- function(par_vector){
+  NA
+}
+
+# Run IMIS
+#. can just uncomment imis_res once functions above are set up correctly
+set.seed(1234)
+#imis_res <- IMIS(B=100,B.re=1e4,number_k=400,D=1)  
+
+#The posterior parameter sets should be stored in imis_res$resample
+
+# Generate estimates for inc cost and inc LY via MC simulation (may take a while)
+# pre-allocate vectors to collect results
+IncCost <- IncLY <- rep(NA,n_samples)     
+
+#For each row of the model
+for(i in 1:n_samples) { # Change this to match the size of imis_res$resample
+  #Run the model with project_future set to T
+  # extract the inc_LY and inc_cost
+  NA
+  
+  if(i/100==round(i/100,0)) { 
+    cat('\r',paste(i/nrow(m_samp)*100,"% done",sep="")) 
+  } 
+}
+
+Calib <- list(m_samp=m_samp,IncCost=IncCost,IncLY=IncLY)
+```
+
+```{r analyze_IMIS_result}
+# Plot distribution of inc costs and inc LY (2 separate plots)
+NA
+
+# Calculate mean and 95% credible interval around
+#. Incremental cost
+NA
+
+#. Intremental life years
+NA
+
+#. ICER
+NA
+```
+
+Using the `ggpairs()` function from the `GGally` package (or similar), analyze the correlation between model parameters in the m_samp (draws from the prior distribution) and then, in a separate plot, analyze the correlation between the parameter sets stored in `imis_res$resample`.
+
+```{r correlation_plots}
+NA
+```
+
+# Validation plots
+
+In this section, we'll make a few plots to compare model fit to calibration target data. We'll be focusing on the outcomes of the model that are provided when the option `project_future=F` is selected. To start we'll need to re-run our model on the IMIS calibrated parameter sets and store the output
+
+-   `surv`: Average survival (years)
+
+-   `m_prev`: disease prevalence at 3 timepoints: 10, 20, and 30 years into the model
+
+-   `tx`: treatment volume 30 years into the model
+
+```{r}
+#| output: false
+
+#pre-allocate objects to store model outcomes
+m_prev <- matrix(0, nrow = n_samples, ncol = 3,
+                 dimnames = list(samp = 1:n_samples, year = c("10", "20", "30")))
+v_surv <- v_tx <- rep(NA,n_samples)   
+
+#run model for each parameter set from IMIS calibration and save output
+for(i in 1:n_samples) { # Change this to match the size of imis_res$resample
+  #Run the model with project_future set to F
+  # extract the model-based measures that we were calibrating
+  NA
+  
+  if(i/100==round(i/100,0)) { 
+    cat('\r',paste(i/nrow(m_samp)*100,"% done",sep="")) 
+  } 
+}
+
+```
+
+```{r}
+# Generate a plot or series of plots comparing the distribution from the model run to each 
+#.  calibration target. You can use geom_violin() to create a violin plot of the 
+#.  distribution of outcomes from the model, and use geom_pointrange to create a 
+#.  point and the 95% interval for each calibration target (based on the
+#.  data in Table 2 above). We want to plot each calibration target point/range
+#.  and the distribution from the model runs should be beside each other or 
+#.  on top of one another so it's clear which target goes with which outcome
+
+
+```
+
+**Question:** In comparing modeled outcomes to calibration target data, did you conduct *independent* external validation or not? Briefly discuss the decision trade-off around using available data for model calibration as it relates to independent external validation.
+
+> YOUR ANSWER HERE
+
+**Reminder:** if you decreased n_samples while developing your code, don't forget to change it back to 1e5 for the final run before submitting.
+
+# Last two questions
+
+-   About how much time did you spend on the assignment? **Replace with your answer**
+
+-   Did you find any errors or have suggestions to improve it? **Replace with your answer**
+
+Fin.
