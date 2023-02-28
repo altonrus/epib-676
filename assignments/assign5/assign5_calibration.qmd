@@ -46,7 +46,7 @@ If `project_future` is true, it returns list with four elements:
 
 -   Incremental cost (expanded access vs. status quo)
 
-If `project_future` is true, it returns three outcomes for us to compare to calibration targers;
+If `project_future` is false, it returns three outcomes for us to compare to calibration targers;
 
 -   Prevalence of HIV at 10, 20, and 30 years
 
@@ -300,7 +300,7 @@ l_likelihood <- function(par_vector) {
   for(j in 1:nrow(par_vector)) {
     jj <- tryCatch( {
       #Run model
-      res_j <- mod(c(as.numeric(par_vector[j,]),1))
+      res_j <- mod(par_vector[j,])
       
       # calcuate prevalence likelihood
       llik[j] <- llik[j]+sum(dbinom(c(25,75,50),500,res_j[["prev"]], log=TRUE))
@@ -401,12 +401,11 @@ SIR is a straightforward method but is not very efficient: often, many iteration
 **Model function code (no need to edit; unfold to view)**
 
 ```{r IMIS_function}
-#| include: true
 #| code-fold: true
 
-IMIS <- function(B=10, B.re=3000, number_k=100, D=0,t_cohort){
+IMIS <- function(B=10, B.re=3000, number_k=100, D=0){
   B0 = B*10
-  X_all = X_k = sample.prior(B0)				# Draw initial samples from the prior distribution
+  X_all = X_k = sample_prior(B0)				# Draw initial samples from the prior distribution
   if (is.vector(X_all))	Sig2_global = var(X_all)	# the prior covariance
   if (is.matrix(X_all))	Sig2_global = cov(X_all)	# the prior covariance
   stat_all = matrix(NA, 6, number_k)				# 6 diagnostic statistics at each iteration
@@ -419,7 +418,7 @@ IMIS <- function(B=10, B.re=3000, number_k=100, D=0,t_cohort){
     
     ptm.like = proc.time()
     prior_all = c(prior_all, prior(X_k))		# Calculate the prior densities
-    like_all = c(like_all, likelihood(X_k, t_cohort))		# Calculate the likelihoods
+    like_all = c(like_all, likelihood(X_k))		# Calculate the likelihoods
     ptm.use = (proc.time() - ptm.like)[3]
     if (k==1)	print(paste(B0, "likelihoods are evaluated in", round(ptm.use/60,2), "minutes"))
     
