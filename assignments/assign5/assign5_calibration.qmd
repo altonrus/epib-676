@@ -143,7 +143,7 @@ v_param_means <- v_param_means <- c(
   NA, #mu_t
   NA, #p
   NA, #r_L
-  0.05, #rho
+  0.5, #rho
   NA, #b
   NA #c
   )  
@@ -180,7 +180,7 @@ sample_prior <- function(n) {
                         mu_t  = qlnorm(draws0[,3],log(0.025)-1/2*0.5^2,0.5),
                         p     = 0,
                         r_l   = 0,
-                        rho   = qlnorm(draws0[,6],log(0.05)-1/2*0.5^2,0.5),
+                        rho   = qlnorm(draws0[,6],log(0.5)-1/2*0.5^2,0.5),
                         b     = 0,
                         c     = 0,
                         )
@@ -263,7 +263,7 @@ Note that since the annual cost of treatment parameter is completely independent
     lprior <- lprior+dlnorm(par_vector[,3],log(0.025)-1/2*0.5^2,0.5,log=TRUE)    # mu_t
     lprior <- lprior+dlnorm(par_vector[,4],log(0.1  )-1/2*0.5^2,0.5,log=TRUE)    # p
     lprior <- lprior+dlnorm(par_vector[,5],log(0.5  )-1/2*0.5^2,0.5,log=TRUE)    # r_l
-    lprior <- lprior+dlnorm(par_vector[,6],log(0.05)-1/2*0.5^2,0.5,log=TRUE)   # rho 
+    lprior <- lprior+dlnorm(par_vector[,6],log(0.5)-1/2*0.5^2,0.5,log=TRUE)   # rho 
     lprior <- lprior+0    # b CORRECT THIS LINE
     return(lprior)
   }
