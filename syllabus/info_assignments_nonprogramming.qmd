@@ -9,6 +9,8 @@ editor: visual
 
 ## **Open-source modeling study presentation (10% final grade)**
 
+**NOTE: This assignment was cancelled for the Winter 2023 offering of the course. The points will be allocated proportionally across the other graded assignments**
+
 Students will select a published decision-analytic modeling study with open source code. Students will need to run the code on their own computer and give a class presentation about the analysis and what they learned by downloading and running the code.
 
 -   Can be done alone or in pairs.
@@ -73,10 +75,71 @@ Provide your initial plans as to the following:
 
 -   Does this build on your research, work you began before this semester, or others' modeling work?
 
-### Project presentation (12% final grade)
-
-Info coming soon
-
 ### Project report with code (24% final grade)
 
-Info coming soon
+It is recommended that you write the report as a 'literate programming' document with Quarto or Rmarkdown. It can be turned in as an HTML, PDF, or word document. Please include tables and figures in-line, rather than at the end. The length **should not exceed** 3,500 words, the length of a typical peer reviewed manuscript in a medical journal, not including references or code. There is no lower limit on length, and shorter papers are welcome. The report should engage with peer-reviewed literature, citing works related to the decision problem modeled and any works from which parameter values or methods were derived.
+
+Here is an outline of the recommended sections and what should be included in each. Feel free to create sub-headers.
+
+#### Background
+
+-   What is the decision problem your model aims to inform?
+
+-   What is already known, and what are the key questions you hope to address?
+
+-   Why is this important?
+
+#### Method
+
+-   What is your analytic design, setting, outcome(s) estimated, alternatives, population, time horizon?
+
+-   How is your model structured, and what dynamics or quantities are captured?
+
+-   What simplifications have you made to the model?
+
+-   What data are you using to parameterize or calibrate your model (ideally, presented in one or more tables)?
+
+-   What uncertainty analysis are you conducting
+
+#### Results
+
+-   What are your main findings? Should estimate some outcome(s) for \>1 alternative, and potentially conduct incremental analysis (compute ICERS) depending on your framework.
+
+-   Report uncertainty analysis findings to give some idea of the robustness of your findings
+
+#### Expansion plan
+
+-   If you were to develop this initial analysis into one fit for submission for peer reviewed publication, what steps would you take? Which aspects of the analysis would need to be improved?
+
+#### Discussion
+
+-   What are the key takeaways from your initial analysis (and/or, what might the takeaways be if a more complete analysis was conducted)?
+
+-   What is the relationship between your findings and the wider literature or policy landscape?
+
+-   What are the strengths and limitations of your analysis?
+
+#### Assessment
+
+I will assess the reports based on the following criteria:
+
+-   **Scope and clarity:** Do the text, tables, and figures clearly and cohesively identify and inform a decision problem? Are the expectations for each section of the report (outlined above) clearly addressed?
+
+-   **Design choices:** Does the analysis provide insight into a relevant decision problem using methods and design choices that make sense? Does the 'expansion plan' demonstrate an understanding of the appropriate level of additional work needed for an adequately thorough analysis?
+
+-   **Integration of knowledge:** Is the peer-reviewed literature meaningfully engaged for informing the analysis (borrowing of methods, parameterization, and/or calibration) and contextualizing the decision-problem and findings?
+
+### Project presentation (12% final grade)
+
+Presentations should be no more than 7 minutes for students working alone or 9 minutes for students working in pairs, with five minutes for Q&A. The idea is to give a high-level picture of the project that makes it clear to the class why you chose your topic, what modeling work you did, and what it could mean for policy. The organization of the presentation could be similar to that of the written report, but could also be changed. While students should have results to present at the time of the presentation, they do not need to be complete or final. Feedback from the presentation can be used to make adjustments to the final report before it is turned in.
+
+#### Assessment
+
+I will assess the presentations based on the following criteria:
+
+-   **Clarity:** The presentation is easy to follow, in a logical sequence, and smooth.
+
+-   **Level of detail:** The presenter(s) should not attempt to present every aspect of their analysis, but the
+    motivation, methods, and key takeaways are clear.
+
+-   **Preparedness:** The presenter(s) are prepared, do not use too much time and handles audience questions well.
