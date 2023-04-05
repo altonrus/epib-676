@@ -28,7 +28,9 @@ In this section, we are going to take two versions of the microsimlation model f
 
 First, install [the profvis r package](http://rstudio.github.io/profvis/index.html) from CRAN by running:
 
-    install.packages("profvis")
+```         
+install.packages("profvis")
+```
 
 In the next three chunks, I've provided the code from the microsimulation tutorial. In the fourth chunk, I've provided code to profile this code using the profvis package. You don't need to change anything in any of these code chunks. Just run all 4 in order and then answer the questions at the bottom using the Profile1 and Profile2 graphical user interfaces that are created after running the fourth code chunk.
 

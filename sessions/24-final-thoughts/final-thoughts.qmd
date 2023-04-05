@@ -1,0 +1,95 @@
+---
+title: "Final thoughts"
+subtitle: "EPIB  676 session 24, McGill University"
+author: "Alton Russell"
+date: "5 Apr 2023"
+format: revealjs
+editor: visual
+---
+
+## Why decision analysis?
+
+-   Demand for health resources nearly infinite
+-   Resources (budgets) are limited
+-   Choices must be made!
+
+**Models can**
+
+-   Estimate alternatives' osts, benefits, uncertainty
+
+-   Help shape policy
+
+-   Enable life-giving institutions to do more with limited resources!
+
+## Key questions for decision analysis
+
+**Health policy**
+
+-   What services should we pay for?
+-   Who should receive these services?
+
+**Healthcare operations**
+
+-   How can these services be delivered most efficiently?
+
+**Health research**
+
+-   Where should we invest our research dollars?
+
+## Learning objectives
+
+-   Develop decision analytic models to inform health policy and clinical decisions
+-   Understand and critically appraise published model-based decision analyses
+-   Create transparent reports of decision analyses that conform to open science principles
+
+## Two phases
+
+![](birds-eye-view.png)
+
+::: columns
+::: {.column width="49%"}
+**Methods phase**
+
+-   Read tutorials, textbooks
+
+-   Technical lectures
+
+-   Programming assignments
+:::
+
+::: {.column width="49%"}
+**Application phase**
+
+-   Read applied analyses
+
+-   Applied guest lectures
+
+-   Develop your own analysis
+:::
+:::
+
+## Thank you!
+
+-   Wherever you end up, I hope the decision analysis mindset and/or these tools can help you make and inform decisions
+
+-   Thank you for your engagement, your patience, your feedback!
+
+## Final logistics
+
+-   See info for non-programming assignments
+-   Final presentations next Thursday
+    -   Max of [**5 minutes**]{.underline}
+    -   Must use classroom computer for slides
+    -   Can email me link, PPT, HTML, etc.
+    -   Feel free to come early to test
+-   Final paper due on MyCourses 11:59pm Fri 4/21
+
+## Course evaluations
+
+-   Please complete!!
+
+-   Especially helpful for a new, somewhat experimental course
+
+-   <https://go.blueja.io/gi7c9_EI0Eiygc6MuHFgIA>
+
+![](eval_qr.png)

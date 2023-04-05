@@ -131,7 +131,7 @@ I will assess the reports based on the following criteria:
 
 ### Project presentation (12% final grade)
 
-Presentations should be no more than 7 minutes for students working alone or 9 minutes for students working in pairs, with five minutes for Q&A. The idea is to give a high-level picture of the project that makes it clear to the class why you chose your topic, what modeling work you did, and what it could mean for policy. The organization of the presentation could be similar to that of the written report, but could also be changed. While students should have results to present at the time of the presentation, they do not need to be complete or final. Feedback from the presentation can be used to make adjustments to the final report before it is turned in.
+Presentations should be no more than ~~7 minutes for students working alone or 9 minutes for students working in pairs~~ five minutes, with ~~five minutes~~ two minutes for Q&A. The idea is to give a high-level picture of the project that makes it clear to the class why you chose your topic, what modeling work you did, and what it could mean for policy. The organization of the presentation could be similar to that of the written report, but could also be changed. While students should have results to present at the time of the presentation, they do not need to be complete or final. Feedback from the presentation can be used to make adjustments to the final report before it is turned in.
 
 #### Assessment
 
@@ -139,7 +139,6 @@ I will assess the presentations based on the following criteria:
 
 -   **Clarity:** The presentation is easy to follow, in a logical sequence, and smooth.
 
--   **Level of detail:** The presenter(s) should not attempt to present every aspect of their analysis, but the
-    motivation, methods, and key takeaways are clear.
+-   **Level of detail:** The presenter(s) should not attempt to present every aspect of their analysis, but the motivation, methods, and key takeaways are clear.
 
 -   **Preparedness:** The presenter(s) are prepared, do not use too much time and handles audience questions well.
