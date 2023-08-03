@@ -91,7 +91,7 @@ Out of fairness to your classmates, late assignments will only be accepted in ex
 
 -   Come to office hours
 
-### Open-source modeling study report (10%)
+### Presentation of open-source modeling analysis (10%)
 
 Students will find a published decision-analytic modeling study with open source code. Students will attempt to understand the code run the model on their own machine and give a breif in-class presentation about their experience.
 
@@ -250,7 +250,7 @@ In accordance with McGill University's *Charter of Students' Rights*, students h
 |               |                                                                                                                                                                                                                                                                                                      |
 |               | -   Office hours on Zoom only                                                                                                                                                                                                                                                                        |
 +---------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **26 Oct Th** | **16. Student presentations of open-source modeling project**                                                                                                                                                                                                                                        |
+| **26 Oct Th** | **16. Student presentations of open-source modeling analyses**                                                                                                                                                                                                                                       |
 |               |                                                                                                                                                                                                                                                                                                      |
 |               | -   **Project proposal due Monday**                                                                                                                                                                                                                                                                  |
 +---------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
