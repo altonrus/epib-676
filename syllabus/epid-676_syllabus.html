@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.330">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>EPIB 676-001 Advanced topics in decision-analytic modeling for health</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="epid-676_syllabus_files/libs/clipboard/clipboard.min.js"></script>
+<script src="epid-676_syllabus_files/libs/quarto-html/quarto.js"></script>
+<script src="epid-676_syllabus_files/libs/quarto-html/popper.min.js"></script>
+<script src="epid-676_syllabus_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="epid-676_syllabus_files/libs/quarto-html/anchor.min.js"></script>
+<link href="epid-676_syllabus_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="epid-676_syllabus_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="epid-676_syllabus_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="epid-676_syllabus_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="epid-676_syllabus_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#course-description" id="toc-course-description" class="nav-link active" data-scroll-target="#course-description">Course description</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#instructor" id="toc-instructor" class="nav-link" data-scroll-target="#instructor">Instructor</a></li>
+  <li><a href="#class-sessions-office-hours" id="toc-class-sessions-office-hours" class="nav-link" data-scroll-target="#class-sessions-office-hours">Class sessions &amp; office hours</a></li>
+  <li><a href="#target-audience" id="toc-target-audience" class="nav-link" data-scroll-target="#target-audience">Target audience</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#laptops-and-software" id="toc-laptops-and-software" class="nav-link" data-scroll-target="#laptops-and-software">Laptops and software</a></li>
+  <li><a href="#approach-to-learning" id="toc-approach-to-learning" class="nav-link" data-scroll-target="#approach-to-learning">Approach to learning</a></li>
+  <li><a href="#assignments-evaluation" id="toc-assignments-evaluation" class="nav-link" data-scroll-target="#assignments-evaluation">Assignments &amp; evaluation</a>
+  <ul class="collapse">
+  <li><a href="#class-engagement-8" id="toc-class-engagement-8" class="nav-link" data-scroll-target="#class-engagement-8">Class engagement (8%)</a></li>
+  <li><a href="#r-programming-assignments-42" id="toc-r-programming-assignments-42" class="nav-link" data-scroll-target="#r-programming-assignments-42">R programming assignments (42%)</a></li>
+  <li><a href="#open-source-modeling-study-report-10" id="toc-open-source-modeling-study-report-10" class="nav-link" data-scroll-target="#open-source-modeling-study-report-10">Open-source modeling study report (10%)</a></li>
+  <li><a href="#course-project-40" id="toc-course-project-40" class="nav-link" data-scroll-target="#course-project-40">Course project (40%)</a></li>
+  </ul></li>
+  <li><a href="#logistics" id="toc-logistics" class="nav-link" data-scroll-target="#logistics">Logistics</a></li>
+  <li><a href="#academic-integrity" id="toc-academic-integrity" class="nav-link" data-scroll-target="#academic-integrity">Academic integrity</a></li>
+  <li><a href="#language-of-submission" id="toc-language-of-submission" class="nav-link" data-scroll-target="#language-of-submission">Language of submission</a></li>
+  <li><a href="#course-schedule" id="toc-course-schedule" class="nav-link" data-scroll-target="#course-schedule">Course schedule</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../epid-676_syllabus.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">EPIB 676-001 Advanced topics in decision-analytic modeling for health</h1>
+<p class="subtitle lead">Course syllabus, Fall 2023, McGill University</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!--
+Clicking"render" will only do the first format (html) and delete any other versions (pdf). 
+To render both html and pdf, use 
+
+quarto::quarto_render("syllabus/epid-676_syllabus.qmd") 
+-->
+<section id="course-description" class="level2">
+<h2 class="anchored" data-anchor-id="course-description">Course description</h2>
+<p>Advanced methods used to model health policy decisions and conduct model-based health technology assessment, both theory and technical applications. Methods covered include: Markov and microsimulation models, Bayesian model calibration and evaluation, probabilistic sensitivity analysis, value of information analysis, and equity-informative health policy analysis. Application areas include: disease screening, prevention, and treatment, public health measures, and prioritization of clinical research.</p>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of the course, students should be able to:</p>
+<ul>
+<li>Develop decision analytic models to inform health policy and clinical decisions</li>
+<li>Understand and critically appraise model-based decision analyses</li>
+<li>Create transparent reports of model-based decision analyses that conform to open science principles</li>
+</ul>
+</section>
+<section id="instructor" class="level2">
+<h2 class="anchored" data-anchor-id="instructor">Instructor</h2>
+<p><strong>W. Alton Russell, PhD</strong>, Assistant Professor, McGill School of Population and Global Health. <a href="alton.russell@mcgill.ca">alton.russell@mcgill.ca</a> | <a href="mchi.mcgill.ca/decision-modeling-lab">mchi.mcgill.ca/decision-modeling-lab</a> | Office: 2001 McGill College #1113</p>
+</section>
+<section id="class-sessions-office-hours" class="level2">
+<h2 class="anchored" data-anchor-id="class-sessions-office-hours">Class sessions &amp; office hours</h2>
+<p><strong>Class sessions</strong> will be held 11:35am – 12:55am on Tuesdays and Thursdays at 2001 McGill College Ave in room #1203. Attendance is required.</p>
+<p><strong>Office hours</strong> will be held 1pm - 2pm in Conference Room #1122 on Tuesdays and Thursdays on days in which class meets. As an exception, office hours will be on Zoom October 17, 19, and 24. Office hours are not just for when students are struggling; all are encouraged to come to discuss assignments and readings.</p>
+</section>
+<section id="target-audience" class="level2">
+<h2 class="anchored" data-anchor-id="target-audience">Target audience</h2>
+<p>The course is geared towards PhD students and advanced Masters students interested in conducting model-based analyses of health policies and health technologies in research. Modeling skills developed in the course will also be useful for students interested in industry or government roles related to economic evaluation, policy modeling, health technology assessment, or health economics and outcomes research.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>The ideal preparation of this course would include (1) an introductory proramming course, (2) a course in probability, (3) a course in statistics, and possibly (4) a course on cost-effectiveness such as PPHS 528. Prior experience programming in R is ideal, but students with solid experience in another programming fundamentals (e.g., nested loops, functions, data structures) should be able to learn the R syntax and environment as they go. Students who lack a prerequisite other than programming may need to spend extra time on some course components but should be able to succeed in the course. The course is likely not appropriate for students missing two or more prerequisites (especially if programming is one of them). To help make an informed decision on how well-prepared you are for the course, you can <a href="https://github.com/altonrus/epib-676/tree/main/assignments">attempt to complete assignment 0 early (available on Github)</a>.</p>
+</section>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<p>Readings drawn from various sources are assigned before most class sessions as indicated in the schedule below. PDFs of the readings are available on MyCourses. Some readings are tutorials with accompanying code, which you are encouraged to download and run. To get full credit for class engagement, students should come to class prepared to discuss the readings.</p>
+</section>
+<section id="laptops-and-software" class="level2">
+<h2 class="anchored" data-anchor-id="laptops-and-software">Laptops and software</h2>
+<p>Students should bring a personal laptop to class; please let the instructor know right away if this is a challeng so we can find a solution. Before the first session, students should install and configure the necessary software (R, RStudio, git) <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html">using the ‘Setting up your software enviroment’ instructions from session 1</a>.</p>
+</section>
+<section id="approach-to-learning" class="level2">
+<h2 class="anchored" data-anchor-id="approach-to-learning">Approach to learning</h2>
+<p>The course provides hands-on experience applying course concepts early and often. The course has two phases with some overlap:</p>
+<ul>
+<li><strong>The methods phase (15 sessions)</strong> focuses on understanding methods and workflows and building programming skills. Readings are primarily pedagogical in nature, including tutorials with accompanied R code you can examine and run. Some class sessions will include running sample code on your own laptop. Six programming assignments will provide hands-on experience in coding a model-based decision analysis.</li>
+<li><strong>The application phase (11 sessions)</strong> focuses on the use of decision analytic modeling to inform health policy and clinical practice. You’ll be assigned a diverse set of applied modeling analyses as readings, and you’ll hear from several decision-analytic modeling analysts in class sessions. Students will also analyze and present an existing open-source modeling study. For the course project, students will develop their own model-based decision analysis.</li>
+</ul>
+</section>
+<section id="assignments-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="assignments-evaluation">Assignments &amp; evaluation</h2>
+<section id="class-engagement-8" class="level3">
+<h3 class="anchored" data-anchor-id="class-engagement-8">Class engagement (8%)</h3>
+<p>Students are expected to attend class on time and prepared to discuss assigned readings. Students should actively engage in discussions, ask questions, and follow along with programming examples on their own laptops.</p>
+</section>
+<section id="r-programming-assignments-42" class="level3">
+<h3 class="anchored" data-anchor-id="r-programming-assignments-42">R programming assignments (42%)</h3>
+<p>A series of programming assignments will provide hands-on experience developing decision analytic modeling analyses. For each assignment, students will download a Zip file that contains a Quarto document from the <a href="https://github.com/altonrus/epib-676/tree/main/assignments">class Github site</a>. The Quarto document includes questions, instructions, and starter code. Students will complete the assignments by completing the code and answering questions. Once complete, students will render their Quarto document to an HTML file, which they upload to <a href="https://mycourses2.mcgill.ca/">MyCourses</a> for grading.</p>
+<ol start="0" type="1">
+<li>Simpler models (7%)</li>
+<li>Decision trees, cost-effectiveness (7%)</li>
+<li>Cohort models (7%)</li>
+<li>Simulation (7%)</li>
+<li>Sensitivity analysis (7%)</li>
+<li>Calibration, validation, and value of information (7%)</li>
+</ol>
+<p>Out of fairness to your classmates, late assignments will only be accepted in exceptional, clearly-communicated circumstances. All assignments will be available more than one week before their deadline. Recommended best practices for programming assignments:</p>
+<ul>
+<li><p>Start early</p></li>
+<li><p>Read the whole assignment before you begin</p></li>
+<li><p>Spend some time on it each day for 3 or more days (instead of completing it in one sitting)</p></li>
+<li><p>Work alone first, then discuss with classmates or the instructor (but you must write your own code and responses)</p></li>
+<li><p>Come to office hours</p></li>
+</ul>
+</section>
+<section id="open-source-modeling-study-report-10" class="level3">
+<h3 class="anchored" data-anchor-id="open-source-modeling-study-report-10">Open-source modeling study report (10%)</h3>
+<p>Students will find a published decision-analytic modeling study with open source code. Students will attempt to understand the code run the model on their own machine and give a breif in-class presentation about their experience.</p>
+</section>
+<section id="course-project-40" class="level3">
+<h3 class="anchored" data-anchor-id="course-project-40">Course project (40%)</h3>
+<p>The default course project entails developing a decision-analytic model an use it to inform a decision from health policy or clinical practice. Students are encouraged to analyze a decision problem related to their own research and/or engage with domain experts outside the class when applicable. Other project topics, such as developing or assessing a novel method or using modeling methods for an application that is not a decision analysis, may be approved by the instructor on a case-by-case basic. Students may work alone or in pairs. Students are strongly encouraged to come to office hours to discuss their project with the instructor.</p>
+<ol type="1">
+<li>Proposal (2%)</li>
+<li>Class presentation (8%)</li>
+<li>Written report (with code) (30%)</li>
+</ol>
+</section>
+</section>
+<section id="logistics" class="level2">
+<h2 class="anchored" data-anchor-id="logistics">Logistics</h2>
+<p>PDFs of all readings are available to enrolled students in <a href="https://mycourses2.mcgill.ca/">MyCourses</a>. Assignments are due at 11:59pm EST on the date indicated in the schedule below. Grades and feedback will also be provided within MyCourses. All other course materials are available on <a href="https://github.com/altonrus/epib-676">Github</a>, including the assignments.</p>
+</section>
+<section id="academic-integrity" class="level2">
+<h2 class="anchored" data-anchor-id="academic-integrity">Academic integrity</h2>
+<p>McGill University values academic integrity. Therefore, all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the <em>Code of Student Conduct and Disciplinary Procedures</em> (<a href="https://www.mcgill.ca/deanofstudents/students/student-rights-responsibilities/integrity">see here for more details</a>). Students found guilty of such academic offences will be given a failing grade to this course.&nbsp;</p>
+</section>
+<section id="language-of-submission" class="level2">
+<h2 class="anchored" data-anchor-id="language-of-submission">Language of submission</h2>
+<p>In accordance with McGill University’s <em>Charter of Students’ Rights</em>, students have the right to submit any written work that is to be graded in either English or French.</p>
+</section>
+<section id="course-schedule" class="level2">
+<h2 class="anchored" data-anchor-id="course-schedule">Course schedule</h2>
+<table class="table-bordered table-hover table">
+<caption>Course schedule</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Date</strong></th>
+<th><strong>Topics, Readings/tasks to be completed before class</strong> |</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>31 Aug Th</strong></td>
+<td><p><strong>1. Course introduction</strong></p>
+<ul>
+<li>Why do decision analysis</li>
+<li>Analytic perspective</li>
+<li>Using R and RStudio</li>
+<li><strong>Assignment 0 available (simpler models)</strong></li>
+</ul>
+<ol type="1">
+<li>Follow the <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/sessions/01-introduction/get-set-up.html">‘Setting up your software enviroment’ instructions</a><br>
+</li>
+<li>Read through <a href="https://r-cubed.rostools.org/r-project-management.html"><em>Reproducible Research in R session 1: Management of R projects</em></a><br>
+</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td><strong>5 Sep Tu</strong></td>
+<td><p><strong>2. Economic evaluation</strong></p>
+<ul>
+<li>Framing an analysis</li>
+<li>Quantifying health</li>
+<li>Discounting</li>
+<li><strong>Assignment 1 available (decision trees, cost-effectiveness)</strong></li>
+</ul>
+<p>Ch. 1 ‘Introduction to health economic evaluation’ from <a href="https://doi.org/10.1201/b13099"><em>Bayesian Methods in Health Economics (2012) by Gianluca Baio</em></a><br>
+</p></td>
+</tr>
+<tr class="odd">
+<td><strong>7 Sep Th</strong></td>
+<td><p><strong>3. Probability, decision trees</strong></p>
+<ul>
+<li>Conditional probability</li>
+<li>Decision trees</li>
+<li>Distributions, expectation, variance</li>
+<li><strong>Assignment 0 due Friday</strong></li>
+</ul>
+<p>Ch 9, pg 311 - 351 (you can skip 9.4.5 – 9.4.7, pg 331 - 338) ‘Economic evaluation using decision-analytic modelling’ from <a href="http://ebookcentral.proquest.com/lib/mcgill/detail.action?docID=4605509"><em>‘Methods for the Economic Evaluation of Health Care Programmes’ (2014) by Drummond et. al.</em></a><br>
+</p></td>
+</tr>
+<tr class="even">
+<td><strong>12 Sep Tu</strong></td>
+<td><p><strong>4. Cohort models I</strong></p>
+<ul>
+<li>Markovian property</li>
+<li>Matrix operations in R</li>
+<li>Discrete time cohort models</li>
+<li><strong>Assignment 2 available (cohort models)</strong></li>
+</ul>
+<p><a href="https://doi.org/10.1177/0272989X221103163"><em>Alarid Escudero et. al.&nbsp;2022. An introductory tutorial on cohort state-transition models in R using a cost-effectiveness analysis example</em></a><br>
+</p></td>
+</tr>
+<tr class="odd">
+<td><strong>14 Sep Th</strong></td>
+<td><p><strong>5. Cohort models II</strong></p>
+<ul>
+<li>Time-varying transitions</li>
+<li>Tolls, tunnel states</li>
+<li><strong>Assignment 1 due Friday</strong></li>
+</ul>
+<p><a href="https://doi.org/10.1177/0272989X221121747"><em>Alarid Escudero et. al.&nbsp;2022. A tutorial on time-dependent cohort state-transition models in R using a cost-effectiveness analysis example</em></a><br>
+</p></td>
+</tr>
+<tr class="even">
+<td><strong>19 Sep Tu</strong></td>
+<td><p><strong>6. Simulation I</strong></p>
+<ul>
+<li>Monte Carlo simulation</li>
+<li>Simulating decision trees</li>
+<li>Simulating cohort state transition</li>
+<li><strong>Assignment 3 available (simulation)</strong></li>
+</ul>
+<p><a href="http://www.doi.org/10.1177/0272989X18754513"><em>Krijkamp et. al.&nbsp;2018. Microsimulation modeling for health decision sciences Using R: A tutorial</em></a></p></td>
+</tr>
+<tr class="odd">
+<td><strong>21 Sep Th</strong></td>
+<td><p><strong>7. Simulation II</strong></p>
+<ul>
+<li>Efficient coding practices</li>
+<li>Efficiency techniques for simulation</li>
+<li><strong>Assignment 2 due Friday</strong></li>
+</ul>
+<p>Sections 1.4 and Ch. 2 (pg. 15 - 17, 23 - 64) from <a href="https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689"><em>Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.</em></a></p></td>
+</tr>
+<tr class="even">
+<td><strong>26 Sep Tu</strong></td>
+<td><p><strong>8. Simulation III</strong></p>
+<ul>
+<li>Discrete even simulation</li>
+<li>Agent based models</li>
+<li>Network model models</li>
+</ul>
+<p><a href="https://doi.org/10.1007/s40273-015-0254-2"><em>Chhatwal &amp; He (2015). Economic evaluations with agent-based modelling: An introduction.</em></a><br>
+</p></td>
+</tr>
+<tr class="odd">
+<td><strong>28 Sep Th</strong></td>
+<td><p><strong>9. Uncertainty analysis</strong></p>
+<ul>
+<li>Probabilistic sensitivity analysis</li>
+<li>Credible intervals</li>
+<li>Univariate sensitivity analysis</li>
+<li>Scenario analysis</li>
+<li><strong>Assignment 4 available (Sensitivity analysis, VoI)</strong></li>
+</ul>
+<p><a href="https://doi.org/10.1177/0272989X12458348"><em>Briggs et. al.&nbsp;2012. Model parameter estimation and uncertainty analysis: ISPOR-SMDM modeling good practices task force report</em></a></p></td>
+</tr>
+<tr class="even">
+<td><strong>3 Oct Tu</strong></td>
+<td><p><strong>10. Designing &amp; parameterizing an analysis</strong></p>
+<ul>
+<li>Perspective, time horizons, comparators</li>
+<li>Deciding on scope &amp; structure</li>
+<li>Literature-based inputs</li>
+<li>Patient-level data inputs</li>
+<li><strong>Assignment 3 due Wednesday</strong></li>
+</ul>
+<ol type="1">
+<li><p><a href="https://doi.org/10.1016/j.jval.2012.06.016"><em>Roberts et. al.&nbsp;2012. Conceptualizing a model: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force</em></a></p></li>
+<li><p>Ch 8 (pg 209 - 236) ‘Finding and summarizing the evidence’ from <a href="https://doi.org/10.1017/CBO9781139506779.011"><em>Decision Making in Health and Medicine (2014) by Hunink et. al.</em></a></p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>5 Oct Th</strong></td>
+<td><p><strong>11. Modeling workflow</strong></p>
+<ul>
+<li>Open science practices</li>
+<li>R project workflow</li>
+<li>Version control</li>
+<li><strong>Project proposal assigned</strong></li>
+<li><strong>Open-source model presentation assigned</strong></li>
+</ul>
+<p><a href="https://www.doi.org/10.1177/0272989X12454579"><em>Eddy et. al.&nbsp;2012. Model transparency and validation: ISPOR-SMDM modeling good practices task force report</em></a></p></td>
+</tr>
+<tr class="even">
+<td><strong>8 Oct Tu</strong></td>
+<td><em>Thanksgiving break, no class</em></td>
+</tr>
+<tr class="odd">
+<td><strong>12 Oct Th</strong></td>
+<td><p><strong>12. Statistical and machine learning modeling</strong></p>
+<ul>
+<li><p>Time-to-event models</p></li>
+<li><p>Competing events</p></li>
+<li><p>Temporal extrapolation</p></li>
+<li><p>Machine learning</p></li>
+<li><p><strong>Assignment 4 due Friday</strong></p></li>
+</ul>
+<p>Reading TBD</p></td>
+</tr>
+<tr class="even">
+<td><strong>17 Oct Tu</strong></td>
+<td><p><strong>13. Guest lecture 1</strong></p>
+<ul>
+<li>Office hours on Zoom only</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>19 Oct Th</strong></td>
+<td><p><strong>14. Guest lecture 2</strong></p>
+<ul>
+<li>Office hours on Zoom only</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>24 Oct Tu</strong></td>
+<td><p><strong>15. Guest lecture 3</strong></p>
+<ul>
+<li>Office hours on Zoom only</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>26 Oct Th</strong></td>
+<td><p><strong>16. Student presentations of open-source modeling project</strong></p>
+<ul>
+<li><strong>Project proposal due Friday</strong></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>31 Oct Tu</strong></td>
+<td><p><strong>17. Calibration &amp; validation</strong></p>
+<ul>
+<li>Bayesian model calibration</li>
+<li>Model validation</li>
+<li><strong>Assignment 5 available (calibration, validation)</strong></li>
+</ul>
+<p><a href="https://www.doi.org/10.1007/s40273-017-0494-4"><em>Menzies et. al.&nbsp;2017. Bayesian methods for calibrating health policy models: A tutorial.</em></a></p></td>
+</tr>
+<tr class="odd">
+<td><strong>2 Nov Th</strong></td>
+<td><p><strong>18. Value of information analysis</strong></p>
+<ul>
+<li>For research prioritization and as sensitivity analysis</li>
+<li>VOI measures (EVPI, EVPPI, EVSI)</li>
+<li>Challenges and limitation</li>
+</ul>
+<p><a href="https://doi.org/10.1016/j.jval.2020.01.001">Fenwick et. al.&nbsp;2020. Value of information analysis for research decisions—an introduction: Report 1 of the ISPOR Value of Information Analysis Emerging Good Practices Task Force</a></p></td>
+</tr>
+<tr class="even">
+<td><strong>7 Nov Tu</strong></td>
+<td><p><strong>19. Equity and distributional considerations</strong></p>
+<ul>
+<li>Evaluation frameworks</li>
+<li>Data-driven modeling methods</li>
+<li><strong>Report on published study assigned</strong></li>
+</ul>
+<ol type="1">
+<li><p><a href="https://doi.org/10.1136/bmjgh-2021-008140"><em>Avanceña and Prosser (2021). Innovations in cost-effectiveness analysis that advance equity can expand its use in health policy</em></a></p></li>
+<li><p><a href="https://doi.org/10.1016/j.jval.2019.03.006"><em>Love-Koh et. al.&nbsp;(2019). Aggregate distributional cost-effectiveness analysis of health technologies</em></a></p></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td><strong>9 Nov Th</strong></td>
+<td><p><strong>20. Guest lecture 4</strong></p>
+<ul>
+<li><strong>Assignment 5 due Friday</strong></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>14 Nov Tu</strong></td>
+<td><strong>21. Guest lecture 5</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>16 Nov Th</strong></td>
+<td><strong>22 Guest lecture 6</strong></td>
+</tr>
+<tr class="even">
+<td><strong>21 Nov Tu</strong></td>
+<td><strong>23. Guest lecture 7</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>23 Nov Th</strong></td>
+<td><strong>24. Guest lecture 8</strong></td>
+</tr>
+<tr class="even">
+<td><strong>28 Nov Tu</strong></td>
+<td><strong>25. Alton research presentation</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>5 Dec Tu</strong></td>
+<td><strong>26. Final presentations and wrap-up lecture</strong><br>
+</td>
+</tr>
+<tr class="even">
+<td><strong>13 Dec We</strong></td>
+<td>Final project report + code due on MyCourses (no class)<br>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

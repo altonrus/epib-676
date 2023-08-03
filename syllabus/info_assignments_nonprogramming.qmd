@@ -1,0 +1,132 @@
+---
+title: "Info for non-programming assignments"
+author: "Alton Russell"
+format:
+  html:
+    toc: true
+editor: visual
+---
+
+## **Open-source modeling study presentation (10% final grade)**
+
+Students will find a published decision-analytic modeling study that also provides open source code in R (or another language the student is comfortable with). Students will read the paper and then downlaod and run the code on their own computer (or spend up to 2 hours trying to do so). Students will prepare a 5-7 minute class presentation about the analysis and what they learned by downloading and running the code.
+
+-   Give oral presentation with slides (no written report required)
+
+-   No more than 10 slides and 7 minutes
+
+-   When you select your paper, post the citation on the MyCourses discussion forum to avoid duplication
+
+### Your presentation should address
+
+-   Why did you pick this paper?
+
+-   In brief, what is the decision problem, setting, alternatives, perspective, time horizon, key finding?
+
+-   What modeling method was used? Was it a good choice?
+
+-   In terms of reproducibility, what was done well? What could have been better?
+
+### Assessment criteria
+
+-   Succinctly addresses all points above
+
+-   Demonstrates understanding of decision-analytic modeling
+
+-   Demonstrates understanding of reproducible research and reporting
+
+## Course project (40% final grade)
+
+Students will develop a decision-analytic model and use it to analyze a decision from health policy or clinical practice. The project should demonstrate all major components of a decision analysis: a choice between alternatives with trade-offs, a decision framework/objective (e.g., cost minimization, effectiveness maximization, cost-effectiveness), inputs from appropriate sources, a working model that produces outputs, and uncertainty analysis. Students are encouraged to analyze a decision problem related to their research interests, and you are welcome to engage with domain experts outside the class when applicable. A thorough analysis is [**not**]{.underline} expected; several aspects of the analysis can be simplified compared to what would be submitted to a peer-reviewed journal. It's suggested that you get a simple model working quickly, even if the parameters are completely fictitious, and then refine it. Students may work alone or in pairs. You can re-purpose others' code or use any packages for developing models, as long as all sources are acknowledged and cited.
+
+**Note on assessment:** An analysis for peer reviewed publication should include high-quality parameters sourced from the best available data, a model that is complex enough to capture the key decision trade-offs, and thorough uncertainty analysis. To complete the course project in the allotted time, you will need to make simplifications. When grading, I will not penalize you for simplifications as long as (A) your report demonstrates an understanding of what more would need to be done to reach a "publication worthy" analysis, and (B) taken as a whole, the amount of work done is appropriate (e.g., not everything is overly-simplified). This gives you the freedom to spend more time on components of the project that most interests you. If you have questions about what is "enough", feel free to talk to me!
+
+While a (simplified) applied decision analysis is the default project type, other ideas may be considered on a case-by-case basis but must be approved by the instructor before the project proposal deadline.
+
+### Project proposal (2% final grade)
+
+This should be about one page, and feel free to use bullet points. The aim is to make sure you have identified an appropriate decision to model and have done some initial work to make sure it's feasible. You are not locked in to the analysis you put in the project proposal.
+
+The proposal should contain your initial plans with respect to your:
+
+-   Decision problem to model
+
+-   Alternatives to evaluate (at least two)
+
+-   Analytic framework (e.g., cost minimization, comparative effectiveness, cost-utility)
+
+-   Modeling method
+
+-   Measure(s) of health outcome and, if applicable, identified data sources
+
+-   Costs to include and, if applicable, identified data sources
+
+If your project is in collaboration with others and/or builds on work you began before this semester, please describe the situation and what components you will be working on specifically for the class project.
+
+### Project report with code (30% final grade)
+
+It is recommended that you write the report as a 'literate programming' document with Quarto. It can be turned in as an HTML, PDF, or Word document. Please include tables and figures in-line, rather than at the end. The length [**should not exceed**]{.underline} 3,500 words, the length of a typical peer reviewed manuscript in a medical journal, not including references or code. There is no lower limit on length, and shorter papers are welcome. Your report should engage with peer-reviewed literature, citing works related to the decision problem modeled and any works from which parameter values or methods were derived.
+
+Here is an outline of the recommended sections and what should be included in each. Sub-headers are encouraged.
+
+#### Background
+
+-   What is the decision problem your model aims to inform?
+
+-   What is already known, and what are the key questions you hope to address?
+
+-   Why is this important?
+
+#### Method
+
+-   What is your analytic design, setting, outcome(s) estimated, alternatives, population, time horizon?
+
+-   How is your model structured, and what dynamics or quantities are captured?
+
+-   What simplifications have you made to the model?
+
+-   What data (primary data and/or secondary data derived from published reports) are you using to parameterize or calibrate your model? A parameter table is ideal.
+
+-   What uncertainty analysis are you conducting?
+
+#### Results
+
+-   What are your main findings? You shuold estimate outcomes for \>1 alternative and, if using a cost-effectiveness framework, conduct incremental analysis (compute ICERS).
+
+-   Report uncertainty analysis findings to give some idea of the robustness of your findings
+
+#### Expansion plan
+
+-   If you were to develop this initial analysis into one fit for submission for peer reviewed publication, what steps would you take?
+
+#### Discussion
+
+-   What are the key takeaways from your initial analysis (and/or, what might the takeaways be if a more complete analysis was conducted)?
+
+-   What is the relationship between your findings and the wider literature and/or policy landscape?
+
+-   What are the strengths and limitations of your approach?
+
+#### Assessment
+
+I will assess reports and code based on:
+
+-   **Scope and clarity:** Do the text, tables, and figures clearly and cohesively identify and inform a decision problem? Are the expectations for each section of the report (outlined above) clearly addressed?
+
+-   **Design choices:** Does the analysis provide insight into a relevant decision problem using fit-for-purpose methods, assumptions, and data inputs? Does the 'expansion plan' demonstrate an understanding of what would be appropriate for a publication-worthy analysis?
+
+-   **Integration of knowledge:** Is the peer-reviewed literature meaningfully engaged to inform the analysis (borrowing of methods, parameterization, and/or calibration) and contextualize the decision-problem and findings?
+
+### Project presentation (8% final grade)
+
+Presentations should be no more than 7 minutes for students working alone and 10 minutes for students wroking in pairs. You should give a high-level picture of the project that includes why you chose your topic, what modeling work you did, and what your findings could mean for policy. Students should have some results to present at the time of the presentation, but they do not need to be complete or final. Feedback from the presentation can be used to make adjustments to the final report before it is turned in.
+
+#### Assessment
+
+I will assess presentations based on:
+
+-   **Clarity:** Was the presentation easy to follow, logically ordered, and smoothly presented?
+
+-   **Level of detail:** Did the presenter(s) make the motivation, methods, and key takeaways clear without going into excessive detail or going over the allotted time?
+
+-   **Preparedness:** Have the students made substantial progress on the project including preliminary results, and did they handle audience questions well?

@@ -1,0 +1,396 @@
+---
+title: "Course introduction"
+subtitle: "EPIB  676 session 1, McGill University"
+author: "Alton Russell"
+date: "31 Aug 2023"
+format: revealjs
+editor: visual
+---
+
+## About me
+
+-   Born in North Carolina
+-   Engineering at NC State (BSc) and Stanford (MSc, PhD)
+-   Joined the School of Population and Global Health in January 2022
+-   Teach PPHS 528 Economic evaluation of health programs
+-   [Data-driven decision modeling lab (D3Mod)](http://mchi.mcgill.ca/decision-modeling-lab/)
+
+## 30 second intros
+
+-   Name
+
+-   Degree program
+
+-   Research interests
+
+-   What you hope to get from this class
+
+## Agenda for today
+
+-   **Why decision analysis**
+-   Course overview
+-   Using R for decision analysis
+-   Perspective and audiences
+
+## Why decision analysis?
+
+::: columns
+::: {.column width="60%"}
+-   Demand for health resources nearly infinite
+-   Resources (budgets) are limited
+-   Choices must be made!
+:::
+
+::: {.column width="40%"}
+![From https://blog.flexis.com](tradeoffs.jpeg)
+:::
+:::
+
+## Opportunity cost
+
+*The value of the next-best thing I could have done with the resources*
+
+-   A dollar spent on PrEP for people who inject drugs cannot be spent on photon radiation for children with cancer
+
+-   A dollar spent on health **care** cannot be spent on health **research**
+
+-   A dollar spent in health **sector** cannot be spent on education, infrastructure, defense, etc.
+
+## Challenges in global health
+
+## Challenges in global health
+
+-   High childhood mortality
+-   Epidemics of infectious diseases
+-   Increasing burden of chronic condition
+-   Poor health infrastructure
+-   Limited access to care
+-   Limited funds for disease prevention and treatment
+
+## Challenges in Canada
+
+## Challenges in Canada
+
+-   Aging boomers
+    -   50% of health care expenses incurred in last year of life
+-   Chronic health conditions
+-   Insufficient capacity → long queues for services
+    -   Joint replacements, colonoscopy, emergency rooms, etc.
+
+## How do we decide what to pay for?
+
+*Decision criteria*
+
+## How do we decide what to pay for?
+
+*Decision criteria*
+
+-   Cost
+-   Effectiveness
+-   Efficiency
+-   Fairness
+
+## Key questions for decision analysis
+
+-   What services should we pay for?
+-   Who should receive these services?
+-   How can these services be delivered most efficiently?
+-   How should we spend research dollars?
+
+## Key questions for decision analysis
+
+**Health policy**
+
+-   What services should we pay for?
+-   Who should receive these services?
+
+**Healthcare operations**
+
+-   How can these services be delivered most efficiently?
+
+**Health research**
+
+-   How should we spend research dollars?
+
+## Developing a decision analysis
+
+1.  Define the decision context
+
+2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+
+3.  Identify alternatives
+
+4.  Estimate outcomes under each alternative
+
+5.  Perform sensitivity analysis
+
+6.  Consider non-quantifiable factors
+
+7.  Interpret the results
+
+## Developing a decision analysis
+
+1.  Define the decision context
+
+2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+
+3.  Identify alternatives
+
+4.  **Estimate outcomes under each alternative → Modeling**
+
+5.  **Perform sensitivity analysis → Modeling**
+
+6.  Consider non-quantifiable factors
+
+7.  Interpret the results
+
+## Decision-analytic model
+
+-   Function mapping inputs (data, parameters) into estimated outcomes for two or more alternatives
+-   Propagate uncertainty
+    -   Uncertain inputs → uncertain outputs
+
+![](model-inputs-outputs.svg)
+
+## Decision analysis can...
+
+-   Estimate monetary and nonmonetary consequences of alternatives
+-   Suport decisions about investment into/design of programs
+-   Inform allocation of resources
+-   Provide insights with incomplete data (requires assumptions)
+-   Inform data collection/research
+
+## Decision analysis can't...
+
+-   Perfectly capture reality
+-   Account for unknown factors
+-   Replace a decision maker
+
+## Agenda for today
+
+-   Why decision analysis
+-   **Course overview**
+-   Using R for decision analysis
+-   Perspective and audiences
+
+## Learning objectives
+
+-   Develop decision analytic models to inform health policy and clinical decisions
+-   Understand and critically appraise model-based decision analyses
+-   Create transparent reports of model-based decision analyses that conform to open science principles
+
+## Decision analysis and economic evaluation
+
+Economic evaluations often use decision analytic models
+
+-   **Exception**: trial-based cost-effectiveness analysis
+
+Economic evaluations represent a large share of decision analysis
+
+-   **Exception**: decision models without costs
+
+## EPIB 676 vs PPHS 528
+
+-   **PPHS 528:** economic evaluation
+
+    -   \~20% decision analytic modeling
+    -   MSc level
+
+-   **EPIB 676:** decision analytic modeling
+
+    -   \~20% economic evaluation
+    -   PhD level
+
+PPHS 528 is less research oriented. Requires less background in programming, probability, and math
+
+## Course materials
+
+**MyCourses** (<https://mycourses2.mcgill.ca/>)
+
+-   Submit assignments
+-   Access readings, assignment solutions, and feedback/grades
+
+**Public Github repo** (<https://github.com/altonrus/epib-676>)
+
+-   Everything else
+-   To read HTML documents hosted on Github
+    -   Download and open in web browser **or**
+    -   <https://htmlpreview.github.io/?>
+
+## Two phases
+
+![](birds-eye-view.png)
+
+::: columns
+::: {.column width="49%"}
+**Methods phase**
+
+-   Read tutorials, textbooks
+
+-   Technical lectures
+
+-   Programming assignments
+:::
+
+::: {.column width="49%"}
+**Application phase**
+
+-   Read applied analyses
+
+-   Applied guest lectures
+
+-   Build model; analyze open source publication
+:::
+:::
+
+## Syllabus (with schedule) on Github
+
+Quarto → PDF
+
+<https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.pdf>
+
+<br>
+
+Quarto → HTML
+
+<https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/epid-676_syllabus.html>
+
+## Agenda for today
+
+-   Why decision analysis
+-   Course overview
+-   **Using R for decision analysis**
+-   Perspective and audiences
+
+## Software for decision-analytic modeling
+
+-   Software programs
+    -   TreeAge <https://www.treeage.com/>
+
+    -   Arena, Simio, Simul8
+
+    -   Excel
+-   Programming languages
+    -   Python, Julia, Matlab, C++, etc.
+
+    -   R
+
+## Why I like R
+
+-   Free and open source, designed for data science
+-   Code-based (easier to interrogate + version control)
+-   Ecosystem of packages, tutorials, vignettes (less mature for others languages)
+-   Friendly community of useRs
+-   Systems for creating reproducible research reports
+    -   Quarto documents!
+
+## Packages for decision-analytic modeling in R
+
+-   Decision Analysis in R for Technologies in Health (DARTH)
+    -   [Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git)
+-   R for Health Technology Assessment
+    -   [Website](https://r-hta.org/)
+-   Nathan Green's [List of Health Economics R Packages](https://github.com/n8thangreen/health_economics_R_packages)
+
+## Downsides of R
+
+-   Learning curve for non-programmers (vs. Excel, TreeAge)
+-   Not the fastest language
+    -   Julia, C++, Matlab faster. **But,** can use [RCPP package](https://cran.r-project.org/web/packages/Rcpp/index.html) to write compute-intensive operations in C++
+-   Dependencies and back/forward compatibility
+    -   Packages can have errors, not be maintained
+    -   Functionality changes after updates
+    -   Will discuss some strategies to address
+
+## Getting started with R
+
+We will:
+
+-   Create a new R project with quarto document
+-   Clone the class repository from Github onto your computer
+-   Edit and render assignment 0
+
+## Agenda for today
+
+-   Why decision analysis
+-   Course overview
+-   Using R for decision analysis
+-   **Perspective and audiences**
+
+## Who is the audience?
+
+## Who is the audience?
+
+-   Public health
+-   Regulators
+-   Clinicians / Medical societies
+-   Patients
+-   Parent/guardian or loved one
+-   Insurance companies
+-   Organizational leaders (of hospital, blood collector, etc.)
+-   Funding agencies (e.g., CIHR)
+-   etc.
+
+Depends on context; often multiple target audiences
+
+## Perspective motivated by audience
+
+-   Payers mostly care about their own costs
+
+-   Government may also care about societal costs & benefits
+
+    -   Patient time/transportation
+
+    -   Productivity loss from illness or death
+
+    -   Informal care-giving
+
+    -   Spillover into criminal justice, education, etc.
+
+-   Other stakeholders have other priorities (if possible, ask)
+
+## The case for societal perspective
+
+[First Panel on Cost-Effectiveness in Health and Medicine (1996)](https://www.doi.org/10.1001/jama.1996.03540140060028):
+
+> Using CEA to inform allocation of health resources accepts the existence of a limit on health spending; when the **societal perspective** is adopted, the analysis acknowledges the value of competing uses for society's resources
+
+**But**, data on non-health benefits/costs are often lacking
+
+## Why choose just one?
+
+-   An analysis can have \>1 perspective
+-   **Societal** perspective and **healthcare payer** perspective recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
+-   Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.
+
+## The impact inventory
+
+::: columns
+::: {.column width="55%"}
+![](impact-inventory.png)
+:::
+
+::: {.column width="45%"}
+[From Second Panel on Cost Effectiveness](https://jamanetwork-com.proxy3.library.mcgill.ca/journals/jama/fullarticle/2552214)
+
+Lists all potentially relevant cost categories and comments on their inclusion
+
+Often found in online supplement
+:::
+:::
+
+## Recap
+
+-   Decision analysis can inform efficient, effective, and equitable use of finite health resources
+
+-   Can apply to health policy, clinical decisions, operations, and research
+
+-   R enables open source, reproducible workflows
+
+-   Target audience should inform analytic framing and perspective
+
+## Logistics
+
+-   Assignment 0 due next Friday, Sep 6
+-   Complete readings before class
+-   Office hours 1-2pm in Room #1122
