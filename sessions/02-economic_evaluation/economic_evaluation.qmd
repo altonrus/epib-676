@@ -1,0 +1,893 @@
+---
+title: "Economic evaluation"
+subtitle: "EPIB  676 session 2, McGill University"
+author: "Alton Russell"
+date: "5 Sept 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Decision analytic frameworks**
+
+-   Quantifying health
+
+-   Quantifying costs
+
+-   Incremental analysis (cost-effectiveness)
+
+## Purpose of decision analysis
+
+Systematically integrate key elements of decision
+
+-   **Alternatives:** What can I do?
+
+-   **Information:** What do I know?
+
+-   **Preferences:** What do I value?
+
+-   **Uncertainty:** How sure can I be?
+
+To estimate trade-offs in outcomes and inform (guide) decision making
+
+## Decision analytic frameworks
+
+![](images/eval_types_0.png)
+
+## Decision analytic frameworks
+
+![](images/eval_types_1.png)
+
+## Decision analytic frameworks
+
+![](images/eval_types_2.png)
+
+## Decision analytic frameworks
+
+![](images/eval_types_3.png)
+
+## Decision analytic frameworks
+
+![](images/eval_types_4.png)
+
+## Decision analytic frameworks
+
+![](images/eval_types_5.png)
+
+## Decision analytic frameworks
+
+![](images/eval_types_6.png)
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states only*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_0-01.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states only*
+
+-   Outcome projection **(No decision)**
+
+    -   *How many cases/deaths?*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_0.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states only*
+
+-   Outcome projection **(No decision)**
+
+    -   *How many cases/deaths?*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_1.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states only*
+
+-   Outcome projection **(No decision)**
+
+    -   *How many cases/deaths?*
+
+-   Comparative outcomes
+
+    -   *Cases with(out) vaccine?*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_1.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states and cost*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_2.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states and cost*
+
+-   Cost comparison; cost minimization
+    -   *Cost with(out) vaccinate?*
+-   Cost-consequences; cost-effectiveness
+    -   *Cost per case/death averted?*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_2.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states, costs, health-state utilities*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_3.png)
+:::
+:::
+
+## Modeled outcomes and frameworks
+
+::: columns
+::: {.column width="60%"}
+*Health states, costs, health-state utilities*
+
+-   Cost-utility
+    -   *Cost per quality-adjusted life year gained?*
+:::
+
+::: {.column width="40%"}
+![](images/toy_model_3.png)
+:::
+:::
+
+## Choosing decision analytic framework
+
+![](images/choosing_eval_type_table.png)
+
+**Not shown:** Equity-informative frameworks (more later)
+
+## What matters for making decisions?
+
+***Differences*** in costs and outcomes (not total cost or outcome!)
+
+Typically
+
+-   Immediate cost, health impacts of the intervention(s)
+
+-   "Downstream" costs, health impacts
+
+    -   Long-term disability
+
+    -   Chronic disease
+
+    -   Recurring risks
+
+## Time horizon
+
+-   Should capture all relevant differences in costs & health outcomes
+
+-   Short time horizon sometimes OK
+
+    -   No substantial cost/outcome differences expected after short period
+
+-   Patient lifetime horizon often needed
+
+    -   Differences in mortality
+
+    -   Differences in risk of chronic conditions
+
+    -   Differences in risk of events over remaining lifespan
+
+## Today
+
+-   Decision analytic frameworks
+
+-   **Quantifying health**
+
+-   Quantifying costs
+
+-   Incremental analysis (cost-effectiveness)
+
+## Example health measures
+
+## Example health measures
+
+::: columns
+::: {.column width="50%"}
+Life years gained
+
+HIV cases averted
+
+Blood pressure reduction
+
+Cholesterol reduction
+
+Number of adverse events
+
+Cases detected
+
+Percent infected in treatment
+:::
+
+::: {.column width="50%"}
+Episode-free days
+
+Reduction in pain scale
+
+Reduction in emergency room visits or readmissions
+
+Survey-based score (e.g., overall health, anxiety)
+
+...
+:::
+:::
+
+## Choice of health measure
+
+**Context-specific** measures work within narrow context
+
+-   Blood pressure medication → mmHg blood pressure
+
+-   Hepatitis B screening strategies → % cases detected, incidence
+
+-   HIV antivirals → % with high CD4 level
+
+**General measures** let you compare across contexts
+
+-   Life years gained
+
+-   Quality-adjusted life years gained
+
+## Net present value
+
+-   Benefits further into future valued less (why?)
+
+-   Net present value ($NPV$) of quantity $Q$, $t$ years into the future, with a discount rate $r$:
+
+$$
+NPV = Q \frac{1}{(1+r)^t}
+$$
+
+```{r}
+#| echo: true
+Q <- 100 #dollars
+t <- 5 #years into the future
+r <- .05 #5 percent annual discount rate
+NPV <- Q*(1/(1+r)^t)
+NPV
+```
+
+## Discounted life expectancy (DLE)
+
+-   Life years gained today valued more than life years gained in future
+
+$$
+DLE = \sum_{t=0}^T LY_t \frac{1}{(1+r)^t}
+$$
+
+$LY_t$ is life-years experienced in year t. $[1/(1+r)^t]$ is the discounting multiplier for an annual discount rate of $r$ (typically \~ 0% to 7%)
+
+## Quality-adjusted life expectancy
+
+-   Health-related utility weight $u_t$
+
+    -   1 = in perfect health
+
+    -   0 = dead
+
+$$
+QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
+$$
+
+## How to estimate health related utility weights?
+
+Reflect societal or patient preference. Many elicitation methods
+
+-   Standard gamble
+
+-   Time trade off
+
+-   Discrete choice experiments
+
+-   Survey-based instruments (EQ-5D, SD6)
+
+    -   Often used for trial-based decision analysis
+
+But, modelers often use existing estimates
+
+## Where to find utility weights?
+
+-   Search the literature
+
+-   [The Cost-Effectiveness Registry](https://cevr.tuftsmedicalcenter.org/databases/cea-registry) from Tufts Center for the Evaluation of Value and Risk in Health
+
+-   [Global Burden of Disease Study](https://ghdx.healthdata.org/record/ihme-data/gbd-2019-disability-weights) (for disability weights in DALY studies)
+
+If no published estimate available:
+
+-   Pick something similar as a proxy, but **do thorough sensitivity analysis!**
+
+## Today
+
+-   Decision analytic frameworks
+
+-   Quantifying health
+
+-   **Quantifying costs**
+
+-   Incremental analysis (cost-effectiveness)
+
+## Cost parameters
+
+-   Lower bound of 0
+
+-   Potentially no upper limit
+
+-   Often vary considerably across patients
+
+-   **Patient-level** costs often right-skewed (a few high-cost patients)
+
+    -   But uncertainty in population parameters, e.g. **average cost**, usually less skewed
+
+## Health resources and costs?
+
+-   **Administrative data:** encounters (clinic, emergency room, hospital), procedures, length of stay. Follow patients across care settings
+
+-   **Clinical data:** labs, drugs, blood units transfused. Usually for one care setting.
+
+## Discounting costs
+
+-   People/organizations want to get paid sooner, make payments later
+
+-   Net present cost discounted just like outcomes: $NPC = \sum_{t=0}^T c_t \frac{1}{(1+r)^t}$
+
+-   [CADTH recommends 1.5% discount rate](https://www.cadth.ca/guidelines-economic-evaluation-health-technologies-canada-4th-edition) (sensitivity analysis at 3%)
+
+-   Same discount rate used for costs & outcomes (contested in theory but near universal practice)
+
+## Currency exchange
+
+-   Use of purchasing power parity (estimated cost of a basket of goods) recommended over exchange rate
+
+-   Available from OECD data: <https://data.oecd.org/conversion/purchasing-power-parities-ppp.htm>
+
+-   Measured as national currency per USD
+
+-   For non-USD currency, convert to USD and then to CAD:
+
+    -   \[Value in Euro\] / \[PPP Euro/USD\] = \[Value in USD\]
+
+    -   \[Value in USD\] / \[PPP CAD/USD\] = \[Value in CAD\]
+
+## Adjust for inflation
+
+-   Use of average all-item consumer price index (CPI) recommended
+
+-   \[Year Y cost\] = \[Year X cost\] x \[Year Y CPI\] / \[Year X CPI\]
+
+-   Available from StatsCanada: <https://www150.statcan.gc.ca/t1/tbl1/en/cv.action?pid=1810000501>
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+cost_2006USD = 5400
+PPP_2006 = NA;    CPI_CAN_2006 = NA
+PPP_2021 = NA;    CPI_CAN_2021 = NA
+```
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+cost_2006USD = 5400
+PPP_2006 = 1.205;   CPI_CAN_2006 = 109.1
+PPP_2021 = 1.236;   CPI_CAN_2021 = 141.7
+```
+
+Currency then inflation:
+
+```{r}
+#| echo: true
+cost_2021CAD = NA
+```
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+cost_2006USD = 5400
+PPP_2006 = 1.205;   CPI_CAN_2006 = 109.1
+PPP_2021 = 1.236;   CPI_CAN_2021 = 141.7
+```
+
+Currency then inflation:
+
+```{r}
+#| echo: true
+cost_2021CAD = (cost_2006USD/PPP_2006)*(CPI_CAN_2021/CPI_CAN_2006)
+cost_2021CAD
+```
+
+## Currency + inflation
+
+Convert \$5,400 in 2006 USD to 2021 CAD?
+
+```{r}
+#| echo: true
+PPP_2006 = 1.205;   CPI_CAN_2006 = 109.1
+PPP_2021 = 1.236;   CPI_CAN_2021 = 141.7
+```
+
+Inflation then currency:
+
+```{r}
+#| echo: true
+cost_2021CAD = (cost_2006USD*(CPI_CAN_2021/CPI_CAN_2006))/PPP_2021
+cost_2021CAD
+```
+
+## Inflation + Currency adjustment
+
+-   Order can matter, especially with fluctuations
+
+-   I'm not aware of best practice recommendations
+
+-   If difference is substantial
+
+    -   Widen your uncertainty range/distribution
+
+    -   Consider scenario analysis
+
+## Productivity costs
+
+-   Typically largest non-health cost in societal perspective
+
+-   Unpaid labor (housekeeping, child-rearing) can be costed as "opportunity cost"
+
+    -   Use median wage for all individuals regardless of employment
+
+-   For productivity loss due to death, we want "net productivity loss" with consumption subtracted out
+
+## Unrelated medical costs in life-years gained
+
+-   Interventions that extend life result in healthcare costs unrelated to the condition
+
+-   There are strong arguments that they should be included
+
+    -   [Rappange et. al. 2008](https://doi.org/10.2165/00019053-200826100-00003)
+
+    -   [van Baal et. al. 2018](https://doi.org/10.1007/s10198-018-0976-0)
+
+-   But most analysts don't, and methods to do so are not well-established
+
+## Today
+
+-   Decision analytic frameworks
+
+-   Quantifying health
+
+-   Quantifying costs
+
+-   **Incremental analysis (cost-effectiveness)**
+
+## Incremental cost-effectiveness ratio
+
+Cost-effectiveness focuses on **incremental** costs/outcomes (not **total** costs/outcomes)
+
+-   Incremental effect: $E[\Delta_e]=\bar{e}_1 - \bar{e}_0$
+
+-   Incremental cost: $E[\Delta_c]=\bar{c}_1 - \bar{c}_0$
+
+Incremental cost-effectiveness ratio:
+
+$$
+ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{E[\Delta_e]}
+$$
+
+*What is the increase in net spending per unit of net health benefit?*
+
+## Cost-effectiveness plane (pairwise comparisons)
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=5}
+library(ggplot2)
+theme_set(theme_bw())
+ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-1,0,.2,1),effect=c(-1,0,.3,1)))+
+  geom_hline(yintercept = 0)+geom_vline(xintercept=0)+
+  geom_point()+
+  coord_cartesian(xlim = c(-.5, .5), ylim = c(-.5, .5))+
+  geom_text(aes(x=-0.09,y=0.04,label='status quo'))+
+  geom_text(aes(x=0.21,y=0.24,label='alternative'))+
+  geom_text(size=15, color="firebrick3", alpha = .8, aes(x=x,y=y,label=label),data=data.frame(x=c(.4,-.4,.4,-.4),y=c(.4,.4,-.4,-.4),label=c("Q1","Q2","Q4","Q3")))+
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")+
+  ylab("cost difference (alternative - status quo)")+
+  xlab("effect difference (alternative - status quo)")
+```
+:::
+
+::: {.column width="50%"}
+-   Plot $\Delta$ cost and $\Delta$ effect for alternative vs. status quo
+-   Slope of line from origin → ICER
+-   Cost-effectiveness of alternative (vs. status quo) depends which quadrant alternative falls into
+:::
+:::
+
+## Q2 and Q4
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=5}
+theme_set(theme_bw())
+ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-1,0,1),effect=c(-1,0,1)))+
+  geom_hline(yintercept = 0)+geom_vline(xintercept=0)+
+  geom_point()+
+  coord_cartesian(xlim = c(-.5, .5), ylim = c(-.5, .5))+
+  geom_text(aes(x=-0.09,y=0.04,label='status quo'))+
+  geom_text(size=15, color="firebrick3", alpha = .8, aes(x=x,y=y,label=label),data=data.frame(x=c(.4,-.4,.4,-.4),y=c(.4,.4,-.4,-.4),label=c("Q1","Q2","Q4","Q3")))+
+  geom_text(color="firebrick3",size=9, aes(x=x,y=y,label=label),data=data.frame(x=c(-.25,.25),y=c(.25,-.25),label=c("Dominated","Dominant")))+
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")+
+  ylab("cost difference (alternative - status quo)")+
+  xlab("effect difference (alternative - status quo)")
+```
+:::
+
+::: {.column width="50%"}
+-   Q2: alternative **dominated by** status quo
+
+    -   Costlier, gives worse outcome
+
+-   Q4: alternative **dominates** status quo
+
+    -   Cheaper, gives better health outcome
+:::
+:::
+
+## Q1 and Q3
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=5}
+theme_set(theme_bw())
+ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-1,0,1),effect=c(-1,0,1)))+
+  geom_hline(yintercept = 0)+geom_vline(xintercept=0)+
+  geom_abline(intercept=0, slope=1)+
+  geom_ribbon(aes(ymin=-1, ymax = cost, alpha=0.5))+
+  geom_point()+
+  coord_cartesian(xlim = c(-.5, .5), ylim = c(-.5, .5))+
+  geom_text(aes(x=-0.09,y=0.04,label='status quo'))+
+  geom_text(aes(x=0.23,y=0.27,label='willingness to pay ($/health outcome)'),angle=45)+
+  geom_text(size=15, color="firebrick3", alpha = .8, aes(x=x,y=y,label=label),data=data.frame(x=c(.4,-.4,.4,-.4),y=c(.15,.4,-.4,-.15),label=c("Q1","Q2","Q4","Q3")))+
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")+
+  ylab("cost difference (alternative - status quo)")+
+  xlab("effect difference (alternative - status quo)")
+```
+:::
+
+::: {.column width="50%"}
+Depends what we're willing to pay (WTP threshold)
+
+-   **Q1:** ICER \< WTP → alternative cost-effective
+
+-   **Q3:** ICER \< WTP → SQ not cost-effective compared to alternative
+
+    -   Alternative 'worse' but preferred
+
+    -   Politically difficult!
+:::
+:::
+
+## Avoid confusion when reporting ICERS
+
+-   Instead of reporting negative ICERs, say it's '**dominated**' (Q4) or '**dominant**' (Q2)
+
+-   If in Q3, reverse comparison when reporting ICER
+
+    -   **In Q1**: [Alternative]{.underline} costs \$32,000 per QALY gained compared to [status quo]{.underline}
+
+    -   **In Q3**: [Status quo]{.underline} costs \$32,000 per QALY gained compared to [alternative]{.underline}
+
+## Evaluating \>2 alternatives
+
+With \>2 alternatives, conduct incremental analysis:
+
+1.  Order alternatives by increasing effectiveness
+
+2.  Remove dominated alternatives
+
+3.  Calculate ICERs between non-dominated alternatives
+
+Each strategy's ICER is relative to **next-least-effective, non-dominated** intervention
+
+## Strong dominance
+
+-   Dominated if ≥1 alt. cheaper and more effective
+
+-   **Check:** Order by increasing effectiveness. Any alt. with higher cost than next alt. is dominated
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+df=data.frame(
+  alt=c("A","B","C","D","E"),
+  effect=c(15, 20, 29, 39,45),
+  cost=c(1000, 3100, 3500, 11000,10000))
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+#library(flextable)
+df
+```
+:::
+:::
+
+## Strong dominance
+
+-   Dominated if ≥1 alt. cheaper and more effective
+
+-   **Check:** Order by increasing effectiveness. Any alt. with higher cost than next alt. is dominated
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+df=data.frame(
+  alt=c("A","B","C","D","E"),
+  effect=c(15, 20, 29, 39,45),
+  cost=c(1000, 3100, 3500, 11000,10000))
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+#library(flextable)
+df
+```
+
+<br>
+
+**D dominated by E!**
+:::
+:::
+
+## Extended (weak) dominance
+
+-   Linear combo of 2 alternatives cheaper and more effective
+
+-   **Check:** Calculate ICERS between undominated alts. Any alt. whose ICER exceeds next alt. is dominated
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+cbind(df,
+      "ICER" = c(NA, 420, 44.4, "Dominated",406)) 
+```
+:::
+:::
+
+## Extended (weak) dominance
+
+-   Linear combo of 2 alternatives cheaper and more effective
+
+-   **Check:** Calculate ICERS between undominated alts. Any alt. whose ICER exceeds next alt. is dominated
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+cbind(df,
+      "ICER" = c(NA, 420, 44.4, "Dominated",406)) 
+```
+
+**B dominated** (by linear combo of A and C)
+
+Remove B and re-calculate ICERs
+:::
+:::
+
+## Efficiency frontier plot
+
+::: columns
+::: {.column width="50%"}
+```{r fig.width=5, fig.height=3}
+ggplot(aes(x=effect, y=cost), data=df)+
+  geom_point()+
+  geom_line(aes(x=effect, y=cost), data=df[c(1,3,5),])+
+  geom_text(aes(label=alt), nudge_y = 350, nudge_x = -1)
+```
+:::
+
+::: {.column width="50%"}
+```{r ft.shadow=FALSE}
+cbind(df,
+      "ICER" = c(NA, "Weak dom", 179, "Strong dom",406)) 
+```
+:::
+:::
+
+Undominated alternatives form the **efficiency frontier**
+
+-   a 'convex hull' (no concavities)
+
+-   Dominated interventions above frontier
+
+## Incremental analysis procedure
+
+1.  Order alternatives by increasing effectiveness
+
+2.  Remove strongly dominated *(cost exceeds next non-dominated)*
+
+    -   Repeat until all strongly dominated removed
+
+3.  Calculate ICERS between non-dominated
+
+4.  Remove weakly dominated *(ICER exceeds next non-dominated)*
+
+    -   Repeat until all weakly dominated removed
+
+## Willingness to pay (WTP)
+
+::: columns
+::: {.column width="25%"}
+```{r fig.width = 2.5, fig.height = 2.5}
+
+ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-.5,0,.5),effect=c(-1,0,1)))+
+  geom_hline(yintercept = 0, color="darkgrey")+geom_vline(xintercept=0,color="darkgrey")+
+  geom_abline(intercept=0, slope=.5)+
+  geom_ribbon(aes(ymin=-1, ymax = cost, alpha=0.5))+
+  geom_point()+
+  coord_cartesian(xlim = c(-.5, .5), ylim = c(-.5, .5))+
+  geom_text(aes(x=0,y=0.1,label='$30,000/QALY'),angle=25, size=5)+
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")+
+  ylab("Δ cost")+
+  xlab("Δ QALY")
+
+ggplot(aes(x=effect, y=cost), data=data.frame(cost=c(-2,0,2),effect=c(-1,0,1)))+
+  geom_hline(yintercept = 0, color="darkgrey")+geom_vline(xintercept=0,color="darkgrey")+
+  geom_abline(intercept=0, slope=2)+
+  geom_ribbon(aes(ymin=-1, ymax = cost, alpha=0.5))+
+  geom_point()+
+  coord_cartesian(xlim = c(-.5, .5), ylim = c(-.5, .5))+
+  geom_text(aes(x=-0.1,y=0.1,label='$180,000/QALY'),angle=62, size=5)+
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")+
+  ylab("Δ cost")+
+  xlab("Δ QALY")
+
+
+
+```
+:::
+
+::: {.column width="75%"}
+-   Maximum cost per QALY considered cost-effective
+
+-   Related to opportunity cost
+
+-   CAD\$50,000/QALY cited in many CADTH reports
+
+-   [Griffiths and Vadlamudi (2016)](https://doi.org/10.1016/j.jval.2016.09.821) found drugs with ICERs up to \$131,100 often approved
+
+-   WTP higher in some contexts (orphan drugs, blood safety)
+:::
+:::
+
+## Net monetary benefit
+
+-   ICER not ideal in some contexts: negative ICERs are ambiguous; ratios are unstable with small denominators; incremental analysis requires loops
+
+-   Net Monetary Benefit uses WTP to convert health benefits to \$:
+
+$$
+NMB_a = \bar{e}_a\times WTP - \bar{c}_a
+$$
+
+-   $NMB_a \geq NMB_b \Leftrightarrow ICER_{\text{\{a vs. b\}}} \leq WTP$, both imply that $a$ is preferred (cost-effective) compared to $b$
+
+## Cost effective ≠ affordable
+
+-   Costs often "front-loaded"
+
+    -   Large upfront investment; gains take years to realize
+
+-   Entity bearing up-front costs may not realize cost savings
+
+-   **Example:** [Liu et. al. 2014](https://doi.org/10.7326/M14-0602) found:
+
+    -   Treating HCV+ prisoners with Sofosbuvir costs \<US\$30,000 per QALY (yay!)
+
+    -   \$32 billion upfront cost, paid by correctional system
+
+    -   Cost offsets after release benefit other payers
+
+## Recap
+
+-   Decision analysis focuses on ***incremental*** impact of interventions
+
+-   Decision analyses that include costs are economic evaluations
+
+-   Cost-effectiveness determined with incremental analysis (using ICERs and willingness-to-pay threshold)
+
+## Logistics
+
+-   Assignment 0 due this Friday, September 8
+-   Complete reading before Thursday's class
+-   Assignment 1 (cost-effectiveness and decision trees) available.
+    -   Due Friday, September 15

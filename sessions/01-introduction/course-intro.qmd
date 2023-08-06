@@ -12,18 +12,18 @@ editor: visual
 -   Born in North Carolina
 -   Engineering at NC State (BSc) and Stanford (MSc, PhD)
 -   Joined the School of Population and Global Health in January 2022
--   Teach PPHS 528 Economic evaluation of health programs
--   [Data-driven decision modeling lab (D3Mod)](http://mchi.mcgill.ca/decision-modeling-lab/)
+-   Lead the [data-driven decision modeling lab (D3Mod)](http://mchi.mcgill.ca/decision-modeling-lab/)
+-   Also teach PPHS 528 Economic evaluation of health programs
 
-## 30 second intros
+## Quick intros
 
 -   Name
 
 -   Degree program
 
--   Research interests
+-   Research or career interests
 
--   What you hope to get from this class
+-   Why this class?
 
 ## Agenda for today
 
@@ -52,18 +52,18 @@ editor: visual
 
 -   A dollar spent on PrEP for people who inject drugs cannot be spent on photon radiation for children with cancer
 
--   A dollar spent on health **care** cannot be spent on health **research**
+-   A dollar spent on health [**care**]{.underline} cannot be spent on health [**research**]{.underline}
 
--   A dollar spent in health **sector** cannot be spent on education, infrastructure, defense, etc.
-
-## Challenges in global health
+-   A dollar spent in health [**sector**]{.underline} cannot be spent on education, infrastructure, defense, etc.
 
 ## Challenges in global health
 
--   High childhood mortality
+## Challenges in global health
+
+-   Childhood mortality
 -   Epidemics of infectious diseases
--   Increasing burden of chronic condition
--   Poor health infrastructure
+-   Increasing burden of chronic conditions
+-   Challenges sustaining health infrastructure
 -   Limited access to care
 -   Limited funds for disease prevention and treatment
 
@@ -85,10 +85,10 @@ editor: visual
 
 *Decision criteria*
 
--   Cost
 -   Effectiveness
+-   Equity or fairness
+-   Cost
 -   Efficiency
--   Fairness
 
 ## Key questions for decision analysis
 
@@ -179,15 +179,15 @@ editor: visual
 -   Understand and critically appraise model-based decision analyses
 -   Create transparent reports of model-based decision analyses that conform to open science principles
 
-## Decision analysis and economic evaluation
+## Decision analytic modeling and economic evaluation
 
-Economic evaluations often use decision analytic models
+Many economic evaluations use decision analytic models
 
 -   **Exception**: trial-based cost-effectiveness analysis
 
-Economic evaluations represent a large share of decision analysis
+Many decision-analytic models used for economic evaluation
 
--   **Exception**: decision models without costs
+-   **Exception**: decision models without cost as output
 
 ## EPIB 676 vs PPHS 528
 
@@ -201,7 +201,7 @@ Economic evaluations represent a large share of decision analysis
     -   \~20% economic evaluation
     -   PhD level
 
-PPHS 528 is less research oriented. Requires less background in programming, probability, and math
+PPHS 528 is less research oriented and programming-heavy. EPIB 676 requires stronger background in programming, probability, and math
 
 ## Course materials
 
@@ -298,9 +298,9 @@ Quarto → HTML
 -   Not the fastest language
     -   Julia, C++, Matlab faster. **But,** can use [RCPP package](https://cran.r-project.org/web/packages/Rcpp/index.html) to write compute-intensive operations in C++
 -   Dependencies and back/forward compatibility
-    -   Packages can have errors, not be maintained
-    -   Functionality changes after updates
-    -   Will discuss some strategies to address
+    -   Packages can have errors, may not be maintained
+    -   Functionality can change after updates
+    -   We will discuss some strategies to address
 
 ## Getting started with R
 
@@ -361,7 +361,7 @@ Depends on context; often multiple target audiences
 
 -   An analysis can have \>1 perspective
 -   **Societal** perspective and **healthcare payer** perspective recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
--   Reporting disaggregated outcomes (e.g., costs by category) can allow reader to re-calculate according to their perspective.
+-   Reporting disaggregated outcomes (e.g., costs by category) allows reader to re-calculate according to their value.
 
 ## The impact inventory
 
@@ -381,13 +381,13 @@ Often found in online supplement
 
 ## Recap
 
--   Decision analysis can inform efficient, effective, and equitable use of finite health resources
+-   Decision analysis informs efficient, effective, and equitable use of finite health resources
 
--   Can apply to health policy, clinical decisions, operations, and research
+-   Applies to health policy, clinical decisions, operations, and research
 
 -   R enables open source, reproducible workflows
 
--   Target audience should inform analytic framing and perspective
+-   Target audience informs analytic framing and perspective
 
 ## Logistics
 
