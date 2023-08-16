@@ -21,6 +21,7 @@ library(dplyr) # I use mutate at one point
 theme_set(theme_bw()) #Makes ggplots look better
 ```
 
+
 # Section 1: Decision trees
 
 We'll use the [rdecision package](https://cran.r-project.org/web/packages/rdecision/index.html) to develop and visualize decision trees. There are a few vignettes on the CRAN page. [This introductory one](https://cran.rstudio.com/web/packages/rdecision/vignettes/DT00-DecisionTreeTutorial.html) will probably be sufficient for you to understand how we are using the package in this assignment.
@@ -28,6 +29,7 @@ We'll use the [rdecision package](https://cran.r-project.org/web/packages/rdecis
 ## 1a Expected value calculations
 
 This first code chunk is just an example; you don't need to edit it. Here, using the rdecision package, I have created a decision tree, visualized it, and "rolled it back" to calculate the expected cost and QALYs associated with the two alternatives. Review it carefully, because in 1b, you'll do similar calculations for a different decision tree.
+
 
 ```{r}
 # Decision problem: Should we use diet or exercise to reduce chance of needing a stent in a high-risk population?
@@ -101,7 +103,9 @@ DT1_evaluation <- DT1$evaluate() #calculate it
 DT1_evaluation |> flextable()
 ```
 
+
 In the code chunk below, using the variables defined in the last code chunk (e.g., `p_stent_diet`), calculate the expected utility and the expected cost of the diet arm without using the `rdecision` package (summing/multiplying).
+
 
 ```{r}
 expected_cost_diet <- NA
@@ -111,6 +115,7 @@ expected_utility_diet <- NA
 expected_cost_diet
 expected_utility_diet
 ```
+
 
 ## 1b Peptic ulcer closure decision model
 
@@ -122,6 +127,7 @@ All model parameters are provided for you in the "OTSc" sheet of the excel file 
 
 NOTE: You might need to close the Excel file for the read_excel function to run properly.
 
+
 ```{r}
 #read table from Excel
 t_params <- read_excel('params_assign1.xlsx', sheet = "OTSc")
@@ -132,6 +138,7 @@ t_params |>
   theme_box() |> #Apply a theme for aesthetics
   autofit() #automatically set column widths to reasonable values
 ```
+
 
 In the code chunk below, build the model using the rdecision package with the 'base_case' value for each parameter (we won't be using the 'lower_bound' or 'upper_bound' columns for anything in this problem set).
 
@@ -174,6 +181,7 @@ Tips:
 -   Draw the tree on paper before you start coding it.
 
 -   Focus on tree structure and probabilities first, plot it, and then add costs and utilities.
+
 
 ```{r}
 # I like to turn the parameters from my table into  a named list
@@ -227,13 +235,16 @@ DT2 <-NA
 #DT2_evaluation |> flextable()
 ```
 
+
 The differences in QALYs experienced in a one-year period is hard to see. We can instead convert the QALYs experienced to lost quality-adjusted life days lost (QALDs lost). I wrote the code for you; you just need to uncomment it after completing the previous code block.
+
 
 ```{r}
 # DT2_evaluation <- DT2_evaluation |>
 #   mutate(QALD_lost = (1 - QALY)*365)
 # DT2_evaluation |> flextable()
 ```
+
 
 Using a willingness to pay threshold of \$50,000 per QALY (\$137 per QALD), indicate whether each intervention is dominated with strong dominance, Dominated by extended dominant, not preferred, or preferred (exactly one intervention should be preferred). Indicate the ICER for any non-dominated interventions when applicable.
 
@@ -251,6 +262,7 @@ In case you're curious, this is an adapted/simplified version of [a paper I publ
 
 The vector `costs_by_year` represents costs by year, starting with year 0 (this year, which should not be discounted). Calculate the net present cost with an annual discount rate of 2% and of 5%.
 
+
 ```{r}
 
 costs_by_year <- c(100, 200, 500, 350, 700) #costs 0, 1, 2, 3, and 4 years into the future
@@ -263,11 +275,13 @@ npc_2percent
 npc_5percent
 ```
 
+
 ## 2b Incremental analysis
 
 In this section, we'll use loops to conduct incremental analysis, the process of identifying dominated strategies and calculating the incremental cost-effectiveness ratios (ICERs) between the remaining non-dominated strategies. Coding this yourself should give you a strong understanding of the concept. Let's get started!
 
 First, I've written the code for you that reads in the data on 9 different strategies we wish to compare (from the params_assign1.xlsx file). For each strategy, you are provided with the estimated QALYs experienced and the estimated cost across three categories: costs paid by the insurer, out-of-pocket costs paid by the patient, and the cost of lost productivity.
+
 
 ```{r}
 #No edits needed to this code chunk
@@ -281,7 +295,9 @@ t_CE |>
   autofit() #automatically set column widths to reasonable values
 ```
 
+
 **Insurer perspective:** In this code chunk, you'll calculate the cost-effectiveness from the insurer's perspective (only including costs in the `Cost_insurer` column). First, we detect any strategies that are dominated by strong dominance, then, we check for costs that are dominated by extended dominance. Lastly, we calculate the ICERs between all non-dominated interventions. I've provided some of the code, but you'll need to complete it.
+
 
 ```{r}
 
@@ -376,7 +392,9 @@ t_ICERS |>
   autofit() #automatically set column widths to reasonable values
 ```
 
+
 **Function-ize it:** The following code chunk contains the shell of a function that takes three vectors (strategy_name, cost, and QALY), puts them into a table called t_ICERS, does calculations, and then returns the table with ICER and dominated columns added. Complete the function by copying and pasting code from the previous code chunk
+
 
 ```{r}
 
@@ -400,11 +418,13 @@ generate_ICER_table <- function(strategy_name, cost, QALYs){
 
 ```
 
+
 **Other perspectives:** using the function above, complete the incremental analysis from three cost perspectives:
 
 -   **Insurer:** same as above
 -   **Healthcare costs** includes insurer and patient out-of-pocket costs
 -   **Societal:** healthcare costs plus productivity loss
+
 
 ```{r}
 
@@ -436,9 +456,11 @@ t_ICER_societal |>
 
 ```
 
+
 ## 2c Identifying maximum net monetary benefit
 
 Calculate NMB at a range of WTP thresholds ***from a societal perspective***, and then plot them.
+
 
 ```{r}
 
@@ -466,6 +488,7 @@ ggplot(t_nmb_plot, aes(x = wtp, y = NMB, color = strategy))+
 
 ```
 
+
 Comparing the net monetary benefit plot to your incremental analysis from the societal perspective, you should observe the following:
 
 -   All non-dominated interventions maximize net monetary benefit for some willingness-to-pay level (i.e., their line is the highest on the Y axis for some segment of the X axis).
@@ -483,3 +506,4 @@ Comparing the net monetary benefit plot to your incremental analysis from the so
 -   Did you find any errors or have suggestions to improve it? **Replace with your answer**
 
 Fin.
+
