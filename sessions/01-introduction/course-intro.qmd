@@ -61,7 +61,7 @@ editor: visual
 ## Challenges in global health
 
 -   Childhood mortality
--   Epidemics of infectious diseases
+-   Epidemic or endemic infectious diseases
 -   Increasing burden of chronic conditions
 -   Challenges sustaining health infrastructure
 -   Limited access to care
@@ -72,16 +72,16 @@ editor: visual
 ## Challenges in Canada
 
 -   Aging boomers
-    -   50% of health care expenses incurred in last year of life
+    -   \~50% of health care expenses incurred in last year of life
 -   Chronic health conditions
 -   Insufficient capacity → long queues for services
     -   Joint replacements, colonoscopy, emergency rooms, etc.
 
-## How do we decide what to pay for?
+## How do we decide what to do?
 
 *Decision criteria*
 
-## How do we decide what to pay for?
+## How do we decide what to do?
 
 *Decision criteria*
 
@@ -95,7 +95,7 @@ editor: visual
 -   What services should we pay for?
 -   Who should receive these services?
 -   How can these services be delivered most efficiently?
--   How should we spend research dollars?
+-   How should we spend [**research**]{.underline} dollars?
 
 ## Key questions for decision analysis
 
@@ -116,7 +116,7 @@ editor: visual
 
 1.  Define the decision context
 
-2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+2.  Identify outcomes of interest (cost, effects, efficiency, equity)
 
 3.  Identify alternatives
 
@@ -132,7 +132,7 @@ editor: visual
 
 1.  Define the decision context
 
-2.  Identify outcomes of interest (cost, effects, efficiency, fairness)
+2.  Identify outcomes of interest (cost, effects, efficiency, equity)
 
 3.  Identify alternatives
 
@@ -183,7 +183,7 @@ editor: visual
 
 Many economic evaluations use decision analytic models
 
--   **Exception**: trial-based cost-effectiveness analysis
+-   **Exception**: prospective/data-driven (trial-based) economic evaluation
 
 Many decision-analytic models used for economic evaluation
 
@@ -191,17 +191,17 @@ Many decision-analytic models used for economic evaluation
 
 ## EPIB 676 vs PPHS 528
 
--   **PPHS 528:** economic evaluation
+-   **EPIB 676:** decision analytic modeling (deeper)
+
+    -   \~20% economic evaluation
+    -   PhD level, research-oriented
+    -   Probability/math background helpful
+
+-   **PPHS 528:** economic evaluation (broader)
 
     -   \~20% decision analytic modeling
     -   MSc level
-
--   **EPIB 676:** decision analytic modeling
-
-    -   \~20% economic evaluation
-    -   PhD level
-
-PPHS 528 is less research oriented and programming-heavy. EPIB 676 requires stronger background in programming, probability, and math
+    -   Less programming
 
 ## Course materials
 
@@ -267,9 +267,9 @@ Quarto → HTML
 -   Software programs
     -   TreeAge <https://www.treeage.com/>
 
-    -   Arena, Simio, Simul8
-
     -   Excel
+
+    -   Arena, Simio, Simul8
 -   Programming languages
     -   Python, Julia, Matlab, C++, etc.
 
@@ -324,20 +324,20 @@ We will:
 -   Public health
 -   Regulators
 -   Clinicians / Medical societies
--   Patients
--   Parent/guardian or loved one
+-   Patients & parent/guardian/loved one
 -   Insurance companies
+-   Researchers
 -   Organizational leaders (of hospital, blood collector, etc.)
 -   Funding agencies (e.g., CIHR)
--   etc.
+-   ...
 
-Depends on context; often multiple target audiences
+Depends on context; often **multiple**
 
 ## Perspective motivated by audience
 
--   Payers mostly care about their own costs
+-   Payers mostly care about their costs
 
--   Government may also care about societal costs & benefits
+-   Government may also care about [**societal**]{.underline} costs & benefits
 
     -   Patient time/transportation
 
@@ -347,7 +347,7 @@ Depends on context; often multiple target audiences
 
     -   Spillover into criminal justice, education, etc.
 
--   Other stakeholders have other priorities (if possible, ask)
+-   Other stakeholders have other priorities (if possible, [**ask**]{.underline})
 
 ## The case for societal perspective
 
@@ -360,7 +360,7 @@ Depends on context; often multiple target audiences
 ## Why choose just one?
 
 -   An analysis can have \>1 perspective
--   **Societal** perspective and **healthcare payer** perspective recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
+-   Societal [**and**]{.underline} healthcare payer perspective recommended by [Second Panel on Cost-Effectiveness (2016)](https://academic.oup.com/book/12265/chapter-abstract/161760944?redirectedFrom=fulltext)
 -   Reporting disaggregated outcomes (e.g., costs by category) allows reader to re-calculate according to their value.
 
 ## The impact inventory
@@ -392,5 +392,5 @@ Often found in online supplement
 ## Logistics
 
 -   Assignment 0 due next Friday, Sep 6
--   Complete readings before class
+-   Complete reading before Tuesday's class
 -   Office hours 1-2pm in Room #1122
