@@ -263,13 +263,13 @@ Survey-based score (e.g., overall health, anxiety)
 
 ## Choice of health measure
 
-**Context-specific** measures work within narrow context
+**Specific** measures work in narrow context
 
--   Blood pressure medication → mmHg blood pressure
+-   Blood pressure meds → blood pressure reduction (mmHg)
 
--   Hepatitis B screening strategies → % cases detected, incidence
+-   Hepatitis B screening strategies → N (%) cases detected, incidence
 
--   HIV antivirals → % with high CD4 level
+-   HIV antivirals → % with undetectable CD4 level
 
 **General measures** let you compare across contexts
 
@@ -328,7 +328,7 @@ Reflect societal or patient preference. Many elicitation methods
 
 -   Discrete choice experiments
 
--   Survey-based instruments (EQ-5D, SD6)
+-   "Generic" sruvey instruments (EQ-5D, SD6)
 
     -   Often used for trial-based decision analysis
 
@@ -382,7 +382,7 @@ If no published estimate available:
 
 -   [CADTH recommends 1.5% discount rate](https://www.cadth.ca/guidelines-economic-evaluation-health-technologies-canada-4th-edition) (sensitivity analysis at 3%)
 
--   Same discount rate used for costs & outcomes (contested in theory but near universal practice)
+-   Use **same discount rate** for costs & outcomes (contested in theory but near universal practice)
 
 ## Currency exchange
 
@@ -891,3 +891,4 @@ $$
 -   Complete reading before Thursday's class
 -   Assignment 1 (cost-effectiveness and decision trees) available.
     -   Due Friday, September 15
+-   Office hours in #1122, 1:15pm to 2pm Tues and Thurs
