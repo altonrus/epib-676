@@ -269,7 +269,7 @@ PPV = $P(disease+ \mid test+)$ = `r sum(disease*test_pos)/sum(test_pos)` `sum(di
 
 ## Bayesian updating
 
-Estimate parameter $\theta$ with prior distribution $P(\theta)$ and data $x$:
+What's my distribution of uncertainy in parameter $\theta$, based on prior distribution $P(\theta)$ and data $x$?
 
 $$
 P( \theta \mid x) = \frac{P(x \mid \theta)  P(\theta)}{P(x)}, \text{  }
@@ -408,7 +408,7 @@ plot(p, dbeta(p, 1230, 10000 - 1230), type='l')
 
 ## Beta distribution summary
 
--   Describes our belief about a probability's value
+-   Describes belief (uncertainty) about an uncertain probability
 
 -   Parameters $\alpha$ and $\beta$ map to event and non-event counts from a binomial experiment
 
@@ -534,7 +534,7 @@ Beta(220, 138)
 
 -   Probabilities are conditional on earlier events
 
--   Terminal node outcomes are path-specific
+-   Payoffs at terminal nodes are path-specific
 :::
 :::
 
@@ -546,7 +546,7 @@ Beta(220, 138)
 
 **Chances**: will they need a stent?
 
-**Outcome**: cost, QALYs lost related to receiving a stent
+**Outcome**: cost, QALYs lost related to receiving a stent (+ program cost)
 
 **Time horizon:** one year
 
@@ -743,7 +743,7 @@ For 'downstream' decision nodes:
 
 -   Easy to quickly compute
 
--   Can be combined with other modeling methods
+-   Easy to combine with other modeling methods
 
 ## Limitations of decision trees
 

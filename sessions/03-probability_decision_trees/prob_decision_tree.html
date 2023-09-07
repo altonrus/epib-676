@@ -637,7 +637,7 @@ disease     0     1   Sum
 </section>
 <section id="bayesian-updating" class="slide level2">
 <h2>Bayesian updating</h2>
-<p>Estimate parameter <span class="math inline">\(\theta\)</span> with prior distribution <span class="math inline">\(P(\theta)\)</span> and data <span class="math inline">\(x\)</span>:</p>
+<p>What’s my distribution of uncertainy in parameter <span class="math inline">\(\theta\)</span>, based on prior distribution <span class="math inline">\(P(\theta)\)</span> and data <span class="math inline">\(x\)</span>?</p>
 <p><span class="math display">\[
 P( \theta \mid x) = \frac{P(x \mid \theta)  P(\theta)}{P(x)}, \text{  }
 \text{Posterior} = \frac{\text{Likelihood} \times Prior}{Evidence}
@@ -761,7 +761,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <section id="beta-distribution-summary" class="slide level2">
 <h2>Beta distribution summary</h2>
 <ul>
-<li><p>Describes our belief about a probability’s value</p></li>
+<li><p>Describes belief (uncertainty) about an uncertain probability</p></li>
 <li><p>Parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> map to event and non-event counts from a binomial experiment</p></li>
 <li><p>As we collect data:</p>
 <ul>
@@ -863,7 +863,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <ul>
 <li><p>Probabilities from chance nodes must sum to 1</p></li>
 <li><p>Probabilities are conditional on earlier events</p></li>
-<li><p>Terminal node outcomes are path-specific</p></li>
+<li><p>Payoffs at terminal nodes are path-specific</p></li>
 </ul>
 </div>
 </div>
@@ -872,7 +872,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <h2>Preventing stent for vascular disease<sup>1</sup></h2>
 <p><strong>Decision</strong>: enroll patient in diet or exercise program?</p>
 <p><strong>Chances</strong>: will they need a stent?</p>
-<p><strong>Outcome</strong>: cost, QALYs lost related to receiving a stent</p>
+<p><strong>Outcome</strong>: cost, QALYs lost related to receiving a stent (+ program cost)</p>
 <p><strong>Time horizon:</strong> one year</p>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Source: <a href="https://cran.rstudio.com/web/packages/rdecision/vignettes/DT00-DecisionTreeTutorial.html">rdecision package vignette</a></p></li></ol></aside></section>
 <section id="stent-prevention-tree" class="slide level2">
@@ -998,7 +998,7 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <ul>
 <li><p>Intuitive to build and communicate</p></li>
 <li><p>Easy to quickly compute</p></li>
-<li><p>Can be combined with other modeling methods</p></li>
+<li><p>Easy to combine with other modeling methods</p></li>
 </ul>
 </section>
 <section id="limitations-of-decision-trees" class="slide level2">
