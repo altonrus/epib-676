@@ -743,7 +743,7 @@ For 'downstream' decision nodes:
 
 -   Easy to quickly compute
 
--   Easy to combine with other modeling methods
+-   Easy to combined with other modeling methods
 
 ## Limitations of decision trees
 

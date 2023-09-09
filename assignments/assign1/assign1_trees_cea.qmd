@@ -32,13 +32,14 @@ This first code chunk is just an example; you don't need to edit it. Here, using
 ```{r}
 # Decision problem: Should we use diet or exercise to reduce chance of needing a stent in a high-risk population?
 
-# Parameters
-c_diet <- 50 #cost of diet
-c_exercise <- 750 #cost of exercise
-c_stent <- 5000 #cost of a stent
-u_stent <- 0.75 #utility of getting a stent (relative to 1.0)
-p_stent_diet <- (68 - 12)/68 #probability needing stent if we diet
-p_stent_exercise <- (58 - 18)/58 #probability of needing a stent if we exercise
+# Parameters (stored in a list to keep our R environment tidy)
+params <- list()
+params$c_diet <- 50 #cost of diet
+params$c_exercise <- 750 #cost of exercise
+params$c_stent <- 5000 #cost of a stent
+params$u_stent <- 0.75 #utility of getting a stent (relative to 1.0)
+params$p_stent_diet <- (68 - 12)/68 #probability needing stent if we diet
+params$p_stent_exercise <- (58 - 18)/58 #probability of needing a stent if we exercise
 
 #Build model using rdecision package
 
@@ -49,34 +50,34 @@ chance_node_exercise <- ChanceNode$new("Stent?")
 
 #Create leaf nodes
 leaf_node_diet_no_stent <- LeafNode$new("No stent")
-leaf_node_diet_stent <- LeafNode$new("Stent", utility = u_stent)
+leaf_node_diet_stent <- LeafNode$new("Stent", utility = params$u_stent)
 leaf_node_exercise_no_stent <- LeafNode$new("No stent")
-leaf_node_exercise_stent <- LeafNode$new("Stent", utility = u_stent)
+leaf_node_exercise_stent <- LeafNode$new("Stent", utility = params$u_stent)
 
 #Create 'actions', paths from your decision node(s)
 action_diet <- Action$new(
-  decision_node, chance_node_diet, cost = c_diet, label = "Diet"
+  decision_node, chance_node_diet, cost = params$c_diet, label = "Diet"
 )
 action_exercise <- Action$new(
-  decision_node, chance_node_exercise, cost = c_exercise, label = "Exercise"
+  decision_node, chance_node_exercise, cost = params$c_exercise, label = "Exercise"
 )
 
 #Create 'reactions', paths from your chance node(s)
 reaction_diet_success <- Reaction$new(
   chance_node_diet, leaf_node_diet_no_stent, 
-  p = 1-p_stent_diet, cost = 0.0, label = "Did not need stent")
+  p = 1-params$p_stent_diet, cost = 0.0, label = "Did not need stent")
 
 reaction_diet_failure <- Reaction$new(
   chance_node_diet, leaf_node_diet_stent, 
-  p = p_stent_diet, cost = c_stent, label = "Needed stent")
+  p = params$p_stent_diet, cost = params$c_stent, label = "Needed stent")
 
 reaction_exercise_success <- Reaction$new(
   chance_node_exercise, leaf_node_exercise_no_stent, 
-  p = 1-p_stent_exercise, cost = 0.0, label = "Did not need stent")
+  p = 1-params$p_stent_exercise, cost = 0.0, label = "Did not need stent")
 
 reaction_exercise_failure <- Reaction$new(
   chance_node_exercise, leaf_node_exercise_stent, 
-  p = p_stent_exercise, cost = 5000.0, label = "Needed stent")
+  p = params$p_stent_exercise, cost = 5000.0, label = "Needed stent")
 
 #Create, draw, and evaluate the tree
 DT1 <- DecisionTree$new(
@@ -101,7 +102,7 @@ DT1_evaluation <- DT1$evaluate() #calculate it
 DT1_evaluation |> flextable()
 ```
 
-In the code chunk below, using the variables defined in the last code chunk (e.g., `p_stent_diet`), calculate the expected utility and the expected cost of the diet arm without using the `rdecision` package (summing/multiplying).
+In the code chunk below, using the variables defined in the last code chunk (e.g., `params$p_stent_diet`), calculate the expected utility and the expected cost of the diet arm without using the `rdecision` package (summing/multiplying).
 
 ```{r}
 expected_cost_diet <- NA

@@ -1,0 +1,787 @@
+---
+title: "Cohort models 1"
+subtitle: "EPIB  676 session 4, McGill University"
+author: "Alton Russell"
+date: "12 Sep 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Discrete-time cohort state-transition models**
+
+-   Markov model solution
+
+-   Health-economic outcomes
+
+## Packages
+
+```{r}
+#| echo: true
+library(heemod) #health economic markov models
+library(expm) #raise matrices to exponents with %^%
+library(tidyr) #using 'spread' for wide-to-long table formating
+library(ggplot2) #plotting
+
+#use install.packages("Package") for any you don't have already
+
+theme_set(theme_bw()) #set ggplot theme
+```
+
+## **Cohort state-transition model**
+
+-   Dynamic mathematical model
+
+-   A hypothetical cohort of individuals move between health states over time.
+
+-   Classical example is the Markov model, where transition probabilities
+
+    -   Are constant
+
+    -   Depend only on your current state
+
+## When to use?
+
+-   Decision problem has a dynamic component
+
+-   Disease process varies over time
+
+-   Can represent process with relatively few 'states'
+
+## Example: Transfusion-transmitted chronic conditions
+
+::: columns
+::: {.column width="50%"}
+![](ghana_markov_schematics.png)
+:::
+
+::: {.column width="50%"}
+TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis.
+
+[Russell et. al. 2021](www.doi.org/0.1111/trf.16704)
+:::
+:::
+
+## **States**
+
+> Healthy, acute infection, chronic infection, cirrhosis, untreated disease, in treatment, on wait list, lost to follow-up, dead...
+
+-   Mutually exclusive and exhaustive
+
+-   Individuals in the same state treated as **identical**
+
+    -   same costs, health outcomes
+
+    -   same probability of transitioning out (no matter how long they've been there)
+
+## Transitions, cycles, time horizon
+
+-   Only transition at end of a cycle
+
+-   Cycle duration is design choice (1 second, day, month, quarter, year...)
+
+-   Time horizon = cycle duration x number of cycles
+
+## Transition matrix
+
+::: columns
+::: {.column width="50%"}
+$$
+P=\\
+\begin{bmatrix}
+p_{s_1 \rightarrow s_1} & p_{s_1 \rightarrow s_2} & p_{s_1 \rightarrow s_3}\\
+p_{s_2 \rightarrow s_1} & p_{s_2 \rightarrow s_2} & p_{s_2 \rightarrow s_3}\\
+p_{s_3 \rightarrow s_1} & p_{s_3 \rightarrow s_2} & p_{s_3 \rightarrow s_3}
+\end{bmatrix}
+$$
+:::
+
+::: {.column width="50%"}
+-   $n_s \times n_s$ matrix of transition probabilities
+
+    -   $n_s$ is number of states
+
+-   Rows correspond to "**from**" state (sum to 1)
+
+-   Columns correspond to "**to**" states
+:::
+:::
+
+## Transition matrix example
+
+::: columns
+::: {.column width="40%"}
+```{r}
+#| echo: true
+#| eval: false
+mat_dim <- 
+  define_transition(
+    state_names = 
+      c('A', 'B', 'C'),
+   .3, .6, .1, 
+   .2, .5, .3,
+    0,  0,  1)
+
+plot(mat_dim)
+```
+
+::: {.column width="50%"}
+$$
+\begin{array}{c}\begin{matrix}a & b & c \end{matrix} 
+\\\left[\ 
+\begin{matrix}
+0.3 & 0.6 & 0.1\\
+0.2 & 0.5 & 0.3\\
+0 & 0 & 1
+\end{matrix}\ \right]
+\end{array}
+$$
+:::
+:::
+
+::: {.column width="60%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+mat_dim <- define_transition(
+  state_names = 
+  c('A', 'B', 'C'),
+   .3, .6, .1, 
+   .2, .5, .3,
+    0,  0,  1)
+plot(mat_dim)
+
+```
+:::
+:::
+
+## Absorbing states
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+mat_dim <- 
+  define_transition(
+    state_names = 
+      c('Alive', 'Dead'),
+   .9, .1,
+   0, 1)
+plot(mat_dim)
+```
+
+$$
+\begin{array}{c}\begin{matrix}alive & dead \end{matrix} 
+\\\left[\ 
+\begin{matrix}
+0.9 & 0\\
+0 & 1
+\end{matrix}\ \right]
+\end{array}
+$$
+:::
+
+::: {.column width="50%"}
+-   No escape (like death)
+
+-   Transition matrix row has a 1 on diagonal entry, all other entries 0
+:::
+:::
+
+## Tunnel states
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+mat_dim <- 
+  define_transition(
+    state_names = 
+      c('HIV-', 'Infected', 'HIV+'),
+   .9, .1, 0,
+   0, 0, 1,
+   0, 0, 1)
+plot(mat_dim)
+```
+
+$$
+\begin{array}{c}\begin{matrix}HIV- & Infected & HIV+\end{matrix} 
+\\\left[\ 
+\begin{matrix}
+0.9 & .1 & 0\\
+0 & 0 & 1\\
+0 & 0 & 1
+\end{matrix}\ \right]
+\end{array}
+$$
+:::
+
+::: {.column width="50%"}
+-   Temporary state, 1 cycle only
+
+-   No self-loop (0 on diagonal)
+
+-   A 'workaround' for the Markov property.
+
+-   If costs, outcomes, or transitions differ for beginning or end of health condition, break into tunnel states
+:::
+:::
+
+## Example: Transfusion-transmitted chronic conditions
+
+::: columns
+::: {.column width="50%"}
+![](ghana_markov_schematics.png)
+:::
+
+::: {.column width="50%"}
+TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis.
+
+[Russell et. al. 2021](www.doi.org/0.1111/trf.16704)
+:::
+:::
+
+## Transition matrix for HIV model
+
+![](hiv_transition_matrix.png)
+
+**Tunnel states:** no self loop
+
+**Absorbing states:** only self loop
+
+## Initial state vector $m_0$
+
+-   $1 \times n_s$ vector showing how cohort is distributed at time 0
+
+-   Sum of the vector is the total cohort size
+
+-   Whole cohort may start in single state...
+
+    $$
+    m_0 =
+    \begin{bmatrix}
+    10,000 & 0 & 0 & 0\\
+    \end{bmatrix}
+    $$
+
+-   ... or be spread across states
+
+$$
+m_0 = 
+\begin{bmatrix}
+2,000 & 3,000 & 1,000 & 4,000\\
+\end{bmatrix}
+$$
+
+## Rates and probabilities
+
+-   **Rates**: instantaneous force of an event
+
+-   **Probabilities:** cumulative risk of event over defined period
+
+-   We need transition probabilities [specific to cycle length]{.underline}
+
+-   We may have:
+
+    -   probability for different cycle length (2-year instead of 6 month)
+
+    -   rate (e.g., 200 events per person-year)
+
+## Converting rates to probabilities
+
+Generating an annual probablity $p(t)$ from an event rate $r$ with units events/year:
+
+$$
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
+$$
+
+Example:
+
+-   In a population of 800, 87 became ill over a 2 year period
+
+-   **What's the rate?**
+
+## Converting rates to probabilities
+
+Generating an annual probablity $p(t)$ from an event rate $r$ with units events/year:
+
+$$
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
+$$
+
+Example:
+
+-   In a population of 800, 87 became ill over a 2 year period
+
+-   $r = 87/(2 \times 800) = 0.0544$ illnesses/year
+
+-   **What's the transition probability for 0.5 year cycle length?**
+
+## Converting rates to probabilities
+
+Generating an annual probablity $p(t)$ from an event rate $r$ with units events/year:
+
+$$
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
+$$
+
+Example:
+
+-   In a population of 800, 87 became ill over a 2 year period
+
+-   $r = 87/(2 \times 800) = 0.0544$ illnesses/year
+
+-   $p_{0.5 year} = 1 - e^{-0.0544(0.5)} = 0.0268$
+
+## Prob → rate → prob
+
+-   If probability is for a duration that doesn't match your cycle length, you **can not** simply multiply/divide the probability
+
+-   Must convert to a rate then convert back to probability (with new cycle length)
+
+**Example:** One-year prob. of developing cancer is 0.2. What transition prob. do I use with a **1-month** cycle length?
+
+$$
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
+$$
+
+## Prob → rate → prob
+
+Wrong way
+
+```{r}
+#| echo: true
+p_1yr = 0.2
+p_1month = p_1yr/12; p_1month
+```
+
+Right way
+
+```{r}
+#| echo: true
+
+rate = -1*log(1-0.2)
+rate #events/person-year
+p_1month = 1 - exp(-1*rate/12)
+p_1month #probability developing cancer in 1-month period
+```
+
+## Today
+
+-   Discrete-time cohort state-transition models
+
+-   **Markov model solution**
+
+-   Health-economic outcomes
+
+## Matrix calculations in R
+
+```{r}
+#| echo: true
+A = matrix(data= 1:4, nrow=2)
+B = matrix(data= 5:8, nrow=2)
+A;B
+#element-wise multiplication
+A * B
+#matrix multiplication
+A %*% B
+```
+
+## Markov model components
+
+Transition matrix
+
+$$
+P =\begin{array}{c}\begin{matrix}Healthy & moderate & severe & dead \end{matrix} 
+\\\left[\ 
+\begin{matrix}
+p_{H \rightarrow H} & p_{H \rightarrow M} & p_{H \rightarrow S} & p_{H \rightarrow D}\\
+p_{M \rightarrow H} & p_{M \rightarrow M} & p_{M \rightarrow S} & p_{M \rightarrow D}\\
+p_{S \rightarrow H} & p_{S \rightarrow M} & p_{S \rightarrow S} & p_{S \rightarrow D}\\
+p_{D \rightarrow H} & p_{D \rightarrow M} & p_{D \rightarrow S} & p_{D \rightarrow D}
+\end{matrix}\ \right]
+\end{array}
+$$
+
+initial distribution: $m_0 = \begin{bmatrix} 2000 & 0 & 0 & 0 \end{bmatrix}$
+
+20 cycles, cycle length 1 year
+
+## Parameterizing the matrix
+
+Copy/paste and fill in the transition matrix. Use variable names rather than typing the numbers directly.
+
+```{r}
+#| echo: true
+v_state_names <- c("H","M","S","D") #vector of state names
+
+m_0 = matrix(c(2000, 0, 0, 0), nrow = 1, #initial dist
+             dimnames = list(c(""), v_state_names)) 
+
+p_HtoM = 0.2 #otherwise stays in healthy
+p_MtoH = 0.4; p_MtoS = 0.4; p_MtoD = 0.01 #otherwise stay in moderate
+p_StoH = 0.1; p_StoD = 0.3 #otherwise stay in severe
+
+n_cycles = 20
+
+mat_P = matrix(c(NA, NA, NA, NA,
+                 NA, NA, NA, NA,
+                 NA, NA, NA, NA,
+                 NA, NA, NA, NA),
+               nrow = 4, byrow = T,
+               dimnames = list(v_state_names,
+                               v_state_names))
+```
+
+## Parameterizing the transition matrix
+
+```{r}
+#| echo: true
+mat_P = matrix(c(1-p_HtoM, p_HtoM,                 0,                0,
+                 p_MtoH,   1-p_MtoH-p_MtoS-p_MtoD, p_MtoS,          p_MtoD,
+                 p_StoH,   0,                      1-p_StoH-p_StoD, p_StoD,
+                 0,        0,                      0,                1), 
+              nrow = 4, byrow = T,
+              dimnames = list(v_state_names,
+                              v_state_names))
+mat_P
+#Check: do all rows sum to 1?
+rowSums(mat_P)
+```
+
+## Matrix solution: partial definition
+
+$m_t$: matrix describing the cohort distribution after cycle $t$ (dims $1 \times n_s$)
+
+$P$: transition probability matrix (dims $n_s \times n_s$).
+
+$$
+m_t = m_{t-1} P
+$$
+
+$$
+\begin{bmatrix}
+m^{t-1}_A & m^{t-1}_B\\
+\end{bmatrix}
+\begin{bmatrix}
+p_{A \rightarrow A} & p_{A \rightarrow B}\\
+p_{B \rightarrow A} & p_{B \rightarrow B}\\
+\end{bmatrix}\\
+=\\
+\begin{bmatrix}
+m^{t-1}_A(p_{A \rightarrow A})+ m^{t-1}_B(p_{B \rightarrow A})& 
+m^{t-1}_A(p_{A \rightarrow B})+ m^{t-1}_B(p_{B \rightarrow B})\\
+\end{bmatrix}
+$$
+
+## Partial definition example
+
+```{r}
+#| echo: true
+m_0
+m_1 = m_0 %*% mat_P;   m_1
+m_2 = m_1 %*% mat_P;   m_2
+m_3 = m_2 %*% mat_P;   m_3
+```
+
+## Matrix solution definition
+
+Note the following
+
+$$
+\begin{aligned}
+& m_1 = m_{0} P\\
+& m_{2} = m_{1}P = (m_0P)P = m_0P^2\\
+& m_{3} = m_{2} P = (m_0 P^2)P = m_0 P^3\\
+\end{aligned}
+$$
+
+Therefore (the full matrix solution):
+
+$$
+m_t = m_0 P^t
+$$
+
+*"After cycle t, cohort distribution is the initial distribution times the transition matrix raised to the power of t"*
+
+## Matrix solution code
+
+```{r}
+#| echo: true
+#m_20 = m_0 %*% (mat_P %^% 20)
+cycles_to_print = c(2, 10, 20)
+for (i in cycles_to_print){
+  print(paste0("t=",i))
+  print(m_0 %*% (mat_P %^% i))
+}
+```
+
+## Storing cohort distribution over time
+
+Use matrix $M$ to store cohort distribution after each cycle:
+
+-   $n_s$ columns corresponding to our states
+
+-   $T+1$ rows corresponding to our state distribution after cycle $0, 1, ... t,…,T$
+
+```{r}
+#| echo: true
+M = matrix(rep(0, 4*21), ncol=4,
+           dimnames = list(0:20, c("H","M","S","D")))
+
+M
+```
+
+## Storing state transitions
+
+```{r}
+#| echo: true
+for (i in 1:21){
+  M[i,] <- m_0 %*% (mat_P %^% (i-1))
+};    M
+```
+
+## Cohort trace diagram
+
+-   Line plot showing num of people (y-axis) in each state (x-axis)
+
+-   Convert $M$ into long-format data table for ggplot
+
+```{r}
+#| echo: true
+t_trace <- as_tibble(M) #convert from matrix
+t_trace$Cycle_num <- 0:20 #add col for cycle number
+t_trace <- t_trace |> #Long to wide
+  gather(key=State, value=Count, H:D) #wide to long format
+t_trace
+```
+
+## Cohort trace diagram
+
+```{r}
+#| echo: true
+ggplot(data=t_trace, aes(x=Cycle_num, y=Count, color=State))+
+  geom_line()+geom_point()
+```
+
+## Today
+
+-   Discrete-time cohort state-transition models
+
+-   Markov model solution
+
+-   **Health-economic outcomes**
+
+## Costs and QALYs as 'rewards'
+
+Costs and QALYs can be added to a cohort model in two ways:
+
+-   Per cycle spent in a state (state reward)
+
+-   Per transition (transition reward/toll)
+
+Must assign same rewards to everyone in the same state or making transition. People in same state or making same transition treated as identical!
+
+## State reward vector
+
+Per-cycle reward for each state stored as a $1 \times n_s$ reward vector:
+
+$$
+\textbf{c} = 
+\begin{bmatrix}
+c_{H} & c_{M} & c_{S} & c_{D}
+\end{bmatrix}\\
+\textbf{q} = 
+\begin{bmatrix}
+q_{H} & q_{M} & q_{S} & q_{D}
+\end{bmatrix}
+$$
+
+## Ex: model with state rewards
+
+```{r}
+#| echo: true
+v_state_names <- c("H","M","S","D") #vector of state names
+m_0 = matrix(c(2000, 0, 0, 0), nrow = 1, #initial dist
+             dimnames = list(c(""), v_state_names)) 
+n_cycles = 20; p_HtoM = 0.2; p_MtoH = 0.4; p_MtoS = 0.4; p_MtoD = 0.01; p_StoH = 0.1; p_StoD = 0.3
+mat_P = matrix(c(1-p_HtoM, p_HtoM,                 0,                0,
+                 p_MtoH,   1-p_MtoH-p_MtoS-p_MtoD, p_MtoS,          p_MtoD,
+                 p_StoH,   0,                      1-p_StoH-p_StoD, p_StoD,
+                 0,        0,                      0,                1), 
+              nrow = 4, byrow = T,
+              dimnames = list(v_state_names, v_state_names))
+
+#State reward vectors
+v_cost_states = matrix(c(182, 150, 500, 0), nrow=1, 
+                       dimnames = list(c(""), v_state_names)); v_cost_states
+v_qaly_states = matrix(c(1, 0.8, 0.6, 0), nrow=1, 
+                       dimnames = list(c(""), v_state_names)); v_qaly_states
+
+```
+
+## Compute rewards as model runs
+
+To compute total costs/QALYs in cycle $t$ by state:
+
+-   Create $T \times n_s$ matrices $M_C$ and $M_Q$
+
+-   $M_C[t, j]$ is sum of costs incurred during cycle $t$ for people ending the cycle in state $j$.
+
+-   Row $M_C[t, \text{ }] = c \bigodot m_t$
+
+[**Or**]{.underline}, compute total costs/QALYs during cycle $t$ (all states):
+
+-   $m_t \times \textbf{c}^T$ and $m_t \times \textbf{q}^T$ (dot product)
+
+$\bigodot$ indicates element-wise multiplication
+
+## Ex: run model & store rewards
+
+```{r}
+#| echo: true
+#m_M will store dist'n after cycle t; first row is cycle 0
+m_M = matrix(0, nrow=21, ncol=4,
+           dimnames = list(0:20, c("H","M","S","D")))
+m_M[1,] <- m_0
+
+#m_cost_by_cyclestate & m_qalys_by_cyclestate will store 
+#.  rewards gained in cycle t for each state
+m_cost_by_cyclestate = matrix(0, nrow=20, ncol=4,
+           dimnames = list(1:20, c("H","M","S","D")))
+m_qalys_by_cyclestate = matrix(0, nrow=20, ncol=4,
+           dimnames = list(1:20, c("H","M","S","D")))
+
+for (i in 1:20){
+  m_t <- m_M[i,] %*% (mat_P %^% i) #m_M[i, ] is m_{t-1}
+  m_M[i+1,] <- m_t #for m_M, row i+1 corresponds to cycle t
+  #For reward matrices; row i corresponds to cycle t
+  m_cost_by_cyclestate[i,] <- m_t * v_cost_states
+  m_qalys_by_cyclestate[i,] <- m_t * v_qaly_states
+}
+```
+
+## Ex: run model and store rewards
+
+```{r}
+#| echo = T
+m_cost_by_cyclestate
+m_qalys_by_cyclestate
+```
+
+## Transition rewards (can be added)
+
+To simulate cost/QALY rewards during transitions:
+
+-   Create $n_s \times n_s$ reward matrix for each outcome (e.g., $C$ for cost, $Q$ for QALYs)
+
+    -   Set $C[\text{ }, j] \leftarrow c_j$ (state reward) for each column $j$
+
+    -   Add the $i \rightarrow j$ transition reward to $C[i,j]$
+
+    -   Diagonal entries never change $C[j,j] = c_j$
+
+-   Total rewards of people ending cycle $t$ in each state:
+
+    -   $\hat{C}_{t} = m_{t-1} ( P \bigodot C)$; $\hat{Q}_{t} = m_{t-1} ( P \bigodot Q)$
+
+$\bigodot$ indicates element-wise multiplication
+
+## Ex: reward matrix w transition rewards
+
+$$ 
+\textbf{C}= 
+\begin{bmatrix}
+c_H & c_M+c_{H \rightarrow M} & c_S+c_{H \rightarrow S} & c_D+c_{H \rightarrow D}\\ 
+c_H+c_{M \rightarrow H} & c_M & c_S+c_{M \rightarrow S} & c_D+c_{M \rightarrow D}\\ 
+c_H+c_{S \rightarrow H} & c_M+c_{S \rightarrow M} & c_S & c_D+c_{S \rightarrow D}\\ 
+c_H+c_{D \rightarrow H} & c_M+c_{D \rightarrow M} & c_S+c_{D \rightarrow S} & c_D 
+\end{bmatrix},\\
+\textbf{Q} =
+\begin{bmatrix}
+q_H & q_M+q_{H \rightarrow M} & q_S+q_{H \rightarrow S} & q_D+q_{H \rightarrow D}\\ 
+q_H+q_{M \rightarrow H} & q_M & q_S+q_{M \rightarrow S} & q_D+q_{M \rightarrow D}\\ 
+q_H+q_{S \rightarrow H} & q_M+q_{S \rightarrow M} & q_S & q_D+q_{S \rightarrow D}\\ 
+q_H+q_{D \rightarrow H} & q_M+q_{D \rightarrow M} & q_S+q_{D \rightarrow S} & q_D 
+\end{bmatrix}
+$$
+
+## Discounting
+
+-   Must discount to get net present costs or QALYs
+
+-   Can create "discount multiplier vector" to apply for cost and outcomes from each cycle
+
+```{r}
+#| echo: true
+disc_rate = 0.03; cycle_length = 0.5; n_cycles = 20
+disc_mults <- 1/((1+(disc_rate*cycle_length))^(1:n_cycles))
+disc_mults
+v_costs_per_cycle = rep(1000, n=10)
+sum(v_costs_per_cycle*disc_mults)
+```
+
+## Ex: discounting
+
+```{r}
+#| echo: true
+disc_rate = 0.03; cycle_length = 1; n_cycles = 20
+disc_mults <- 1/((1+(disc_rate*cycle_length))^(1:n_cycles))
+#undiscounted cost by year
+rowSums(m_cost_by_cyclestate)
+#Discounted costs by year
+rowSums(m_cost_by_cyclestate)*disc_mults
+#Net present costs starting in cycle 1
+sum(rowSums(m_cost_by_cyclestate)*disc_mults)
+```
+
+## Initial costs
+
+-   Often, we have initial costs at time 0
+
+-   Example: intervention at time 0 has a cost, then cohort enters Markov model to understand post-transfusion outcomes/costs
+
+-   Can simply add initial cost to the net present costs from the model
+
+```{r}
+#| echo: true
+c_initial = 10000
+#net present costs, including initial
+sum(rowSums(m_cost_by_cyclestate)*disc_mults) + c_initial
+```
+
+## Indexing
+
+Important to get right, easy to get wrong. My convention:
+
+-   matrix $M$ (cohort distribution) starts at 0, has $T+1$ rows
+
+    -   Assign $m_0 \rightarrow M[1, \text{ }]$,
+
+    -   Loop from 1 to $T$ to fill $M[2:(T+1),\text{ }]$
+
+-   $M_C$ and $M_Q$ (cohort rewards) start at 1, have $T$ rows
+
+    -   Loop from 1 to $T$ to fill $M[1:T,\text{ }]$
+
+## Recap
+
+-   Cohort models: simulate cohort transitioning between states over time
+
+-   If transitions are constant, it's a Markov model (can use the matrix solution)
+
+-   Health-economic outcomes can be added as state rewards and/or transition rewards
+
+-   Indexing of matrices, arrays, and loops is tricky!
+
+## Logistics
+
+-   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15
+-   Assignment 2 available; due Wednesday 9/16
+    -   Trickier; you have more time for a reason!
+-   Office hours 1:15 - 2pm, room #1122
