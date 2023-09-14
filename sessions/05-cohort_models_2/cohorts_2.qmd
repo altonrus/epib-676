@@ -236,10 +236,10 @@ for (cycle in 1:20){
 #| echo: true
 
 M_OCM = matrix(rep(0, 4*21), ncol=4,
-           dimnames = list(0:20, c("H","M","S","D")))
+               dimnames = list(0:20, c("H","M","S","D")))
 M_OCM[1,] <- m_0 #save initial distribution of cohort
 for (i in 1:20){ #calculate distribution after each cycle
-  M_OCM[i+1,] <- m_0 %*% (arr_P[ , , i] %^% i)
+  M_OCM[i+1,] <- M_OCM[i,] %*% arr_P[ , , i]
 }
 M_OCM
 ```
@@ -621,6 +621,6 @@ $\beta^*$ and $\mu^*$ are discrete analogs for $\beta$ and $\mu$ and their value
 ## Logistics
 
 -   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15
--   Assignment 2 due Wednesday 9/16
+-   Assignment 2 due Wednesday 9/27
     -   Trickier; you have more time for a reason!
 -   Office hours 1:15 - 2pm, room #1122

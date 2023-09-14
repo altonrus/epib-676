@@ -782,6 +782,6 @@ Important to get right, easy to get wrong. My convention:
 ## Logistics
 
 -   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15
--   Assignment 2 available; due Wednesday 9/16
+-   Assignment 2 available; due Wednesday 9/26
     -   Trickier; you have more time for a reason!
 -   Office hours 1:15 - 2pm, room #1122

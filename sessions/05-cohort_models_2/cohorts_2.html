@@ -809,35 +809,35 @@ H M S D
 <h2>Age-specific death: M matrix</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>M_OCM <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb9-2"><a href="#cb9-2"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb9-2"><a href="#cb9-2"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
 <span id="cb9-3"><a href="#cb9-3"></a>M_OCM[<span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0 <span class="co">#save initial distribution of cohort</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){ <span class="co">#calculate distribution after each cycle</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  M_OCM[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (arr_P[ , , i] <span class="sc">%^%</span> i)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  M_OCM[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> M_OCM[i,] <span class="sc">%*%</span> arr_P[ , , i]</span>
 <span id="cb9-6"><a href="#cb9-6"></a>}</span>
 <span id="cb9-7"><a href="#cb9-7"></a>M_OCM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           H         M        S          D
-0  2000.0000   0.00000   0.0000    0.00000
-1  1595.8240 398.95600   0.0000    5.22000
-2  1431.8899 393.76971 159.0989   15.24157
-3  1314.3400 359.93731 252.0869   73.63580
-4  1215.6758 329.90469 294.0227  160.39682
-5  1128.6330 304.39523 306.9418  260.03005
-6  1049.6928 282.03934 304.2808  363.98711
-7   976.8567 261.87964 293.5388  467.72490
-8   909.1029 243.39140 278.8847  568.62098
-9   845.5671 226.20297 262.5264  665.70347
-10  785.6833 210.08542 245.6508  758.58049
-11  729.1871 194.92536 228.9260  846.96152
-12  675.8299 180.63279 212.6877  930.84961
-13  625.1729 167.07750 197.0253 1010.72433
-14  577.2256 154.25494 182.0667 1086.45278
-15  531.6225 142.06349 167.7652 1158.54879
-16  488.3517 130.49787 154.1549 1226.99552
-17  447.1861 119.49618 141.1845 1292.13321
-18  408.0078 109.02629 128.8281 1354.13778
-19  370.7264  99.06370 117.0635 1413.14641
-20  335.3462  89.60936 105.8953 1469.14921</code></pre>
+<pre><code>           H        M        S          D
+0  2000.0000   0.0000   0.0000    0.00000
+1  1595.8240 398.9560   0.0000    5.22000
+2  1432.1914 393.8526 159.1324   14.82359
+3  1315.1970 360.1720 252.2513   72.37966
+4  1217.4208 330.3782 294.4447  157.75631
+5  1131.4785 305.1627 307.7156  255.64316
+6  1053.9249 283.1765 305.5075  357.39107
+7   982.8062 263.4746 295.3265  458.39271
+8   916.9577 245.4943 281.2943  556.25362
+9   855.6197 228.8922 265.6475  649.84068
+10  798.2672 213.4502 249.5852  738.69736
+11  744.5260 199.0257 233.7416  822.70660
+12  694.1063 185.5176 218.4394  901.93671
+13  646.7506 172.8442 203.8256  976.57966
+14  602.2535 160.9433 189.9609 1046.84236
+15  560.4174 149.7582 176.8521 1112.97226
+16  521.0734 139.2418 164.4839 1175.20089
+17  484.0600 129.3495 152.8262 1233.76424
+18  449.2280 120.0410 141.8434 1288.88754
+19  416.4399 111.2790 131.4984 1340.78275
+20  385.5725 103.0306 121.7557 1389.64121</code></pre>
 </div>
 </div>
 </section>
