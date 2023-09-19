@@ -1,0 +1,513 @@
+---
+title: "Microsimulation 2"
+subtitle: "EPIB  676 session 8, McGill University"
+author: "Alton Russell"
+date: "21 Sep 2023"
+format: revealjs
+editor: visual
+---
+
+
+## R packages
+
+
+```{r}
+#| echo: true
+library(ggplot2)
+```
+
+
+## Today: Improving efficiency
+
+-   **General coding practices**
+
+-   Simulation-specific methods
+
+## Top 5 tips for efficient programming
+
+From [Efficient R Programming by Gillespie and Lovelace](https://csgillespie.github.io/efficientR/)
+
+1.  Never grow vectors.
+
+2.  Vectorize whenever possible.
+
+3.  Use factors when appropriate.
+
+4.  Cache variables to reduce unnecessary computation.
+
+5.  'Byte compile' for an easy performance boost.
+
+## Pre-allocate vectors, matrices, arrays
+
+Make a proper-sized object (all NAs or 0s) to store output before a loop
+
+
+```{r}
+#| echo: true
+
+#No pre-allocation; growing a vector
+system.time({
+  v <- c()
+  for (i in 1:100000) {v[i] <- i;}
+})
+
+# With  pre-allocation
+system.time({
+  v2 <- c(NA)
+  length(v2) <- 100000
+  for (i in 1:100000) {v2[i] <- i;}
+})
+```
+
+
+## Monte Carlo to estimate $\pi$
+
+::: columns
+::: {.column width="50%"}
+![](pi_monte_carlo1_berkorbay.png)
+:::
+
+::: {.column width="50%"}
+![](pi_monte_carlo2_berkorbay.png)
+:::
+:::
+
+Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html)
+
+## Unvectorized example
+
+
+```{r}
+#| echo: true
+monte_carlo = function(N) {
+  hits = 0
+  for (i in seq_len(N)) {
+    u1 = runif(1)
+    u2 = runif(1)
+    if (sqrt(u1^2 + u2^2) <=1 ){
+      hits = hits + 1
+    }
+  }
+  return(4*hits / N)
+}
+N = 500000
+system.time(int_est <- monte_carlo(N))
+int_est
+```
+
+
+## Vectorized example
+
+
+```{r}
+#| echo: true
+monte_carlo_vec = function(N) {
+  4*sum(sqrt(runif(N)^2 + runif(N)^2) <=1) / N
+}
+system.time(int_est <- monte_carlo_vec(N))
+int_est
+```
+
+
+-   Using sum over a comparison operator with \<, \>, \<=, or \>- more efficient than for loop and if statement
+
+-   `runif`, `^`, `+` each called just 2 times on a vector, not 2N times on a single number
+
+-   \~80X faster!
+
+## Apply() family of functions
+
+**Use when:** performing same operation on:
+
+-   all entry in vector
+
+-   all rows or all columns of matrix (or array)
+
+-   all elements in list
+
+## Apply() visualized
+
+![](apply_visualized_datacamp.png)
+
+Source: [Datacamp](https://www.datacamp.com/tutorial/r-tutorial-apply-family)
+
+## Other apply-like functions
+
+-   [lapply()](http://127.0.0.1:10415/help/library/base/help/lapply)
+
+-   [simplify2array()](http://127.0.0.1:10415/help/library/base/help/simplify2array)
+
+-   [tapply()](http://127.0.0.1:10415/help/library/base/help/tapply)
+
+-   convenience functions [sweep()](http://127.0.0.1:10415/help/library/base/help/sweep) and [aggregate()](http://127.0.0.1:10415/help/library/base/help/aggregate).
+
+## Caching variables
+
+If you will re-use the same value over and over, save it to a variable instead of re-calculating it.
+
+
+```{r}
+#| echo: true
+
+x = matrix(runif(n=70^2), nrow = 70)
+
+system.time(
+  apply(x, 2, function(i) mean(i) / sd(x))
+)
+
+system.time({
+  sd_x = sd(x)
+  apply(x, 2, function(i) mean(i) / sd_x)
+})
+
+```
+
+
+\~3x faster!
+
+## Use R's byte compiler
+
+Not sure exactly what it does but can make code faster, particularly with loops
+
+
+```{r}
+#| echo: true
+library("compiler") #comes with R
+# uncompiled function
+mean_r = function(x) {
+  m = 0
+  n = length(x)
+  for (i in seq_len(n))
+    m = m + x[i] / n
+  m
+}
+system.time(mean_r(x))
+
+cmp_mean_r = cmpfun(mean_r) #byte compiled version
+system.time(cmp_mean_r(x))
+```
+
+
+## Use factors when appropriate
+
+Character-type data can be stored as strings or factors. If you have several values from a **limited set of possible values**, factor is more memory efficient.
+
+
+```{r}
+#| echo: true
+month_names <- c("Jan", "Feb","Mar","Apr", "May", "June")
+months_string <- sample(month_names, size = 5000, replace = T)
+object.size(months_string)
+months_fac <- factor(months_string, levels = month_names)
+object.size(months_fac)
+```
+
+
+## RCCP for C++ code
+
+If a specific part of your code is especially slow, can re-write in C++ (more info in [Advanced R by Hadley Wickham](http://adv-r.had.co.nz/Rcpp.html))
+
+
+```{r}
+#| echo: true
+
+library(Rcpp)
+#add numbers together
+cppFunction('int add(int x, int y, int z) {
+  int sum = x + y + z;
+  return sum;
+}')
+add
+add(1, 2, 3)
+```
+
+
+## Don't optimize everything!
+
+> "Programmers waste enormous amounts of time thinking about, or worrying about, the speed of **noncritical parts of their programs**, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered."
+>
+> --- Donald Knuth.
+
+-   Readability \> efficiency 90% of the time
+
+-   Decide what to make efficient with **profiling**
+
+## Profiling code with Profvis
+
+<http://rstudio.github.io/profvis/index.html>
+
+Must be run in RStudio
+
+
+```{r}
+#| echo: true
+#| eval: false
+library(profvis)
+library("compiler") #comes with R
+
+monte_carlo = function(N) {
+  hits = 0
+  for (i in seq_len(N)) {
+    u1 = runif(1)
+    u2 = runif(1)
+    if (sqrt(u1^2 + u2^2) <=1 ){
+      hits = hits + 1
+    }
+  }
+  return(4*hits / N)
+}
+N = 500000
+monte_carlo_vec = function(N) {
+  4*sum(sqrt(runif(N)^2 + runif(N)^2) <=1) / N
+}
+
+profvis({
+  A <- monte_carlo(N)
+  B <- monte_carlo_vec(N)
+})
+```
+
+
+## Today: Improving efficiency
+
+-   General coding practices
+
+-   **Simulation-specific methods**
+
+## Review: Tracking individuals state transition microsim
+
+For each variable, use $n_i \times n_t$ (or $n_i \times (n_t+1)$) matrix where $n_i$ is the number of individuals and $n_t$ is the number of cycles.
+
+-   $M_m[i,t]$ matrix gives state of individual $i$ after cycle $t$
+
+-   $M_c[i,t]$ matrix gives costs accrued by individual $i$ during cycle $t$
+
+-   $M_e[i,t]$ matrix gives the health accrued accumulated by individual $i$ during cycle $t$
+
+## Vectorization in microsimulation
+
+-   Preallocate all matrices/arrays
+
+-   Generate baseline characteristics for everyone at once
+
+    -   Sampling rows from data table at once
+
+    -   Generate random variables all together
+
+## Vectorization in microsimulation
+
+-   Where possible, use **linear algebra** to compute calculations for the whole cohort at once
+
+    -   Multiplying, adding, subtracting, exponentiating matrices and vectors
+
+-   In discrete time model, transition all individuals through each cycle simultaneously
+
+    -   Draw random variables for whole cohort as a vector
+    -   See [Appendix D of Krijkamp et. al. tutorial](https://github.com/DARTH-git/Microsimulation-tutorial/blob/master/Appendix%20D_online_supp.R)
+
+## How many individuals to simulate?
+
+-   As number of individuals $N_i \rightarrow \infty$, variance in population-level estimate $\rightarrow 0$.
+
+-   **Goal:** enough individuals that variance between strategies attributable to Monte Carlo variability is trivial
+
+-   Depends on the model + use case
+
+Two ways to assess:
+
+1.  Check that Monte Carlo Standard Error small enough: `sd(cost_stratA - cost_stratB)/sqrt(n.i)`
+
+2.  Generate 3x $N_i$ individuals, divide into thirds, look at percent difference in outcomes
+
+## Variance reduction technique
+
+-   **Efficient coding** to simulate N individuals faster
+
+-   **Variance reduction** to reduce N (simulate fewer individuals)
+
+Gains from simulating 10% fewer individuals $\approx$ simulating each individual 10% faster
+
+## Simulate same cohort in all strategies
+
+-   Sample cohort baseline characteristics [**once**]{.underline}, then simulate those individuals under each alternative strategy
+
+-   Otherwise, variance in strategy outcomes partially due to differences in the simulated populations
+
+## Antithetic variates
+
+[**Suppose**]{.underline}: want to estimate $\mu=E[X]$ using two samples drawn from $X: X_1 \text{ and } X_2$. Estimate would be:
+
+$$
+\hat{\mu}=(E[X_1]+E[X_2])/2
+$$
+
+From the definition of variance:
+
+$$
+Var[\hat{\mu}] = \frac{Var[X_1] + Var[X_2] + 2Cov[X_1,X_2]}{4}
+$$
+
+***Observe***: smaller $Cov[X_1,X_2]$, means smaller $Var[\hat{\mu}]$.
+
+## Antithetic variates
+
+Generate two **negatively-correlated sets** of random variables: U, original set, and V, antithetic set.
+
+-   If U\~Unif(0,1), V = 1 - U
+
+-   If U\~Norm(0,1), V = - U
+
+-   For other distributions, can use the **inversion method** to generate antithetic variates (if inverse of CDF exists)
+
+## Inversion transform: CDF in reverse
+
+![](norm_cdf_heds.png)
+
+$$
+F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
+$$
+
+Source: [Hedley (heds.nz)](https://heds.nz/posts/inverse-transform/)
+
+## Inverse transform method in R
+
+pnorm (or pgamma, plnorm, etc) takes $x$ and gives you $p$
+
+qnorm (or qgamma, qlnorm, etc) takes $p$ and gives you $x$
+
+
+```{r}
+#| echo: true
+n=1000
+x_rgamma <- rgamma(n, shape = 5)
+x_inverse <- qgamma(runif(n), shape = 5)
+
+df <- data.frame(method =rep(c("rgamma", "inverse"), each=n),
+           value = c(x_rgamma, x_inverse))
+ggplot(df, aes(x=value, fill = method))+geom_density(alpha = 0.5)
+
+```
+
+
+## Ex: Without antithetic variates
+
+Simulating heads or tails coinflip
+
+
+```{r}
+#| echo: true
+n<-1000 #number of instances
+
+#Naive calculation
+h_or_t_naive <- runif(n) < 0.3
+
+mu=mean(h_or_t_naive)
+SE=1.96*sd(h_or_t_naive)/sqrt(n)
+
+print(c(Mean=mu,SE=SE,Lower=mu-SE,Upper=mu+SE))
+```
+
+
+## Ex: With antithetic variates
+
+
+```{r}
+#| echo: true
+
+#Coin flip with antithetic variates
+unif_vec<-runif(n/2)
+
+#Normal process
+x_1<- unif_vec < 0.3
+
+#Antithetic process
+x_2<- (1-unif_vec) < 0.3
+
+h_or_t_av <- (x_1 + x_2)/2
+mu=mean(h_or_t_av)
+SE=1.96*sd(h_or_t_av)/sqrt(n/2)
+print(c(Mean=mu,SE=SE,Lower=mu-SE,Upper=mu+SE))
+```
+
+
+## Common random numbers
+
+-   When modeling \>1 policy, using the same random variables in same place of model improves estimation of the ***incremental*** outcomes (costs, QALYs).
+
+-   Random variables must have the same purpose in both systems (synchronized)
+
+-   Reduces variance in the difference between two random variables by maximizing the covariance:
+
+$$
+Var[X_2 - X_1] = Var[X_1] + Var[X_2] - 2Cov[X_1,X_2] 
+$$
+
+## Ex: without common random numbers
+
+
+```{r}
+#| echo: true
+# Choosing stock options to buy based on expected payoff
+#Same EC function that returns payoff vector
+payoff_EC<-function(S_0=100,K=100,vol=0.25,T_years=1,r=0.02,z_val){
+    return(pmax(S_0*exp((r-0.5*vol^2)*T_years + vol*z_val*sqrt(T))-K,0)*exp(-r*T_years))
+}
+
+n<-10^4 #Number of instances
+
+#Naive method.
+payoff_1<-payoff_EC(r=0.01,z_val=rnorm(n))
+payoff_2<-payoff_EC(r=0.06,z_val=rnorm(n))
+diff_vec<-payoff_1 - payoff_2
+mu_diff<-mean(diff_vec)
+SE=1.96*sd(diff_vec)/sqrt(n)
+print(c(Diff=mu_diff,SE=SE,Lower=mu_diff-SE,Upper=mu_diff+SE))
+```
+
+
+<br>
+
+Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html)
+
+## Ex: with common random numbers
+
+
+```{r}
+#| echo: true
+
+#CRN Method
+z_val<-rnorm(n)
+payoff_1<-payoff_EC(r=0.01,z_val=z_val)
+payoff_2<-payoff_EC(r=0.06,z_val=z_val)
+diff_vec<-payoff_1 - payoff_2
+mu_diff<-mean(diff_vec)
+SE=1.96*sd(diff_vec)/sqrt(n)
+print(c(Diff=mu_diff,SE=SE,Lower=mu_diff-SE,Upper=mu_diff+SE))
+```
+
+
+<br>
+
+Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html)
+
+## Challenge of rare events
+
+![](trad_monte_carlo.png)
+
+## Conditional Monte Carlo
+
+![](conditional_monte_carlo.png)
+
+## Recap
+
+-   Improve microsim efficiency by reducing duration of runs or reducing total runs
+
+-   First get your model running, if needed, use profiler to decide where to optimize
+
+    -   Your time value \>\>\>\> computer time value!
+
+## Logistics
+
+-   Assignment 2 due 11:59 Wed, Sep 27
+-   Assignment 3 available, due Wed, Oct 11
+

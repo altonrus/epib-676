@@ -1,0 +1,460 @@
+---
+title: "Other simulation methods"
+subtitle: "EPIB  676 session 8, McGill University"
+author: "Alton Russell"
+date: "26 Sep 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Discrete event simulation**
+
+-   Agent based model
+
+-   System dynamics
+
+-   Choosing a model structure
+
+## Credit
+
+Much of this section is based on:
+
+[*Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.*](https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689)
+
+## Discrete event simulation strengths
+
+-   Model heterogeneous population\*
+
+-   Time-varying parameters\*
+
+\*same as microsim
+
+-   Represent disease as continuous process
+
+-   Model [**capacity-constrained**]{.underline} resources
+
+-   Entity types interact (patient, provider, tumor, etc.)^+^
+
+^+^In a limited way
+
+## Key components
+
+-   **Events:** instantaneous change to entity or system
+
+-   **Entities:** person or thing that experiences events
+
+    -   patients, providers, implant, ambulance, etc.
+
+-   **Attributes:** information specific to entity
+
+-   **Resources:** provide service and have fixed capacity
+
+    -   Providers, exam room, operating room, ventillator, etc.
+
+-   **Queues:** lists of entities waiting for resource
+
+## DES in health vs. elsewhere
+
+-   DES common for manufacturing, logistics, traffic engineering
+
+-   Focus usually on **system-level outcomes**
+
+    -   Production volume, wastage, resource utilization, processing time
+
+-   Health applications focus more on state of **entities** (patients)
+
+    -   Often, track more individual-level attributes
+
+## Examples of events
+
+![](des_event_examples.png)
+
+## Event graph
+
+![](DES-event-graph.png)
+
+Arrows show sequence of events.
+
+## Discrete events but continuous time
+
+-   Events are instantaneous
+
+-   Time between events usually sampled from distribution
+
+-   State of system updated each time an event occurs
+
+-   Unlike discrete time models with a constant cycle length, the "step size" varies depending on the time between events
+
+    -   "Next-event-time-advance"
+
+## Attributes
+
+-   Some assigned at baseline and not changed (e.g., sex), others updated by events (e.g., cumulative costs, blood pressure)
+
+-   Probability & timing of events can depend on attributes
+
+![](entity-attribute-example.png)
+
+## Examples of attributes
+
+![](attribute-examples.png)
+
+## Example of next-event-time-advance
+
+```         
+id: 0, state: 0, kind: 0, previous: 0.000000, now: 1.554306
+id: 0, state: 1, kind: 1, previous: 1.554306, now: 1.660357
+id: 0, state: 2, kind: 3, previous: 1.660357, now: 2.137922
+id: 1, state: 0, kind: 0, previous: 0.000000, now: 22.523279
+id: 1, state: 1, kind: 2, previous: 22.523279, now: 23.538790
+id: 1, state: 0, kind: 0, previous: 23.538790, now: 25.110528
+id: 1, state: 1, kind: 2, previous: 25.110528, now: 25.529621
+id: 1, state: 0, kind: 4, previous: 25.529621, now: 31.000000
+id: 2, state: 0, kind: 0, previous: 0.000000, now: 1.279403
+id: 2, state: 1, kind: 2, previous: 1.279403, now: 2.482209
+id: 2, state: 0, kind: 0, previous: 2.482209, now: 4.467754
+id: 2, state: 1, kind: 2, previous: 4.467754, now: 5.240185
+id: 2, state: 0, kind: 0, previous: 5.240185, now: 6.123519
+id: 2, state: 1, kind: 2, previous: 6.123519, now: 7.951863
+id: 2, state: 0, kind: 0, previous: 7.951863, now: 10.967305
+id: 2, state: 1, kind: 2, previous: 10.967305, now: 11.127479
+id: 2, state: 0, kind: 0, previous: 11.127479, now: 15.295999
+id: 2, state: 1, kind: 1, previous: 15.295999, now: 16.663526
+id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000
+```
+
+## Example: time to competing events
+
+```{r}
+#| echo: true
+
+# Events can have different distributions
+time_to_checkup = rep(1, 15)
+time_to_polyp = rexp(n=15, rate = 1.5)
+# The clock goes until the next one occurs
+time = pmin(time_to_checkup, time_to_polyp)
+event=ifelse(time_to_checkup<time_to_polyp, "checkup","polyp developed")
+cat(paste0("i: ", 1:15, "   event: ", event, "   time: ", time, "\n"))
+```
+
+## Global variables
+
+-   Track the state of the system
+
+-   Global variables memory-efficient compared to attributes
+
+-   Some applications track only global variables
+
+![](attribute-vs-global-variable.png)
+
+## Global variable examples
+
+![](global_variable_examples.png)
+
+## Time
+
+-   Pre-specify total simulation time, run until reach
+
+-   Entities created and removed at various times
+
+-   Capacity constrained resources are "seized" and "released" by entities
+
+## Capacity and availability illustrated
+
+![](capacity_illustration.png)
+
+## Resources for DES
+
+-   [Simmer R package](https://r-simmer.org/) \[[2021 workshop Koen Degeling](https://r-hta.org/events/workshop/2021/degeling.pdf)\], \[[2019 presentation Biller et. al](http://www.trutschnig.net/Slides_simmer_Biller_Koehnke_Mayr.pdf).\]
+
+-   [Microsimulation package](https://cran.r-project.org/web/packages/microsimulation/index.html) \[[2021 workshop Mark Clements](https://r-hta.org/events/workshop/2021/clements.pdf)\]
+
+-   [r-hta.org tutorial using descem, Alvarez and Ribero](https://r-hta.org/tutorial/descem/)
+
+Dedicated software: Arena, Simul8
+
+## Today
+
+-   Discrete event simulation
+
+-   **Agent based model**
+
+-   System dynamics
+
+-   Choosing a model structure
+
+## Credit
+
+Much of this section based on
+
+[*Chhatwal & He (2015). Economic evaluations with agent-based modelling: An introduction.*](https://doi.org/10.1007/s40273-015-0254-2)
+
+## Why agent based models?
+
+-   Can model autonomous agents interacting with each other and their environment
+
+Combine benefits of:
+
+-   Differential equations model
+
+    -   direct modeling of disease transmission or information spread
+
+-   Microsimulation/discrete event simulation
+
+    -   flexible, individual-level, easier to instantiate heterogeneity
+
+## Schematic
+
+[![Chhatwal et. a. 2015](agent_based_transmission.png)](www.doi.org/10.1007/s40273-015-0254-2)
+
+## Agents and environments
+
+-   **Agents**: usually people, but could be animals, vehicles, companies, molecules, cells etc.
+
+-   **Environment**: country, city, hospital, school, prison, twitter, airplane, body, organ, etc.
+
+## Agents
+
+-   Response to environment and other agents is programmed
+
+    -   Can depend on characteristics and history (memory)
+    -   Not centrally controlled
+
+-   Allows estimation of "network effects"
+
+    -   Benefit of intervention depends on others' behavior
+
+    -   e.g., vaccination, sexually transmitted disease testing
+
+## "Bottom up" system modeling
+
+-   Behavior programmed at the individual level
+
+-   System dynamics observed, not imposed
+
+-   Individual behavior $\rightarrow$ system dynamics:
+
+    -   Sex practices $\rightarrow$ HIV epidemic size
+
+    -   quarantine adherence $\rightarrow$ Ebola control
+
+    -   Vaccination + mixing while sick $\rightarrow$ flu season peak
+
+## Network topology
+
+::: columns
+::: {.column width="50%"}
+![](networkA.png)
+:::
+
+::: {.column width="50%"}
+![](networkB.png)
+:::
+:::
+
+## Network structure matters
+
+-   Homogeneous mixing unrealistic
+
+    -   Some have many connections ("high degree") others have few
+
+    -   Some networks are dense, others are sparse
+
+-   Create networks by:
+
+    -   Empirically estimating or calibrating from data
+
+    -   Algorithmically create via sampling rules
+
+-   Network often [**dynamic**]{.underline} (connections dissolve and re-form)
+
+## Discrete or continuous
+
+-   Two options:
+
+    -   Fixed cycle lengths (like cohort models)
+
+    -   Continuous time discrete event approach (like discrete event model)
+
+-   Fixed cycles usually easier to program
+
+## The downside: compute
+
+-   Often most computationally intensive models to program.
+
+-   Microsimulation variance reduction techniques hard to apply
+
+    -   e.g., common random numbers less useful when one interaction can change everyone's trajectory
+
+-   Due to complexity, R may not be language of choice (Matlab, C++, Julia likely faster)
+
+## Ex: PrEP for people who inject drugs[^1]
+
+[^1]: Published in [Fu, Owens and Brandeau 2019](https://doi.org/10.1097%2FQAD.0000000000001747). Material adapted from MS&E 292 by Margaret Brandeau
+
+**Objective:** Evaluate the cost-effectiveness of PrEP for PWID under different targeting strategies (Assume PrEP+Screen+ART and 25% coverage)
+
+::: columns
+::: {.column width="50%"}
+-   No Targeting
+
+-   Enroll Partners
+:::
+
+::: {.column width="50%"}
+-   Target Most Partners
+
+-   Target Most Infected Partners
+:::
+:::
+
+## PrEP model
+
+Network model of PWID in a representative US urban center
+
+-   Sexual and needlesharing HIV transmission
+
+-   4 HIV stages (acute infection, ..., AIDS)
+
+-   Calibrated to data from a large PWID network in Chicago
+
+-   Health system perspective
+
+-   Track costs, QALYs, HIV infections averted
+
+-   Programmed in Matlab
+
+## Model Schematic
+
+![](PrEP_network_schematic.png)
+
+## PrEP CEA results
+
+![](PrEP_CEA_results.png)
+
+## Resources for ABM
+
+-   [RNetLogo package](http://rnetlogo.r-forge.r-project.org/) \[[blog](https://www.r-bloggers.com/2014/07/agent-based-models-and-rnetlogo/)\]
+
+-   [Agent-based modeling chapter](https://bookdown.org/f_lennert/book-toolbox_css/agent-based-modeling.html) from "Toolbox CSS" by Felix Lennert
+
+-   [EpiModel R package](https://doi.org/10.18637/jss.v084.i08) (includes network models)
+
+## Today
+
+-   Discrete event simulation
+
+-   Agent based model
+
+-   **System dynamics**
+
+-   Choosing a model structure
+
+## Credit
+
+Much of this section based on
+
+-   [System Dynamics Modeling with R](https://link-springer-com.proxy3.library.mcgill.ca/book/10.1007/978-3-319-34043-2) (2016) by Jim Duggan
+
+## System dynamics philosophy
+
+Actions can have consequences through complex and non-linear feedback loops
+
+![](SD-domino-guy.png)
+
+## Stocks and flows
+
+-   Stocks = compartment/state; Flows = transitions
+
+-   Analogy: faucet, bathtub, drain
+
+![](SD_disease_stock_flow.png)
+
+## More stocks and flows
+
+![](SD-stock-flows-more.png)
+
+## Feedback loops
+
+> A closed chain of causal connections from a stock, through a set of decisions or rules or physical laws or actions that are dependent on the level of the stock, and back again through a flow to change the stock -Meadows (2008)
+
+What separate SD models from traditional differential equations models
+
+2 types:
+
+-   **Balancing:** negtaive feedback, "goal-seeking"
+
+-   **Reinforcing:** positive feedback, "run-away"
+
+## Heating a room: balancing loop (negative feedback)
+
+![](SD_feedback_room_heat.png)
+
+## Capital investment: reinforcing loop (positive feedback)
+
+![](SD_feedback_capital_growth.png)
+
+## Ex: Opioid misuse and use disorder
+
+![](SD-opioid-schematic.svg)
+
+## Feedback loops in opioid example
+
+![](SD-opioid-feedbacks.png)
+
+[Stringfellow et. al. 2022](https://pubmed.ncbi.nlm.nih.gov/35749492/)
+
+[Lim et. al. 2022](www.doi.org/10.1073/pnas.2115714119)
+
+## Resources for SD modeling
+
+-   [Tracy et. al. 2018. "ABM in Public Health" Annual Review of Public Health](https://doi.org/10.1146/annurev-publhealth-040617-014317)
+
+-   [SD in R intro](https://rpubs.com/rsmard05/sysDynR), Cpt. Rick Mard
+
+-   [System Dynamics Modeling with R](https://link-springer-com.proxy3.library.mcgill.ca/book/10.1007/978-3-319-34043-2) by Jim Duggan
+
+-   [Vensim software](https://vensim.com/free-download/)
+
+## Today
+
+-   Discrete event simulation
+
+-   Agent based model
+
+-   System dynamics
+
+-   **Choosing a model structure**
+
+## Choosing model structure
+
+-   Goal: capture relevant differences between strategies
+
+-   "As complex as needed, as simple as possible."
+
+![](model_categorization.png)
+
+## Where we are
+
+-   Have completed method lectures on model structures!
+
+-   Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis
+
+-   Will soon start 'applied' phase with lots of examples
+
+## Recap
+
+-   Discrete event simulation model [capacity constrained]{.underline} systems in continuous times
+
+-   "Bottom up" agent based models assess how individual behavior impacts system outcomes
+
+-   "Top down" system dynamic (cohort) models use feedback loops to assess system behavior
+
+-   **Regardless of structure: start simple and add complexity!**
+
+## Logistics
+
+-   Assignment 2 due 11:59 tomorrow
+-   Assignment 3 due Wed, Oct 11

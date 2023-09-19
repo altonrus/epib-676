@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="simulation_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="simulation_3_files/libs/quarto-html/tabby.min.js"></script>
+<script src="simulation_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="simulation_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="simulation_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="simulation_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="simulation_3_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="simulation_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.330">
+
+  <meta name="author" content="Alton Russell">
+  <meta name="dcterms.date" content="2023-09-26">
+  <title>Other simulation methods</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="simulation_3_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="simulation_3_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="simulation_3_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="simulation_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="simulation_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="simulation_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="simulation_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Other simulation methods</h1>
+  <p class="subtitle">EPIB 676 session 8, McGill University</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Alton Russell 
+</div>
+</div>
+</div>
+
+  <p class="date">2023-09-26</p>
+</section>
+<section id="today" class="slide level2">
+<h2>Today</h2>
+<ul>
+<li><p><strong>Discrete event simulation</strong></p></li>
+<li><p>Agent based model</p></li>
+<li><p>System dynamics</p></li>
+<li><p>Choosing a model structure</p></li>
+</ul>
+</section>
+<section id="credit" class="slide level2">
+<h2>Credit</h2>
+<p>Much of this section is based on:</p>
+<p><a href="https://www.routledge.com/Discrete-Event-Simulation-for-Health-Technology-Assessment/Caro-Moller-Karnon-Stahl-Ishak/p/book/9780367737689"><em>Discrete Event Simulation for Health Technology Assessment (2016) by Caro et. al.</em></a></p>
+</section>
+<section id="discrete-event-simulation-strengths" class="slide level2">
+<h2>Discrete event simulation strengths</h2>
+<ul>
+<li><p>Model heterogeneous population*</p></li>
+<li><p>Time-varying parameters*</p></li>
+</ul>
+<p>*same as microsim</p>
+<ul>
+<li><p>Represent disease as continuous process</p></li>
+<li><p>Model <u><strong>capacity-constrained</strong></u> resources</p></li>
+<li><p>Entity types interact (patient, provider, tumor, etc.)<sup>+</sup></p></li>
+</ul>
+<p><sup>+</sup>In a limited way</p>
+</section>
+<section id="key-components" class="slide level2">
+<h2>Key components</h2>
+<ul>
+<li><p><strong>Events:</strong> instantaneous change to entity or system</p></li>
+<li><p><strong>Entities:</strong> person or thing that experiences events</p>
+<ul>
+<li>patients, providers, implant, ambulance, etc.</li>
+</ul></li>
+<li><p><strong>Attributes:</strong> information specific to entity</p></li>
+<li><p><strong>Resources:</strong> provide service and have fixed capacity</p>
+<ul>
+<li>Providers, exam room, operating room, ventillator, etc.</li>
+</ul></li>
+<li><p><strong>Queues:</strong> lists of entities waiting for resource</p></li>
+</ul>
+</section>
+<section id="des-in-health-vs.-elsewhere" class="slide level2">
+<h2>DES in health vs.&nbsp;elsewhere</h2>
+<ul>
+<li><p>DES common for manufacturing, logistics, traffic engineering</p></li>
+<li><p>Focus usually on <strong>system-level outcomes</strong></p>
+<ul>
+<li>Production volume, wastage, resource utilization, processing time</li>
+</ul></li>
+<li><p>Health applications focus more on state of <strong>entities</strong> (patients)</p>
+<ul>
+<li>Often, track more individual-level attributes</li>
+</ul></li>
+</ul>
+</section>
+<section id="examples-of-events" class="slide level2">
+<h2>Examples of events</h2>
+
+<img data-src="des_event_examples.png" class="r-stretch"></section>
+<section id="event-graph" class="slide level2">
+<h2>Event graph</h2>
+
+<img data-src="DES-event-graph.png" class="r-stretch"><p>Arrows show sequence of events.</p>
+</section>
+<section id="discrete-events-but-continuous-time" class="slide level2">
+<h2>Discrete events but continuous time</h2>
+<ul>
+<li><p>Events are instantaneous</p></li>
+<li><p>Time between events usually sampled from distribution</p></li>
+<li><p>State of system updated each time an event occurs</p></li>
+<li><p>Unlike discrete time models with a constant cycle length, the “step size” varies depending on the time between events</p>
+<ul>
+<li>“Next-event-time-advance”</li>
+</ul></li>
+</ul>
+</section>
+<section id="attributes" class="slide level2">
+<h2>Attributes</h2>
+<ul>
+<li><p>Some assigned at baseline and not changed (e.g., sex), others updated by events (e.g., cumulative costs, blood pressure)</p></li>
+<li><p>Probability &amp; timing of events can depend on attributes</p></li>
+</ul>
+
+<img data-src="entity-attribute-example.png" class="r-stretch"></section>
+<section id="examples-of-attributes" class="slide level2">
+<h2>Examples of attributes</h2>
+
+<img data-src="attribute-examples.png" class="r-stretch"></section>
+<section id="example-of-next-event-time-advance" class="slide level2">
+<h2>Example of next-event-time-advance</h2>
+<pre><code>id: 0, state: 0, kind: 0, previous: 0.000000, now: 1.554306
+id: 0, state: 1, kind: 1, previous: 1.554306, now: 1.660357
+id: 0, state: 2, kind: 3, previous: 1.660357, now: 2.137922
+id: 1, state: 0, kind: 0, previous: 0.000000, now: 22.523279
+id: 1, state: 1, kind: 2, previous: 22.523279, now: 23.538790
+id: 1, state: 0, kind: 0, previous: 23.538790, now: 25.110528
+id: 1, state: 1, kind: 2, previous: 25.110528, now: 25.529621
+id: 1, state: 0, kind: 4, previous: 25.529621, now: 31.000000
+id: 2, state: 0, kind: 0, previous: 0.000000, now: 1.279403
+id: 2, state: 1, kind: 2, previous: 1.279403, now: 2.482209
+id: 2, state: 0, kind: 0, previous: 2.482209, now: 4.467754
+id: 2, state: 1, kind: 2, previous: 4.467754, now: 5.240185
+id: 2, state: 0, kind: 0, previous: 5.240185, now: 6.123519
+id: 2, state: 1, kind: 2, previous: 6.123519, now: 7.951863
+id: 2, state: 0, kind: 0, previous: 7.951863, now: 10.967305
+id: 2, state: 1, kind: 2, previous: 10.967305, now: 11.127479
+id: 2, state: 0, kind: 0, previous: 11.127479, now: 15.295999
+id: 2, state: 1, kind: 1, previous: 15.295999, now: 16.663526
+id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
+</section>
+<section id="example-time-to-competing-events" class="slide level2">
+<h2>Example: time to competing events</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Events can have different distributions</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>time_to_checkup <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">15</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>time_to_polyp <span class="ot">=</span> <span class="fu">rexp</span>(<span class="at">n=</span><span class="dv">15</span>, <span class="at">rate =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># The clock goes until the next one occurs</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>time <span class="ot">=</span> <span class="fu">pmin</span>(time_to_checkup, time_to_polyp)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>event<span class="ot">=</span><span class="fu">ifelse</span>(time_to_checkup<span class="sc">&lt;</span>time_to_polyp, <span class="st">"checkup"</span>,<span class="st">"polyp developed"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"i: "</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="st">"   event: "</span>, event, <span class="st">"   time: "</span>, time, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>i: 1   event: checkup   time: 1
+ i: 2   event: polyp developed   time: 0.211620037766225
+ i: 3   event: polyp developed   time: 0.441850929210583
+ i: 4   event: polyp developed   time: 0.231013516895473
+ i: 5   event: polyp developed   time: 0.205481967732096
+ i: 6   event: polyp developed   time: 0.018423167988658
+ i: 7   event: polyp developed   time: 0.624998787390002
+ i: 8   event: polyp developed   time: 0.369819533700744
+ i: 9   event: polyp developed   time: 0.218362734342615
+ i: 10   event: polyp developed   time: 0.897683215609996
+ i: 11   event: polyp developed   time: 0.900026826159962
+ i: 12   event: checkup   time: 1
+ i: 13   event: polyp developed   time: 0.0834675620620449
+ i: 14   event: polyp developed   time: 0.38656309278061
+ i: 15   event: checkup   time: 1</code></pre>
+</div>
+</div>
+</section>
+<section id="global-variables" class="slide level2">
+<h2>Global variables</h2>
+<ul>
+<li><p>Track the state of the system</p></li>
+<li><p>Global variables memory-efficient compared to attributes</p></li>
+<li><p>Some applications track only global variables</p></li>
+</ul>
+
+<img data-src="attribute-vs-global-variable.png" class="r-stretch"></section>
+<section id="global-variable-examples" class="slide level2">
+<h2>Global variable examples</h2>
+
+<img data-src="global_variable_examples.png" class="r-stretch"></section>
+<section id="time" class="slide level2">
+<h2>Time</h2>
+<ul>
+<li><p>Pre-specify total simulation time, run until reach</p></li>
+<li><p>Entities created and removed at various times</p></li>
+<li><p>Capacity constrained resources are “seized” and “released” by entities</p></li>
+</ul>
+</section>
+<section id="capacity-and-availability-illustrated" class="slide level2">
+<h2>Capacity and availability illustrated</h2>
+
+<img data-src="capacity_illustration.png" class="r-stretch"></section>
+<section id="resources-for-des" class="slide level2">
+<h2>Resources for DES</h2>
+<ul>
+<li><p><a href="https://r-simmer.org/">Simmer R package</a> [<a href="https://r-hta.org/events/workshop/2021/degeling.pdf">2021 workshop Koen Degeling</a>], [<a href="http://www.trutschnig.net/Slides_simmer_Biller_Koehnke_Mayr.pdf">2019 presentation Biller et. al</a>.]</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/microsimulation/index.html">Microsimulation package</a> [<a href="https://r-hta.org/events/workshop/2021/clements.pdf">2021 workshop Mark Clements</a>]</p></li>
+<li><p><a href="https://r-hta.org/tutorial/descem/">r-hta.org tutorial using descem, Alvarez and Ribero</a></p></li>
+</ul>
+<p>Dedicated software: Arena, Simul8</p>
+</section>
+<section id="today-1" class="slide level2">
+<h2>Today</h2>
+<ul>
+<li><p>Discrete event simulation</p></li>
+<li><p><strong>Agent based model</strong></p></li>
+<li><p>System dynamics</p></li>
+<li><p>Choosing a model structure</p></li>
+</ul>
+</section>
+<section id="credit-1" class="slide level2">
+<h2>Credit</h2>
+<p>Much of this section based on</p>
+<p><a href="https://doi.org/10.1007/s40273-015-0254-2"><em>Chhatwal &amp; He (2015). Economic evaluations with agent-based modelling: An introduction.</em></a></p>
+</section>
+<section id="why-agent-based-models" class="slide level2">
+<h2>Why agent based models?</h2>
+<ul>
+<li>Can model autonomous agents interacting with each other and their environment</li>
+</ul>
+<p>Combine benefits of:</p>
+<ul>
+<li><p>Differential equations model</p>
+<ul>
+<li>direct modeling of disease transmission or information spread</li>
+</ul></li>
+<li><p>Microsimulation/discrete event simulation</p>
+<ul>
+<li>flexible, individual-level, easier to instantiate heterogeneity</li>
+</ul></li>
+</ul>
+</section>
+<section id="schematic" class="slide level2">
+<h2>Schematic</h2>
+
+<img data-src="agent_based_transmission.png" class="r-stretch quarto-figure-center"><p class="caption">Chhatwal et. a. 2015</p></section>
+<section id="agents-and-environments" class="slide level2">
+<h2>Agents and environments</h2>
+<ul>
+<li><p><strong>Agents</strong>: usually people, but could be animals, vehicles, companies, molecules, cells etc.</p></li>
+<li><p><strong>Environment</strong>: country, city, hospital, school, prison, twitter, airplane, body, organ, etc.</p></li>
+</ul>
+</section>
+<section id="agents" class="slide level2">
+<h2>Agents</h2>
+<ul>
+<li><p>Response to environment and other agents is programmed</p>
+<ul>
+<li>Can depend on characteristics and history (memory)</li>
+<li>Not centrally controlled</li>
+</ul></li>
+<li><p>Allows estimation of “network effects”</p>
+<ul>
+<li><p>Benefit of intervention depends on others’ behavior</p></li>
+<li><p>e.g., vaccination, sexually transmitted disease testing</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="bottom-up-system-modeling" class="slide level2">
+<h2>“Bottom up” system modeling</h2>
+<ul>
+<li><p>Behavior programmed at the individual level</p></li>
+<li><p>System dynamics observed, not imposed</p></li>
+<li><p>Individual behavior <span class="math inline">\(\rightarrow\)</span> system dynamics:</p>
+<ul>
+<li><p>Sex practices <span class="math inline">\(\rightarrow\)</span> HIV epidemic size</p></li>
+<li><p>quarantine adherence <span class="math inline">\(\rightarrow\)</span> Ebola control</p></li>
+<li><p>Vaccination + mixing while sick <span class="math inline">\(\rightarrow\)</span> flu season peak</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="network-topology" class="slide level2">
+<h2>Network topology</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="networkA.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="networkB.png"></p>
+</div>
+</div>
+</section>
+<section id="network-structure-matters" class="slide level2">
+<h2>Network structure matters</h2>
+<ul>
+<li><p>Homogeneous mixing unrealistic</p>
+<ul>
+<li><p>Some have many connections (“high degree”) others have few</p></li>
+<li><p>Some networks are dense, others are sparse</p></li>
+</ul></li>
+<li><p>Create networks by:</p>
+<ul>
+<li><p>Empirically estimating or calibrating from data</p></li>
+<li><p>Algorithmically create via sampling rules</p></li>
+</ul></li>
+<li><p>Network often <u><strong>dynamic</strong></u> (connections dissolve and re-form)</p></li>
+</ul>
+</section>
+<section id="discrete-or-continuous" class="slide level2">
+<h2>Discrete or continuous</h2>
+<ul>
+<li><p>Two options:</p>
+<ul>
+<li><p>Fixed cycle lengths (like cohort models)</p></li>
+<li><p>Continuous time discrete event approach (like discrete event model)</p></li>
+</ul></li>
+<li><p>Fixed cycles usually easier to program</p></li>
+</ul>
+</section>
+<section id="the-downside-compute" class="slide level2">
+<h2>The downside: compute</h2>
+<ul>
+<li><p>Often most computationally intensive models to program.</p></li>
+<li><p>Microsimulation variance reduction techniques hard to apply</p>
+<ul>
+<li>e.g., common random numbers less useful when one interaction can change everyone’s trajectory</li>
+</ul></li>
+<li><p>Due to complexity, R may not be language of choice (Matlab, C++, Julia likely faster)</p></li>
+</ul>
+</section>
+<section id="ex-prep-for-people-who-inject-drugs1" class="slide level2">
+<h2>Ex: PrEP for people who inject drugs<sup>1</sup></h2>
+<p><strong>Objective:</strong> Evaluate the cost-effectiveness of PrEP for PWID under different targeting strategies (Assume PrEP+Screen+ART and 25% coverage)</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>No Targeting</p></li>
+<li><p>Enroll Partners</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Target Most Partners</p></li>
+<li><p>Target Most Infected Partners</p></li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Published in <a href="https://doi.org/10.1097%2FQAD.0000000000001747">Fu, Owens and Brandeau 2019</a>. Material adapted from MS&amp;E 292 by Margaret Brandeau</p></li></ol></aside></section>
+<section id="prep-model" class="slide level2">
+<h2>PrEP model</h2>
+<p>Network model of PWID in a representative US urban center</p>
+<ul>
+<li><p>Sexual and needlesharing HIV transmission</p></li>
+<li><p>4 HIV stages (acute infection, …, AIDS)</p></li>
+<li><p>Calibrated to data from a large PWID network in Chicago</p></li>
+<li><p>Health system perspective</p></li>
+<li><p>Track costs, QALYs, HIV infections averted</p></li>
+<li><p>Programmed in Matlab</p></li>
+</ul>
+</section>
+<section id="model-schematic" class="slide level2">
+<h2>Model Schematic</h2>
+
+<img data-src="PrEP_network_schematic.png" class="r-stretch"></section>
+<section id="prep-cea-results" class="slide level2">
+<h2>PrEP CEA results</h2>
+
+<img data-src="PrEP_CEA_results.png" class="r-stretch"></section>
+<section id="resources-for-abm" class="slide level2">
+<h2>Resources for ABM</h2>
+<ul>
+<li><p><a href="http://rnetlogo.r-forge.r-project.org/">RNetLogo package</a> [<a href="https://www.r-bloggers.com/2014/07/agent-based-models-and-rnetlogo/">blog</a>]</p></li>
+<li><p><a href="https://bookdown.org/f_lennert/book-toolbox_css/agent-based-modeling.html">Agent-based modeling chapter</a> from “Toolbox CSS” by Felix Lennert</p></li>
+<li><p><a href="https://doi.org/10.18637/jss.v084.i08">EpiModel R package</a> (includes network models)</p></li>
+</ul>
+</section>
+<section id="today-2" class="slide level2">
+<h2>Today</h2>
+<ul>
+<li><p>Discrete event simulation</p></li>
+<li><p>Agent based model</p></li>
+<li><p><strong>System dynamics</strong></p></li>
+<li><p>Choosing a model structure</p></li>
+</ul>
+</section>
+<section id="credit-2" class="slide level2">
+<h2>Credit</h2>
+<p>Much of this section based on</p>
+<ul>
+<li><a href="https://link-springer-com.proxy3.library.mcgill.ca/book/10.1007/978-3-319-34043-2">System Dynamics Modeling with R</a> (2016) by Jim Duggan</li>
+</ul>
+</section>
+<section id="system-dynamics-philosophy" class="slide level2">
+<h2>System dynamics philosophy</h2>
+<p>Actions can have consequences through complex and non-linear feedback loops</p>
+
+<img data-src="SD-domino-guy.png" class="r-stretch"></section>
+<section id="stocks-and-flows" class="slide level2">
+<h2>Stocks and flows</h2>
+<ul>
+<li><p>Stocks = compartment/state; Flows = transitions</p></li>
+<li><p>Analogy: faucet, bathtub, drain</p></li>
+</ul>
+
+<img data-src="SD_disease_stock_flow.png" class="r-stretch"></section>
+<section id="more-stocks-and-flows" class="slide level2">
+<h2>More stocks and flows</h2>
+
+<img data-src="SD-stock-flows-more.png" class="r-stretch"></section>
+<section id="feedback-loops" class="slide level2">
+<h2>Feedback loops</h2>
+<blockquote>
+<p>A closed chain of causal connections from a stock, through a set of decisions or rules or physical laws or actions that are dependent on the level of the stock, and back again through a flow to change the stock -Meadows (2008)</p>
+</blockquote>
+<p>What separate SD models from traditional differential equations models</p>
+<p>2 types:</p>
+<ul>
+<li><p><strong>Balancing:</strong> negtaive feedback, “goal-seeking”</p></li>
+<li><p><strong>Reinforcing:</strong> positive feedback, “run-away”</p></li>
+</ul>
+</section>
+<section id="heating-a-room-balancing-loop-negative-feedback" class="slide level2">
+<h2>Heating a room: balancing loop (negative feedback)</h2>
+
+<img data-src="SD_feedback_room_heat.png" class="r-stretch"></section>
+<section id="capital-investment-reinforcing-loop-positive-feedback" class="slide level2">
+<h2>Capital investment: reinforcing loop (positive feedback)</h2>
+
+<img data-src="SD_feedback_capital_growth.png" class="r-stretch"></section>
+<section id="ex-opioid-misuse-and-use-disorder" class="slide level2">
+<h2>Ex: Opioid misuse and use disorder</h2>
+
+<img data-src="SD-opioid-schematic.svg" class="r-stretch"></section>
+<section id="feedback-loops-in-opioid-example" class="slide level2">
+<h2>Feedback loops in opioid example</h2>
+
+<img data-src="SD-opioid-feedbacks.png" class="r-stretch"><p><a href="https://pubmed.ncbi.nlm.nih.gov/35749492/">Stringfellow et. al.&nbsp;2022</a></p>
+<p><a href="www.doi.org/10.1073/pnas.2115714119">Lim et. al.&nbsp;2022</a></p>
+</section>
+<section id="resources-for-sd-modeling" class="slide level2">
+<h2>Resources for SD modeling</h2>
+<ul>
+<li><p><a href="https://doi.org/10.1146/annurev-publhealth-040617-014317">Tracy et. al.&nbsp;2018. “ABM in Public Health” Annual Review of Public Health</a></p></li>
+<li><p><a href="https://rpubs.com/rsmard05/sysDynR">SD in R intro</a>, Cpt. Rick Mard</p></li>
+<li><p><a href="https://link-springer-com.proxy3.library.mcgill.ca/book/10.1007/978-3-319-34043-2">System Dynamics Modeling with R</a> by Jim Duggan</p></li>
+<li><p><a href="https://vensim.com/free-download/">Vensim software</a></p></li>
+</ul>
+</section>
+<section id="today-3" class="slide level2">
+<h2>Today</h2>
+<ul>
+<li><p>Discrete event simulation</p></li>
+<li><p>Agent based model</p></li>
+<li><p>System dynamics</p></li>
+<li><p><strong>Choosing a model structure</strong></p></li>
+</ul>
+</section>
+<section id="choosing-model-structure" class="slide level2">
+<h2>Choosing model structure</h2>
+<ul>
+<li><p>Goal: capture relevant differences between strategies</p></li>
+<li><p>“As complex as needed, as simple as possible.”</p></li>
+</ul>
+
+<img data-src="model_categorization.png" class="r-stretch"></section>
+<section id="where-we-are" class="slide level2">
+<h2>Where we are</h2>
+<ul>
+<li><p>Have completed method lectures on model structures!</p></li>
+<li><p>Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis</p></li>
+<li><p>Will soon start ‘applied’ phase with lots of examples</p></li>
+</ul>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<ul>
+<li><p>Discrete event simulation model <u>capacity constrained</u> systems in continuous times</p></li>
+<li><p>“Bottom up” agent based models assess how individual behavior impacts system outcomes</p></li>
+<li><p>“Top down” system dynamic (cohort) models use feedback loops to assess system behavior</p></li>
+<li><p><strong>Regardless of structure: start simple and add complexity!</strong></p></li>
+</ul>
+</section>
+<section id="logistics" class="slide level2">
+<h2>Logistics</h2>
+<ul>
+<li>Assignment 2 due 11:59 tomorrow</li>
+<li>Assignment 3 due Wed, Oct 11</li>
+</ul>
+<div class="footer footer-default">
+
+</div>
+</section>
+
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="simulation_3_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="simulation_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="simulation_3_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="simulation_3_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
