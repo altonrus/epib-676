@@ -242,7 +242,7 @@ Hopefully this exercise has helped convince you that the counter-intuitive Monty
 
 ## Section 2: A cohort model
 
-In section 2, you will model the health of a cohort of 10,000 individuals over 20 years. Your model will have three health states: Healthy, Sick, and Dead. Individuals will all start healthy, but as time progresses some will get sick and some will die. You will generate a **"cohort trace plot"** that shows the percent of individuals in each health state at each timestep. You will perform a simple scenario analysis and use the model to conduct a simplified health policy analysis, assessing the impact of a hypothetical vaccine.
+In section 2, you will model the health of a cohort of 10,000 individuals over 30 years. Your model will have three health states: Healthy, Sick, and Dead. Individuals will all start healthy, but as time progresses some will get sick and some will die. You will generate a **"cohort trace plot"** that shows the percent of individuals in each health state at each timestep. You will perform a simple scenario analysis and use the model to conduct a simplified health policy analysis, assessing the impact of a hypothetical vaccine.
 
 Let's get started!
 

@@ -1,5 +1,5 @@
 ---
-title: "Microsimulation 2"
+title: "Simulation 2"
 subtitle: "EPIB  676 session 7, McGill University"
 author: "Alton Russell"
 date: "21 Sep 2023"
@@ -12,6 +12,7 @@ editor: visual
 ```{r}
 #| echo: true
 library(ggplot2)
+library(Rcpp)
 ```
 
 ## Today: Improving efficiency
@@ -20,7 +21,7 @@ library(ggplot2)
 
 -   Simulation-specific methods
 
-## Top 5 tips for efficient programming
+## 5 tips for efficient R programming
 
 From [Efficient R Programming by Gillespie and Lovelace](https://csgillespie.github.io/efficientR/)
 
@@ -108,13 +109,15 @@ int_est
 
 ## Apply() family of functions
 
-**Use when:** performing same operation on:
+Use when performing same operation on:
 
 -   all entry in vector
 
 -   all rows or all columns of matrix (or array)
 
 -   all elements in list
+
+-   Multiple columns of dataframe
 
 ## Apply() visualized
 
@@ -124,22 +127,22 @@ Source: [Datacamp](https://www.datacamp.com/tutorial/r-tutorial-apply-family)
 
 ## Other apply-like functions
 
--   [lapply()](http://127.0.0.1:10415/help/library/base/help/lapply)
+-   lapply()
 
--   [simplify2array()](http://127.0.0.1:10415/help/library/base/help/simplify2array)
+-   larray()
 
--   [tapply()](http://127.0.0.1:10415/help/library/base/help/tapply)
+-   tapply()
 
--   convenience functions [sweep()](http://127.0.0.1:10415/help/library/base/help/sweep) and [aggregate()](http://127.0.0.1:10415/help/library/base/help/aggregate).
+-   convenience functions sweep() and aggregate().
 
 ## Caching variables
 
-If you will re-use the same value over and over, save it to a variable instead of re-calculating it.
+If you will re-use the same value over and over, save to a variable instead of re-calculating each time.
 
 ```{r}
 #| echo: true
 
-x = matrix(runif(n=70^2), nrow = 70)
+x = matrix(runif(n=90^2), nrow = 90)
 
 system.time(
   apply(x, 2, function(i) mean(i) / sd(x))
@@ -152,11 +155,11 @@ system.time({
 
 ```
 
-\~3x faster!
+\~4x faster!
 
 ## Use R's byte compiler
 
-Not sure exactly what it does but can make code faster, particularly with loops
+Don't need to understand [technical details](https://homepage.cs.uiowa.edu/~luke/R/compiler/compiler.pdf) to use. It makescode faster, particularly with loops
 
 ```{r}
 #| echo: true
@@ -165,8 +168,7 @@ library("compiler") #comes with R
 mean_r = function(x) {
   m = 0
   n = length(x)
-  for (i in seq_len(n))
-    m = m + x[i] / n
+  for (i in seq_len(n)) {m = m + x[i] / n}
   m
 }
 system.time(mean_r(x))
@@ -177,7 +179,7 @@ system.time(cmp_mean_r(x))
 
 ## Use factors when appropriate
 
-Character-type data can be stored as strings or factors. If you have several values from a **limited set of possible values**, factor is more memory efficient.
+Character-type data can be stored as strings or factors. If you have many examples from a **limited set of values**, factor is more memory efficient.
 
 ```{r}
 #| echo: true
@@ -194,8 +196,6 @@ If a specific part of your code is especially slow, can re-write in C++ (more in
 
 ```{r}
 #| echo: true
-
-library(Rcpp)
 #add numbers together
 cppFunction('int add(int x, int y, int z) {
   int sum = x + y + z;
@@ -273,11 +273,11 @@ For each variable, use $n_i \times n_t$ (or $n_i \times (n_t+1)$) matrix where $
 
     -   Sampling rows from data table at once
 
-    -   Generate random variables all together
+    -   Generate random variables with one call to `runif`, `rgamma`, etc.
 
 ## Vectorization in microsimulation
 
--   Where possible, use **linear algebra** to compute calculations for the whole cohort at once
+-   Where possible, avoid loops and use **linear algebra** to compute calculations for the whole cohort at once
 
     -   Multiplying, adding, subtracting, exponentiating matrices and vectors
 
@@ -288,7 +288,7 @@ For each variable, use $n_i \times n_t$ (or $n_i \times (n_t+1)$) matrix where $
 
 ## How many individuals to simulate?
 
--   As number of individuals $N_i \rightarrow \infty$, variance in population-level estimate $\rightarrow 0$.
+-   As $N_i \rightarrow \infty$, variance in population-level estimates $\rightarrow 0$.
 
 -   **Goal:** enough individuals that variance between strategies attributable to Monte Carlo variability is trivial
 
@@ -300,7 +300,9 @@ Two ways to assess:
 
 2.  Generate 3x $N_i$ individuals, divide into thirds, look at percent difference in outcomes
 
-## Variance reduction technique
+## Variance reduction techniques
+
+Different from efficient coding:
 
 -   **Efficient coding** to simulate N individuals faster
 
@@ -310,9 +312,11 @@ Gains from simulating 10% fewer individuals $\approx$ simulating each individual
 
 ## Simulate same cohort in all strategies
 
--   Sample cohort baseline characteristics [**once**]{.underline}, then simulate those individuals under each alternative strategy
+-   Generate cohort baseline characteristics [**once**]{.underline}, then simulate those individuals under each alternative strategy
 
--   Otherwise, variance in strategy outcomes partially due to differences in the simulated populations
+-   Otherwise, variance in outcomes partly due to different simulated populations
+
+![](sim_one_cohort_all_strategies.png)
 
 ## Antithetic variates
 
@@ -358,7 +362,7 @@ qnorm (or qgamma, qlnorm, etc) takes $p$ and gives you $x$
 
 ```{r}
 #| echo: true
-n=1000
+n=10000
 x_rgamma <- rgamma(n, shape = 5)
 x_inverse <- qgamma(runif(n), shape = 5)
 
@@ -374,7 +378,7 @@ Simulating heads or tails coinflip
 
 ```{r}
 #| echo: true
-n<-1000 #number of instances
+n<-5000 #number of instances
 
 #Naive calculation
 h_or_t_naive <- runif(n) < 0.3
@@ -405,6 +409,8 @@ SE=1.96*sd(h_or_t_av)/sqrt(n/2)
 print(c(Mean=mu,SE=SE,Lower=mu-SE,Upper=mu+SE))
 ```
 
+Standard error reduced by \~25%
+
 ## Common random numbers
 
 -   When modeling \>1 policy, using the same random variables in same place of model improves estimation of the ***incremental*** outcomes (costs, QALYs).
@@ -429,7 +435,6 @@ payoff_EC<-function(S_0=100,K=100,vol=0.25,T_years=1,r=0.02,z_val){
 
 n<-10^4 #Number of instances
 
-#Naive method.
 payoff_1<-payoff_EC(r=0.01,z_val=rnorm(n))
 payoff_2<-payoff_EC(r=0.06,z_val=rnorm(n))
 diff_vec<-payoff_1 - payoff_2
@@ -437,8 +442,6 @@ mu_diff<-mean(diff_vec)
 SE=1.96*sd(diff_vec)/sqrt(n)
 print(c(Diff=mu_diff,SE=SE,Lower=mu_diff-SE,Upper=mu_diff+SE))
 ```
-
-<br>
 
 Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html)
 
@@ -457,6 +460,8 @@ SE=1.96*sd(diff_vec)/sqrt(n)
 print(c(Diff=mu_diff,SE=SE,Lower=mu_diff-SE,Upper=mu_diff+SE))
 ```
 
+Standard error reduced by \~90%
+
 <br>
 
 Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html)
@@ -469,13 +474,29 @@ Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation
 
 ![](conditional_monte_carlo.png)
 
+## Variance reduction overview
+
+Some easier to implement than others; some give greater performance gain than others (but can depend on context)
+
+**Start with easy ones.** Often:
+
+-   Simulate same cohort in all strategies, common random numbers
+
+**Consider others** if reallyneeded
+
+-   Antithetic variates, conditional Monte Carlo (if rare events are an issue)
+
 ## Recap
 
--   Improve microsim efficiency by reducing duration of runs or reducing total runs
+-   Improve microsim efficiency by reducing duration of runs (efficient code) or how many runs are needed (variance reduction)
 
--   First get your model running, if needed, use profiler to decide where to optimize
+-   Your time value \>\>\>\> computer time value!
 
-    -   Your time value \>\>\>\> computer time value!
+-   First get your model running with easy-to-implement variance reduction. Only if needed:
+
+    -   use `profvis()` to profile code & find efficiency improvement opportunities
+
+    -   Consider other variance reduction techniques
 
 ## Logistics
 

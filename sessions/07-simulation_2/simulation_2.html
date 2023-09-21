@@ -12,7 +12,7 @@
 
   <meta name="author" content="Alton Russell">
   <meta name="dcterms.date" content="2023-09-21">
-  <title>Microsimulation 2</title>
+  <title>Simulation 2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -391,8 +391,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Microsimulation 2</h1>
-  <p class="subtitle">EPIB 676 session 8, McGill University</p>
+  <h1 class="title">Simulation 2</h1>
+  <p class="subtitle">EPIB 676 session 7, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -407,7 +407,8 @@ Alton Russell
 <section id="r-packages" class="slide level2">
 <h2>R packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(Rcpp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="today-improving-efficiency" class="slide level2">
@@ -417,8 +418,8 @@ Alton Russell
 <li><p>Simulation-specific methods</p></li>
 </ul>
 </section>
-<section id="top-5-tips-for-efficient-programming" class="slide level2">
-<h2>Top 5 tips for efficient programming</h2>
+<section id="tips-for-efficient-r-programming" class="slide level2">
+<h2>5 tips for efficient R programming</h2>
 <p>From <a href="https://csgillespie.github.io/efficientR/">Efficient R Programming by Gillespie and Lovelace</a></p>
 <ol type="1">
 <li><p>Never grow vectors.</p></li>
@@ -439,7 +440,7 @@ Alton Russell
 <span id="cb2-5"><a href="#cb2-5"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.011   0.001   0.012 </code></pre>
+  0.012   0.001   0.013 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># With  pre-allocation</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="fu">system.time</span>({</span>
@@ -482,11 +483,11 @@ Alton Russell
 <span id="cb6-13"><a href="#cb6-13"></a><span class="fu">system.time</span>(int_est <span class="ot">&lt;-</span> <span class="fu">monte_carlo</span>(N))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.972   0.122   1.093 </code></pre>
+  0.980   0.141   1.140 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>int_est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.141312</code></pre>
+<pre><code>[1] 3.141432</code></pre>
 </div>
 </div>
 </section>
@@ -499,11 +500,11 @@ Alton Russell
 <span id="cb10-4"><a href="#cb10-4"></a><span class="fu">system.time</span>(int_est <span class="ot">&lt;-</span> <span class="fu">monte_carlo_vec</span>(N))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.009   0.001   0.012 </code></pre>
+  0.007   0.001   0.008 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>int_est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.144808</code></pre>
+<pre><code>[1] 3.142672</code></pre>
 </div>
 </div>
 <ul>
@@ -514,11 +515,12 @@ Alton Russell
 </section>
 <section id="apply-family-of-functions" class="slide level2">
 <h2>Apply() family of functions</h2>
-<p><strong>Use when:</strong> performing same operation on:</p>
+<p>Use when performing same operation on:</p>
 <ul>
 <li><p>all entry in vector</p></li>
 <li><p>all rows or all columns of matrix (or array)</p></li>
 <li><p>all elements in list</p></li>
+<li><p>Multiple columns of dataframe</p></li>
 </ul>
 </section>
 <section id="apply-visualized" class="slide level2">
@@ -529,24 +531,24 @@ Alton Russell
 <section id="other-apply-like-functions" class="slide level2">
 <h2>Other apply-like functions</h2>
 <ul>
-<li><p><a href="http://127.0.0.1:10415/help/library/base/help/lapply">lapply()</a></p></li>
-<li><p><a href="http://127.0.0.1:10415/help/library/base/help/simplify2array">simplify2array()</a></p></li>
-<li><p><a href="http://127.0.0.1:10415/help/library/base/help/tapply">tapply()</a></p></li>
-<li><p>convenience functions <a href="http://127.0.0.1:10415/help/library/base/help/sweep">sweep()</a> and <a href="http://127.0.0.1:10415/help/library/base/help/aggregate">aggregate()</a>.</p></li>
+<li><p>lapply()</p></li>
+<li><p>larray()</p></li>
+<li><p>tapply()</p></li>
+<li><p>convenience functions sweep() and aggregate().</p></li>
 </ul>
 </section>
 <section id="caching-variables" class="slide level2">
 <h2>Caching variables</h2>
-<p>If you will re-use the same value over and over, save it to a variable instead of re-calculating it.</p>
+<p>If you will re-use the same value over and over, save to a variable instead of re-calculating each time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>x <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="at">n=</span><span class="dv">70</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">70</span>)</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>x <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="at">n=</span><span class="dv">90</span><span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">90</span>)</span>
 <span id="cb14-2"><a href="#cb14-2"></a></span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="fu">system.time</span>(</span>
 <span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">apply</span>(x, <span class="dv">2</span>, <span class="cf">function</span>(i) <span class="fu">mean</span>(i) <span class="sc">/</span> <span class="fu">sd</span>(x))</span>
 <span id="cb14-5"><a href="#cb14-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.003   0.000   0.002 </code></pre>
+  0.004   0.000   0.005 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">system.time</span>({</span>
 <span id="cb16-2"><a href="#cb16-2"></a>  sd_x <span class="ot">=</span> <span class="fu">sd</span>(x)</span>
@@ -557,25 +559,24 @@ Alton Russell
   0.001   0.000   0.001 </code></pre>
 </div>
 </div>
-<p>~3x faster!</p>
+<p>~4x faster!</p>
 </section>
 <section id="use-rs-byte-compiler" class="slide level2">
 <h2>Use R’s byte compiler</h2>
-<p>Not sure exactly what it does but can make code faster, particularly with loops</p>
+<p>Don’t need to understand <a href="https://homepage.cs.uiowa.edu/~luke/R/compiler/compiler.pdf">technical details</a> to use. It makescode faster, particularly with loops</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(<span class="st">"compiler"</span>) <span class="co">#comes with R</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="co"># uncompiled function</span></span>
 <span id="cb18-3"><a href="#cb18-3"></a>mean_r <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
 <span id="cb18-4"><a href="#cb18-4"></a>  m <span class="ot">=</span> <span class="dv">0</span></span>
 <span id="cb18-5"><a href="#cb18-5"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
-<span id="cb18-6"><a href="#cb18-6"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n))</span>
-<span id="cb18-7"><a href="#cb18-7"></a>    m <span class="ot">=</span> m <span class="sc">+</span> x[i] <span class="sc">/</span> n</span>
-<span id="cb18-8"><a href="#cb18-8"></a>  m</span>
-<span id="cb18-9"><a href="#cb18-9"></a>}</span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="fu">system.time</span>(<span class="fu">mean_r</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-6"><a href="#cb18-6"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {m <span class="ot">=</span> m <span class="sc">+</span> x[i] <span class="sc">/</span> n}</span>
+<span id="cb18-7"><a href="#cb18-7"></a>  m</span>
+<span id="cb18-8"><a href="#cb18-8"></a>}</span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="fu">system.time</span>(<span class="fu">mean_r</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.001   0.000   0.001 </code></pre>
+  0.002   0.000   0.001 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>cmp_mean_r <span class="ot">=</span> <span class="fu">cmpfun</span>(mean_r) <span class="co">#byte compiled version</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="fu">system.time</span>(<span class="fu">cmp_mean_r</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -587,7 +588,7 @@ Alton Russell
 </section>
 <section id="use-factors-when-appropriate" class="slide level2">
 <h2>Use factors when appropriate</h2>
-<p>Character-type data can be stored as strings or factors. If you have several values from a <strong>limited set of possible values</strong>, factor is more memory efficient.</p>
+<p>Character-type data can be stored as strings or factors. If you have many examples from a <strong>limited set of values</strong>, factor is more memory efficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>month_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Jan"</span>, <span class="st">"Feb"</span>,<span class="st">"Mar"</span>,<span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"June"</span>)</span>
 <span id="cb22-2"><a href="#cb22-2"></a>months_string <span class="ot">&lt;-</span> <span class="fu">sample</span>(month_names, <span class="at">size =</span> <span class="dv">5000</span>, <span class="at">replace =</span> T)</span>
@@ -606,16 +607,15 @@ Alton Russell
 <h2>RCCP for C++ code</h2>
 <p>If a specific part of your code is especially slow, can re-write in C++ (more info in <a href="http://adv-r.had.co.nz/Rcpp.html">Advanced R by Hadley Wickham</a>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">library</span>(Rcpp)</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="co">#add numbers together</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="fu">cppFunction</span>(<span class="st">'int add(int x, int y, int z) {</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  int sum = x + y + z;</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  return sum;</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="st">}'</span>)</span>
-<span id="cb26-7"><a href="#cb26-7"></a>add</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#add numbers together</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">cppFunction</span>(<span class="st">'int add(int x, int y, int z) {</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  int sum = x + y + z;</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  return sum;</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="st">}'</span>)</span>
+<span id="cb26-6"><a href="#cb26-6"></a>add</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, y, z) 
-.Call(&lt;pointer: 0x105145580&gt;, x, y, z)</code></pre>
+.Call(&lt;pointer: 0x1031f9580&gt;, x, y, z)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -687,14 +687,14 @@ Alton Russell
 <li><p>Generate baseline characteristics for everyone at once</p>
 <ul>
 <li><p>Sampling rows from data table at once</p></li>
-<li><p>Generate random variables</p></li>
+<li><p>Generate random variables with one call to <code>runif</code>, <code>rgamma</code>, etc.</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="vectorization-in-microsimulation-1" class="slide level2">
 <h2>Vectorization in microsimulation</h2>
 <ul>
-<li><p>Where possible, use <strong>linear algebra</strong> to compute calculations for the whole cohort at once</p>
+<li><p>Where possible, avoid loops and use <strong>linear algebra</strong> to compute calculations for the whole cohort at once</p>
 <ul>
 <li>Multiplying, adding, subtracting, exponentiating matrices and vectors</li>
 </ul></li>
@@ -708,7 +708,7 @@ Alton Russell
 <section id="how-many-individuals-to-simulate" class="slide level2">
 <h2>How many individuals to simulate?</h2>
 <ul>
-<li><p>As number of individuals <span class="math inline">\(N_i \rightarrow \infty\)</span>, variance in population-level estimate <span class="math inline">\(\rightarrow 0\)</span>.</p></li>
+<li><p>As <span class="math inline">\(N_i \rightarrow \infty\)</span>, variance in population-level estimates <span class="math inline">\(\rightarrow 0\)</span>.</p></li>
 <li><p><strong>Goal:</strong> enough individuals that variance between strategies attributable to Monte Carlo variability is trivial</p></li>
 <li><p>Depends on the model + use case</p></li>
 </ul>
@@ -718,32 +718,34 @@ Alton Russell
 <li><p>Generate 3x <span class="math inline">\(N_i\)</span> individuals, divide into thirds, look at percent difference in outcomes</p></li>
 </ol>
 </section>
-<section id="variance-reduction-technique" class="slide level2">
-<h2>Variance reduction technique</h2>
+<section id="variance-reduction-techniques" class="slide level2">
+<h2>Variance reduction techniques</h2>
+<p>Different from efficient coding:</p>
 <ul>
-<li><p><strong>Efficient coding</strong> aims to reduce the time of each simulation run</p></li>
-<li><p><strong>Variance reduction</strong> aims to reduce the number of individuals needed for a stable, low-error estimate</p></li>
+<li><p><strong>Efficient coding</strong> to simulate N individuals faster</p></li>
+<li><p><strong>Variance reduction</strong> to reduce N (simulate fewer individuals)</p></li>
 </ul>
 <p>Gains from simulating 10% fewer individuals <span class="math inline">\(\approx\)</span> simulating each individual 10% faster</p>
 </section>
-<section id="simulate-cohort-in-all-strategies" class="slide level2">
-<h2>Simulate cohort in all strategies</h2>
+<section id="simulate-same-cohort-in-all-strategies" class="slide level2">
+<h2>Simulate same cohort in all strategies</h2>
 <ul>
-<li><p>Sample baseline characteristics <strong>once</strong>, then simulate individuals under each alternative strategy</p></li>
-<li><p>Otherwise, variance in strategy outcomes partially due to differences in the simulated populations</p></li>
+<li><p>Generate cohort baseline characteristics <u><strong>once</strong></u>, then simulate those individuals under each alternative strategy</p></li>
+<li><p>Otherwise, variance in outcomes partly due to different simulated populations</p></li>
 </ul>
-</section>
+
+<img data-src="sim_one_cohort_all_strategies.png" class="r-stretch"></section>
 <section id="antithetic-variates" class="slide level2">
 <h2>Antithetic variates</h2>
-<p>Suppose we aim to estimate <span class="math inline">\(\mu=E[X]\)</span> and we have two samples drawn from <span class="math inline">\(X: X_1 \text{ and } X_2\)</span>. Generate estimate as:</p>
+<p><u><strong>Suppose</strong></u>: want to estimate <span class="math inline">\(\mu=E[X]\)</span> using two samples drawn from <span class="math inline">\(X: X_1 \text{ and } X_2\)</span>. Estimate would be:</p>
 <p><span class="math display">\[
 \hat{\mu}=(E[X_1]+E[X_2])/2
 \]</span></p>
-<p>Note:</p>
+<p>From the definition of variance:</p>
 <p><span class="math display">\[
 Var[\hat{\mu}] = \frac{Var[X_1] + Var[X_2] + 2Cov[X_1,X_2]}{4}
 \]</span></p>
-<p>Observe: smaller <span class="math inline">\(Cov[X_1,X_2]\)</span>, means smaller <span class="math inline">\(Var[\hat{\mu}]\)</span>.</p>
+<p><strong><em>Observe</em></strong>: smaller <span class="math inline">\(Cov[X_1,X_2]\)</span>, means smaller <span class="math inline">\(Var[\hat{\mu}]\)</span>.</p>
 </section>
 <section id="antithetic-variates-1" class="slide level2">
 <h2>Antithetic variates</h2>
@@ -767,7 +769,7 @@ F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
 <p>pnorm (or pgamma, plnorm, etc) takes <span class="math inline">\(x\)</span> and gives you <span class="math inline">\(p\)</span></p>
 <p>qnorm (or qgamma, qlnorm, etc) takes <span class="math inline">\(p\)</span> and gives you <span class="math inline">\(x\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>n<span class="ot">=</span><span class="dv">600</span></span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>n<span class="ot">=</span><span class="dv">10000</span></span>
 <span id="cb31-2"><a href="#cb31-2"></a>x_rgamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="at">shape =</span> <span class="dv">5</span>)</span>
 <span id="cb31-3"><a href="#cb31-3"></a>x_inverse <span class="ot">&lt;-</span> <span class="fu">qgamma</span>(<span class="fu">runif</span>(n), <span class="at">shape =</span> <span class="dv">5</span>)</span>
 <span id="cb31-4"><a href="#cb31-4"></a></span>
@@ -777,11 +779,11 @@ F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
 
 </div>
 <img data-src="simulation_2_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
-<section id="antithetic-variates-example-naive-method" class="slide level2">
-<h2>Antithetic variates example: Naive method</h2>
+<section id="ex-without-antithetic-variates" class="slide level2">
+<h2>Ex: Without antithetic variates</h2>
 <p>Simulating heads or tails coinflip</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>n<span class="ot">&lt;-</span><span class="dv">1000</span> <span class="co">#number of instances</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>n<span class="ot">&lt;-</span><span class="dv">5000</span> <span class="co">#number of instances</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a></span>
 <span id="cb32-3"><a href="#cb32-3"></a><span class="co">#Naive calculation</span></span>
 <span id="cb32-4"><a href="#cb32-4"></a>h_or_t_naive <span class="ot">&lt;-</span> <span class="fu">runif</span>(n) <span class="sc">&lt;</span> <span class="fl">0.3</span></span>
@@ -792,12 +794,12 @@ F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
 <span id="cb32-9"><a href="#cb32-9"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">Mean=</span>mu,<span class="at">SE=</span>SE,<span class="at">Lower=</span>mu<span class="sc">-</span>SE,<span class="at">Upper=</span>mu<span class="sc">+</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Mean         SE      Lower      Upper 
-0.29600000 0.02830776 0.26769224 0.32430776 </code></pre>
+0.29940000 0.01269625 0.28670375 0.31209625 </code></pre>
 </div>
 </div>
 </section>
-<section id="example-antithetic-variates" class="slide level2">
-<h2>Example: antithetic variates</h2>
+<section id="ex-with-antithetic-variates" class="slide level2">
+<h2>Ex: With antithetic variates</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co">#Coin flip with antithetic variates</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>unif_vec<span class="ot">&lt;-</span><span class="fu">runif</span>(n<span class="sc">/</span><span class="dv">2</span>)</span>
@@ -813,15 +815,16 @@ F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
 <span id="cb34-12"><a href="#cb34-12"></a>SE<span class="ot">=</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sd</span>(h_or_t_av)<span class="sc">/</span><span class="fu">sqrt</span>(n<span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb34-13"><a href="#cb34-13"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">Mean=</span>mu,<span class="at">SE=</span>SE,<span class="at">Lower=</span>mu<span class="sc">-</span>SE,<span class="at">Upper=</span>mu<span class="sc">+</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      Mean         SE      Lower      Upper 
-0.29200000 0.02162364 0.27037636 0.31362364 </code></pre>
+<pre><code>       Mean          SE       Lower       Upper 
+0.300000000 0.009603921 0.290396079 0.309603921 </code></pre>
 </div>
 </div>
+<p>Standard error reduced by ~25%</p>
 </section>
 <section id="common-random-numbers" class="slide level2">
 <h2>Common random numbers</h2>
 <ul>
-<li><p>When modeling &gt;1 policy, using the same random variables for each reduces variance, improving estimation of the <strong><em>incremental</em></strong> outcomes (costs, QALYs).</p></li>
+<li><p>When modeling &gt;1 policy, using the same random variables in same place of model improves estimation of the <strong><em>incremental</em></strong> outcomes (costs, QALYs).</p></li>
 <li><p>Random variables must have the same purpose in both systems (synchronized)</p></li>
 <li><p>Reduces variance in the difference between two random variables by maximizing the covariance:</p></li>
 </ul>
@@ -829,8 +832,8 @@ F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
 Var[X_2 - X_1] = Var[X_1] + Var[X_2] - 2Cov[X_1,X_2]
 \]</span></p>
 </section>
-<section id="example-naive-method" class="slide level2">
-<h2>Example: naive method</h2>
+<section id="ex-without-common-random-numbers" class="slide level2">
+<h2>Ex: without common random numbers</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Choosing stock options to buy based on expected payoff</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a><span class="co">#Same EC function that returns payoff vector</span></span>
@@ -840,23 +843,21 @@ Var[X_2 - X_1] = Var[X_1] + Var[X_2] - 2Cov[X_1,X_2]
 <span id="cb36-6"><a href="#cb36-6"></a></span>
 <span id="cb36-7"><a href="#cb36-7"></a>n<span class="ot">&lt;-</span><span class="dv">10</span><span class="sc">^</span><span class="dv">4</span> <span class="co">#Number of instances</span></span>
 <span id="cb36-8"><a href="#cb36-8"></a></span>
-<span id="cb36-9"><a href="#cb36-9"></a><span class="co">#Naive method.</span></span>
-<span id="cb36-10"><a href="#cb36-10"></a>payoff_1<span class="ot">&lt;-</span><span class="fu">payoff_EC</span>(<span class="at">r=</span><span class="fl">0.01</span>,<span class="at">z_val=</span><span class="fu">rnorm</span>(n))</span>
-<span id="cb36-11"><a href="#cb36-11"></a>payoff_2<span class="ot">&lt;-</span><span class="fu">payoff_EC</span>(<span class="at">r=</span><span class="fl">0.06</span>,<span class="at">z_val=</span><span class="fu">rnorm</span>(n))</span>
-<span id="cb36-12"><a href="#cb36-12"></a>diff_vec<span class="ot">&lt;-</span>payoff_1 <span class="sc">-</span> payoff_2</span>
-<span id="cb36-13"><a href="#cb36-13"></a>mu_diff<span class="ot">&lt;-</span><span class="fu">mean</span>(diff_vec)</span>
-<span id="cb36-14"><a href="#cb36-14"></a>SE<span class="ot">=</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sd</span>(diff_vec)<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb36-15"><a href="#cb36-15"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">Diff=</span>mu_diff,<span class="at">SE=</span>SE,<span class="at">Lower=</span>mu_diff<span class="sc">-</span>SE,<span class="at">Upper=</span>mu_diff<span class="sc">+</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-9"><a href="#cb36-9"></a>payoff_1<span class="ot">&lt;-</span><span class="fu">payoff_EC</span>(<span class="at">r=</span><span class="fl">0.01</span>,<span class="at">z_val=</span><span class="fu">rnorm</span>(n))</span>
+<span id="cb36-10"><a href="#cb36-10"></a>payoff_2<span class="ot">&lt;-</span><span class="fu">payoff_EC</span>(<span class="at">r=</span><span class="fl">0.06</span>,<span class="at">z_val=</span><span class="fu">rnorm</span>(n))</span>
+<span id="cb36-11"><a href="#cb36-11"></a>diff_vec<span class="ot">&lt;-</span>payoff_1 <span class="sc">-</span> payoff_2</span>
+<span id="cb36-12"><a href="#cb36-12"></a>mu_diff<span class="ot">&lt;-</span><span class="fu">mean</span>(diff_vec)</span>
+<span id="cb36-13"><a href="#cb36-13"></a>SE<span class="ot">=</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sd</span>(diff_vec)<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb36-14"><a href="#cb36-14"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">Diff=</span>mu_diff,<span class="at">SE=</span>SE,<span class="at">Lower=</span>mu_diff<span class="sc">-</span>SE,<span class="at">Upper=</span>mu_diff<span class="sc">+</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Diff         SE      Lower      Upper 
--2.5206411  0.4850442 -3.0056853 -2.0355969 </code></pre>
+-2.4810127  0.5035279 -2.9845406 -1.9774848 </code></pre>
 </div>
 </div>
-<p><br></p>
 <p>Source: <a href="https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html">Berk Orbay</a></p>
 </section>
-<section id="example-common-random-numbers" class="slide level2">
-<h2>Example: common random numbers</h2>
+<section id="ex-with-common-random-numbers" class="slide level2">
+<h2>Ex: with common random numbers</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">#CRN Method</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a>z_val<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n)</span>
@@ -867,10 +868,11 @@ Var[X_2 - X_1] = Var[X_1] + Var[X_2] - 2Cov[X_1,X_2]
 <span id="cb38-7"><a href="#cb38-7"></a>SE<span class="ot">=</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sd</span>(diff_vec)<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
 <span id="cb38-8"><a href="#cb38-8"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">Diff=</span>mu_diff,<span class="at">SE=</span>SE,<span class="at">Lower=</span>mu_diff<span class="sc">-</span>SE,<span class="at">Upper=</span>mu_diff<span class="sc">+</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       Diff          SE       Lower       Upper 
--2.38707012  0.04595682 -2.43302694 -2.34111331 </code></pre>
+<pre><code>      Diff         SE      Lower      Upper 
+-2.4605866  0.0460485 -2.5066351 -2.4145381 </code></pre>
 </div>
 </div>
+<p>Standard error reduced by ~90%</p>
 <p><br></p>
 <p>Source: <a href="https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html">Berk Orbay</a></p>
 </section>
@@ -882,37 +884,35 @@ Var[X_2 - X_1] = Var[X_1] + Var[X_2] - 2Cov[X_1,X_2]
 <h2>Conditional Monte Carlo</h2>
 
 <img data-src="conditional_monte_carlo.png" class="r-stretch"></section>
+<section id="variance-reduction-overview" class="slide level2">
+<h2>Variance reduction overview</h2>
+<p>Some easier to implement than others; some give greater performance gain than others (but can depend on context)</p>
+<p><strong>Start with easy ones.</strong> Often:</p>
+<ul>
+<li>Simulate same cohort in all strategies, common random numbers</li>
+</ul>
+<p><strong>Consider others</strong> if reallyneeded</p>
+<ul>
+<li>Antithetic variates, conditional Monte Carlo (if rare events are an issue)</li>
+</ul>
+</section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
-<li><p>Improve microsim efficiency by reducing duration of runs or reducing total runs</p></li>
-<li><p>First get your model running, if needed, use profiler to decide where to optimize</p>
+<li><p>Improve microsim efficiency by reducing duration of runs (efficient code) or how many runs are needed (variance reduction)</p></li>
+<li><p>Your time value &gt;&gt;&gt;&gt; computer time value!</p></li>
+<li><p>First get your model running with easy-to-implement variance reduction. Only if needed:</p>
 <ul>
-<li>Your time value &gt;&gt;&gt;&gt; computer time value!</li>
-</ul></li>
-</ul>
-</section>
-<section id="note-on-indexing-assignment-2" class="slide level2">
-<h2>Note on indexing (Assignment 2)</h2>
-<ul>
-<li><p>Indexing on assignment may not match slides</p></li>
-<li><p>You can change it as long as you are consistent</p></li>
-<li><p>Some matrices/vectors need to include t=0 (i.e.&nbsp;model trace), others don’r</p>
-<ul>
-<li>There will always be one less transition than time points</li>
+<li><p>use <code>profvis()</code> to profile code &amp; find efficiency improvement opportunities</p></li>
+<li><p>Consider other variance reduction techniques</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li>Assignment 2 due 11:59pm today</li>
-<li>Assignment 3 due 11:59 Friday, Feb 3
-<ul>
-<li><p>Question 1 available now</p></li>
-<li><p>Will send email when question 2 available (tomorrow at the latest)</p></li>
-</ul></li>
-<li>Office hours in conference room #1103 starting now</li>
+<li>Assignment 2 due 11:59 Wed, Sep 27</li>
+<li>Assignment 3 available, due Wed, Oct 11</li>
 </ul>
 <div class="footer footer-default">
 
