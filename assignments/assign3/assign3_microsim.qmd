@@ -458,14 +458,15 @@ We want to simulate the recipients' baseline survival: the number of years they 
 ```{r}
 #Read in other cause mortality table and display first few rows
 t_ocm <- read_excel("params_assign3.xlsx", sheet="other_cause_mortality") |>
-  data.table()
+  setDT()
 t_ocm |> head() |> flextable()
 #Read in SCANDAT mortality multiplier table and display first few rows
-t_SCANDAT_mult <- read_excel("params_assign3.xlsx", sheet="SCANDAT_death_multipliers")
+t_SCANDAT_mult <- read_excel("params_assign3.xlsx", sheet="SCANDAT_death_multipliers") |>
+  setDT()
 t_SCANDAT_mult |> head() |> flextable()
 #Read in US post-transfusion survival data and display first few rows
 t_US_survival <- read_excel("params_assign3.xlsx", sheet="US_posttransfusion_surv") |>
-  data.table()
+  setDT()
 t_US_survival |> head() |> flextable()
 ```
 
