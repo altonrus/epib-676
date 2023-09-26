@@ -528,29 +528,29 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <span id="cb2-6"><a href="#cb2-6"></a>event<span class="ot">=</span><span class="fu">ifelse</span>(time_to_checkup<span class="sc">&lt;</span>time_to_polyp, <span class="st">"checkup"</span>,<span class="st">"polyp developed"</span>)</span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"i: "</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="st">"   event: "</span>, event, <span class="st">"   time: "</span>, time, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>i: 1   event: checkup   time: 1
- i: 2   event: polyp developed   time: 0.211620037766225
- i: 3   event: polyp developed   time: 0.441850929210583
- i: 4   event: polyp developed   time: 0.231013516895473
- i: 5   event: polyp developed   time: 0.205481967732096
- i: 6   event: polyp developed   time: 0.018423167988658
- i: 7   event: polyp developed   time: 0.624998787390002
- i: 8   event: polyp developed   time: 0.369819533700744
- i: 9   event: polyp developed   time: 0.218362734342615
- i: 10   event: polyp developed   time: 0.897683215609996
- i: 11   event: polyp developed   time: 0.900026826159962
- i: 12   event: checkup   time: 1
- i: 13   event: polyp developed   time: 0.0834675620620449
- i: 14   event: polyp developed   time: 0.38656309278061
- i: 15   event: checkup   time: 1</code></pre>
+<pre><code>i: 1   event: polyp developed   time: 0.413878323199848
+ i: 2   event: polyp developed   time: 0.414412849272291
+ i: 3   event: checkup   time: 1
+ i: 4   event: polyp developed   time: 0.356098282461365
+ i: 5   event: polyp developed   time: 0.38678125757724
+ i: 6   event: checkup   time: 1
+ i: 7   event: polyp developed   time: 0.0539852799847722
+ i: 8   event: polyp developed   time: 0.307946838748952
+ i: 9   event: polyp developed   time: 0.379772369749844
+ i: 10   event: polyp developed   time: 0.686373971374639
+ i: 11   event: polyp developed   time: 0.515492750303753
+ i: 12   event: polyp developed   time: 0.0592125843589505
+ i: 13   event: polyp developed   time: 0.0291746940210177
+ i: 14   event: polyp developed   time: 0.326177048807343
+ i: 15   event: polyp developed   time: 0.283000556441645</code></pre>
 </div>
 </div>
 </section>
 <section id="global-variables" class="slide level2">
 <h2>Global variables</h2>
 <ul>
-<li><p>Track the state of the system</p></li>
-<li><p>Global variables memory-efficient compared to attributes</p></li>
+<li><p>Track the state of the <u><strong>system</strong></u></p></li>
+<li><p>Memory-efficient (vs.&nbsp;individual attributes)</p></li>
 <li><p>Some applications track only global variables</p></li>
 </ul>
 
@@ -563,8 +563,11 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <h2>Time</h2>
 <ul>
 <li><p>Pre-specify total simulation time, run until reach</p></li>
-<li><p>Entities created and removed at various times</p></li>
-<li><p>Capacity constrained resources are “seized” and “released” by entities</p></li>
+<li><p>Entities enter (are created) and exit at various times</p></li>
+<li><p>Capacity constrained resources are “seized” and “released” by entities</p>
+<ul>
+<li>This is the interaction between entities!</li>
+</ul></li>
 </ul>
 </section>
 <section id="capacity-and-availability-illustrated" class="slide level2">
@@ -597,9 +600,9 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <section id="why-agent-based-models" class="slide level2">
 <h2>Why agent based models?</h2>
 <ul>
-<li>Can model autonomous agents interacting with each other and their environment</li>
+<li>Model autonomous agents interacting with each other and their environment</li>
 </ul>
-<p>Combine benefits of:</p>
+<p>Can combine benefits of:</p>
 <ul>
 <li><p>Differential equations model</p>
 <ul>
@@ -618,16 +621,16 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <section id="agents-and-environments" class="slide level2">
 <h2>Agents and environments</h2>
 <ul>
-<li><p><strong>Agents</strong>: usually people, but could be animals, vehicles, companies, molecules, cells etc.</p></li>
+<li><p><strong>Agents</strong>: usually people, could be animals, vehicles, companies, molecules, cells etc.</p></li>
 <li><p><strong>Environment</strong>: country, city, hospital, school, prison, twitter, airplane, body, organ, etc.</p></li>
 </ul>
 </section>
 <section id="agents" class="slide level2">
 <h2>Agents</h2>
 <ul>
-<li><p>Response to environment and other agents is programmed</p>
+<li><p>Respond to environment and other agents as programmed</p>
 <ul>
-<li>Can depend on characteristics and history (memory)</li>
+<li>Behavior can vary by characteristics and history (memory)</li>
 <li>Not centrally controlled</li>
 </ul></li>
 <li><p>Allows estimation of “network effects”</p>
@@ -663,7 +666,7 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <section id="network-structure-matters" class="slide level2">
 <h2>Network structure matters</h2>
 <ul>
-<li><p>Homogeneous mixing unrealistic</p>
+<li><p>Homogeneous mixing usually unrealistic</p>
 <ul>
 <li><p>Some have many connections (“high degree”) others have few</p></li>
 <li><p>Some networks are dense, others are sparse</p></li>
@@ -677,20 +680,20 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 </ul>
 </section>
 <section id="discrete-or-continuous" class="slide level2">
-<h2>Discrete or continuous</h2>
+<h2>Discrete or continuous?</h2>
 <ul>
 <li><p>Two options:</p>
 <ul>
 <li><p>Fixed cycle lengths (like cohort models)</p></li>
 <li><p>Continuous time discrete event approach (like discrete event model)</p></li>
 </ul></li>
-<li><p>Fixed cycles usually easier to program</p></li>
+<li><p>Fixed cycle lengths usually easier to program</p></li>
 </ul>
 </section>
 <section id="the-downside-compute" class="slide level2">
 <h2>The downside: compute</h2>
 <ul>
-<li><p>Often most computationally intensive models to program.</p></li>
+<li><p>Often most computationally intensive models</p></li>
 <li><p>Microsimulation variance reduction techniques hard to apply</p>
 <ul>
 <li>e.g., common random numbers less useful when one interaction can change everyone’s trajectory</li>
@@ -733,8 +736,14 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <img data-src="PrEP_network_schematic.png" class="r-stretch"></section>
 <section id="prep-cea-results" class="slide level2">
 <h2>PrEP CEA results</h2>
-
-<img data-src="PrEP_CEA_results.png" class="r-stretch"></section>
+<div class="columns">
+<div class="column" style="width:75%;">
+<p><img data-src="PrEP_CEA_results.png"></p>
+</div><div class="column" style="width:25%;">
+<p>Note: “US style” efficiency frontier plots have costs on X axis, QALYs on Y axis.</p>
+</div>
+</div>
+</section>
 <section id="resources-for-abm" class="slide level2">
 <h2>Resources for ABM</h2>
 <ul>
@@ -832,14 +841,6 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 </ul>
 
 <img data-src="model_categorization.png" class="r-stretch"></section>
-<section id="where-we-are" class="slide level2">
-<h2>Where we are</h2>
-<ul>
-<li><p>Have completed method lectures on model structures!</p></li>
-<li><p>Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis</p></li>
-<li><p>Will soon start ‘applied’ phase with lots of examples</p></li>
-</ul>
-</section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
@@ -847,6 +848,14 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>“Bottom up” agent based models assess how individual behavior impacts system outcomes</p></li>
 <li><p>“Top down” system dynamic (cohort) models use feedback loops to assess system behavior</p></li>
 <li><p><strong>Regardless of structure: start simple and add complexity!</strong></p></li>
+</ul>
+</section>
+<section id="where-we-are" class="slide level2">
+<h2>Where we are</h2>
+<ul>
+<li><p>Have completed method lectures on model structures!</p></li>
+<li><p>Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis</p></li>
+<li><p>Will soon start ‘applied’ phase with lots of examples</p></li>
 </ul>
 </section>
 <section id="logistics" class="slide level2">

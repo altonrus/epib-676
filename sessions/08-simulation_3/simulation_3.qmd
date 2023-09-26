@@ -141,9 +141,9 @@ cat(paste0("i: ", 1:15, "   event: ", event, "   time: ", time, "\n"))
 
 ## Global variables
 
--   Track the state of the system
+-   Track the state of the [**system**]{.underline}
 
--   Global variables memory-efficient compared to attributes
+-   Memory-efficient (vs. individual attributes)
 
 -   Some applications track only global variables
 
@@ -157,9 +157,11 @@ cat(paste0("i: ", 1:15, "   event: ", event, "   time: ", time, "\n"))
 
 -   Pre-specify total simulation time, run until reach
 
--   Entities created and removed at various times
+-   Entities enter (are created) and exit at various times
 
 -   Capacity constrained resources are "seized" and "released" by entities
+
+    -   This is the interaction between entities!
 
 ## Capacity and availability illustrated
 
@@ -193,9 +195,9 @@ Much of this section based on
 
 ## Why agent based models?
 
--   Can model autonomous agents interacting with each other and their environment
+-   Model autonomous agents interacting with each other and their environment
 
-Combine benefits of:
+Can combine benefits of:
 
 -   Differential equations model
 
@@ -211,15 +213,15 @@ Combine benefits of:
 
 ## Agents and environments
 
--   **Agents**: usually people, but could be animals, vehicles, companies, molecules, cells etc.
+-   **Agents**: usually people, could be animals, vehicles, companies, molecules, cells etc.
 
 -   **Environment**: country, city, hospital, school, prison, twitter, airplane, body, organ, etc.
 
 ## Agents
 
--   Response to environment and other agents is programmed
+-   Respond to environment and other agents as programmed
 
-    -   Can depend on characteristics and history (memory)
+    -   Behavior can vary by characteristics and history (memory)
     -   Not centrally controlled
 
 -   Allows estimation of "network effects"
@@ -256,7 +258,7 @@ Combine benefits of:
 
 ## Network structure matters
 
--   Homogeneous mixing unrealistic
+-   Homogeneous mixing usually unrealistic
 
     -   Some have many connections ("high degree") others have few
 
@@ -270,7 +272,7 @@ Combine benefits of:
 
 -   Network often [**dynamic**]{.underline} (connections dissolve and re-form)
 
-## Discrete or continuous
+## Discrete or continuous?
 
 -   Two options:
 
@@ -278,11 +280,11 @@ Combine benefits of:
 
     -   Continuous time discrete event approach (like discrete event model)
 
--   Fixed cycles usually easier to program
+-   Fixed cycle lengths usually easier to program
 
 ## The downside: compute
 
--   Often most computationally intensive models to program.
+-   Often most computationally intensive models
 
 -   Microsimulation variance reduction techniques hard to apply
 
@@ -332,7 +334,16 @@ Network model of PWID in a representative US urban center
 
 ## PrEP CEA results
 
+::: columns
+::: {.column width="75%"}
+
 ![](PrEP_CEA_results.png)
+:::
+
+::: {.column width="25%"}
+Note: "US style" efficiency frontier plots have costs on X axis, QALYs on Y axis.
+:::
+:::
 
 ## Resources for ABM
 
@@ -436,14 +447,6 @@ What separate SD models from traditional differential equations models
 
 ![](model_categorization.png)
 
-## Where we are
-
--   Have completed method lectures on model structures!
-
--   Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis
-
--   Will soon start 'applied' phase with lots of examples
-
 ## Recap
 
 -   Discrete event simulation model [capacity constrained]{.underline} systems in continuous times
@@ -453,6 +456,14 @@ What separate SD models from traditional differential equations models
 -   "Top down" system dynamic (cohort) models use feedback loops to assess system behavior
 
 -   **Regardless of structure: start simple and add complexity!**
+
+## Where we are
+
+-   Have completed method lectures on model structures!
+
+-   Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis
+
+-   Will soon start 'applied' phase with lots of examples
 
 ## Logistics
 
