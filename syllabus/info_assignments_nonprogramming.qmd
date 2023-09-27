@@ -10,19 +10,23 @@ editor: visual
 
 ## **Open-source modeling study presentation (10% final grade)**
 
-Students will find a published decision-analytic modeling study that also provides open source code in R (or another language with which the student is comfortable). Students will read the paper, analyze the code, and attempt to run it themselves (no need to spend over 2 hours trying to get the code working). Students will give a high level, 5-7 minute class presentation about the paper with a focus on the question being answered, methodological approach, and reproducibility.
+Students will find a published decision-analytic modeling study that also provides open source code in R (or another language with which the student is comfortable). Students will read the paper, analyze the code, and attempt to run it themselves (no need to spend over 2 hours analyzing the code; it's OK if you don't get it running). Students will give a high level class presentation about the paper with a focus on the question being answered, methodological approach, and reproducibility.
 
 -   Oral presentation with slides is the only deliverable (no written report)
 
--   No more than 10 slides and 7 minutes
+-   No more than 12 slides and 8 minutes
 
--   When you select your paper, please post the citation on the MyCourses discussion forum to make sure each student has a unique paper
+-   When you select your paper, post the citation on the MyCourses discussion forum to make sure each student has a unique paper
+
+### Finding a paper
+
+Because most publications still don't publish their code open source, it may be easier to search for a code repositories then finding the paper, rather than searching for papers then checking if the code are publised. You can search general code repositories like [Zenodo.org](https://zenodo.org/) or [OSF.io](https://www.OSF.io). You can also check out the [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/orchard/open-source-model-clearinghouse) and [SMDM COVID-19 modeling repository](https://smdm.org/news/detail/smdm-covid-19-modeling-special-committee-creating-a-platform-for-collaborat).
 
 ### Your presentation should address
 
 -   Why did you pick this paper?
 
--   In brief, what is the decision problem, setting, alternatives, perspective, time horizon, key finding?
+-   In brief, what is the decision problem, setting, alternatives, perspective, time horizon, key findings?
 
 -   What modeling method was used? What do you think of the choice?
 
@@ -30,7 +34,7 @@ Students will find a published decision-analytic modeling study that also provid
 
 ### Assessment criteria
 
-Did the oral presentation and slides:
+Do the oral presentation and slides:
 
 -   Succinctly address all points above?
 

@@ -336,7 +336,6 @@ Network model of PWID in a representative US urban center
 
 ::: columns
 ::: {.column width="75%"}
-
 ![](PrEP_CEA_results.png)
 :::
 
@@ -467,5 +466,5 @@ What separate SD models from traditional differential equations models
 
 ## Logistics
 
--   Assignment 2 due 11:59 tomorrow
 -   Assignment 3 due Wed, Oct 11
+-   Open-source modeling presentations on
