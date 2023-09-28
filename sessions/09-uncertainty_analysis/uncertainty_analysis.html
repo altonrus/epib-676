@@ -445,21 +445,21 @@ Alton Russell
 <ul>
 <li><p><strong>First order</strong> <strong>(stochastic):</strong> variation between statistically identical patients</p>
 <ul>
-<li>Simulate enough replications/individuals to make negligible</li>
+<li>Use enough simulation runs to make negligible</li>
 </ul></li>
 <li><p><strong>Second order (parameter):</strong> uncertainty in a population parameter</p>
 <ul>
-<li>Use parametric sensitivity analysis to analyze</li>
+<li>Estimate va <strong>parametric sensitivity analysis</strong></li>
 </ul></li>
 <li><p><strong>Third order (structural):</strong> uncertainty in relation between parameters</p>
 <ul>
-<li>Use structural sensitivity analysis to analyze</li>
+<li>Estimate via <strong>structural sensitivity analysis</strong></li>
 </ul></li>
 </ul>
 </section>
 <section id="uncertainty-analysis-types" class="slide level2">
 <h2>Uncertainty analysis types</h2>
-<p>Changing inputs</p>
+<p>Changing inputs/parameters</p>
 <ul>
 <li><p><strong>Univariate:</strong> vary 1 parameter over a range</p></li>
 <li><p><strong>Multivariate:</strong> vary &gt;1 parameter over a range</p></li>
@@ -497,7 +497,7 @@ Alton Russell
 </section>
 <section id="base-case-results" class="slide level2">
 <h2>Base case results</h2>
-<p>Base case means all parameters at their most likely value.</p>
+<p>All parameters at their expected value.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>l_basecase_results <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms); l_basecase_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -639,10 +639,11 @@ $ICER_treat
 <span id="cb11-5"><a href="#cb11-5"></a>  t_owsa[row, <span class="st">"ICER.min"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
 <span id="cb11-6"><a href="#cb11-6"></a>  <span class="co"># Calculate ICER with parameter at max value</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.max"</span>]</span>
-<span id="cb11-8"><a href="#cb11-8"></a>  t_owsa[row, <span class="st">"ICER.max"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
-<span id="cb11-9"><a href="#cb11-9"></a>}</span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co"># Add column for range of the ICER</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a>t_owsa<span class="sc">$</span>ICER.range <span class="ot">&lt;-</span> <span class="fu">abs</span>(t_owsa<span class="sc">$</span>ICER.max <span class="sc">-</span> t_owsa<span class="sc">$</span>ICER.min); t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="co"># Reset to base case value (IMPORTANT!!!!)</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>  t_owsa[row, <span class="st">"ICER.max"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
+<span id="cb11-10"><a href="#cb11-10"></a>}</span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co"># Add column for range of the ICER (absolute value)</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a>t_owsa<span class="sc">$</span>ICER.range <span class="ot">&lt;-</span> <span class="fu">abs</span>(t_owsa<span class="sc">$</span>ICER.max <span class="sc">-</span> t_owsa<span class="sc">$</span>ICER.min); t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                name   value value.min value.max ICER.min ICER.max ICER.range
 1         cost_treat 60000.0   3.0e+04   1.0e+05 17666.67 56555.56 38888.8889
@@ -679,39 +680,43 @@ $ICER_treat
 
 </div>
 <img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
-<section id="another-example" class="slide level2">
-<h2>Another example</h2>
+<section id="publication-worthy-example" class="slide level2">
+<h2>Publication-worthy example</h2>
 
 <img data-src="wbpr_ghana_tornado.png" class="r-stretch"></section>
-<section id="owsa-approach-with-multiple-policies" class="slide level2">
-<h2>OWSA approach with multiple policies</h2>
+<section id="owsa-for-2-policies" class="slide level2">
+<h2>OWSA for &gt;2 policies?</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
 <p><img data-src="zika_owsa.png"></p>
 </div><div class="column" style="width:35%;">
-<p>Base case parameter value and thresholds at which optimal policy changes in OWSA shown in red.</p>
+<ul>
+<li><p>One approach shown here.</p></li>
+<li><p>Parameter value at base case and thresholds for change in preferred strategy in red text.</p></li>
+</ul>
 </div>
 </div>
 </section>
-<section id="two-way-sensitivity-analysis" class="slide level2">
-<h2>Two way sensitivity analysis</h2>
-<p>Check outcome while changing pairs of inputs</p>
+<section id="two-way-sensitivity-analysis-twsa" class="slide level2">
+<h2>Two way sensitivity analysis (TWSA)</h2>
+<p>Simultaneously change <u><strong>pair</strong></u> of parameters</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>rr_death_drug <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>rr_drug_min, <span class="at">to=</span>rr_drug_max, <span class="at">length.out=</span><span class="dv">20</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a>prob_death_noTreat <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>.<span class="dv">16</span>, <span class="at">to=</span>.<span class="dv">45</span>, <span class="at">length.out=</span><span class="dv">20</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Make grid with each of 20 possible values for each parameter</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>rr_death_drug <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>rr_drug_min, <span class="at">to=</span>rr_drug_max, <span class="at">length.out=</span><span class="dv">20</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>prob_death_noTreat <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>.<span class="dv">16</span>, <span class="at">to=</span>.<span class="dv">45</span>, <span class="at">length.out=</span><span class="dv">20</span>)</span>
 <span id="cb15-4"><a href="#cb15-4"></a>t_twoway <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">rr_death_drug=</span>rr_death_drug, </span>
 <span id="cb15-5"><a href="#cb15-5"></a>                        <span class="at">prob_death_noTreat=</span>prob_death_noTreat)</span>
-<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co"># Add column for the ICER</span></span>
 <span id="cb15-7"><a href="#cb15-7"></a>t_twoway<span class="sc">$</span>ICER <span class="ot">&lt;-</span> <span class="dv">0</span>; l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
-<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Run model &amp; save ICER for each combo of the parameters</span></span>
 <span id="cb15-9"><a href="#cb15-9"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_twoway)){</span>
 <span id="cb15-10"><a href="#cb15-10"></a>  l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"rr_death_drug"</span>]</span>
 <span id="cb15-11"><a href="#cb15-11"></a>  l_prms_temp[[<span class="st">"prob_death_noTreat"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"prob_death_noTreat"</span>]</span>
 <span id="cb15-12"><a href="#cb15-12"></a>  t_twoway[row,<span class="st">"ICER"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
 <span id="cb15-13"><a href="#cb15-13"></a>}</span>
-<span id="cb15-14"><a href="#cb15-14"></a>t_twoway<span class="sc">$</span>preferred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t_twoway<span class="sc">$</span>ICER <span class="sc">&gt;</span> <span class="dv">50000</span>, <span class="st">"Do not treat"</span>, <span class="st">"Treat"</span>)</span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="fu">head</span>(t_twoway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="co"># Apply willingness-to-pay theshold to find preferred strategy</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>t_twoway<span class="sc">$</span>preferred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t_twoway<span class="sc">$</span>ICER <span class="sc">&gt;</span> <span class="dv">50000</span>, <span class="st">"Do not treat"</span>, <span class="st">"Treat"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="fu">head</span>(t_twoway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rr_death_drug prob_death_noTreat     ICER preferred
 1     0.2000000               0.16 40062.50     Treat
@@ -723,16 +728,16 @@ $ICER_treat
 </div>
 </div>
 </section>
-<section id="two-way-sensitivity-analysis-1" class="slide level2">
-<h2>Two way sensitivity analysis</h2>
+<section id="twsa-plot-of-continuous-outcome-icer" class="slide level2">
+<h2>TWSA plot of continuous outcome (ICER)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_twoway, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>prob_death_noTreat, <span class="at">fill=</span>ICER)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span><span class="fu">scale_fill_gradientn</span>(<span class="at">colors=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
-<section id="two-way-sensitivity-analysis-2" class="slide level2">
-<h2>Two way sensitivity analysis</h2>
+<section id="twsa-plot-of-preferred-policy" class="slide level2">
+<h2>TWSA plot of preferred policy</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_twoway, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>prob_death_noTreat, <span class="at">fill=</span>preferred)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">geom_tile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -854,12 +859,12 @@ $ICER_treat
 <h2>High uncertainty distributions</h2>
 
 <img data-src="distn_high_uncertainty.png" class="r-stretch"><p>Often used when ‘expert opinion’ is main data source</p>
-<p>Remember: Goal is PSA distributions of uncertainty around the mean, not variance in population!</p>
+<p><u><strong>Remember</strong></u>: Want experts’ estimate of uncertainty in parameter mean, not variance in outcome!</p>
 </section>
 <section id="multi-outcome-probabilities" class="slide level2">
 <h2>Multi-outcome probabilities</h2>
 <ul>
-<li><p>For branches from decision tree node or transitions from Markov state, probabilities must sum to 1</p></li>
+<li><p>Probability of each branches from decision tree node (or transitions from Markov state) must sum to 1</p></li>
 <li><p>2 outcomes: no problem. Sample P(A), set P(B) = 1 - P(A)</p></li>
 <li><p>&gt;2 outcomes but most small proability: Can calculate P(big) as 1 - sum(P(smalls)), might be OK</p></li>
 </ul>
@@ -907,8 +912,8 @@ $ICER_treat
 </div>
 <p><strong>Goal:</strong> fit distribution to each parameter. Use <code>value.min</code> and <code>value.max</code> as <code>.025</code> and <code>.975</code> quantile and the base case value as the mean.</p>
 </section>
-<section id="example-fitting-distributions" class="slide level2">
-<h2>Example: fitting distributions</h2>
+<section id="ex-fitting-distns-rriskdistributions" class="slide level2">
+<h2>Ex: fitting distns (rriskDistributions)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>n<span class="ot">=</span><span class="dv">1000</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a>cost_treat_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">6000</span>, <span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -930,7 +935,7 @@ $ICER_treat
 </section>
 <section id="note" class="slide level2">
 <h2>Note</h2>
-<p>The distributions used for PSA should have their <u><strong>mean value (expectation)</strong></u> as the base case value. For asymmetric distributions, the median will not equal the mean. To simplify, I just set the base case value as the median.</p>
+<p>Distributions used for PSA should have their <u><strong>mean value (expectation)</strong></u> as the base case value. For asymmetric distributions, the median will not equal the mean. To simplify, I just set the base case value as the median.</p>
 </section>
 <section id="ex-run-model-for-each-psa-input-set" class="slide level2">
 <h2>Ex: run model for each PSA input set</h2>
@@ -950,13 +955,13 @@ $ICER_treat
 <span id="cb27-13"><a href="#cb27-13"></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cost_treat prob_death_noTreat rr_death_drug QALY_survive cost_survive
-1   4015.929          0.2259146     0.5205821     8.657735     14893.02
-2   3957.816          0.2940092     0.5142306    13.621112     11453.27
-3   5596.764          0.4405870     0.4861591    11.309398     13335.40
+1   7315.531          0.3048589     0.5064616     12.54605     13851.31
+2   6128.365          0.2708997     0.5071994     12.52557     10869.37
+3   9914.761          0.2847592     0.5208578     15.37876     13512.98
   tot_cost_noTreat tot_cost_treat tot_QALY_noTreat tot_QALY_treat ICER_treat
-1         9154.445       15948.47         5.802068       7.311081   4502.301
-2         8085.901       13679.48         9.616380      11.561756   2875.320
-3         7459.995       16075.78         6.326624       8.886977   3365.078</code></pre>
+1         9517.115       17730.60         10.98627       12.39221   5841.998
+2         7924.862       15504.28          9.13240       10.80456   4532.718
+3         9665.036       21423.51         10.99951       13.09779   5603.865</code></pre>
 </div>
 </div>
 </section>
@@ -1040,17 +1045,14 @@ $ICER_treat
 
 </div>
 <img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
-<section id="preferred-strategy-by-willingness-to-pay" class="slide level2">
-<h2>Preferred strategy by willingness to pay</h2>
+<section id="id-preferred-strategy-by-wtp-level" class="slide level2">
+<h2>ID preferred strategy by WTP level</h2>
 <ul>
-<li><p>Can determine preferred strategy with incremental analysis for each PSA iteration at each WTP level</p>
+<li><p>Can determine preferred strategy with incremental analysis for each PSA iteration at each willingness-to-pay level with nested loops (inefficient!)</p></li>
+<li><p>Instead, calculate <u><strong>net monetary benefit</strong></u> at each WTP level for each strategy in each PSA iteration</p>
 <ul>
-<li>Need for loops (inefficient!)</li>
-</ul></li>
-<li><p>In practice, we usually calculate net monetary benefit of each strategy</p>
-<ul>
-<li><p>Strategy with maximum NMB in given PSA iteration is preferred</p></li>
 <li><p>Easy to vectorize (more efficient)</p></li>
+<li><p>Strategy with maximum NMB in given PSA iteration is preferred</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1079,12 +1081,12 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb40-3"><a href="#cb40-3"></a><span class="fu">head</span>(ceac_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    WTP Strategy Proportion On_Frontier
-1     0    Chemo     0.0063       FALSE
+1     0    Chemo     0.0064       FALSE
 2     0    Radio     0.7880        TRUE
-3     0  Surgery     0.2057       FALSE
+3     0  Surgery     0.2056       FALSE
 4 10000    Chemo     0.0461       FALSE
-5 10000    Radio     0.6575        TRUE
-6 10000  Surgery     0.2964       FALSE</code></pre>
+5 10000    Radio     0.6574        TRUE
+6 10000  Surgery     0.2965       FALSE</code></pre>
 </div>
 </div>
 </section>
@@ -1125,34 +1127,37 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <p><strong>Uncertain parameters</strong> should all be varied in PSA</p>
 <p><strong>Design parameters</strong> like discount rate, time horizon can be analyzed in scenario analysis</p>
 </section>
-<section id="credible-intervals" class="slide level2">
-<h2>Credible intervals</h2>
-<p>Can define X% credible interval as the range between the [(1-X%)/2, 1-(1-X%)/2] percentile of PSA iteration outputs or inputs. E.g, 95% CrI goes from 2.5th and 97.5th percentile.</p>
+<section id="credible-intervals-from-psa-output" class="slide level2">
+<h2>Credible intervals from PSA output</h2>
+<ul>
+<li><p>Define X% credible interval as the range between the [(1-X%)/2, 1-(1-X%)/2] percentile of outcomes (or inputs) from PSA iterations</p></li>
+<li><p>E.g, 95% CrI from 2.5 %ile (lower bound) to 97.5 %ile (upper)</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">sapply</span>(t_psa, <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">2</span>), <span class="st">" (95% CrI "</span>,</span>
 <span id="cb44-2"><a href="#cb44-2"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">025</span>),<span class="dv">2</span>),<span class="st">" to "</span>,</span>
 <span id="cb44-3"><a href="#cb44-3"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                               cost_treat 
-  "6250.84 (95% CrI 3570.17 to 10188.76)" 
+  "6282.42 (95% CrI 3353.04 to 10223.86)" 
                        prob_death_noTreat 
-            "0.31 (95% CrI 0.17 to 0.46)" 
+             "0.3 (95% CrI 0.16 to 0.45)" 
                             rr_death_drug 
-              "0.5 (95% CrI 0.41 to 0.6)" 
+              "0.5 (95% CrI 0.42 to 0.6)" 
                              QALY_survive 
-          "12.06 (95% CrI 8.94 to 15.26)" 
+          "12.04 (95% CrI 9.02 to 15.35)" 
                              cost_survive 
- "12112.77 (95% CrI 9107.67 to 15942.59)" 
+ "12078.97 (95% CrI 8785.99 to 16118.93)" 
                          tot_cost_noTreat 
-     "8407.62 (95% CrI 5706 to 11703.67)" 
+  "8486.55 (95% CrI 5657.12 to 11917.13)" 
                            tot_cost_treat 
-"16512.73 (95% CrI 12337.31 to 21523.94)" 
+"16558.58 (95% CrI 12334.34 to 21524.09)" 
                          tot_QALY_noTreat 
-           "8.38 (95% CrI 5.73 to 11.31)" 
+           "8.46 (95% CrI 5.84 to 11.49)" 
                            tot_QALY_treat 
-          "10.22 (95% CrI 7.44 to 13.18)" 
+           "10.25 (95% CrI 7.5 to 13.11)" 
                                ICER_treat 
-   "4748.11 (95% CrI 2394.86 to 8585.15)" </code></pre>
+      "4900.34 (95% CrI 2454.26 to 9338)" </code></pre>
 </div>
 </div>
 </section>
@@ -1163,20 +1168,21 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <li><p>In practice, we often treat PSA inputs as independent</p>
 <ul>
 <li>Probably overestimate uncertainty in most cases</li>
-<li>When important and feasible, better to account for correlation</li>
+<li>Better to account for correlation between parameters when it’s likely to matter</li>
 </ul></li>
 </ul>
 </section>
-<section id="handling-corrln-1-multivariate-distribution" class="slide level2">
-<h2>Handling corrln 1: multivariate distribution</h2>
+<section id="corr-1-multivariate-distn" class="slide level2">
+<h2>Corr 1: multivariate distn</h2>
 <p>Can fit multivariate distributions to data</p>
 <ul>
 <li><p>Normal and lognormal are easiest</p></li>
-<li><p>See supplement of <a href="www.doi.org/10.1001/jamapsychiatry.2021.0247">Fairley et. al.&nbsp;2021</a> for an example</p></li>
+<li><p><a href="https://www.doi.org/10.1001/jamapsychiatry.2021.0247">Fairley et. al.&nbsp;2021</a> fir multivariate log-normal distribution to many parameters to capture correlation between values by policy (see supplement)</p></li>
 </ul>
-</section>
-<section id="handling-corrln.-2-relative-parameters" class="slide level2">
-<h2>Handling corrln. 2: relative parameters</h2>
+
+<img data-src="fairly_multivariate_ex.png" class="r-stretch"></section>
+<section id="corr-2-relative-parameters" class="slide level2">
+<h2>Corr 2: relative parameters</h2>
 <ul>
 <li><p>Defining some parameters relative to others can enforce certain relationships</p></li>
 <li><p>Ex: absolute parameters:</p>
@@ -1207,10 +1213,11 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="bootstrapping-when-deriving-parameters" class="slide level2">
 <h2>Bootstrapping when deriving parameters</h2>
 <ul>
-<li><p>Create bootstrap resampled cohort then calculate parameter(s) for each PSA iteration</p></li>
-<li><p>Preserves correlation between parameters derived from same cohort</p>
+<li><p><u><strong>Situation</strong></u>: using patient-level data to estimate &gt;1 parameter in your model (not directly feeding patient-level data into model)</p></li>
+<li><p>To preserve correlation between derived parameters in PSA</p>
 <ul>
-<li>Must use same resampled cohort for all parameters in PSA set</li>
+<li>Generate a bootstrap resample for each planned PSA iteration</li>
+<li>Derive parameters for each PSA iteration from a common resample</li>
 </ul></li>
 </ul>
 </section>
@@ -1220,7 +1227,8 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <li><p>Model is function mapping inputs to outputs</p></li>
 <li><p>Parameteric uncertainty analysis: change inputs, observe change in outputs</p>
 <ul>
-<li>Deterministic and problistic</li>
+<li>Deterministic (1-way, tornado diagrams, multi-way)</li>
+<li>Probabilistic (Pr(preferred), credible intervals, cost-effectiveness acceptability curves)</li>
 </ul></li>
 <li><p>Structural: change the model itself</p></li>
 </ul>
@@ -1228,7 +1236,7 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Assignment 3 due Wed, Oct 11</p>
+<li><p>Assignment 3 due <u><strong>Wed, Oct 11</strong></u></p>
 <ul>
 <li><a href="https://github.com/altonrus/epib-676/commit/389e9c01c32f1438b6ac72810785bcc3f3f8c1d7">Minor correction</a> made Tues</li>
 </ul></li>

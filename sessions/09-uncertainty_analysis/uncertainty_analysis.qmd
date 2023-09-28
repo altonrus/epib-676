@@ -44,19 +44,19 @@ theme_set(theme_bw()) #set ggplot theme
 
 -   **First order** **(stochastic):** variation between statistically identical patients
 
-    -   Simulate enough replications/individuals to make negligible
+    -   Use enough simulation runs to make negligible
 
 -   **Second order (parameter):** uncertainty in a population parameter
 
-    -   Use parametric sensitivity analysis to analyze
+    -   Estimate va **parametric sensitivity analysis**
 
 -   **Third order (structural):** uncertainty in relation between parameters
 
-    -   Use structural sensitivity analysis to analyze
+    -   Estimate via **structural sensitivity analysis**
 
 ## Uncertainty analysis types
 
-Changing inputs
+Changing inputs/parameters
 
 -   **Univariate:** vary 1 parameter over a range
 
@@ -97,7 +97,7 @@ model <- function(l_prms){
 
 ## Base case results
 
-Base case means all parameters at their most likely value.
+All parameters at their expected value.
 
 ```{r}
 #| echo: true
@@ -197,9 +197,10 @@ for (row in 1:nrow(t_owsa)){
   t_owsa[row, "ICER.min"] <- model(l_prms_temp)$ICER_treat
   # Calculate ICER with parameter at max value
   l_prms_temp[[t_owsa[row,"name"]]] <- t_owsa[row,"value.max"]
+  # Reset to base case value (IMPORTANT!!!!)
   t_owsa[row, "ICER.max"] <- model(l_prms_temp)$ICER_treat
 }
-# Add column for range of the ICER
+# Add column for range of the ICER (absolute value)
 t_owsa$ICER.range <- abs(t_owsa$ICER.max - t_owsa$ICER.min); t_owsa
 ```
 
@@ -230,11 +231,11 @@ p_tornado <- ggplot(data = t_owsa) +
 p_tornado
 ```
 
-## Another example
+## Publication-worthy example
 
 ![](wbpr_ghana_tornado.png)
 
-## OWSA approach with multiple policies
+## OWSA for \>2 policies?
 
 ::: columns
 ::: {.column width="65%"}
@@ -242,34 +243,37 @@ p_tornado
 :::
 
 ::: {.column width="35%"}
-Base case parameter value and thresholds at which optimal policy changes in OWSA shown in red.
+-   One approach shown here.
+
+-   Parameter value at base case and thresholds for change in preferred strategy in red text.
 :::
 :::
 
-## Two way sensitivity analysis
+## Two way sensitivity analysis (TWSA)
 
-Check outcome while changing pairs of inputs
+Simultaneously change [**pair**]{.underline} of parameters
 
 ```{r}
 #| echo: true
+# Make grid with each of 20 possible values for each parameter
 rr_death_drug = seq(from=rr_drug_min, to=rr_drug_max, length.out=20)
 prob_death_noTreat = seq(from=.16, to=.45, length.out=20)
-
 t_twoway <- expand.grid(rr_death_drug=rr_death_drug, 
                         prob_death_noTreat=prob_death_noTreat)
-
+# Add column for the ICER
 t_twoway$ICER <- 0; l_prms_temp <- l_prms
-
+# Run model & save ICER for each combo of the parameters
 for (row in 1:nrow(t_twoway)){
   l_prms_temp[["rr_death_drug"]] <- t_twoway[row,"rr_death_drug"]
   l_prms_temp[["prob_death_noTreat"]] <- t_twoway[row,"prob_death_noTreat"]
   t_twoway[row,"ICER"] <- model(l_prms_temp)$ICER_treat
 }
+# Apply willingness-to-pay theshold to find preferred strategy
 t_twoway$preferred <- ifelse(t_twoway$ICER > 50000, "Do not treat", "Treat")
 head(t_twoway)
 ```
 
-## Two way sensitivity analysis
+## TWSA plot of continuous outcome (ICER)
 
 ```{r}
 #| echo: true
@@ -277,7 +281,7 @@ ggplot(data=t_twoway, aes(x=rr_death_drug, y=prob_death_noTreat, fill=ICER)) +
   geom_tile() +scale_fill_gradientn(colors=c("blue","red"))
 ```
 
-## Two way sensitivity analysis
+## TWSA plot of preferred policy
 
 ```{r}
 #| echo: true
@@ -375,11 +379,11 @@ From the output, you can:
 
 Often used when 'expert opinion' is main data source
 
-Remember: Goal is PSA distributions of uncertainty around the mean, not variance in population!
+[**Remember**]{.underline}: Want experts' estimate of uncertainty in parameter mean, not variance in outcome!
 
 ## Multi-outcome probabilities
 
--   For branches from decision tree node or transitions from Markov state, probabilities must sum to 1
+-   Probability of each branches from decision tree node (or transitions from Markov state) must sum to 1
 
 -   2 outcomes: no problem. Sample P(A), set P(B) = 1 - P(A)
 
@@ -424,7 +428,7 @@ t_owsa
 
 **Goal:** fit distribution to each parameter. Use `value.min` and `value.max` as `.025` and `.975` quantile and the base case value as the mean.
 
-## Example: fitting distributions
+## Ex: fitting distns (rriskDistributions)
 
 ```{r}
 #| echo: true
@@ -449,7 +453,7 @@ v_psa_cost_survive <- rlnorm(n, meanlog=cost_survive_lnorm[["meanlog"]],
 
 ## Note
 
-The distributions used for PSA should have their [**mean value (expectation)**]{.underline} as the base case value. For asymmetric distributions, the median will not equal the mean. To simplify, I just set the base case value as the median.
+Distributions used for PSA should have their [**mean value (expectation)**]{.underline} as the base case value. For asymmetric distributions, the median will not equal the mean. To simplify, I just set the base case value as the median.
 
 ## Ex: run model for each PSA input set
 
@@ -518,17 +522,15 @@ summary(psa_obj, calc_sds=T)
 plot(psa_obj)
 ```
 
-## Preferred strategy by willingness to pay
+## ID preferred strategy by WTP level
 
--   Can determine preferred strategy with incremental analysis for each PSA iteration at each WTP level
+-   Can determine preferred strategy with incremental analysis for each PSA iteration at each willingness-to-pay level with nested loops (inefficient!)
 
-    -   Need for loops (inefficient!)
-
--   In practice, we usually calculate net monetary benefit of each strategy
-
-    -   Strategy with maximum NMB in given PSA iteration is preferred
+-   Instead, calculate [**net monetary benefit**]{.underline} at each WTP level for each strategy in each PSA iteration
 
     -   Easy to vectorize (more efficient)
+
+    -   Strategy with maximum NMB in given PSA iteration is preferred
 
 ## Recall: net monetary benefit
 
@@ -592,9 +594,11 @@ plot(el, n_x_ticks = 8, n_y_ticks = 6)
 
 **Design parameters** like discount rate, time horizon can be analyzed in scenario analysis
 
-## Credible intervals
+## Credible intervals from PSA output
 
-Can define X% credible interval as the range between the \[(1-X%)/2, 1-(1-X%)/2\] percentile of PSA iteration outputs or inputs. E.g, 95% CrI goes from 2.5th and 97.5th percentile.
+-   Define X% credible interval as the range between the \[(1-X%)/2, 1-(1-X%)/2\] percentile of outcomes (or inputs) from PSA iterations
+
+-   E.g, 95% CrI from 2.5 %ile (lower bound) to 97.5 %ile (upper)
 
 ```{r}
 #| echo: true
@@ -611,17 +615,19 @@ sapply(t_psa, function(x) paste0(round(mean(x),2), " (95% CrI ",
 -   In practice, we often treat PSA inputs as independent
 
     -   Probably overestimate uncertainty in most cases
-    -   When important and feasible, better to account for correlation
+    -   Better to account for correlation between parameters when it's likely to matter
 
-## Handling corrln 1: multivariate distribution
+## Corr 1: multivariate distn
 
 Can fit multivariate distributions to data
 
 -   Normal and lognormal are easiest
 
--   See supplement of [Fairley et. al. 2021](www.doi.org/10.1001/jamapsychiatry.2021.0247) for an example
+-   [Fairley et. al. 2021](https://www.doi.org/10.1001/jamapsychiatry.2021.0247) fir multivariate log-normal distribution to many parameters to capture correlation between values by policy (see supplement)
 
-## Handling corrln. 2: relative parameters
+![](fairly_multivariate_ex.png)
+
+## Corr 2: relative parameters
 
 -   Defining some parameters relative to others can enforce certain relationships
 
@@ -653,11 +659,12 @@ Can fit multivariate distributions to data
 
 ## Bootstrapping when deriving parameters
 
--   Create bootstrap resampled cohort then calculate parameter(s) for each PSA iteration
+-   [**Situation**]{.underline}: using patient-level data to estimate \>1 parameter in your model (not directly feeding patient-level data into model)
 
--   Preserves correlation between parameters derived from same cohort
+-   To preserve correlation between derived parameters in PSA
 
-    -   Must use same resampled cohort for all parameters in PSA set
+    -   Generate a bootstrap resample for each planned PSA iteration
+    -   Derive parameters for each PSA iteration from a common resample
 
 ## Recap
 
@@ -665,15 +672,16 @@ Can fit multivariate distributions to data
 
 -   Parameteric uncertainty analysis: change inputs, observe change in outputs
 
-    -   Deterministic and problistic
+    -   Deterministic (1-way, tornado diagrams, multi-way)
+    -   Probabilistic (Pr(preferred), credible intervals, cost-effectiveness acceptability curves)
 
 -   Structural: change the model itself
 
 ## Logistics
 
--   Assignment 3 due Wed, Oct 11
+-   Assignment 3 due [**Wed, Oct 11**]{.underline}
 
-    -    [Minor correction](https://github.com/altonrus/epib-676/commit/389e9c01c32f1438b6ac72810785bcc3f3f8c1d7) made Tues
+    -   [Minor correction](https://github.com/altonrus/epib-676/commit/389e9c01c32f1438b6ac72810785bcc3f3f8c1d7) made Tues
 
 -   Shifting to 'applied' assignments
 
