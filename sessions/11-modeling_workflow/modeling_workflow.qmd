@@ -1,0 +1,579 @@
+---
+title: "Reproducible modeling workflow"
+subtitle: "EPIB  676 session 6, McGill University"
+author: "Alton Russell"
+date: "5 Oct 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Open and reproducible principles**
+
+-   Example R Project workflow
+
+## Reproducible
+
+Can be exactly redone, given same materials
+
+-   Code
+
+-   Environment
+
+-   Data
+
+## Reproducible for whom?
+
+-   Can **you** run your entire workflow again?
+
+-   Can **another person** run your entire workflow again?
+
+-   Can **"future-you"** run your entire workflow again?
+
+-   Can **"future-another-person"** run your entire workflow again?[^1]
+
+[^1]: Adapted from [Telling Stories with Data by Rohan Alexander](https://tellingstorieswithdata.com/04-workflow.html)
+
+## Reproducible outputs
+
+::: columns
+::: {.column width="50%"}
+Necessary conditions
+
+-   Code
+
+-   Datasets
+
+-   Info to reconstruct environment
+:::
+
+::: {.column width="50%"}
+"Overachieving"
+
+-   Code-generated manuscripts
+
+-   Functional docker-container
+
+-   Apps/widgets to run model/interrogate analysis
+:::
+:::
+
+## Paradigm shift
+
+Manuscript is an advertisement. Product is what you publish with it.
+
+<br>
+
+Product is code, data, Shiny tool, etc.
+
+> An article about computational result is advertising, not scholarship. The **actual scholarship is the full software environment, code and data, that produced the result.**
+
+[Buckheit and Donoho (1995)](https://statweb.stanford.edu/~wavelab/Wavelab_850/wavelab.pdf)
+
+## Why people don't share code?
+
+## Why people don't share code?
+
+-   No one asked
+
+-   It's not 'camera ready'
+
+-   Want to keep competitive edge
+
+-   Mistakes might be found
+
+**Usually, not good reasons**
+
+## Why should we share code?
+
+## Why should we share code?
+
+-   Only way to fully communicate methods
+
+-   Publc/non-profit-funded research is a public good
+
+-   Extend your potential contribution
+
+-   Mistakes might be found
+
+-   Can increase citations
+
+**Messy code \>\>\> No code!**
+
+## "Data available on request"
+
+Gabelica et. al.[^2] found:
+
+[^2]: Gabelica, Bojčić, and Puljakc 2022. *Journal of Clinical Epidemiology* 2022. <https://doi.org/10.1016/j.jclinepi.2022.05.019>
+
+-   3416 of 3556 articles (96%) included data availability statements
+
+-   1782 (42%) indicated data available on request, **but**
+
+    -   1528 (86%) did not respond
+
+    -   131 (7%) declined to share
+
+    -   123 (7%) shared their data
+
+## "Research should be as open as possible and as closed as necessary"
+
+*H2020 Program Guidelines on FAIR Data, European Commission*
+
+<br>
+
+Data sharing isn't always possible
+
+## Can't share data due to privacy?
+
+Code is very useful even without data
+
+-   Helps communicate your methods
+
+-   Others can adapt + run on their own data
+
+Increase reproducibility without sharing data with
+
+-   'Data dictionary' in supplement
+
+-   Synthetic data
+
+## Environment
+
+-   R and packages updated all the time
+
+-   No guarantees of backwards compatibility
+
+-   Potential solutions
+
+    -   [renv package](https://rstudio.github.io/renv/) for **r**eproducible **env**ironments
+
+    -   [Docker containers](https://colinfay.me/docker-r-reproducibility/) (self-contained environment)
+
+## R projects
+
+-   Self contained set of files (data, scripts, reports)
+
+-   Portable **if** all file paths relative to project directory
+
+    -   No:`"\Users\alton\projects\COVID\data\dat.csv"`
+
+    -   No: `setwd("\Users\alton\projects\COVID")`
+
+    -   Yes: `"1_data\dat_file.csv"`
+
+## Each script should run error-free in new session
+
+Use console when designing code, but 'restart r and clear output' before final check.
+
+Change global options to maximize reproducibility
+
+![](figs/rstudio-global-options.jpeg)
+
+## Literate programming
+
+Idea of Donald Knuth: Code snippets and 'natural language' (e.g., English) interspersed in one document
+
+-   **Jupyter notebooks** Python, Julia
+
+-   **RMarkdown** R, Python with some extra steps
+
+-   **Quarto documents** R, Python, Julia
+
+    -   In 2022, RStudio the company re-branded to Posit and released Quarto
+
+## Repositories
+
+Put all shareable materials in one publicly-accessible, citeable spot (and cite it!)
+
+Permanent third-party repo \> github repo
+
+-   [Zenodo.org](https://zenodo.org/): general purpose, can link to a github release, DOI for each version by default
+
+-   [OSF.io](OSF.io): open science framework, can DOI repo but not version
+
+-   [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/orchard/open-source-model-clearinghouse) (18 models; 4 in R)
+
+-   [SMDM COVID-19 modeling repository](https://smdm.org/news/detail/smdm-covid-19-modeling-special-committee-creating-a-platform-for-collaborat)
+
+## Today
+
+-   Open and reproducible principles
+
+-   **Example R Project workflow**
+
+
+<https://github.com/altonrus/generic-project>
+
+## R project organization
+
+::: columns
+::: {.column width="40%"}
+![](figs/generic-project-directory.png){width="399"}
+:::
+
+::: {.column width="60%"}
+-   **1_data** (self-explanatory)
+
+-   **2_scripts** code not embedded in manuscript
+
+-   **3_intermediate** intermediate outputs
+
+-   **4_output** figures, tables that will be read into the manuscript
+
+-   **5_manuscipt** .Rmd or .qmd manuscript
+:::
+:::
+
+## Data folder best practices
+
+-   Also put data documentation (dictionary, meta-data) here
+
+    -   Make meta-data public even if data can't be
+
+-   Put model parameter tables in Excel (Assign2 has example)
+
+    -   Read into RScript to run model
+
+    -   Read by manuscript Rmd/Quarto to display in main text or supplement
+
+-   Line-level data in csv, json or [feather or parquet](https://arrow.apache.org/docs/index.html)
+
+## Intermediate and Output folders
+
+-   Tables/objects generated in your scripts should go to intermediate or output folder (**not data**!)
+
+-   Use intermediate folder for non-final objects (that are later read into another script)
+
+    -   e.g., preprocessed data
+
+-   For smaller projects, can get rid of intermediate and just save everything to output
+
+
+## Figures
+
+-   Better to save programmatically vs. RStudio viewer
+
+-   Save to file before fine-tuning
+
+-   Vector format (svg, pdf) preferred over raster (usually)
+
+    -   Vector always look sharp no matter how zoomed in
+    
+    -   For plots that are mainly lines, really small file size (but files can be too big for complex figures)
+
+    -   PDF figures don't play nice with Word
+
+```{r}
+#| eval: false
+#| echo: true
+ggsave("./4_output/plt_prob_ce_grid.svg",
+       width=7,
+       height=8,
+       unit="in")
+```
+
+## Scripts folder best practices
+
+::: columns
+::: {.column width="60%"}
+-   Each script runs error-free in a new, clean environment
+
+-   Any output that gets 'passed' to next script saved then read
+
+-   Name: Numbers then verbs
+
+-   00 is "helper functions" file
+
+    -   To de-clutter analysis scripts, collect functions here and call `source("00-helper-functions.R")` in script
+:::
+
+::: {.column width="40%"}
+![](rscript_examples.png)
+:::
+:::
+
+## Functionalize code
+
+Often develops over time:
+
+-   At first, write code directly in scripts
+
+-   Then, break key parts into functions
+
+-   As number of functions grow, move into `00-hepler-functions` script and `source()` into analysis scripts
+
+Many smaller functions calling each other \> 1 massive function
+
+## Use headings in code
+
+-   `# Text -----` will create a section for your outline
+
+    -   Again, verb-based sections good
+
+-   Neat hack: `#| Text ----` can create 'subsections'
+
+-   Figures also show up in outline
+
+![](rscript_examples.jpg)
+
+## **Git**hub in RStudio
+
+::: columns
+::: {.column width="65%"}
+![](figs/github-in-rstudio.png)
+:::
+
+::: {.column width="35%"}
+-   Can pull, commit, and push within Rstudio
+
+-   Use terminal for more complex things
+
+-   Also works in Rstudio server!
+:::
+:::
+
+## .gitignore
+
+::: columns
+::: {.column width="30%"}
+![](figs/gitignore-example.png)
+:::
+
+::: {.column width="70%"}
+Any folder or file you don't want on github
+
+-   "local" folder (data use agreements, conference presentations, etc.)
+
+-   "private" folders for objects that cannot be made public
+
+I keep Github repos private at first, but they become public when I publish.
+
+:::
+:::
+
+## More on private folders
+
+-   Use when data use agreement / ethics prevents sharing data
+
+-   Warning: objects other than data tables can include data (e.g., saving a 'random forest object' from ranger)
+
+-   Should never push private data to github, even if private
+
+-   **If sensitive data were ever in repo, hard to remove! (just nuke and re-create before making public)**
+
+## Merge conflict
+
+Caused when:
+
+-   Two users edit same line of file
+
+-   Someone edits and another person deletes
+
+<!-- -->
+
+```         
+If you have questions, please
+<<<<<<< HEAD
+open an issue
+=======
+ask your question in IRC.
+>>>>>>> branch-a
+```
+
+Avoid by pulling, & committing+pushing often!
+
+::: callout-note
+This is why if you edit the assignments you may be unable to pull the class repo. Solution: Copy anything you want to edit into another location so you can always pull.
+:::
+
+## RMarkdown/Quarto documents
+
+-   Quarto will eventually replace RMarkdown
+
+-   Some RMarkdown packages don't work in Quarto
+
+-   "Knit" (RMarkdown) or "Render" (Quarto) to:
+
+    -   HTML (this document)
+
+    -   PDF
+
+    -   Word
+
+    -   Powerpoint
+
+## Literate programming (.Rmd or .Qmd)
+
+### Code chunks
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(ggplot2)
+fread("1_data/data.csv")
+```
+
+### Inline code
+
+![](figs/example-inline-code.png)
+
+↓
+
+> The mean cost per person was \$1,212
+
+## Why use inline code?
+
+It talks longer to write inline code than hard-code numbers.
+
+**But:**
+
+-   If you change parameter and rerun scrips, all results will update
+
+-   Reduces risk of transcription error (still risk of coding error)
+
+## My Manuscript template
+
+-   .Rmd that knits to Microsoft Word
+
+    -   Collaborators can track changes
+    -   Some medical journals still prefer Word
+
+-   Requires a .bib file for bibliography
+
+    -   Can make with [Zotero](https://www.zotero.org/) or Mendeley
+
+-   Use [flextable package](https://davidgohel.github.io/flextable/reference/index.html) to make pretty tables
+
+## Manuscript template .Rmd
+
+::: columns
+::: {.column width="60%"}
+![](figs/manuscript-template-head.png)
+:::
+
+::: {.column width="40%"}
+-   YAML header to specify title, output format, bib file, citation style
+
+-   `<br>` for line breaks; `#####` for page breaks
+
+-   Can use latex for equations
+:::
+:::
+
+## Manuscript folder contents
+
+::: columns
+::: {.column width="40%"}
+![](figs/manuscript-folder-contents.png)
+:::
+
+::: {.column width="60%"}
+-   **Reference manuscript:** set format for headers, table of content, etc.
+
+-   **.csl file** specifies citation format (AMA format with numbers in brackets)
+
+-   **.bib file** contains references to cite by citation code, e.g., `[@russell2021a]`
+:::
+:::
+
+## Screenshot of "knit" manuscript
+
+::: columns
+::: {.column width="70%"}
+![](figs/manuscript-knit-to-word.png)
+:::
+
+::: {.column width="30%"}
+-   Normal word document
+
+-   Collaborators track changes and return
+
+-   I manually update .Rmd (annoying)
+:::
+:::
+
+## Citations: Zotero → Bibtex → .Rmd
+
+::: columns
+::: {.column width="40%"}
+![](figs/zotero-screenshots.png)
+:::
+
+::: {.column width="60%"}
+-   Export Zotero collection to Bibtex in same folder as .Rmd
+
+-   To replace default CiteKey, add `Citation Key: <CiteKey>` to 'extra' field
+
+-   In .Rmd header, set `bibliography: [filename].bib`
+
+-   Cite with `[@CiteKey]` or `[@CiteKey1; @CiteKey2]`
+:::
+:::
+
+## New! Better BibTex add-on + Zotero
+
+::: columns
+::: {.column width="50%"}
+I just learned of [Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) from [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc)
+
+-   Auto-assign citation keys and prevents duplicates
+
+-   If you export to "Better bibtex" format, with "Keep updated" checked, .bib file auto-updates whenever the Zenodo collection changes
+:::
+
+::: {.column width="50%"}
+![](BetterBibTeX.png)
+:::
+:::
+
+## Zenodo repository
+
+<https://zenodo.org/>
+
+-   Permanent
+
+-   Assigned a DOI (cite the repo in the manuscript!)
+
+-   Can drag-and-drop files or auto-add a 'release' from Github
+
+## Example: Evaluating COVID-19 quarantine and testing policies for arriving travelers
+
+-   Manuscript: <https://doi.org/10.1101/2020.11.02.20224568>
+
+-   Zenodo repository: <https://doi.org/10.5281/zenodo.4107124>
+
+-   Github repository: <https://github.com/altonrus/quarantineTesting>
+
+-   Shiny app: <https://shiny.mchi.mcgill.ca/arussel/quarantineTesting/>
+
+
+## Learn more
+
+-   [D3Mod lab manual](https://altonrus.quarto.pub/decision-modeling-lab-manual/)
+
+-   [Reproducible Analytical Pipelines Course](https://rap4mads.eu/) by Bruno Rodrigues
+
+-   [Reproducible research in R workshop materials](https://r-cubed.rostools.org/index.html) by Luke Johnston et. al.
+
+-   ["Telling Stories with Data"](https://tellingstorieswithdata.com/04-workflow.html) Ch. 4 by Rohan Alexander
+
+-   [Good enough practices in scientific computing](https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&type=printable) (2017) Wilson et. al.
+
+-   [Intro to Dockers for R Users](https://colinfay.me/docker-r-reproducibility/) by Colin Fay
+
+-   [ISPOR open source models interest group](https://www.ispor.org/member-groups/special-interest-groups/open-source-models)
+
+## Logistics
+
+Plan ahead given close deadlines for open source model presentation, project proposal, and assignment 4.
+
+-   Assignment 3 due [**Wed, Oct 11**]{.underline}
+
+-   Open source model presentations [**Th, Oct 26**]{.underline}
+
+-   Project proposals due [**Mon, Oct 30**]{.underline}
+
+-   Assignment 4 due [**Fri, Nov 2**]{.underline}

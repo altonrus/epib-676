@@ -1,0 +1,549 @@
+---
+title: "Assignment 4: Uncertainty analysis"
+author: "YOUR NAME HERE"
+date: today
+format:
+    html:
+      toc: true
+      embed-resources: true
+editor: visual
+---
+
+```{r}
+#| warning: false
+
+#Use install.packages("XXXX") if you don't have any of these installed
+library(readxl)
+library(flextable)
+library(ggplot2)
+library(dampack)
+library(tibble)
+library(dplyr)
+theme_set(theme_bw()) #Makes ggplots look better
+```
+
+# 1. Sensitivity analysis
+
+For this section, we will re-use the model of transfusion-transmitted HIV from problem set 2 and conduct probabilistic sensitivity analysis with it.
+
+## 1a. Set up model for repeated PSA iterations
+
+Create an R script called `model_functions.R` in the same folder as this .Qmd file. From the assignment 2 solution (either my version or yours), copy and paste the functions `sim_cstm`, `cycleTree_from_vec`, and `gen_arr_P_with_OCM` into that file, and save it.
+
+To use your model functions within this Qmd document, load them into your R environment using `source()` in this code chunk:
+
+```{r source_model_functions}
+# Load in functions for the transfusion-transmitted HIV model
+NA
+```
+
+Next we'll read in the parameter tables for the model. These are the same as the parameter tables from assignment 2 except I've added three additional columns: the maximum value, the minimum value, and the distribution to use for probabilistic sensitivity analysis.
+
+```{r}
+#read table from Excel
+t_rewards <- read_excel('params_assign4.xlsx', sheet = "rewards")
+#Display it nicely
+t_rewards |>
+  flextable() |> #turn into flextable object
+  merge_v(j=1) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
+  theme_box() |> #Apply a theme for aesthetics
+  autofit() #automatically set column widths to reasonable values
+
+#read table from Excel, make it a tibble, and add FromTo column
+t_probs <- read_excel('params_assign4.xlsx', sheet = "p_transitions") |>
+  as_tibble() |>
+  mutate(FromTo = paste0(From, ".",To,".",Cohort))
+#Display it nicely
+t_probs |>
+  flextable() |> #turn into flextable object
+  merge_v(j=c(1,3,5)) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
+  theme_box() |> #Apply a theme for aesthetics
+  autofit() #automatically set column widths to reasonable values
+
+#read table from Excel
+t_ocm <- read_excel('params_assign4.xlsx', sheet = "all_cause_mortality")
+#Display it nicely
+t_ocm |>
+  flextable() |> #turn into flextable object
+  theme_box() |> #Apply a theme for aesthetics
+  autofit() #automatically set column widths to reasonable values
+```
+
+In the following code chunk, we'll make two additional functions for running the model.
+
+-   The function `gen_transition_matrix` should takes a dataframe called `t_probs` as an input. The table should have columns `From`, `To`, `cohort`, and `value`. The function should returns a named list with two transition matrices: the first one being `m_P_adult` and the second one being `m_P_ped`.
+
+-   The function `sim_strategies` should run one "iteration" of the decision analysis from Assignment 2, comparing first-year detection of HIV to no first year detection, separately for the pediatric and adult cohorts.
+
+You should be able to complete both functions mainly by copying and pasting code out of the solution to assignment 2 and by call calling the functions in `model_functions.R`.
+
+```{r}
+#Generate transition matrix for pediatric and adult
+#.  cohorts (ignoring other cause mortality) from
+#.  a table of transition probabilities
+gen_transition_matrix <- function(t_probs) {
+  m_P_adult <- NA
+  m_P_ped <- NA
+  return(list(
+    m_P_adult = m_P_adult,
+    m_P_ped = m_P_ped
+  ))
+}
+
+sim_strategies <- function(t_probs, l_rewards, t_ocm,
+                        prop_recipients_pediatric = 0.25, #25% pediatric
+                        cycle_length = 1, #1 year
+                        
+                        n_cohort=10000
+                        ){
+  
+  #Create transition matrices for adult and pediatric cohorts
+  
+  #Generate transition arrays (factoring in other cause mortality)
+  
+  #Extract rewards (costs, QALYs) from l_rewards and turn into
+  #.  v_cost_states and v_qaly_states
+  
+  # Simulate "detect in year 1" and "no detect in year 1" for the 
+  #. pediatric and adult cohort (running 4 versions of the model)
+  
+  #Return named list with total net preset QALYs and costs for
+  #. each cohort with and without year-1 detection of HIV
+  #. also return the incremental costs and QALYs of year 1 detection
+  #. and the ICER of year 1 detection vs. no year 1 detection
+  return(list(
+    QALY_peds_noDetect = NA,
+    QALY_adult_noDetect = NA,
+    QALY_peds_Detect = NA,
+    QALY_adult_Detect = NA,
+    Cost_peds_noDetect = NA,
+    Cost_adult_noDetect = NA,
+    Cost_peds_Detect = NA,
+    Cost_adult_Detect = NA,
+    Incr_cost_adult = NA,
+    Incr_cost_peds = NA,
+    ICER_adult = NA,
+    ICER_peds = NA
+  ))
+}
+```
+
+Test it out! use `sim_strategies()` using all of your base-case parameters to calculate outcomes for each cohort.
+
+```{r}
+#calculate and print basecase analysis
+basecase_results <- NA
+basecase_results
+```
+
+## 1b. Sample and format parameters for PSA iterations
+
+I'm providing you with functions I've developed & used in prior publications for fitting the pert, beta, and gamma distributions to a provided mean and the 2.5th and 97.5th quantile, then sampling from the distribution. `rpert_mean_quantile` fits and samples from a pert distribution; `rbeta_mean_quantile` fits and samples from a beta distribution, and `rgamma_mean_quantile` fits and samples from a gamma distribution.
+
+```{r sample_distr_functions}
+#| code-fold: true
+#| code-summary: "Functions for fitting and sampling from distributions"
+
+rpert_mean_quantile<- function(mean, lb, ub, n=1, adjust_bounds = FALSE){
+  mode = (6*mean - lb - ub)/4
+  if (adjust_bounds == TRUE){
+    if (mode < lb){
+      print(paste0(
+        "Cannot achieve desired expected value with upper bound of ", ub, "."
+      ))
+      ub = 6*mean - 5*lb
+      mode=lb
+      print(paste0(
+        "Reset upper bound to ", ub, "."
+      ))
+    } else if (mode > ub) {
+      print(paste0(
+        "Cannot achieve desired expected value with lower bound of ", lb, "."
+      ))
+      lb = 6*mean - 5*ub
+      mode=ub
+      print(paste0(
+        "Reset lower bound to ", lb, "."
+      ))
+    } 
+  } else {
+    if (mode < lb){
+      mode = lb
+      print(paste0("Set mode to lower bound. Mean will be ", (5*lb+ub)/6,
+                   "instead of ", mean))
+    } else if (mode > ub) {
+      mode = ub
+      print(paste0("Set mode to lower bound. Mean will be ", (5*ub+lb)/6,
+                   "instead of ", mean))
+    } 
+  }
+  return(rpert(n, lb, mode, ub))
+}
+
+#Adapted from mc2d R package
+#.  https://github.com/cran/mc2d/blob/master/R/pert.R#L159
+rpert <- function(n,min=-1,mode=0,max=1,shape=4, mean=0){
+  if (length(n) > 1) 
+    n <- length(n)
+  if (length(n) == 0 || as.integer(n) == 0) 
+    return(numeric(0))
+  n <- as.integer(n)
+  
+  if (!missing(mode) && !missing(mean)) stop("specify 'mode' or 'mean' but not both")
+
+  min <- rep(as.vector(min),length.out=n)
+  max <- rep(as.vector(max),length.out=n)
+  shape <- rep(as.vector(shape),length.out=n)
+  
+  if (missing(mode)){
+    mean <- rep(as.vector(mean),length.out=n)
+    mode <- ((shape+2)*mean - min - max) / shape
+    if(any(mode < min | mode > max)) warning("Some values of mean lead to mode < min or mode > max.")
+    
+  } else {  mode <- rep(as.vector(mode),length.out=n) }
+  
+  a1 <- 1 + shape * (mode - min)/(max - min)
+  a2 <- 1 + shape * (max - mode)/(max - min)
+  oldw <- options(warn = -1)
+  r <- rbeta(n, shape1 = a1, shape2 = a2) * (max - min) + min
+  options(warn = oldw$warn)
+  minmodemax <- (abs(min - max) < (.Machine$double.eps^0.5))
+  r <- ifelse(minmodemax, min, r)
+  if (any(is.na(r))) 
+    warning("NaN in rpert")
+  return(r)
+}
+
+
+# Adapted from prevalence R package
+#.  https://github.com/cran/prevalence/blob/master/R/betaExpert.R
+betaExpert <-
+function(best, lower, upper, p = 0.95, method = "mean"){
+  ## check presence
+  if (missing(best))
+    stop("'best' is missing")
+  if (missing(lower) & missing(upper))
+    stop("at least 'lower' or 'upper' must be specified")
+
+  ## check input values: order
+  if (!missing(lower))
+    if (lower > best) stop("'lower' cannot be greater than 'best'")
+  if (!missing(upper))
+    if (upper < best) stop("'upper' cannot be smaller than 'best'")
+  if (!missing(lower) & !missing(upper)) # useless??
+    if (lower > upper) stop("'lower' cannot be greater than 'upper'")
+
+  ## functions to optimize ~ mode
+  f_mode <-
+  function(x, mode, p, target){
+    return(
+      sum(
+        (qbeta(p = p,
+               shape1 = x,
+               shape2 = (x * (1 - mode) + 2 * mode - 1) / mode) -
+         target) ^ 2
+    ))
+  }
+
+  f_mode_zero <-
+  function(x, p, target){
+    return((qbeta(p = p, shape1 = 1, shape2 = x) - target) ^ 2)
+  }
+
+  f_mode_one <-
+  function(x, p, target){
+    return((qbeta(p = p, shape1 = x, shape2 = 1) - target) ^ 2)
+  }
+
+  ## functions to optimize ~ mean
+  f_mean <-
+  function(x, mean, p, target){
+    return(
+      sum(
+        (qbeta(p = p,
+               shape1 = x,
+               shape2 = (x * (1 - mean)) / mean) -
+         target) ^ 2
+    ))
+  }
+
+  ## define 'target' and 'p'
+  if (!missing(lower) & missing(upper)){
+    target <- lower
+    p <- 1 - p
+  } else if (!missing(upper) & missing(lower)){
+    target <- upper
+  } else if (!missing(upper) & !missing(lower)){
+    target <- c(lower, upper)
+    p <- c(0, p) + (1 - p) / 2
+  }
+
+  ## derive a and b (=shape1 and shape2)
+  if (method == "mode"){
+    if (best == 0){
+      a <- 1
+      b <- optimize(f_mode_zero, c(0, 1000), p = p, target = target)$minimum
+    } else if (best == 1) {
+      a <- optimize(f_mode_one, c(0, 1000), p = p, target = target)$minimum
+      b <- 1
+    } else {
+      a <- optimize(f_mode, c(0, 1000),
+                    mode = best, p = p, target = target)$minimum
+      b <- (a * (1 - best) + 2 * best - 1) / best
+    }
+  } else if (method == "mean"){
+      a <- optimize(f_mean, c(0, 1000),
+                    mean = best, p = p, target = target)$minimum
+      b <- (a * (1 - best)) / best
+  }
+
+  ## create 'out' dataframe
+  out <- list(alpha = a, beta = b)
+  class(out) <- "betaExpert"
+
+  ## return 'out'
+  return(out)
+}
+
+rbeta_mean_quantile <- function(mean, lb, ub, n=1){
+  params <- betaExpert(mean, lb, ub)
+  return(rbeta(n=n, params$alpha, params$beta))
+}
+
+gammaExpert <- function(best, lower, upper, p = 0.95, method = "mean"){
+    ## check presence
+    if (missing(best))
+      stop("'best' is missing")
+    if (missing(lower) & missing(upper))
+      stop("at least 'lower' or 'upper' must be specified")
+    
+    ## check input values: order
+    if (!missing(lower))
+      if (lower > best) stop("'lower' cannot be greater than 'best'")
+    if (!missing(upper))
+      if (upper < best) stop("'upper' cannot be smaller than 'best'")
+    if (!missing(lower) & !missing(upper)) # useless??
+      if (lower > upper) stop("'lower' cannot be greater than 'upper'")
+    
+    
+    f_mean <-
+      function(x, mean, p, target){
+        return(
+          sum(
+            (qgamma(p = p,
+                    shape = x,
+                    scale = mean/x) -
+               target) ^ 2
+          ))
+      }
+    
+    ## define 'target' and 'p'
+    if (!missing(lower) & missing(upper)){
+      target <- lower
+      p <- 1 - p
+    } else if (!missing(upper) & missing(lower)){
+      target <- upper
+    } else if (!missing(upper) & !missing(lower)){
+      target <- c(lower, upper)
+      p <- c(0, p) + (1 - p) / 2
+    }
+    
+    ## derive a and b (=shape1 and shape2)
+    
+    if (method == "mean"){
+      a <- optimize(f_mean, c(0, 1000),
+                    mean = best, p = p, target = target)$minimum #a is shape parameter
+      b <- best / a #b is scale parameter
+    }
+    
+    ## create 'out' dataframe
+    out <- list(shape = a, scale = b)
+    #class(out) <- "betaExpert"
+    
+    ## return 'out'
+    return(out)
+}
+
+rgamma_mean_quantile <- function(mean, lb, ub, n=1){
+  params <- gammaExpert(mean, lb, ub)
+  return(rgamma(n=n, shape=params$shape, scale=params$scale))
+}
+```
+
+In this code chunk, sample each parameter from its indicated distribution. In the version you turn in, you should sample 1000 parameters from each distribution. Until you get your code working, it may be easier to just sample 5.
+
+```{r}
+n_psa_iter <- 5 #Use this to get your code working, switch to 1,000 when ready
+#n_psa_iters <- 1000 #Uncomment this for the final version
+
+#SAMPLE REWARD PARAMETERS
+#Get names of reward parameters
+reward_param_names <- t_rewards$rname
+
+#Pre-allocate matrix
+#. columns: each parameter from t_rewards
+#. rows: parameter values for each PSA iteration
+#.  (should have n_psa_iter rows)
+m_reward_params_psa <- NA
+
+#Sample parameters and save in m_param_rewards
+for (param in reward_param_names){
+  #sample n_psa_iter parameters from the distribution
+  #.  specified in t_rewards$distribution
+  #.  and fill in the appropriate column
+  #.  of m_reward_params_psa
+  #.  If is.na(Distribution), just add
+  #.  the parameter to the table without sampling
+  NA
+}
+
+#SAMPLE TRANSITION PROBABILTIES
+
+#Create table with just the paramters varied in 
+#.  PSA and add unique name "FromTo" for the transition
+t_probs_psa_only <- t_probs |>
+  filter(!is.na(distribution))
+
+fromTo_param_names <- t_probs_psa_only$FromTo
+
+#Pre-allocate matrix
+#. columns: each transition in fromTo_param_names
+#. rows: parameter values for each PSA iteration
+#.  (should have n_psa_iter rows)
+m_fromTo_psa <- NA
+
+#Sample parameters and save in m_fromTo_psa
+for (param in reward_param_names){
+  #sample n_psa_iter parameters from the distribution
+  #.  specified in t_rewards$distribution
+  #.  and fill in the appropriate column
+  #.  of m_fromTo_psa
+
+  NA
+}
+```
+
+## 1c. Run PSA
+
+```{r}
+#Create temporary t_probs table which will be updated
+#. for each PSA iteration
+t_probs_temp <- cbind(t_probs)
+
+# Preallocate matrix to store PSA output
+#. columns should have same names as l_output_names
+#. number of rows should match n_psa_iter
+l_output_names <- list("QALY_peds_noDetect",
+    "QALY_adult_noDetect",
+    "QALY_peds_Detect",
+    "QALY_adult_Detect",
+    "Cost_peds_noDetect",
+    "Cost_adult_noDetect",
+    "Cost_peds_Detect",
+    "Cost_adult_Detect",
+    "Incr_cost_adult",
+    "Incr_cost_peds",
+    "ICER_adult",
+    "ICER_peds")
+
+m_psa_output <- NA #can do m_psa_output if you prefer matrix
+
+
+for(i in 1:n_psa_iter){
+  #generate l_reward (named list)
+  l_reward <- NA
+  
+  #generate t_probs_temp, parameters 
+  t_probs_temp <- NA
+  
+  #run the model for this PSA iteration by calling
+  #. function sim_strategies and save the output into a
+  #. row of the output matrix or table
+  
+}
+```
+
+## 1d. Analyze PSA
+
+Create a cost-effectiveness acceptability curve using the DAMPACK package. You can look at the vignette by typing `vignette("psa_analysis", package="dampack")` into the console while the package is loaded.
+
+```{r}
+# Create t_cost_peds, t_cost_adult and t_effect_peds, t_effect_adult 
+#. with format matching that expected by the make_psa_obj function in dampack
+#. see vignette and/or type ?make_psa_obj() to see help file
+t_cost_peds <- NA
+t_cost_adult <- NA
+t_effect_peds <- NA
+t_effect_adult <- NA
+
+#Make PSA objects
+psa_obj_peds <- NA
+psa_obj_adults <- NA
+
+# Plot CEACS: one for pediatric and one for adult (can use this WTP sequence)
+wtp <- seq(from=0, to=100, by=1)
+
+```
+
+## 1e Deterministic sensitivity analysis
+
+Construct a tornado diagram by varying each parameter in t_reward (to simplify, we won't include the transition probabilities in t_prob for this part). We will only do this for the adult cohort.
+
+```{r}
+
+m_owsa_result <- matrix(
+  data = 0,
+  nrow = length(reward_param_names),
+  ncol = 4,
+  dimnames = list(
+    rows = reward_param_names,
+    cols = c("input_low", "input_high", "ICER_detect_low", "ICER_detect_high")
+  )
+)
+
+#Conduct OWSA on each parameter in t_rewards
+for (param in reward_param_names){
+  # Change l_rewards with param replaced by low value
+  NA
+  
+  # Compute ICER_detect_low
+  NA
+  
+  # Change l_rewards so that param is replaced by its high value
+  NA
+  
+  # Compute ICER_detect_high
+  NA
+  
+  #Put results into the row of m_owsa_result
+  NA
+}
+
+# Plot tornado diagram
+
+# Here is the code from the in-class example which you can adapt
+# p_tornado <- ggplot(data = t_owsa) +
+#   geom_segment(aes(x = reorder(name, ICER.range), 
+#                    xend=reorder(name, ICER.range), 
+#                    y = ICER.min, 
+#                    yend=ICER.max), size=6, color="grey")+
+#   theme(legend.position = "None")+
+#   coord_flip()+
+#   geom_hline(yintercept = l_basecase_results$ICER_treat, color="black")+
+#   geom_hline(yintercept = 30, alpha = 0.5, color = "red")+#WTP threshold
+#   scale_alpha_manual(values = c(1, 0))+
+#   scale_y_continuous(labels = function(x){paste0("$",x)},
+#                      )+
+#   xlab("")+
+#   ylab("ICER of treatment vs. no treatment")
+
+```
+
+
+## Last two questions
+
+-   About how much time did you spend on the assignment? **Replace with your answer**
+
+-   Did you find any errors or have suggestions to improve it? **Replace with your answer**
+
+Fin.

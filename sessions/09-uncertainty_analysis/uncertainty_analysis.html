@@ -633,17 +633,16 @@ $ICER_treat
 <p>Loop over parameters, calculate outcome at min and max value</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_owsa)){</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
+<span id="cb11-2"><a href="#cb11-2"></a>  l_prms_temp <span class="ot">&lt;-</span> l_prms <span class="co"># Reset to base case value (IMPORTANT!!!!)</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="co"># Calculate ICER with parameter at min value</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.min"</span>]</span>
 <span id="cb11-5"><a href="#cb11-5"></a>  t_owsa[row, <span class="st">"ICER.min"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
 <span id="cb11-6"><a href="#cb11-6"></a>  <span class="co"># Calculate ICER with parameter at max value</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.max"</span>]</span>
-<span id="cb11-8"><a href="#cb11-8"></a>  <span class="co"># Reset to base case value (IMPORTANT!!!!)</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a>  t_owsa[row, <span class="st">"ICER.max"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
-<span id="cb11-10"><a href="#cb11-10"></a>}</span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co"># Add column for range of the ICER (absolute value)</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a>t_owsa<span class="sc">$</span>ICER.range <span class="ot">&lt;-</span> <span class="fu">abs</span>(t_owsa<span class="sc">$</span>ICER.max <span class="sc">-</span> t_owsa<span class="sc">$</span>ICER.min); t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-8"><a href="#cb11-8"></a>  t_owsa[row, <span class="st">"ICER.max"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
+<span id="cb11-9"><a href="#cb11-9"></a>}</span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co"># Add column for range of the ICER (absolute value)</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>t_owsa<span class="sc">$</span>ICER.range <span class="ot">&lt;-</span> <span class="fu">abs</span>(t_owsa<span class="sc">$</span>ICER.max <span class="sc">-</span> t_owsa<span class="sc">$</span>ICER.min); t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                name   value value.min value.max ICER.min ICER.max ICER.range
 1         cost_treat 60000.0   3.0e+04   1.0e+05 17666.67 56555.56 38888.8889
@@ -955,13 +954,13 @@ $ICER_treat
 <span id="cb27-13"><a href="#cb27-13"></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cost_treat prob_death_noTreat rr_death_drug QALY_survive cost_survive
-1   7315.531          0.3048589     0.5064616     12.54605     13851.31
-2   6128.365          0.2708997     0.5071994     12.52557     10869.37
-3   9914.761          0.2847592     0.5208578     15.37876     13512.98
+1   8813.843          0.3923014     0.5250826     8.814146     17050.82
+2   6582.472          0.1998505     0.4380730    10.759976     10767.32
+3   6713.110          0.2856911     0.5234283    10.021598     15873.43
   tot_cost_noTreat tot_cost_treat tot_QALY_noTreat tot_QALY_treat ICER_treat
-1         9517.115       17730.60         10.98627       12.39221   5841.998
-2         7924.862       15504.28          9.13240       10.80456   4532.718
-3         9665.036       21423.51         10.99951       13.09779   5603.865</code></pre>
+1         6888.250       15621.53         6.010659       8.311066   3796.405
+2         8615.462       16407.12         8.609590       9.817950   6448.125
+3        11338.529       20212.84         7.158516       8.522980   6503.884</code></pre>
 </div>
 </div>
 </section>
@@ -1138,26 +1137,26 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb44-2"><a href="#cb44-2"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">025</span>),<span class="dv">2</span>),<span class="st">" to "</span>,</span>
 <span id="cb44-3"><a href="#cb44-3"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                               cost_treat 
-  "6282.42 (95% CrI 3353.04 to 10223.86)" 
-                       prob_death_noTreat 
-             "0.3 (95% CrI 0.16 to 0.45)" 
-                            rr_death_drug 
-              "0.5 (95% CrI 0.42 to 0.6)" 
-                             QALY_survive 
-          "12.04 (95% CrI 9.02 to 15.35)" 
-                             cost_survive 
- "12078.97 (95% CrI 8785.99 to 16118.93)" 
-                         tot_cost_noTreat 
-  "8486.55 (95% CrI 5657.12 to 11917.13)" 
-                           tot_cost_treat 
-"16558.58 (95% CrI 12334.34 to 21524.09)" 
-                         tot_QALY_noTreat 
-           "8.46 (95% CrI 5.84 to 11.49)" 
-                           tot_QALY_treat 
-           "10.25 (95% CrI 7.5 to 13.11)" 
-                               ICER_treat 
-      "4900.34 (95% CrI 2454.26 to 9338)" </code></pre>
+<pre><code>                              cost_treat 
+ "6243.68 (95% CrI 3641.04 to 10037.07)" 
+                      prob_death_noTreat 
+           "0.31 (95% CrI 0.17 to 0.46)" 
+                           rr_death_drug 
+             "0.5 (95% CrI 0.42 to 0.6)" 
+                            QALY_survive 
+         "11.96 (95% CrI 8.86 to 15.21)" 
+                            cost_survive 
+"12150.38 (95% CrI 8955.45 to 16148.01)" 
+                        tot_cost_noTreat 
+ "8409.26 (95% CrI 5775.16 to 11547.73)" 
+                          tot_cost_treat 
+"16508.47 (95% CrI 12609.9 to 21745.28)" 
+                        tot_QALY_noTreat 
+           "8.29 (95% CrI 5.6 to 11.29)" 
+                          tot_QALY_treat 
+         "10.12 (95% CrI 7.35 to 12.99)" 
+                              ICER_treat 
+  "4800.24 (95% CrI 2488.65 to 9301.51)" </code></pre>
 </div>
 </div>
 </section>
@@ -1242,7 +1241,7 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 </ul></li>
 <li><p>Shifting to ‘applied’ assignments</p>
 <ul>
-<li><p><a href="#/0">Instructions in syllabus folder on Github</a></p></li>
+<li><p><a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">Instructions in syllabus folder on Github</a></p></li>
 <li><p>Open source model presentations <u><strong>Th, Oct 26</strong></u></p></li>
 <li><p>Project proposals due <u><strong>Mon, Oct 30</strong></u></p></li>
 </ul></li>

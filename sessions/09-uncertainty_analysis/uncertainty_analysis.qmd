@@ -191,13 +191,12 @@ Loop over parameters, calculate outcome at min and max value
 ```{r}
 #| echo: true
 for (row in 1:nrow(t_owsa)){
-  l_prms_temp <- l_prms
+  l_prms_temp <- l_prms # Reset to base case value (IMPORTANT!!!!)
   # Calculate ICER with parameter at min value
   l_prms_temp[[t_owsa[row,"name"]]] <- t_owsa[row,"value.min"]
   t_owsa[row, "ICER.min"] <- model(l_prms_temp)$ICER_treat
   # Calculate ICER with parameter at max value
   l_prms_temp[[t_owsa[row,"name"]]] <- t_owsa[row,"value.max"]
-  # Reset to base case value (IMPORTANT!!!!)
   t_owsa[row, "ICER.max"] <- model(l_prms_temp)$ICER_treat
 }
 # Add column for range of the ICER (absolute value)
@@ -685,7 +684,7 @@ Can fit multivariate distributions to data
 
 -   Shifting to 'applied' assignments
 
-    -   [Instructions in syllabus folder on Github](#0)
+    -   [Instructions in syllabus folder on Github](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html)
 
     -   Open source model presentations [**Th, Oct 26**]{.underline}
 
