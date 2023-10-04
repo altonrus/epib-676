@@ -502,10 +502,6 @@ Ideally, students doing applied decision analysis have
 
 -   Balance of simple/transparent while complex enough to capture important trade-offs is important yet challenging
 
-## Course project proposal
-
-Switch to ["Info for non-programming assignments"](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html) in syllabus folder of Github.
-
 ## Logistics
 
 -   Assignment 3 due [**Wed, Oct 11**]{.underline}

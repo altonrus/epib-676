@@ -404,6 +404,10 @@ Alton Russell
 
   <p class="date">2023-10-05</p>
 </section>
+<section id="non-programing-assignments" class="slide level2">
+<h2>Non-programing assignments</h2>
+<p>See <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">Info for non-programming assignments</a> in syllabus folder of Github.</p>
+</section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
 <ul>
@@ -451,9 +455,12 @@ Alton Russell
 </section>
 <section id="paradigm-shift" class="slide level2">
 <h2>Paradigm shift</h2>
-<p>Manuscript is an advertisement. Product is what you publish with it.</p>
-<p><br></p>
-<p>Product is code, data, Shiny tool, etc.</p>
+<p>Manuscript is an advertisement. The product is the associated work</p>
+<ul>
+<li><p>Code</p></li>
+<li><p>Data</p></li>
+<li><p>Shiny app, etc.</p></li>
+</ul>
 <blockquote>
 <p>An article about computational result is advertising, not scholarship. The <strong>actual scholarship is the full software environment, code and data, that produced the result.</strong></p>
 </blockquote>
@@ -507,22 +514,22 @@ Alton Russell
 </section>
 <section id="cant-share-data-due-to-privacy" class="slide level2">
 <h2>Can’t share data due to privacy?</h2>
-<p>Code is very useful even without data</p>
+<p>Code is useful, even without data</p>
 <ul>
-<li><p>Helps communicate your methods</p></li>
-<li><p>Others can adapt + run on their own data</p></li>
+<li><p>Precisely communicates methods</p></li>
+<li><p>Others can adapt, borrow + run on their own data</p></li>
 </ul>
 <p>Increase reproducibility without sharing data with</p>
 <ul>
 <li><p>‘Data dictionary’ in supplement</p></li>
-<li><p>Synthetic data</p></li>
+<li><p>Synthetic data(?)</p></li>
 </ul>
 </section>
 <section id="environment" class="slide level2">
 <h2>Environment</h2>
 <ul>
 <li><p>R and packages updated all the time</p></li>
-<li><p>No guarantees of backwards compatibility</p></li>
+<li><p>No guarantee of backwards compatibility</p></li>
 <li><p>Potential solutions</p>
 <ul>
 <li><p><a href="https://rstudio.github.io/renv/">renv package</a> for <strong>r</strong>eproducible <strong>env</strong>ironments</p></li>
@@ -544,8 +551,10 @@ Alton Russell
 </section>
 <section id="each-script-should-run-error-free-in-new-session" class="slide level2">
 <h2>Each script should run error-free in new session</h2>
-<p>Use console when designing code, but ‘restart r and clear output’ before final check.</p>
-<p>Change global options to maximize reproducibility</p>
+<ul>
+<li><p>Use console when writing, but ‘restart r and clear output’ before final run</p></li>
+<li><p>Set global options to maximize reproducibility</p></li>
+</ul>
 
 <img data-src="figs/rstudio-global-options.jpeg" class="r-stretch"></section>
 <section id="literate-programming" class="slide level2">
@@ -596,7 +605,7 @@ Alton Russell
 </div>
 </section>
 <section id="data-folder-best-practices" class="slide level2">
-<h2>Data folder best practices</h2>
+<h2>1_data folder best practices</h2>
 <ul>
 <li><p>Also put data documentation (dictionary, meta-data) here</p>
 <ul>
@@ -610,8 +619,8 @@ Alton Russell
 <li><p>Line-level data in csv, json or <a href="https://arrow.apache.org/docs/index.html">feather or parquet</a></p></li>
 </ul>
 </section>
-<section id="intermediate-and-output-folders" class="slide level2">
-<h2>Intermediate and Output folders</h2>
+<section id="intermediate-and-4_output-folders" class="slide level2">
+<h2>3_intermediate and 4_output folders</h2>
 <ul>
 <li><p>Tables/objects generated in your scripts should go to intermediate or output folder (<strong>not data</strong>!)</p></li>
 <li><p>Use intermediate folder for non-final objects (that are later read into another script)</p>
@@ -641,7 +650,7 @@ Alton Russell
 </div>
 </section>
 <section id="scripts-folder-best-practices" class="slide level2">
-<h2>Scripts folder best practices</h2>
+<h2>2_scripts folder best practices</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
@@ -662,24 +671,23 @@ Alton Russell
 <h2>Functionalize code</h2>
 <p>Often develops over time:</p>
 <ul>
-<li><p>At first, write code directly in scripts</p></li>
+<li><p>At first, write code directly in script (no function)</p></li>
 <li><p>Then, break key parts into functions</p></li>
 <li><p>As number of functions grow, move into <code>00-hepler-functions</code> script and <code>source()</code> into analysis scripts</p></li>
 </ul>
-<p>Many smaller functions calling each other &gt; 1 massive function</p>
+<p>Smaller functions calling each other easier to understand &amp; debug vs.&nbsp;1 massive function</p>
 </section>
-<section id="use-headings-in-code" class="slide level2">
-<h2>Use headings in code</h2>
+<section id="headings-in-.r-scripts" class="slide level2">
+<h2>Headings in .R scripts</h2>
 <ul>
 <li><p><code># Text -----</code> will create a section for your outline</p>
 <ul>
 <li>Again, verb-based sections good</li>
 </ul></li>
-<li><p>Neat hack: <code>#| Text ----</code> can create ‘subsections’</p></li>
-<li><p>Figures also show up in outline</p></li>
+<li><p>Neat hack: <code>#| - Text ----</code> can create ‘subsections’</p></li>
 </ul>
 
-<img data-src="rscript_examples.jpg" class="r-stretch"></section>
+<img data-src="headings_outline_example.png" class="r-stretch"></section>
 <section id="github-in-rstudio" class="slide level2">
 <h2><strong>Git</strong>hub in RStudio</h2>
 <div class="columns">
@@ -700,27 +708,41 @@ Alton Russell
 <div class="column" style="width:30%;">
 <p><img data-src="figs/gitignore-example.png"></p>
 </div><div class="column" style="width:70%;">
-<p>Any folder or file you don’t want on github</p>
+<p>List all folders/files you don’t want on github</p>
 <ul>
-<li><p>“local” folder (data use agreements, conference presentations, etc.)</p></li>
-<li><p>“private” folders for objects that cannot be made public</p></li>
+<li><p>“local” folder (data use agreements, conference presentations, meeting minutes, etc.)</p></li>
+<li><p>“private” sub-folders for objects that cannot be made public</p></li>
 </ul>
-<p>I keep Github repos private at first, but they become public when I publish.</p>
+<p>Github repos private (with collaborators) while developing project, but they become public when I publish.</p>
 </div>
 </div>
 </section>
 <section id="more-on-private-folders" class="slide level2">
 <h2>More on private folders</h2>
 <ul>
-<li><p>Use when data use agreement / ethics prevents sharing data</p></li>
-<li><p>Warning: objects other than data tables can include data (e.g., saving a ‘random forest object’ from ranger)</p></li>
+<li><p>Use when data use agreement and/or ethics prevents sharing data</p></li>
 <li><p>Should never push private data to github, even if private</p></li>
-<li><p><strong>If sensitive data were ever in repo, hard to remove! (just nuke and re-create before making public)</strong></p></li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Objects other than data tables can include data (e.g., saving an ML model ‘object’ often has the data embedded!)</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>If sensitive data were ever in repo, hard to remove! (just nuke and re-create before making public)</strong></li>
 </ul>
 </section>
 <section id="merge-conflict" class="slide level2">
 <h2>Merge conflict</h2>
-<p>Caused when:</p>
+<p>Can happen if:</p>
 <ul>
 <li><p>Two users edit same line of file</p></li>
 <li><p>Someone edits and another person deletes</p></li>
@@ -742,7 +764,7 @@ ask your question in IRC.
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>This is why if you edit the assignments you may be unable to pull the class repo. Solution: Copy anything you want to edit into another location so you can always pull.</p>
+<p>This is why if you edit the assignments you may be unable to pull the class repo. Can copy anything you want to edit into another location so you can always pull.</p>
 </div>
 </div>
 </div>
@@ -781,13 +803,13 @@ ask your question in IRC.
 <p><strong>But:</strong></p>
 <ul>
 <li><p>If you change parameter and rerun scrips, all results will update</p></li>
-<li><p>Reduces risk of transcription error (still risk of coding error)</p></li>
+<li><p>Reduces risk of transcription error (but may introduce new risk of coding error)</p></li>
 </ul>
 </section>
 <section id="my-manuscript-template" class="slide level2">
 <h2>My Manuscript template</h2>
 <ul>
-<li><p>.Rmd that knits to Microsoft Word</p>
+<li><p>.Qmd that knits to Microsoft Word</p>
 <ul>
 <li>Collaborators can track changes</li>
 <li>Some medical journals still prefer Word</li>
@@ -799,19 +821,15 @@ ask your question in IRC.
 <li><p>Use <a href="https://davidgohel.github.io/flextable/reference/index.html">flextable package</a> to make pretty tables</p></li>
 </ul>
 </section>
-<section id="manuscript-template-.rmd" class="slide level2">
-<h2>Manuscript template .Rmd</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><img data-src="figs/manuscript-template-head.png"></p>
-</div><div class="column" style="width:40%;">
+<section id="manuscript-template-.qmd" class="slide level2">
+<h2>Manuscript template .Qmd</h2>
 <ul>
+<li><p><a href="https://github.com/altonrus/generic-project/blob/main/5_manuscript/manuscript.qmd" class="uri">https://github.com/altonrus/generic-project/blob/main/5_manuscript/manuscript.qmd</a></p></li>
 <li><p>YAML header to specify title, output format, bib file, citation style</p></li>
-<li><p><code>&lt;br&gt;</code> for line breaks; <code>#####</code> for page breaks</p></li>
-<li><p>Can use latex for equations</p></li>
+<li><p><code>&lt;br&gt;</code> for line breaks; <code>{{&lt; page*break &gt;}}</code> (without *) for page breaks</p></li>
+<li><p>Allows latex equations</p></li>
+<li><p>Weird hack for supplemental table/fig crossreferencing (see note .Qmd file)</p></li>
 </ul>
-</div>
-</div>
 </section>
 <section id="manuscript-folder-contents" class="slide level2">
 <h2>Manuscript folder contents</h2>
@@ -836,7 +854,7 @@ ask your question in IRC.
 <ul>
 <li><p>Normal word document</p></li>
 <li><p>Collaborators track changes and return</p></li>
-<li><p>I manually update .Rmd (annoying)</p></li>
+<li><p>Must manually update .Qmd (annoying)</p></li>
 </ul>
 </div>
 </div>
@@ -855,15 +873,13 @@ ask your question in IRC.
 </ul>
 </div>
 </div>
-</section>
-<section id="new-better-bibtex-add-on-zotero" class="slide level2">
-<h2>New! Better BibTex add-on + Zotero</h2>
+<p>Better BibTex add-on for Zotero</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>I just learned of <a href="https://retorque.re/zotero-better-bibtex/">Better BibTex for Zotero</a> from <a href="https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc">this blog</a></p>
+<p><a href="https://retorque.re/zotero-better-bibtex/">Better BibTex for Zotero</a> (see <a href="https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc">this blog</a>) is very helpful</p>
 <ul>
-<li><p>Auto-assign citation keys and prevents duplicates</p></li>
-<li><p>If you export to “Better bibtex” format, with “Keep updated” checked, .bib file auto-updates whenever the Zenodo collection changes</p></li>
+<li><p>Auto-assign citation keys and prevents duplicates withen Zenodo</p></li>
+<li><p>If you export to “Better bibtex” format, with “Keep updated” checked, .bib file auto-adds anything added to the Zotero repo</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><img data-src="BetterBibTeX.png"></p>

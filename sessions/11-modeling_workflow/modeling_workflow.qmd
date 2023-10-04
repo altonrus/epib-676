@@ -7,6 +7,11 @@ format: revealjs
 editor: visual
 ---
 
+## Non-programing assignments
+
+See [Info for non-programming assignments](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html) in syllabus folder of Github.
+
+
 ## Today
 
 -   **Open and reproducible principles**
@@ -61,11 +66,14 @@ Necessary conditions
 
 ## Paradigm shift
 
-Manuscript is an advertisement. Product is what you publish with it.
+Manuscript is an advertisement. The product is the associated work
 
-<br>
+-  Code
 
-Product is code, data, Shiny tool, etc.
+-  Data
+
+-  Shiny app, etc.
+
 
 > An article about computational result is advertising, not scholarship. The **actual scholarship is the full software environment, code and data, that produced the result.**
 
@@ -127,23 +135,23 @@ Data sharing isn't always possible
 
 ## Can't share data due to privacy?
 
-Code is very useful even without data
+Code is useful, even without data
 
--   Helps communicate your methods
+-   Precisely communicates methods
 
--   Others can adapt + run on their own data
+-   Others can adapt, borrow + run on their own data
 
 Increase reproducibility without sharing data with
 
 -   'Data dictionary' in supplement
 
--   Synthetic data
+-   Synthetic data(?)
 
 ## Environment
 
 -   R and packages updated all the time
 
--   No guarantees of backwards compatibility
+-   No guarantee of backwards compatibility
 
 -   Potential solutions
 
@@ -165,9 +173,9 @@ Increase reproducibility without sharing data with
 
 ## Each script should run error-free in new session
 
-Use console when designing code, but 'restart r and clear output' before final check.
+-  Use console when writing, but 'restart r and clear output' before final run
 
-Change global options to maximize reproducibility
+-  Set global options to maximize reproducibility
 
 ![](figs/rstudio-global-options.jpeg)
 
@@ -226,7 +234,7 @@ Permanent third-party repo \> github repo
 :::
 :::
 
-## Data folder best practices
+## 1_data folder best practices
 
 -   Also put data documentation (dictionary, meta-data) here
 
@@ -240,7 +248,7 @@ Permanent third-party repo \> github repo
 
 -   Line-level data in csv, json or [feather or parquet](https://arrow.apache.org/docs/index.html)
 
-## Intermediate and Output folders
+## 3_intermediate and 4_output folders
 
 -   Tables/objects generated in your scripts should go to intermediate or output folder (**not data**!)
 
@@ -274,7 +282,7 @@ ggsave("./4_output/plt_prob_ce_grid.svg",
        unit="in")
 ```
 
-## Scripts folder best practices
+## 2_scripts folder best practices
 
 ::: columns
 ::: {.column width="60%"}
@@ -298,25 +306,23 @@ ggsave("./4_output/plt_prob_ce_grid.svg",
 
 Often develops over time:
 
--   At first, write code directly in scripts
+-   At first, write code directly in script (no function)
 
 -   Then, break key parts into functions
 
 -   As number of functions grow, move into `00-hepler-functions` script and `source()` into analysis scripts
 
-Many smaller functions calling each other \> 1 massive function
+Smaller functions calling each other easier to understand & debug vs. 1 massive function
 
-## Use headings in code
+## Headings in .R scripts
 
 -   `# Text -----` will create a section for your outline
 
     -   Again, verb-based sections good
 
--   Neat hack: `#| Text ----` can create 'subsections'
+-   Neat hack: `#| - Text ----` can create 'subsections'
 
--   Figures also show up in outline
-
-![](rscript_examples.jpg)
+![](headings_outline_example.png)
 
 ## **Git**hub in RStudio
 
@@ -342,30 +348,34 @@ Many smaller functions calling each other \> 1 massive function
 :::
 
 ::: {.column width="70%"}
-Any folder or file you don't want on github
+List all folders/files you don't want on github
 
--   "local" folder (data use agreements, conference presentations, etc.)
+-   "local" folder (data use agreements, conference presentations, meeting minutes, etc.)
 
--   "private" folders for objects that cannot be made public
+-   "private" sub-folders for objects that cannot be made public
 
-I keep Github repos private at first, but they become public when I publish.
+Github repos private (with collaborators) while developing project, but they become public when I publish.
 
 :::
 :::
 
 ## More on private folders
 
--   Use when data use agreement / ethics prevents sharing data
-
--   Warning: objects other than data tables can include data (e.g., saving a 'random forest object' from ranger)
+-   Use when data use agreement and/or ethics prevents sharing data
 
 -   Should never push private data to github, even if private
+
+::: {.callout-warning}
+
+Objects other than data tables can include data (e.g., saving an ML model 'object' often has the data embedded!)
+
+:::
 
 -   **If sensitive data were ever in repo, hard to remove! (just nuke and re-create before making public)**
 
 ## Merge conflict
 
-Caused when:
+Can happen if:
 
 -   Two users edit same line of file
 
@@ -385,7 +395,7 @@ ask your question in IRC.
 Avoid by pulling, & committing+pushing often!
 
 ::: callout-note
-This is why if you edit the assignments you may be unable to pull the class repo. Solution: Copy anything you want to edit into another location so you can always pull.
+This is why if you edit the assignments you may be unable to pull the class repo. Can copy anything you want to edit into another location so you can always pull.
 :::
 
 ## RMarkdown/Quarto documents
@@ -432,11 +442,11 @@ It talks longer to write inline code than hard-code numbers.
 
 -   If you change parameter and rerun scrips, all results will update
 
--   Reduces risk of transcription error (still risk of coding error)
+-   Reduces risk of transcription error (but may introduce new risk of coding error)
 
 ## My Manuscript template
 
--   .Rmd that knits to Microsoft Word
+-   .Qmd that knits to Microsoft Word
 
     -   Collaborators can track changes
     -   Some medical journals still prefer Word
@@ -447,21 +457,18 @@ It talks longer to write inline code than hard-code numbers.
 
 -   Use [flextable package](https://davidgohel.github.io/flextable/reference/index.html) to make pretty tables
 
-## Manuscript template .Rmd
+## Manuscript template .Qmd
 
-::: columns
-::: {.column width="60%"}
-![](figs/manuscript-template-head.png)
-:::
+-  <https://github.com/altonrus/generic-project/blob/main/5_manuscript/manuscript.qmd>
 
-::: {.column width="40%"}
 -   YAML header to specify title, output format, bib file, citation style
 
--   `<br>` for line breaks; `#####` for page breaks
+-   `<br>` for line breaks; `{{< page*break >}}` (without *) for page breaks
 
--   Can use latex for equations
-:::
-:::
+-   Allows latex equations
+
+-   Weird hack for supplemental table/fig crossreferencing (see note .Qmd file)
+
 
 ## Manuscript folder contents
 
@@ -491,7 +498,7 @@ It talks longer to write inline code than hard-code numbers.
 
 -   Collaborators track changes and return
 
--   I manually update .Rmd (annoying)
+-   Must manually update .Qmd (annoying)
 :::
 :::
 
@@ -513,15 +520,15 @@ It talks longer to write inline code than hard-code numbers.
 :::
 :::
 
-## New! Better BibTex add-on + Zotero
+Better BibTex add-on for Zotero
 
 ::: columns
 ::: {.column width="50%"}
-I just learned of [Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) from [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc)
+[Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) (see [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc)) is very helpful
 
--   Auto-assign citation keys and prevents duplicates
+-   Auto-assign citation keys and prevents duplicates withen Zenodo
 
--   If you export to "Better bibtex" format, with "Keep updated" checked, .bib file auto-updates whenever the Zenodo collection changes
+-   If you export to "Better bibtex" format, with "Keep updated" checked, .bib file auto-adds anything added to the Zotero repo
 :::
 
 ::: {.column width="50%"}
