@@ -179,7 +179,7 @@ Increase reproducibility without sharing data with
 -  Set global options to maximize reproducibility
 
 ![](figs/rstudio-global-options.jpeg)
-## {Renv}
+## Renv
 
 `renv::init()` (first time) adds to your Rproject: 
 
@@ -396,7 +396,7 @@ Smaller functions calling each other easier to understand & debug vs. 1 massive 
 
 ![](figs/headings_outline_example.png)
 
-## **Git**hub in RStudio
+## Github in RStudio
 
 ::: columns
 ::: {.column width="65%"}
@@ -590,11 +590,11 @@ It talks longer to write inline code than hard-code numbers.
 :::
 :::
 
-Better BibTex add-on for Zotero
+## Better BibTex add-on for Zotero
 
 ::: columns
 ::: {.column width="50%"}
-[Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) (see [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc)) is very helpful
+[Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) (also see [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc))
 
 -   Auto-assign citation keys and prevents duplicates withen Zenodo
 
@@ -602,7 +602,7 @@ Better BibTex add-on for Zotero
 :::
 
 ::: {.column width="50%"}
-![](BetterBibTeX.png)
+![](figs/BetterBibTeX.png)
 :::
 :::
 

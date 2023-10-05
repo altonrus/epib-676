@@ -758,7 +758,7 @@ Try this function on `t_sim_cohort`
 
 ## Policies & cost-effectiveness
 
-We will now write a function to calculate blood center costs and the probability of transfusion-transmitted Zika under each of our testing strategies: no testing, MP-NAT, and ID-NAT
+We will now write a function to calculate blood center costs and the probability of transfusion-transmitted Zika with and without pathogen inactivation
 
 ```{r}
 #COMPLETED ALREADY: this function calculates the probability
@@ -796,7 +796,11 @@ getPolOutcomes <- function(t_sim_cohort, l_params, prev=0.0001){
       cost_bloodCenter_pathInact = NA,
       p_TTZ_pathInact = NA) #use p_TTZ_doNothing and p_pathInact_prevent_TTZ
   
-  #Calculate total costs and QALYs under each scenario
+  # Calculate total costs and QALYs under each scenario
+  #. Use conditional monte carlo!
+  #. blood center costs are incurred no matter what
+  #. cost_CZS and cost_zika_symptoms incorred only
+  #. when tansfusion-transmitted Zika (TTZ) occurs
   t_sim_cohort <- t_sim_cohort |>
     mutate(
       tot_cost_doNothing = NA,
