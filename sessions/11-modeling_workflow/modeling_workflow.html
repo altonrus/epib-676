@@ -392,7 +392,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Reproducible modeling workflow</h1>
-  <p class="subtitle">EPIB 676 session 6, McGill University</p>
+  <p class="subtitle">EPIB 676 session 11, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -555,8 +555,65 @@ Alton Russell
 <li><p>Use console when writing, but ‘restart r and clear output’ before final run</p></li>
 <li><p>Set global options to maximize reproducibility</p></li>
 </ul>
-
-<img data-src="figs/rstudio-global-options.jpeg" class="r-stretch"></section>
+<p><img data-src="figs/rstudio-global-options.jpeg"> ## {Renv}</p>
+<p><code>renv::init()</code> (first time) adds to your Rproject:</p>
+<ul>
+<li><p>A project library of all packages</p></li>
+<li><p>A lockfile, <code>renv.lock</code> with metadata needed to reinstall packages</p></li>
+<li><p>If you add/update packages, use <code>renv::snapshot()</code> to update your lockfile</p></li>
+<li><p>Changes to .Rprofile means packages should default to lockfile version when project loaded</p></li>
+</ul>
+</section>
+<section id="renv-lockfile-example" class="slide level2">
+<h2>{Renv} lockfile example</h2>
+<p><strong>Note:</strong> R version is saved, but <code>Renv</code> won’t load it for you!</p>
+<pre><code>{
+  "R": {
+    "Version": "4.3.1",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cloud.r-project.org"
+      }
+    ]
+  },
+  "Packages": {
+    "markdown": {
+      "Package": "markdown",
+      "Version": "1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4584a57f565dd7987d59dda3a02cfb41"
+    },
+    "mime": {
+      "Package": "mime",
+      "Version": "0.12.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "yihui",
+      "RemoteRepo": "mime",
+      "RemoteRef": "main",
+      "RemoteSha": "1763e0dcb72fb58d97bab97bb834fc71f1e012bc",
+      "Requirements": [
+        "tools"
+      ],
+      "Hash": "c2772b6269924dad6784aaa1d99dbb86"
+    }
+  }
+}</code></pre>
+</section>
+<section id="docker-container" class="slide level2">
+<h2>Docker-container</h2>
+<ul>
+<li><p>Creates image of your environment, including operating system, R version, packages, etc.</p>
+<ul>
+<li>Why? Same code/R version/package version could give different result on different OS!</li>
+</ul></li>
+<li><p>Based on Linux distribution (usually Ubuntu)</p></li>
+<li><p>On new machine (with Linux), can create container based on the image</p></li>
+</ul>
+</section>
 <section id="literate-programming" class="slide level2">
 <h2>Literate programming</h2>
 <p>Idea of Donald Knuth: Code snippets and ‘natural language’ (e.g., English) interspersed in one document</p>
@@ -586,6 +643,7 @@ Alton Russell
 <li><p>Open and reproducible principles</p></li>
 <li><p><strong>Example R Project workflow</strong></p></li>
 </ul>
+<p>Download my template here:</p>
 <p><a href="https://github.com/altonrus/generic-project" class="uri">https://github.com/altonrus/generic-project</a></p>
 </section>
 <section id="r-project-organization" class="slide level2">
@@ -599,7 +657,7 @@ Alton Russell
 <li><p><strong>2_scripts</strong> code not embedded in manuscript</p></li>
 <li><p><strong>3_intermediate</strong> intermediate outputs</p></li>
 <li><p><strong>4_output</strong> figures, tables that will be read into the manuscript</p></li>
-<li><p><strong>5_manuscipt</strong> .Rmd or .qmd manuscript</p></li>
+<li><p><strong>5_manuscipt</strong> .qmd and ‘rendered’ manuscript</p></li>
 </ul>
 </div>
 </div>
@@ -633,37 +691,46 @@ Alton Russell
 <section id="figures" class="slide level2">
 <h2>Figures</h2>
 <ul>
-<li><p>Better to save programmatically vs.&nbsp;RStudio viewer</p></li>
-<li><p>Save to file before fine-tuning</p></li>
+<li>Save via code, not RStudio ‘export’</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggsave</span>(<span class="st">"./4_output/plt_prob_ce_grid.svg"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2"></a>       <span class="at">width=</span><span class="dv">7</span>,  <span class="at">height=</span><span class="dv">8</span>, <span class="at">unit=</span><span class="st">"in"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>Tweak based on saved file, not Rstudio viewer (size &amp; filetype matter)</p></li>
 <li><p>Vector format (svg, pdf) preferred over raster (usually)</p>
 <ul>
-<li><p>Vector always look sharp no matter how zoomed in</p></li>
-<li><p>For plots that are mainly lines, really small file size (but files can be too big for complex figures)</p></li>
+<li><p>Vector looks sharp no matter how zoomed in</p></li>
+<li><p>Small filesize for line plots plots (not true for complex figures)</p></li>
 <li><p>PDF figures don’t play nice with Word</p></li>
 </ul></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">ggsave</span>(<span class="st">"./4_output/plt_prob_ce_grid.svg"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2"></a>       <span class="at">width=</span><span class="dv">7</span>,</span>
-<span id="cb1-3"><a href="#cb1-3"></a>       <span class="at">height=</span><span class="dv">8</span>,</span>
-<span id="cb1-4"><a href="#cb1-4"></a>       <span class="at">unit=</span><span class="st">"in"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="scripts-folder-best-practices" class="slide level2">
 <h2>2_scripts folder best practices</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:65%;">
 <ul>
-<li><p>Each script runs error-free in a new, clean environment</p></li>
-<li><p>Any output that gets ‘passed’ to next script saved then read</p></li>
+<li><p>Script runs error-free in new environment</p></li>
 <li><p>Name: Numbers then verbs</p></li>
-<li><p>00 is “helper functions” file</p>
-<ul>
-<li>To de-clutter analysis scripts, collect functions here and call <code>source("00-helper-functions.R")</code> in script</li>
-</ul></li>
+<li><p>00 is “helper functions”: to de-clutter, put functions hear, call <code>source("00-helper-functions.R")</code> in scripts</p></li>
 </ul>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:35%;">
 <p><img data-src="rscript_examples.png"></p>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Scripts should work in new environment. Load needed packages &amp; save-to-disk objects needed by future scripts!</p>
+</div>
 </div>
 </div>
 </section>
@@ -687,7 +754,7 @@ Alton Russell
 <li><p>Neat hack: <code>#| - Text ----</code> can create ‘subsections’</p></li>
 </ul>
 
-<img data-src="headings_outline_example.png" class="r-stretch"></section>
+<img data-src="figs/headings_outline_example.png" class="r-stretch"></section>
 <section id="github-in-rstudio" class="slide level2">
 <h2><strong>Git</strong>hub in RStudio</h2>
 <div class="columns">
@@ -706,7 +773,7 @@ Alton Russell
 <h2>.gitignore</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<p><img data-src="figs/gitignore-example.png"></p>
+<p><img data-src="figs/gitignore-example.png"> By design, you’ll need to add these to my template before you can use.</p>
 </div><div class="column" style="width:70%;">
 <p>List all folders/files you don’t want on github</p>
 <ul>
@@ -732,7 +799,7 @@ Alton Russell
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>Objects other than data tables can include data (e.g., saving an ML model ‘object’ often has the data embedded!)</p>
+<p>Objects other than data tables can include data (e.g., saving an ML model or cross-validation object often has embedded data!)</p>
 </div>
 </div>
 </div>
@@ -742,11 +809,7 @@ Alton Russell
 </section>
 <section id="merge-conflict" class="slide level2">
 <h2>Merge conflict</h2>
-<p>Can happen if:</p>
-<ul>
-<li><p>Two users edit same line of file</p></li>
-<li><p>Someone edits and another person deletes</p></li>
-</ul>
+<p>Can happen if two users edit same line of file, or one user edits a file another deletes</p>
 <!-- -->
 <pre><code>If you have questions, please
 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
@@ -773,7 +836,7 @@ ask your question in IRC.
 <h2>RMarkdown/Quarto documents</h2>
 <ul>
 <li><p>Quarto will eventually replace RMarkdown</p></li>
-<li><p>Some RMarkdown packages don’t work in Quarto</p></li>
+<li><p>Some RMarkdown packages don’t (yet) work properly in Quarto</p></li>
 <li><p>“Knit” (RMarkdown) or “Render” (Quarto) to:</p>
 <ul>
 <li><p>HTML (this document)</p></li>
@@ -787,8 +850,8 @@ ask your question in IRC.
 <h2>Literate programming (.Rmd or .Qmd)</h2>
 <h3 id="code-chunks">Code chunks</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">fread</span>(<span class="st">"1_data/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">fread</span>(<span class="st">"1_data/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h3 id="inline-code">Inline code</h3>
 
@@ -828,7 +891,7 @@ ask your question in IRC.
 <li><p>YAML header to specify title, output format, bib file, citation style</p></li>
 <li><p><code>&lt;br&gt;</code> for line breaks; <code>{{&lt; page*break &gt;}}</code> (without *) for page breaks</p></li>
 <li><p>Allows latex equations</p></li>
-<li><p>Weird hack for supplemental table/fig crossreferencing (see note .Qmd file)</p></li>
+<li><p>Weird hack for supplemental table/fig crossreferencing (see note in the .Qmd file)</p></li>
 </ul>
 </section>
 <section id="manuscript-folder-contents" class="slide level2">
@@ -908,10 +971,10 @@ ask your question in IRC.
 <h2>Learn more</h2>
 <ul>
 <li><p><a href="https://altonrus.quarto.pub/decision-modeling-lab-manual/">D3Mod lab manual</a></p></li>
-<li><p><a href="https://rap4mads.eu/">Reproducible Analytical Pipelines Course</a> by Bruno Rodrigues</p></li>
-<li><p><a href="https://r-cubed.rostools.org/index.html">Reproducible research in R workshop materials</a> by Luke Johnston et. al.</p></li>
+<li><p><a href="https://rap4mads.eu/">Reproducible Analytical Pipelines Course</a>, Bruno Rodrigues</p></li>
+<li><p><a href="https://r-cubed.rostools.org/index.html">Reproducible research in R workshop</a>, Johnston et. al.</p></li>
 <li><p><a href="https://tellingstorieswithdata.com/04-workflow.html">“Telling Stories with Data”</a> Ch. 4 by Rohan Alexander</p></li>
-<li><p><a href="https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&amp;type=printable">Good enough practices in scientific computing</a> (2017) Wilson et. al.</p></li>
+<li><p><a href="https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&amp;type=printable">Good enough practices in scientific computing</a> Wilson et. al.</p></li>
 <li><p><a href="https://colinfay.me/docker-r-reproducibility/">Intro to Dockers for R Users</a> by Colin Fay</p></li>
 <li><p><a href="https://www.ispor.org/member-groups/special-interest-groups/open-source-models">ISPOR open source models interest group</a></p></li>
 </ul>
@@ -925,6 +988,7 @@ ask your question in IRC.
 <li><p>Project proposals due <u><strong>Mon, Oct 30</strong></u></p></li>
 <li><p>Assignment 4 due <u><strong>Fri, Nov 2</strong></u></p></li>
 </ul>
+<p>Happy Thanksgiving! See you next Thursday</p>
 <div class="footer footer-default">
 
 </div>
