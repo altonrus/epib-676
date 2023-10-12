@@ -692,7 +692,7 @@ recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
         T ~ 0), #otherwise no cost
       QALYs_zika_symptoms=case_when(
         GBS_death ~ 0,
-        flulike ~ baseline_QALYs - uFlu*l_params$durationFlu/365,
+        flulike ~ baseline_QALYs - (1-uFlu)*l_params$durationFlu/365,
         GBS_perm ~ NA, #experience uGBS for all remaining years
         GBS ~ NA, #experience uGBS for 1 year
         T ~ baseline_QALYs) #Otherwise same QALYs as baseline
