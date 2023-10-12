@@ -240,8 +240,8 @@ gof_norm_loglike <- function(
     model_output #vector of modeled p(survive) by year
     ){
   #Sum the log-likelihood of modeled output given target distribution
-  sum(dnorm(x = target_mean,
-            mean = model_output,
+  sum(dnorm(x = model_output,
+            mean = target_mean,
             sd = target_sd,
             log = TRUE))
 }
