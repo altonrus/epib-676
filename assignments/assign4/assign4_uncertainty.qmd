@@ -93,7 +93,6 @@ gen_transition_matrix <- function(t_probs) {
 sim_strategies <- function(t_probs, l_rewards, t_ocm,
                         prop_recipients_pediatric = 0.25, #25% pediatric
                         cycle_length = 1, #1 year
-                        
                         n_cohort=10000
                         ){
   
@@ -538,7 +537,6 @@ for (param in reward_param_names){
 #   ylab("ICER of treatment vs. no treatment")
 
 ```
-
 
 ## Last two questions
 

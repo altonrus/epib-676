@@ -690,8 +690,8 @@ Alton Russell
 <span id="cb14-6"><a href="#cb14-6"></a>    model_output <span class="co">#vector of modeled p(survive) by year</span></span>
 <span id="cb14-7"><a href="#cb14-7"></a>    ){</span>
 <span id="cb14-8"><a href="#cb14-8"></a>  <span class="co">#Sum the log-likelihood of modeled output given target distribution</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">sum</span>(<span class="fu">dnorm</span>(<span class="at">x =</span> target_mean,</span>
-<span id="cb14-10"><a href="#cb14-10"></a>            <span class="at">mean =</span> model_output,</span>
+<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">sum</span>(<span class="fu">dnorm</span>(<span class="at">x =</span> model_output,</span>
+<span id="cb14-10"><a href="#cb14-10"></a>            <span class="at">mean =</span> target_mean,</span>
 <span id="cb14-11"><a href="#cb14-11"></a>            <span class="at">sd =</span> target_sd,</span>
 <span id="cb14-12"><a href="#cb14-12"></a>            <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb14-13"><a href="#cb14-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
