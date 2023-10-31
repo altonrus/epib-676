@@ -486,16 +486,17 @@ wtp <- seq(from=0, to=100, by=1)
 
 ## 1e Deterministic sensitivity analysis
 
-Construct a tornado diagram by varying each parameter in t_reward (to simplify, we won't include the transition probabilities in t_prob for this part). We will only do this for the adult cohort.
+Construct a tornado diagram by varying each parameter in t_reward (to simplify, we won't include the transition probabilities in t_prob for this part). We will only do this for the adult cohort. NOTE: some parameters do not have a `value_min` and `value_max` in the table, you can filter these out.
 
 ```{r}
+reward_param_names_owsa <- t_rewards #modify to remove parameters we do not wish to vary in OWSA.
 
 m_owsa_result <- matrix(
   data = 0,
   nrow = length(reward_param_names),
   ncol = 4,
   dimnames = list(
-    rows = reward_param_names,
+    rows = reward_param_names_owsa,
     cols = c("input_low", "input_high", "ICER_detect_low", "ICER_detect_high")
   )
 )

@@ -1,0 +1,42 @@
+---
+title: "Value of information analysis"
+subtitle: "EPIB  676 session 11, McGill University"
+author: "Alton Russell"
+date: "8 Feb 2023"
+format: revealjs
+editor: visual
+---
+
+## R packages
+
+```{r}
+#| echo: true
+library(BCEA) #Bayesian cost-effectiveness analysis
+library(MASS) # for mvrnorm() function
+```
+
+## Today
+
+-   Expected value of perfect information
+
+-   Expected value of partially perfect information
+
+-   Expected value of sample information
+
+## Switch over
+
+"Research prioritization and study design using VoI analysis" by Anna Heath, Natalia Kunst, and Jeremy Goldhaber-Fiebert
+
+[Materials on MyCourses](https://mycourses2.mcgill.ca/d2l/le/lessons/624791/topics/6929073)
+
+## Fenwick et. al. 2020 figure
+
+![](VoI_process.png)
+
+## Logistics
+
+-   Assignment 4 due Friday, Nov 3
+
+-   Assignment 5 due Friday, Nov 17
+
+    -   To be posted by tomorrow
