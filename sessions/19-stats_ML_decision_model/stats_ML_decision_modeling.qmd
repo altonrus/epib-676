@@ -1,0 +1,280 @@
+---
+title: "Combining stats/ML and decision-analytic models"
+subtitle: "EPIB  676 session 19, McGill University"
+author: "Alton Russell"
+date: "7 Nov 2023"
+format: revealjs
+editor: visual
+---
+
+## Today
+
+-   **Using data-driven models in decision analysis**
+    -   Multi-state modeling survival analysis
+    -   Machine learning example
+-   Clinical prediction model development through decision-analytic lens
+
+## "Data-driven" vs. decision-analytic modeling
+
+::: columns
+::: {.column width="50%"}
+**Stats & ML**
+
+-   Extract info from data
+
+-   Methods for understanding/estimating heterogeneity
+
+-   Good at understanding "**what is**"
+:::
+
+::: {.column width="50%"}
+**Decision-analytic models**
+
+-   Integrate assumptions & data-inform estimates
+
+-   Traditionally for estimating 'average' policy impact
+
+-   Good at extrapolating, asking "**what if**"
+:::
+:::
+
+## Trial-based economic evaluation
+
+-   Increasingly, trials designed with cost-effectiveness component
+
+-   Data collection plan for costs and QALY estimation
+
+    -   Consent to access clinical/administrative data on health resource utilization
+
+    -   Periodic survey to derive health-related quality of life weights & non-health outcomes (productivity, caregiver, time costs)
+
+## Trial-based economic evaluation
+
+Statistical methods for conducting CEA over time horizon of the trial
+
+-   Missing data imputation
+
+-   Regressing cost/QALYs for subgroup analysis
+
+    -   seemingly unrelated regression to capture correlation
+
+-   Bootstrapping for probabilistic sensitivity analysis
+
+Extrapolating over patient lifetime requires modeling
+
+## Tutorial for trial-based economic evaluation
+
+Not main focus of this class, but here is a helpful tutorial
+
+[Ben et. al. (2023). Conducting trial-based economic evaluations using R: A tutorial. PharmacoEconomics 41:1403--1413](https://doi.org/10.1007/s40273-023-01301-7)
+
+## Today
+
+-   Using data-driven models in decision analysis
+    -   **Multi-state modeling survival analysis**
+    -   Machine learning example
+-   Clinical prediction model development through decision-analytic lens
+
+## Multi-state survival modeling
+
+![](Williams%202017%20multistatemodel%20tutorial.png)
+
+[Williams et. al. 2017](https://doi.org/10.1177/0272989X16651869)
+
+[Supplemental material](https://www.gla.ac.uk/schools/healthwellbeing/research/hehta/cwilliams/)
+
+## Competing risks
+
+::: columns
+::: {.column width="50%"}
+-   Cancer treatment trials often report 'progression-free' and 'overall' survival for limited time horizon
+
+-   Model can extrapolate to lifetime horizon
+
+-   Must account for competing risks
+:::
+
+::: {.column width="50%"}
+![](williams_model_diagram.png)
+:::
+:::
+
+## Panel vs. survival data
+
+**Survival data**
+
+-   If event observed, we ahve exact time to event
+
+-   Usually some individuals right censored (end of follow-up)
+
+-   Ex. time to diagnosis, time to death
+
+**Panel data**
+
+-   Data collected at specific intervals
+
+-   Observe if an event happened between last observation and this one
+
+-   Ex. chlamydia infection between this screen and the last one
+
+## Tutorial data source
+
+-   Trial of first-line treatment for chronic lymphocytic leukemia
+
+    -   RFC: rituximab + fludarabine + cyclophosphamide (403 patients)
+
+    -   FC: fludarabine + cyclophosphamide (407 patients)
+
+-   Trial time horizon 4 years (many patients still alive at trial end)
+
+-   Model time horizon 15 years (estimated \<2% cohort will remain alive)
+
+## Steps
+
+![](williams_process_overview.png)
+
+## Markov or semi-Markov?
+
+-   **Markov assumption:** future transitions depend only on the current state (not history)
+
+-   If violated, can use state-arrival ***extended*** multi-state model to include covariates in transitions
+
+## Cox proportional hazard model
+
+-   Semi-parametric model of time until an event
+
+-   Covariates (e.g., history, sex) can increase or decrease average time to events
+
+-   Hazard ratios estimated for covariates (\>1 if covariate decreases time-to-event)
+
+-   Proportional hazards means they can be multiplied to estimate mean time-to-event
+
+## Assessing Markovian & proportional hazard assumptions
+
+-   log-log plot
+
+-   Cumulative hazard vs. time
+
+-   Fit cox models
+
+## Log-log plots
+
+![](williams%20loglog.png)
+
+Lines fairly parallel, suggesting proportional hazards reasonable
+
+## Cumulative hazards vs. time
+
+![](williams%20cumulative%20hazard.png)
+
+\(a\) and (b) suggest increasing hazards may be appropriate. (c) suggests lack of treatment effect post-progression
+
+## Conclusions so far
+
+-   No severe violation of proportional hazard assumption, so we should consider proportional hazard models
+
+-   Next step:
+
+    -   Build a Cox Markov state-arrival extended model for progression to death transition
+
+## Result of Cox Markov State-Arrival Extended Model on progression to death
+
+| Covariate                   | HR (95% CI)           | P value |
+|-----------------------------|-----------------------|---------|
+| Treatment                   | 1.555 (0.874, 2.7666) | 0.133   |
+| Time spent progression free | 0.413 (0.215, 0.794)  | 0.008   |
+
+-   Time progression-free impacts post-progression death
+
+-   Markov property doesn't hold; semi-Markov model needed.
+
+## Steps
+
+![](williams_process_overview.png)
+
+## Building semi-Markov models
+
+::: columns
+::: {.column width="50%"}
+-   We start with progression to death because no competing risk
+
+-   Evaluate multiple time-to-event distributions
+
+-   Include time spent progression-free as covariate
+:::
+
+::: {.column width="50%"}
+
+![](williams_model_diagram.png)
+:::
+:::
+
+## Selecting model for progression → death
+
+::: columns
+::: {.column width="50%"}
+![](progression_to_death_2yr.png)
+:::
+
+::: {.column width="50%"}
+![](progression_to_death_15yr.png)
+:::
+:::
+
+While log-logistic minimized AIC, other distributions had more reasonable 15-year extrapolation. Gompertz distribution selected.
+
+## Selecting model for other transitions
+
+![](williams_extrapolation_other_transitions.png)
+
+## Steps
+
+![](williams_process_overview.png)
+
+## Life years, costs, QALYs
+
+Used data from the trial for mean cost/QALYs of progression-free & progressed under each intervention.
+
+![](williams_costs.png)
+
+## Base case results
+
+![](williams_base_case_results.png)
+
+## Scenario analysis
+
+![](williams_scenarios.png)
+
+## Probabilistic sensitivity analysis
+
+![](williams_psa.png)
+
+## Today
+
+-   Using data-driven models in decision analysis
+    -   Multi-state modeling survival analysis
+    -   **Machine learning example**
+-   Clinical prediction model development through decision-analytic lens
+
+## Switch to ppt file
+
+## Today
+
+-   Using data-driven models in decision analysis
+    -   Multi-state modeling survival analysis
+    -   Machine learning example
+-   **Clinical prediction model development through decision-analytic lens**
+
+## Swi
+
+## Logistics
+
+-   No more methods lectures
+
+-   Six more guest lectures
+
+-   Assignment 5 due Friday, Nov 17
+
+-   Final project presentations Tuesday, Dec 5
+
+-   Final project report due Wednesday, Dec 13

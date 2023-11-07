@@ -17,8 +17,6 @@ editor: visual
 
 ## Dimensions of concern for health equity?
 
--   Many dimensions of concern
-
 -   Health, wealth, race and ethnicity, sex, gender identity, sexual orientation, age, (dis)ability, socioeconomic status, neighborhood...
 
 -   Intersectionality
@@ -31,7 +29,7 @@ editor: visual
 
     -   Creates unequal access
 
-    -   Improves or worsen existing inequities in health outcomes
+    -   Worsens existing inequities in health outcomes
 
 -   Fairness/equity criteria can conflict with efficiency **and each other!**
 
@@ -59,9 +57,9 @@ editor: visual
 
 ## The traditional CEA approach
 
--   Objective: Maximize total health benefit achieved through limited funds
+-   Maximize total health benefit with limited funds
 
--   **No consideration for distribution of benefits across population**
+-   No consideration for distribution of benefits across population
 
 -   "A QALY is a QALY is a QALY"
 
@@ -85,7 +83,23 @@ editor: visual
 
 ![](Norway_threshold_by_class.jpg)
 
-## Proportional shortfall: NICE
+## Dutch Proportional shortfall
+
+For a disease
+
+$$
+\text{Proportional shortfall}=\frac{\text{Disease-related QALY loss}}{\text{Expeted QALYs without disease}}
+$$
+
+For a treatment
+
+$$
+\text{Proportional shortfall}=1-\frac{\text{Expected QALYs without treatment}}{\text{Expected QALYs without disease}}
+$$
+
+[Reckers-Droog et. al. 2018](https://doi.org/10.1016/j.healthpol.2018.04.001)
+
+## UK proportional shortfall (proposed)
 
 ::: columns
 ::: {.column width="55%"}
@@ -105,21 +119,6 @@ Proposed scheme by NICE in UK
 :::
 :::
 
-## Dutch Proportional shortfall
-
-For a disease
-
-$$
-\text{Proportional shortfall}=\frac{\text{Disease-related QALY loss}}{\text{Expeted QALYs without disease}}
-$$
-
-For a treatment
-
-$$
-\text{Proportional shortfall}=1-\frac{\text{Expected QALYs without treatment}}{\text{Expected QALYs without disease}}
-$$
-
-[Reckers-Droog et. al. 2018](https://doi.org/10.1016/j.healthpol.2018.04.001)
 
 ## Challenges with these approaches
 
@@ -161,7 +160,6 @@ Mirelman (2015) [Methods for incorporating health equity impacts in economic eva
 
 ## Equity evidence review
 
-Not a decision model
 
 -   What are the equity issues?
 
@@ -169,7 +167,7 @@ Not a decision model
 
 -   What do stakeholders think?
 
-**Pro:** does not require quantification
+**Pro:** does not require quantification of inequity
 
 **Con:** less clear guidance for decision (& depends on available data)
 
