@@ -1,0 +1,1 @@
+{"id":"node1","name":"root","type":"decision","probability":"","variables":"","payoff":"","children":[{"id":"node1_1","name":"node1_1","type":"chance","probability":"","variables":"","payoff":""}]}

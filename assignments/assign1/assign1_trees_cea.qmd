@@ -12,7 +12,11 @@ editor: visual
 ```{r}
 # Load packages
 #.  Use install.packages("XXXX") if you don't have any of these installed
-library(rdecision) #decision trees
+# library(rdecision) #decision trees
+library(OpenTree)
+#MUST INSTALL FROM GITHUB BY RUNNING THE FOLLOWING
+#install_github("DARTH-git/OpenTree", force = TRUE)
+
 library(flextable) #Formatting tables to display (https://davidgohel.github.io/flextable/reference/index.html)
 library(ggplot2) #Plotting
 library(readxl) #for read_excel()
@@ -23,7 +27,7 @@ theme_set(theme_bw()) #Makes ggplots look better
 
 # Section 1: Decision trees
 
-We'll use the [rdecision package](https://cran.r-project.org/web/packages/rdecision/index.html) to develop and visualize decision trees. There are a few vignettes on the CRAN page. [This introductory one](https://cran.rstudio.com/web/packages/rdecision/vignettes/DT00-DecisionTreeTutorial.html) will probably be sufficient for you to understand how we are using the package in this assignment.
+We'll use the relatively new [OpenTree R package from DARTH](https://github.com/DARTH-git/OpenTree/tree/main) to develop and visualize decision trees. Documentation is not fully developed, but you are encouraged to watch [this introduction video](https://vimeo.com/646960252/da5758ec62) and associated [introductory R Markdown document](https://github.com/DARTH-git/OpenTree/blob/main/Introduction%20OpenTree.Rmd).
 
 ## 1a Expected value calculations
 
@@ -100,6 +104,26 @@ DT1$draw() #Plot it
 
 DT1_evaluation <- DT1$evaluate() #calculate it
 DT1_evaluation |> flextable()
+```
+
+```{r}
+# OPEN TREE VERSION
+
+# Decision problem: Should we use diet or exercise to reduce chance of needing a stent in a high-risk population?
+
+# Parameters (stored in a list to keep our R environment tidy)
+params <- list()
+params$c_diet <- 50 #cost of diet
+params$c_exercise <- 750 #cost of exercise
+params$c_stent <- 5000 #cost of a stent
+params$u_stent <- 0.75 #utility of getting a stent (relative to 1.0)
+params$p_stent_diet <- (68 - 12)/68 #probability needing stent if we diet
+params$p_stent_exercise <- (58 - 18)/58 #probability of needing a stent if we exercise
+
+
+create_tree(file_name = "assign1_Tree", dir_name = "./assignments/assign1")
+
+
 ```
 
 In the code chunk below, using the variables defined in the last code chunk (e.g., `params$p_stent_diet`), calculate the expected utility and the expected cost of the diet arm without using the `rdecision` package (summing/multiplying).

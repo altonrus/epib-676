@@ -2,17 +2,22 @@
 title: "Course introduction"
 subtitle: "EPIB  676 session 1, McGill University"
 author: "Alton Russell"
-date: "31 Aug 2023"
+date: "29 Aug 2024"
 format: revealjs
 editor: visual
 ---
 
+## Resources
+
+[Jalal et. al. 2017 Overview of R in Health Decision Sciences](https://doi.org/10.1177/0272989X16686559)
+
+<https://github.com/DARTH-git/OpenTree/tree/main>
+
 ## About me
 
 -   Born in North Carolina
--   Engineering at NC State (BSc) and Stanford (MSc, PhD)
--   Joined the School of Population and Global Health in January 2022
--   Lead the [data-driven decision modeling lab (D3Mod)](http://mchi.mcgill.ca/decision-modeling-lab/)
+-   Studied Engineering at NC State (BSc) and Stanford (MSc, PhD)
+-   [Data-driven decision modeling lab (D3Mod)](http://mchi.mcgill.ca/decision-modeling-lab/)
 -   Also teach PPHS 528 Economic evaluation of health programs
 
 ## Quick intros
@@ -42,13 +47,13 @@ editor: visual
 :::
 
 ::: {.column width="40%"}
-![From https://blog.flexis.com](tradeoffs.jpeg)
+![From https://blog.flexis.com](figs/tradeoffs.jpeg)
 :::
 :::
 
 ## Opportunity cost
 
-*The value of the next-best thing I could have done with the resources*
+The value of the next-best thing I could have done with these inputs (often, money)
 
 -   A dollar spent on PrEP for people who inject drugs cannot be spent on photon radiation for children with cancer
 
@@ -94,8 +99,8 @@ editor: visual
 
 -   What services should we pay for?
 -   Who should receive these services?
--   How can these services be delivered most efficiently?
--   How should we spend [**research**]{.underline} dollars?
+-   How can services be delivered efficiently?
+-   How should we spend research dollars?
 
 ## Key questions for decision analysis
 
@@ -106,7 +111,7 @@ editor: visual
 
 **Healthcare operations**
 
--   How can these services be delivered most efficiently?
+-   How can services be delivered efficiently?
 
 **Health research**
 
@@ -116,7 +121,7 @@ editor: visual
 
 1.  Define the decision context
 
-2.  Identify outcomes of interest (cost, effects, efficiency, equity)
+2.  Identify outcomes of interest (e.g. cost, effect, efficiency, equity)
 
 3.  Identify alternatives
 
@@ -126,13 +131,13 @@ editor: visual
 
 6.  Consider non-quantifiable factors
 
-7.  Interpret the results
+7.  Interpret results/make decision
 
 ## Developing a decision analysis
 
 1.  Define the decision context
 
-2.  Identify outcomes of interest (cost, effects, efficiency, equity)
+2.  Identify outcomes of interest (e.g. cost, effect, efficiency, equity)
 
 3.  Identify alternatives
 
@@ -142,7 +147,7 @@ editor: visual
 
 6.  Consider non-quantifiable factors
 
-7.  Interpret the results
+7.  Interpret results/make decision
 
 ## Decision-analytic model
 
@@ -150,7 +155,7 @@ editor: visual
 -   Propagate uncertainty
     -   Uncertain inputs → uncertain outputs
 
-![](model-inputs-outputs.svg)
+![](figs/model-inputs-outputs.svg)
 
 ## Decision analysis can...
 
@@ -175,6 +180,8 @@ editor: visual
 
 ## Learning objectives
 
+After EPIB 676, students will be able to:
+
 -   Develop decision analytic models to inform health policy and clinical decisions
 -   Understand and critically appraise model-based decision analyses
 -   Create transparent reports of model-based decision analyses that conform to open science principles
@@ -195,13 +202,13 @@ Many decision-analytic models used for economic evaluation
 
     -   \~20% economic evaluation
     -   PhD level, research-oriented
-    -   Probability/math background helpful
+    -   Prereqs: Stats, probability, math, intermediate programming
 
 -   **PPHS 528:** economic evaluation (broader)
 
     -   \~20% decision analytic modeling
     -   MSc level
-    -   Less programming
+    -   Prereqs: Basic programing & stats
 
 ## Course materials
 
@@ -217,9 +224,7 @@ Many decision-analytic models used for economic evaluation
     -   Download and open in web browser **or**
     -   <https://htmlpreview.github.io/?>
 
-## Two phases
-
-![](birds-eye-view.png)
+## Two overlapping phases
 
 ::: columns
 ::: {.column width="49%"}
@@ -242,6 +247,10 @@ Many decision-analytic models used for economic evaluation
 -   Build model; analyze open source publication
 :::
 :::
+
+## Two overlapping phases
+
+![](figs/epib676_fall2024_schedule_overview.png)
 
 ## Syllabus (with schedule) on Github
 
@@ -284,31 +293,45 @@ Quarto → HTML
 -   Systems for creating reproducible research reports
     -   Quarto documents!
 
-## Packages for decision-analytic modeling in R
+## Resources for decision-analytic modeling in R
 
+-   Jalal et. al. 2017 ['An overview of R in health decision scientists'](https://doi.org/10.1177/0272989X16686559)
 -   Decision Analysis in R for Technologies in Health (DARTH)
     -   [Website](https://darthworkgroup.com/), [Github](https://github.com/DARTH-git)
 -   R for Health Technology Assessment
     -   [Website](https://r-hta.org/)
 -   Nathan Green's [List of Health Economics R Packages](https://github.com/n8thangreen/health_economics_R_packages)
+-   'rcea' package and tutorial [website](https://hesim-dev.github.io/rcea/)
 
 ## Downsides of R
 
 -   Learning curve for non-programmers (vs. Excel, TreeAge)
--   Not the fastest language
+-   Base R not the fastest language
     -   Julia, C++, Matlab faster. **But,** can use [RCPP package](https://cran.r-project.org/web/packages/Rcpp/index.html) to write compute-intensive operations in C++
 -   Dependencies and back/forward compatibility
     -   Packages can have errors, may not be maintained
     -   Functionality can change after updates
     -   We will discuss some strategies to address
 
-## Getting started with R
+## R projects and Quarto
 
 We will:
 
 -   Create a new R project with quarto document
 -   Clone the class repository from Github onto your computer
 -   Edit and render assignment 0
+
+## Completing programming assignments
+
+Can
+
+-   'Pull' most recent epid-676 repo from github
+
+-   [**Rename**]{.underline} assignment .qmd file (e.g. add your initials) before editing to avoid merge conflicts
+
+Or
+
+-   Download zip file from github and work outside of an R project
 
 ## Agenda for today
 
@@ -317,7 +340,7 @@ We will:
 -   Using R for decision analysis
 -   **Perspective and audiences**
 
-## Who is the audience?
+## Who is the audience of a decision analysis?
 
 ## Who is the audience?
 
@@ -367,7 +390,7 @@ Depends on context; often **multiple**
 
 ::: columns
 ::: {.column width="55%"}
-![](impact-inventory.png)
+![](figs/impact-inventory.png)
 :::
 
 ::: {.column width="45%"}
