@@ -11,8 +11,8 @@
   <meta name="generator" content="quarto-1.3.330">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-09-07">
-  <title>Probability and decision trees</title>
+  <meta name="dcterms.date" content="2024-09-05">
+  <title>Probability, decision trees</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -391,7 +391,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Probability and decision trees</h1>
+  <h1 class="title">Probability, decision trees</h1>
   <p class="subtitle">EPIB 676 session 3, McGill University</p>
 
 <div class="quarto-title-authors">
@@ -402,7 +402,7 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-09-07</p>
+  <p class="date">2024-09-05</p>
 </section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
@@ -435,7 +435,7 @@ Alton Russell
 <p><strong>Event:</strong> one outcome or set of outcomes (subset of sample space)</p>
 <p><br></p>
 
-<img data-src="sample_space.svg" class="r-stretch"></section>
+<img data-src="figs/sample_space.svg" class="r-stretch"></section>
 <section id="axioms-of-probability-1-2" class="slide level2">
 <h2>Axioms of probability 1 &amp; 2</h2>
 <ol type="1">
@@ -457,11 +457,11 @@ P(\cup_{i=1}^{I} e_i) = \sum_{i=1}^{I} P(e_i)
 \]</span></p>
 <p>The probability <u><strong>any</strong></u> mutually exclusive event occurs it the sum of the events’ individual probabilities</p>
 
-<img data-src="mutually_exclusive.svg" class="r-stretch"></section>
+<img data-src="figs/mutually_exclusive.svg" class="r-stretch"></section>
 <section id="conditional-probability" class="slide level2">
 <h2>Conditional probability</h2>
 <ul>
-<li>Prob. of <span class="math inline">\(A\)</span> occurring <u><strong>conditioned o</strong></u><strong>n</strong> <span class="math inline">\(B\)</span> having occurred (probability <span class="math inline">\(A\)</span> <u><strong>given</strong></u> <span class="math inline">\(B\)</span>):</li>
+<li>Prob. of <span class="math inline">\(A\)</span> occurring <u><strong>conditioned on</strong></u> <span class="math inline">\(B\)</span> having occurred (probability <span class="math inline">\(A\)</span> <u><strong>given</strong></u> <span class="math inline">\(B\)</span>):</li>
 </ul>
 <p><span class="math display">\[
 P(A \mid B)=\frac{P(AB)}{P(B)}
@@ -477,16 +477,16 @@ P(A \mid BCDE) = \frac{P(ABCDE)}{P(BCDE)}
 <h2>Conditional probability visualized</h2>
 <p>‘Rescaling’ the sample space to account for B occurring</p>
 
-<img data-src="conditional_prob.png" class="r-stretch quarto-figure-center"><p class="caption">https://www.geeksforgeeks.org/conditional-probability/</p></section>
+<img data-src="figs/conditional_prob.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.geeksforgeeks.org/conditional-probability/" class="uri">https://www.geeksforgeeks.org/conditional-probability/</a></p></section>
 <section id="conditional-probability-for-mutually-exclusive-events" class="slide level2">
 <h2>Conditional probability for mutually exclusive events?</h2>
 
-<img data-src="mutually_exclusive.svg" width="188" class="r-stretch"><p>What is <span class="math inline">\(P(A \mid B)\)</span>?</p>
+<img data-src="figs/mutually_exclusive.svg" width="188" class="r-stretch"><p>What is <span class="math inline">\(P(A \mid B)\)</span>?</p>
 </section>
 <section id="conditional-probability-for-mutually-exclusive-events-1" class="slide level2">
 <h2>Conditional probability for mutually exclusive events?</h2>
 
-<img data-src="mutually_exclusive.svg" width="188" class="r-stretch"><p>What is <span class="math inline">\(P(A \mid B)\)</span>?</p>
+<img data-src="figs/mutually_exclusive.svg" width="188" class="r-stretch"><p>What is <span class="math inline">\(P(A \mid B)\)</span>?</p>
 <p>For <strong>mutually exclusive</strong> events <span class="math inline">\(A, B\)</span>:</p>
 <p><span class="math display">\[
 P(A \mid B) = 0\\
@@ -497,12 +497,12 @@ P(B \mid A) = 0
 <h2>Independent events</h2>
 <p>If <span class="math inline">\(A \perp \!\!\! \perp B\)</span>, A occurring doesn’t effect B’s probability and B occurring doesn’t effect A’s probability</p>
 <p><span class="math display">\[
-P(A) = P(A \mid B)\\
-P(B) = P(B \mid A)\\
+P(A) = P(A \mid B) = P(A \mid B')\\
+P(B) = P(B \mid A) = P(B \mid A')\\
 P(AB) = P(A)P(B)
 \]</span></p>
 
-<img data-src="independent_events.svg" class="r-stretch"></section>
+<img data-src="figs/independent_events.svg" class="r-stretch"></section>
 <section id="conditional-independence" class="slide level2">
 <h2>Conditional independence</h2>
 <p>A and B are independent conditioned on C iff</p>
@@ -521,9 +521,9 @@ P(A \mid BC) = P(A \mid C)\\
 P(B \mid AC) = P(B \mid C)\\
 P(AB \mid C) = P( A \mid C)P( B \mid C)
 \]</span></p>
-<p>Example: Are human height and vocabulary independent?</p>
+<p>Ex: Are Canadians’ height and vocabulary independent?</p>
 <blockquote>
-<p>No, shorter humans tend to know less vocabulary because they are often children. But height and vocabulary are likely independent <strong>conditioned on</strong> a person being &gt;19 years old</p>
+<p>No, shorter humans are more likely to be children who know fewer words. But height and vocabulary are likely independent <strong>conditioned on</strong> a person being &gt;20 years old</p>
 </blockquote>
 </section>
 <section id="bayes-theorem" class="slide level2">
@@ -613,9 +613,9 @@ disease     0     1   Sum
 </div>
 <p>We test a new person from the same population. What is their:</p>
 <ul>
-<li><p>Pre-test probability of having the disease?</p></li>
-<li><p>Post-test probability if they test positive (positive predictive value)?</p></li>
-<li><p>Post-test probability if they test negative (one minus negative predictive value)?</p></li>
+<li><p>Pre-test prob. of having the disease?</p></li>
+<li><p>Post-test prob. if test is positive (positive predictive value)?</p></li>
+<li><p>Post-test prob. if test is negative (one minus negative predictive value)?</p></li>
 </ul>
 </section>
 <section id="pre--and-post-test-probability-1" class="slide level2">
@@ -700,7 +700,7 @@ p \sim Beta(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1-p)^{\b
 </div><div class="column" style="width:55%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="PDF_of_the_Beta_distribution.gif" width="400"></p>
+<p><img data-src="figs/PDF_of_the_Beta_distribution.gif" width="400"></p>
 <p></p><figcaption>https://en.wikipedia.org/wiki/Beta_distribution</figcaption><p></p>
 </figure>
 </div>
@@ -749,7 +749,7 @@ p \sim Beta(\alpha = 5, \beta = 38) \quad E[p] = 0.116
 <img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section id="bayesian-updating-with-beta-3" class="slide level2">
 <h2>Bayesian updating with beta</h2>
-<p>If we treat 10,000 patients and 1,230 have a side effect:</p>
+<p>In 10,000 total patients, 1,230 have a side effect:</p>
 <p><span class="math display">\[
 p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 \]</span></p>
@@ -761,7 +761,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <section id="beta-distribution-summary" class="slide level2">
 <h2>Beta distribution summary</h2>
 <ul>
-<li><p>Describes belief (uncertainty) about an uncertain probability</p></li>
+<li><p>Describes belief of values an uncertain probability may take</p></li>
 <li><p>Parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> map to event and non-event counts from a binomial experiment</p></li>
 <li><p>As we collect data:</p>
 <ul>
@@ -777,18 +777,18 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <div class="column" style="width:25%;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="priors.webp"></p>
+<p><img data-src="figs/priors.webp"></p>
 </figure>
 </div>
 <p>Priors ↑</p>
 <p>Posteriors ↓</p>
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="posteriors.webp"></p>
+<p><img data-src="figs/posteriors.webp"></p>
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
-<p><img data-src="updating_priors.webp"></p>
+<p><img data-src="figs/updating_priors.webp"></p>
 </div><div class="column" style="width:35%;">
 <p><strong>Priors</strong>:</p>
 <p>Beta(5,5)</p>
@@ -815,7 +815,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <ul>
 <li><p>Nodes connected by branches</p></li>
 <li><p>“Grows” from left to right</p></li>
-<li><p>Starts with a ‘decision node’ (the ‘root node”); ends in ’leaf nodes (’terminal nodes’)</p></li>
+<li><p>Starts with ‘root node’ (usually a ‘decision node’) ends in ‘leaf nodes (’terminal nodes’)</p></li>
 <li><p>“Payoffs” received at terminal nodes (sometimes, payoffs received along the way)</p></li>
 </ul>
 </section>
@@ -823,7 +823,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <h2>Decision tree symbols</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p><img data-src="decision_tree_nodes.svg"></p>
+<p><img data-src="figs/decision_tree_nodes.svg"></p>
 </div><div class="column" style="width:50%;">
 <ul>
 <li><p>Things we control are decisions (actions)</p></li>
@@ -842,7 +842,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <p><strong>Costs</strong></p>
 <p><strong>Health effects (e.g., QALYs)</strong></p>
 </div><div class="column" style="width:40%;">
-<p><img data-src="decision_tree_nodes.svg"></p>
+<p><img data-src="figs/decision_tree_nodes.svg"></p>
 </div>
 </div>
 </section>
@@ -854,11 +854,11 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <p><strong>Costs</strong> → Payoffs (at terminal nodes △ or along the way)</p>
 <p><strong>Health effects</strong> → Payoffs (at terminal nodes △ or along the way)</p>
 </section>
-<section id="parameters-are-conditional" class="slide level2">
-<h2>Parameters are conditional</h2>
+<section id="parameters-conditional-on-path" class="slide level2">
+<h2>Parameters conditional on path</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="tree_example.svg"></p>
+<p><img data-src="figs/tree_example.svg"></p>
 </div><div class="column" style="width:40%;">
 <ul>
 <li><p>Probabilities from chance nodes must sum to 1</p></li>
@@ -915,15 +915,15 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <section id="roll-back-cost-minimization-example" class="slide level2">
 <h2>Roll back: cost minimization example</h2>
 
-<img data-src="rollback_tree_1.svg" class="r-stretch"></section>
+<img data-src="figs/rollback_tree_1.svg" class="r-stretch"></section>
 <section id="roll-back-cost-minimization-example-1" class="slide level2">
 <h2>Roll back: cost minimization example</h2>
 
-<img data-src="rollback_tree_2.svg" class="r-stretch"></section>
+<img data-src="figs/rollback_tree_2.svg" class="r-stretch"></section>
 <section id="roll-back-cost-minimization-example-2" class="slide level2">
 <h2>Roll back: cost minimization example</h2>
 
-<img data-src="rollback_tree_3.png" class="r-stretch"></section>
+<img data-src="figs/rollback_tree_3.png" class="r-stretch"></section>
 <section id="stent-prevention-tree-1" class="slide level2">
 <h2>Stent prevention tree</h2>
 
@@ -981,7 +981,7 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <h2>Rollback with sequential decisions</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
-<p><img data-src="sequential_tree.jpg" width="600"></p>
+<p><img data-src="figs/sequential_tree.jpg" width="600"></p>
 <p>Source: <a href="https://doi-org.proxy3.library.mcgill.ca/10.1016/j.artmed.2012.05.003">Suner et. al.&nbsp;2012</a></p>
 </div><div class="column" style="width:35%;">
 <p>For ‘downstream’ decision nodes:</p>
@@ -1016,7 +1016,7 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <ul>
 <li><p>Conditional probability</p></li>
 <li><p>Bayesian updating</p></li>
-<li><p>Beta distribution for uncertainty in probabilities</p></li>
+<li><p>Beta distribution for uncertain probabilities</p></li>
 </ul></li>
 <li><p>Decision trees are simple, flexible, useful decision models</p></li>
 <li><p>“Roll back” the decision tree to calculate the expected value of each outcome under each alternative</p></li>
@@ -1025,8 +1025,9 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Assignment 0 due 11:59pm tomorrow</p></li>
-<li><p>Assignment 1 (cost-effectiveness, decision trees) due next Friday , September 15</p></li>
+<li><p>Complete readings before Thursday’s class</p></li>
+<li><p>Assignment 1 due Friday, September 12</p></li>
+<li><p>Office hours 1:30-2:30pm in Room #1122 Tuesdays and Thursdays</p></li>
 </ul>
 <div class="footer footer-default">
 

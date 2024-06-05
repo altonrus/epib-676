@@ -7,12 +7,6 @@ format: revealjs
 editor: visual
 ---
 
-## Resources
-
-[Jalal et. al. 2017 Overview of R in Health Decision Sciences](https://doi.org/10.1177/0272989X16686559)
-
-<https://github.com/DARTH-git/OpenTree/tree/main>
-
 ## About me
 
 -   Born in North Carolina
@@ -47,7 +41,7 @@ editor: visual
 :::
 
 ::: {.column width="40%"}
-![From https://blog.flexis.com](figs/tradeoffs.jpeg)
+![From <https://blog.flexis.com>](figs/tradeoffs.jpeg)
 :::
 :::
 
@@ -95,7 +89,7 @@ The value of the next-best thing I could have done with these inputs (often, mon
 -   Cost
 -   Efficiency
 
-## Key questions for decision analysis
+## Questions in health decision analysis
 
 -   What services should we pay for?
 -   Who should receive these services?
@@ -159,8 +153,8 @@ The value of the next-best thing I could have done with these inputs (often, mon
 
 ## Decision analysis can...
 
--   Estimate monetary and nonmonetary consequences of alternatives
--   Suport decisions about investment into/design of programs
+-   Estimate monetary and non-monetary consequences of alternatives
+-   Support decisions about investment into (design of) programs
 -   Inform allocation of resources
 -   Provide insights with incomplete data (requires assumptions)
 -   Inform data collection/research
@@ -190,11 +184,11 @@ After EPIB 676, students will be able to:
 
 Many economic evaluations use decision analytic models
 
--   **Exception**: prospective/data-driven (trial-based) economic evaluation
+-   **Exception**: prospective/data-driven (trial-based) economic evaluation may use only statistical models
 
 Many decision-analytic models used for economic evaluation
 
--   **Exception**: decision models without cost as output
+-   **Exception**: decision models that do not consider costs don't count
 
 ## EPIB 676 vs PPHS 528
 
@@ -207,10 +201,10 @@ Many decision-analytic models used for economic evaluation
 -   **PPHS 528:** economic evaluation (broader)
 
     -   \~20% decision analytic modeling
-    -   MSc level
-    -   Prereqs: Basic programing & stats
+    -   MSc level, research and practice
+    -   Prereqs: Stats, basic programming
 
-## Course materials
+## EPIB 676 course materials
 
 **MyCourses** (<https://mycourses2.mcgill.ca/>)
 
@@ -230,7 +224,7 @@ Many decision-analytic models used for economic evaluation
 ::: {.column width="49%"}
 **Methods phase**
 
--   Read tutorials, textbooks
+-   Read tutorials, textbook chapters
 
 -   Technical lectures
 
@@ -275,6 +269,8 @@ Quarto → HTML
 
 -   Software programs
     -   TreeAge <https://www.treeage.com/>
+
+    -   Amua <https://github.com/zward/Amua/wiki>
 
     -   Excel
 
@@ -327,7 +323,7 @@ Can
 
 -   'Pull' most recent epid-676 repo from github
 
--   [**Rename**]{.underline} assignment .qmd file (e.g. add your initials) before editing to avoid merge conflicts
+-   [**Rename**]{.underline} assignment .qmd file (e.g. add your initials) before editing to avoid merge conflicts in future pulls
 
 Or
 
@@ -358,9 +354,9 @@ Depends on context; often **multiple**
 
 ## Perspective motivated by audience
 
--   Payers mostly care about their costs
+-   Payers mostly care about their costs + beneficiary outcomes
 
--   Government may also care about [**societal**]{.underline} costs & benefits
+-   Government need to know budget impact but may also care about [**societal**]{.underline} costs & benefits
 
     -   Patient time/transportation
 
@@ -398,7 +394,7 @@ Depends on context; often **multiple**
 
 Lists all potentially relevant cost categories and comments on their inclusion
 
-Often found in online supplement
+Often included as a supplemental table
 :::
 :::
 
@@ -414,6 +410,6 @@ Often found in online supplement
 
 ## Logistics
 
--   Assignment 0 due next Friday, Sep 6
--   Complete reading before Tuesday's class
--   Office hours 1-2pm in Room #1122
+-   Assignment 0 due 11:59pm on Wed, Sep 4
+-   Complete reading before next class
+-   Office hours 1:30-2:30pm in Room #1122 Tuesdays and Thursdays
