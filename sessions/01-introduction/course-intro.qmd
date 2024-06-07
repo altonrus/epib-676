@@ -224,7 +224,7 @@ Many decision-analytic models used for economic evaluation
 ::: {.column width="49%"}
 **Methods phase**
 
--   Read tutorials, textbook chapters
+-   Read tutorials, modeling guidelines
 
 -   Technical lectures
 

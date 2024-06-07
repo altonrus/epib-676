@@ -1,6 +1,7 @@
 ---
 title: "Assignment 0: Coding simple models"
 author: "YOUR NAME HERE"
+date: today
 format:
     html:
       toc: true

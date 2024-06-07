@@ -45,7 +45,7 @@ Modeled outcomes are complex functions of multiple parameters
 
 ## Estimating parameter values
 
--   **Direct estimation:** with primary data or literature report
+-   **Direct estimation:** with primary data or published studies
 
 -   **Expert or data-informed estimation**: using imperfect or semi-applicable data and/or expert opinion, develop reasonable estimates/uncertainty ranges
 
@@ -434,7 +434,7 @@ ggplot(t_compare, aes(x=Time, y=value))+
 
 -   **Deterministic:** "What's the best-fitting parameter set?" (random search and NM)
 
--   **Probabilsitic:** "What distribution of parameters is consistent with the uncertainty distribution of my calibration targets"
+-   **Probabilistic:** "What distribution of parameters is consistent with the uncertainty distribution of my calibration targets"
 
 -   **Bayesian calibration** allows us to also use data on both parameters and outcomes to estimate parameters
 
@@ -532,7 +532,7 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
 ## Face validity
 
--   Model and analysis of assumptions reflect current evidence as judged by domain experts (e.g. clinicians) and policy makers
+-   Model and assumptions reflect current evidence as judged by experts (e.g. clinicians, policy makers)
 
 -   Multiple aspects
 
@@ -575,16 +575,15 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 ## Cross validation
 
 -   Consistency with related models
+    -   Same decision problem
+    -   Same biological/social phenomena
 
-```         
--   Same decision problem
-
--   Same biological/social phenomena
+```{=html}
+<!-- -->
 ```
-
 -   If multiple modelers reach same conclusion, trust in conclusions higher
 
--   More meaningful when models with differing creators, data, methods compared
+-   More meaningful when models compared have different creators, data, methods
 
 ## Cross validation best practice
 
@@ -620,11 +619,11 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 >
 > Systematic identification of
 >
->  -   Suitable data sources
+> -   Suitable data sources
 >
->  -   Justification of the selection
+> -   Justification of the selection
 >
->  -   Specification of whether a data source is dependent, partially dependent, or independent
+> -   Specification of whether a data source is dependent, partially dependent, or independent
 >
 > -   Description of which model parts are evaluated by each source
 >
@@ -632,12 +631,11 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
 ## Best practice 1 continued
 
-
 > Comparison of results, including descriptions of
 >
 > -   Data source
 >
->  -   Simulation setup
+> -   Simulation setup
 >
 > -   Discrepancies between source and simulation and their implications
 >
@@ -646,7 +644,6 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 > -   Sensitivity analyses
 >
 > Quantitative measures of how well the model's results match the source outcomes
-
 
 ## External validation best practice 2 & 3
 
@@ -664,24 +661,10 @@ Only applies to models predicting into the future.
 
 -   Important to convince reader of model validity
 
--   External validation is great when feasible but highly dependent on context
+-   External validation is great when feasible but depends on context
 
-    -   If we use the best data to parameterize/calibrate, what's left for external validation
+    -   If we use the best data to parameterize/calibrate, what's left for external validation?
 
 ## Logistics
 
--   Next 3 classes Tu Oct 17, Th Oct 19, Tu Oct 17
-    
-    -  Guest lectures via Zoom (read papers + review code!)
-    
-    -  Can join remotely: <https://mcgill.zoom.us/j/85707379604>
-    
-    -  Zoom office hours by request
-   
--   Open source model presentations [**Th, Oct 26**]{.underline}
-
-    -  Email me selected paper
-
--   Project proposals due [**Mon, Oct 30**]{.underline}
-
--   Assignment 4 (sensitivity analysis) due [**Fri, Nov 2**]{.underline}
+-   tbd

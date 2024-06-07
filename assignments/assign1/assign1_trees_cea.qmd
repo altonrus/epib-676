@@ -3,17 +3,19 @@ title: "Assignment 1: Decision trees and cost-effectiveness"
 author: "YOUR NAME HERE"
 date: today
 format:
-    pdf:
+    html:
       toc: true
       embed-resources: true
 editor: visual
 ---
 
 ```{r}
+#| warning: false
+
 # Load packages
 #.  Use install.packages("XXXX") if you don't have any of these installed
-# library(rdecision) #decision trees
-library(OpenTree)
+library(rdecision) #decision trees
+
 #MUST INSTALL FROM GITHUB BY RUNNING THE FOLLOWING
 #install_github("DARTH-git/OpenTree", force = TRUE)
 
@@ -27,16 +29,17 @@ theme_set(theme_bw()) #Makes ggplots look better
 
 # Section 1: Decision trees
 
-We'll use the relatively new [OpenTree R package from DARTH](https://github.com/DARTH-git/OpenTree/tree/main) to develop and visualize decision trees. Documentation is not fully developed, but you are encouraged to watch [this introduction video](https://vimeo.com/646960252/da5758ec62) and associated [introductory R Markdown document](https://github.com/DARTH-git/OpenTree/blob/main/Introduction%20OpenTree.Rmd).
+We'll use the [rdecision package](https://cran.r-project.org/web/packages/rdecision/index.html) to develop and visualize decision trees. There are a few vignettes on the CRAN page. [This introductory one](https://cran.rstudio.com/web/packages/rdecision/vignettes/DT00-DecisionTreeTutorial.html) will probably be sufficient for this assignment.
 
 ## 1a Expected value calculations
 
 This first code chunk is just an example; you don't need to edit it. Here, using the rdecision package, I have created a decision tree, visualized it, and "rolled it back" to calculate the expected cost and QALYs associated with the two alternatives. Review it carefully, because in 1b, you'll do similar calculations for a different decision tree.
 
 ```{r}
-# Decision problem: Should we use diet or exercise to reduce chance of needing a stent in a high-risk population?
+# Decision problem: Should we use diet or exercise to reduce chance of 
+#.   needing a stent in a high-risk population?
 
-# Parameters (stored in a list to keep our R environment tidy)
+# Parameters (stored in a list to keep R environment tidy)
 params <- list()
 params$c_diet <- 50 #cost of diet
 params$c_exercise <- 750 #cost of exercise
@@ -58,7 +61,7 @@ leaf_node_diet_stent <- LeafNode$new("Stent", utility = params$u_stent)
 leaf_node_exercise_no_stent <- LeafNode$new("No stent")
 leaf_node_exercise_stent <- LeafNode$new("Stent", utility = params$u_stent)
 
-#Create 'actions', paths from your decision node(s)
+#Create 'actions' or choices, paths from your decision node(s)
 action_diet <- Action$new(
   decision_node, chance_node_diet, cost = params$c_diet, label = "Diet"
 )
@@ -66,7 +69,7 @@ action_exercise <- Action$new(
   decision_node, chance_node_exercise, cost = params$c_exercise, label = "Exercise"
 )
 
-#Create 'reactions', paths from your chance node(s)
+#Create 'reactions' or chances, paths from your chance node(s)
 reaction_diet_success <- Reaction$new(
   chance_node_diet, leaf_node_diet_no_stent, 
   p = 1-params$p_stent_diet, cost = 0.0, label = "Did not need stent")
@@ -106,46 +109,25 @@ DT1_evaluation <- DT1$evaluate() #calculate it
 DT1_evaluation |> flextable()
 ```
 
-```{r}
-# OPEN TREE VERSION
-
-# Decision problem: Should we use diet or exercise to reduce chance of needing a stent in a high-risk population?
-
-# Parameters (stored in a list to keep our R environment tidy)
-params <- list()
-params$c_diet <- 50 #cost of diet
-params$c_exercise <- 750 #cost of exercise
-params$c_stent <- 5000 #cost of a stent
-params$u_stent <- 0.75 #utility of getting a stent (relative to 1.0)
-params$p_stent_diet <- (68 - 12)/68 #probability needing stent if we diet
-params$p_stent_exercise <- (58 - 18)/58 #probability of needing a stent if we exercise
-
-
-create_tree(file_name = "assign1_Tree", dir_name = "./assignments/assign1")
-
-
-```
-
-In the code chunk below, using the variables defined in the last code chunk (e.g., `params$p_stent_diet`), calculate the expected utility and the expected cost of the diet arm without using the `rdecision` package (summing/multiplying).
+In the code chunk below, using the variables defined in the last code chunk (e.g., `params$p_stent_diet`), calculate the expected utility and the expected cost of the diet arm [**without**]{.underline} using the `rdecision` package (e.g., by summing/multiplying).
 
 ```{r}
 expected_cost_diet <- NA
 expected_utility_diet <- NA
 
 #Print the values
-expected_cost_diet
-expected_utility_diet
+expected_cost_diet; expected_utility_diet
 ```
 
 ## 1b Peptic ulcer closure decision model
 
-You will now develop a decision analysis to inform whether a newer clip should be used to close bleeding peptic ulcers in the gastrointestinal tract during an upper GI endocoscopy, which is also called an EGD (stands for esophagogastroduodenoscopy). The newer clips are called over-the-scope clips, abbreviated OTSc. Randomized trial data show that rebleeding rates are lower following endoscopic closure with OTSc as compared to when standard therapy clips are used, but OTSc are significantly more expensive. You will build a decision tree to determine whether OTSc are 'worth' the added expense, either as a first line therapy (i.e. to treat all peptic ulcer bleeds initially) or only for rebleeds (i.e. only if a standard therapy clip failed, resulting in a 'rebleed').
+You will now develop a decision analysis to inform whether a newer clip should be used to close bleeding peptic ulcers in the gastrointestinal tract during an upper GI endocoscopy, a procedure called EGD (stands for esophagogastroduodenoscopy). The newer clips are called over-the-scope clips, abbreviated OTSc. Randomized trial data show that rebleeding rates are lower following endoscopic closure with OTSc as compared to when standard therapy clips are used, but OTSc are significantly more expensive. You will build a decision tree to determine whether OTSc are 'worth' the added expense, either as a first line therapy (i.e. to treat all peptic ulcer bleeds initially) or only for rebleeds (i.e. only if a standard therapy clip failed, resulting in a 'rebleed').
 
-We assume all peptic ulcer bleeds are fully resolved during a short hospitalization; we therefore use a time horizon of only 30 days. No discounting is needed due to the short time horizon. Because this analysis involves very small differences in utility, our parameters are in quality-adjusted life days (QALDs) instead of quality-adjusted life years (QALYs): 1 QALD = 1/365 QALY, and 1 QALY = 365 QALD.
+We assume all peptic ulcer bleeds are fully resolved during a short hospitalization and use a one-year time horizon. No discounting is needed due to the short time horizon.
 
 All model parameters are provided for you in the "OTSc" sheet of the excel file `params_assign1.xlsx`. You can open it to take a look. For your assignment to render without error, this .qmd file and that .xlsx file must be in the same folder. The next chunk of code reads in the .xlsx file and generates a parameter table, using the flextable package for formatting (you don't have to do anything in this code chunk).
 
-NOTE: You might need to close the Excel file for the read_excel function to run properly.
+**NOTE:** You might need to close the Excel file for `read_excel()` to work.
 
 ```{r}
 #read table from Excel
@@ -162,15 +144,15 @@ In the code chunk below, build the model using the rdecision package with the 'b
 
 Your model should start with a decision mode with three options:
 
--   **OTSc first:** use OTS clip for first line therapy; if a rebleed occurs use a standard clip for second line therapy
+-   **OTSc first:** use OTS clip for first line therapy. If a rebleed occurs, use a standard clip for second line therapy
 
--   **ST first:** use a standard clip for first line therapy; if a rebleed occurs use an OTS clip for second line therapy
+-   **ST first:** use a standard clip for first line therapy. If a rebleed occurs, use an OTS clip for second line therapy
 
 -   **ST only**: use a standard clip for first line therapy and, if a rebleed occurs, for second line therapy.
 
 All three arms from this decision node ("actions" in the rdecision package) lead into a chance node corresponding to the outcomes of the first line EGD. From the initial chance node, there are two possibilities:
 
--   **Success:** no re-bleeding occurs after the first line procedure (ends in a leaf node).
+-   **Success:** no re-bleeding occurs after the first line procedure (ends in a leaf node \[also called terminal node\]).
 
 -   **Second-line therapy:** A second EGD is needed to try and close the peptic ulcer bleed (leads to a chance node corresponding to the outcome of the second line EGD).
 
@@ -186,7 +168,7 @@ After second-line therapy, you have another chance node with two possibilities:
 
 -   If the first line EGD was successful, we add in the cost of a hospitalization with no major complications or comorbidities (`c_hosp_noCC`).
 
--   If the first line EGD was unsuccessful and we need second-line therapy, we add in the costs of a second EGD: physician fee plus cost of whichever clip was used (`c_STclip` or `c_OTSclip`)
+-   If the first line EGD was unsuccessful and we need second-line therapy, we add in the costs of a second EGD: another physician fee (`c_EGD_MD`) plus cost of whichever clip was used (`c_STclip` or `c_OTSclip`)
 
 -   If the second line EGD was successful, we add in the cost of a hospitalization with minor complications and comorbidities (`c_hosp_CC`)
 
@@ -244,7 +226,7 @@ decision_node <- NA
 #Create the tree
 DT2 <-NA
 
-# Draw the tree
+# Draw the tree (uncomment after completing earlier steps)
 #DT2$draw()
 
 # Create table with the expected cost and utility (in QALYs or QALD) of each alternative
@@ -252,7 +234,7 @@ DT2 <-NA
 #DT2_evaluation |> flextable()
 ```
 
-The differences in QALYs experienced in a one-year period is hard to see. We can instead convert the QALYs experienced to lost quality-adjusted life days lost (QALDs lost). I wrote the code for you; you just need to uncomment it after completing the previous code block.
+The differences in QALYs experienced in a one-year period is hard to see. We can express the effectiveness as quality-adjusted life days lost (QALDs lost) instead of QALYs experienced. 1 QALY = 365 QALD, so 1 QALD = 1/365.I wrote the code for you; you just need to un-comment it after completing the previous code block.
 
 ```{r}
 # DT2_evaluation <- DT2_evaluation |>
@@ -260,7 +242,7 @@ The differences in QALYs experienced in a one-year period is hard to see. We can
 # DT2_evaluation |> flextable()
 ```
 
-Using a willingness to pay threshold of \$50,000 per QALY (\$137 per QALD), indicate whether each intervention is dominated with strong dominance, Dominated by extended dominant, not preferred, or preferred (exactly one intervention should be preferred). Indicate the ICER for any non-dominated interventions when applicable.
+Using a willingness to pay threshold of \$50,000 per QALY (\$137 per QALD), indicate whether each intervention is dominated with strong dominance, Dominated by extended dominant, not preferred, or preferred (exactly one intervention should be preferred). Indicate the ICER for any non-dominated intervention(s) in \$/QALY gained or \$/QALD gained.
 
 > ST only:
 >
@@ -284,13 +266,12 @@ npc_2percent <- NA #Calculate the net present cost with a discount rate of 2 per
 
 npc_5percent <- NA #Calculate the net present cost with a discount rate of 5 percent
 
-npc_2percent
-npc_5percent
+npc_2percent; npc_5percent
 ```
 
 ## 2b Incremental analysis
 
-In this section, we'll use loops to conduct incremental analysis, the process of identifying dominated strategies and calculating the incremental cost-effectiveness ratios (ICERs) between the remaining non-dominated strategies. Coding this yourself should give you a strong understanding of the concept. Let's get started!
+In this section, we'll use loops to conduct incremental analysis, the process of identifying dominated strategies and calculating the incremental cost-effectiveness ratios (ICERs) between any non-dominated strategies. Coding this yourself should give you a strong understanding of the concept. Let's get started!
 
 First, I've written the code for you that reads in the data on 9 different strategies we wish to compare (from the params_assign1.xlsx file). For each strategy, you are provided with the estimated QALYs experienced and the estimated cost across three categories: costs paid by the insurer, out-of-pocket costs paid by the patient, and the cost of lost productivity.
 
@@ -310,7 +291,11 @@ t_CE |>
 
 ```{r}
 
-#Create table with columns "strategy", "QALYs", and "Cost", where cost is the Cost_insurer. We'll add two columns, one for whether the strategy is dominated and another for putting the ICERS for non-dominated interventions
+#Create table with columns "strategy", "QALYs", and "Cost", where cost is 
+#.  the Cost_insurer. We'll add two columns, one for whether the strategy 
+#.  is dominated and another for putting the ICERS for non-dominated 
+#.  interventions. No edits needed.
+
 t_ICERS <- data.frame(
   Strategy = t_CE$Strategy,
   QALYs = t_CE$QALYs,
@@ -326,8 +311,9 @@ t_ICERS <- t_ICERS #EDIT THIS
 row.names(t_ICERS) <- NULL
 
 ### REMOVE INTERVENTIONS DOMINATED BY STRONG DOMINANCE
-# We have to loop through rows to identify dominated strategies. If we find any,
-#  we need to look through them again in case there are more, so we use a while loop.
+# We have to loop through rows to identify dominated strategies. If we find 
+#.  any, we need to look through them again in case there are more, so we 
+#.  use a while loop.
 
 continue = T #If this is still T at the end of the while loop, it will restart
 
@@ -346,24 +332,28 @@ while(continue){
     row_this <- idx_nondom_rows[i] #index of the current row
     row_last <- idx_nondom_rows[i-1] #index of last undominated row
     
-    if (F){ #Replace 'F' with the correct condition
+    if (F){ #Replace 'F' with the test to determine if row_this is dominated
       #Strategy in row t_ICERS[row_last, ] is strong dominated
       # set Dominated value to "Strong"
+      NA
       # set ICER value to NA
+      NA
       # set continue to T so that we do another loop
-      
-      #YOUR CODE HERE
+      NA
+
     }
   }
 }
 
 ### REMOVE INTERVENTIONS DOMINATED BY EXTENDED DOMINANCE
-# We have to loop through rows to identify extended dominated strategies. If we find any,
-#  we need to loop through again in case there are more. We will use a while loop.
+# We have to loop through rows to identify extended dominated strategies. 
+#.  If we find any, we need to loop through again in case there are more.
+#.  We will use a while loop.
+
 continue = T
 
 while(continue){
-  continue = F #if no dominated strategies are found, exit loop
+  continue = F #if no dominated strategies found, exit loop
   
   #Get the row index for all rows that aren't dominated
   idx_nondom_rows <- as.numeric(rownames(t_ICERS[t_ICERS$Dominated=="No",]))
@@ -382,11 +372,16 @@ while(continue){
     
     #YOUR CODE HERE
       
-    if(F){ #REPLACE F WITH THE CORRECT CONDITION
+    if(F){ #Replace 'F' with the test to determine if row_this is dominated
       #Strategy in row t_ICERS[row_last, ] is extended dominated
       # set Dominated value to "Extended"
+      NA
+      
       # set ICER value to NA
+      NA
+      
       # set continue to T so that we do another loop
+      NA
 
       #YOUR CODE HERE
       
@@ -394,14 +389,14 @@ while(continue){
   }
 }
 
-#Display it nicely
+#Display it nicely (no edits needed)
 t_ICERS |>
   flextable() |> #turn into flextable object
   theme_box() |> #Apply a theme for aesthetics
   autofit() #automatically set column widths to reasonable values
 ```
 
-**Function-ize it:** The following code chunk contains the shell of a function that takes three vectors (strategy_name, cost, and QALY), puts them into a table called t_ICERS, does calculations, and then returns the table with ICER and dominated columns added. Complete the function by copying and pasting code from the previous code chunk
+**Function-ize it:** The following code chunk contains the shell of a function that takes vectors `strategy_name`, `cost`, and `QALY`, puts them into a table `t_ICERs`, does calculations, and then returns the table with ICER and dominated columns added. Complete the function by pasting/adapting the code you wrote in the previous code chunk
 
 ```{r}
 
@@ -409,18 +404,17 @@ t_ICERS |>
 #OUTPUT: A data.frame with a column for each of the input vectors,
 #.  plus new "Dominated" and "ICER" columns
 generate_ICER_table <- function(strategy_name, cost, QALYs){
-  t_ICERS <- data.frame(
+  t_ICERs <- data.frame(
   Strategy = strategy_name,
   QALYs = QALYs,
   Cost = cost,
   Dominated = "No",
   ICER = 0.0)
   
-  #
-  #YOUR CODE HERE
-  #
+  #Conduct incremental analysis. Add Dominated and ICER columns to t_ICERs
+  NA
  
-  return(t_ICERS)
+  return(t_ICERs)
 }
 
 ```
@@ -461,7 +455,7 @@ t_ICER_societal |>
 
 ```
 
-## 2c Identifying maximum net monetary benefit
+## 2c Maximizing net monetary benefit (NMB)
 
 Calculate NMB at a range of WTP thresholds ***from a societal perspective***, and then plot them.
 
@@ -471,9 +465,9 @@ Calculate NMB at a range of WTP thresholds ***from a societal perspective***, an
 wtp_vec = seq(0, 2.5e5, 1e5)
 
 #Calcualte societal cost and add it as a column to the t_CE table
-t_CE$cost_societal <- 0 #REPLACE WITH CORRECT CODE
+t_CE$cost_societal <- 0 #Replace with correct code or delete if you did it above.
 
-#Create a table to contain the NMB calculations
+#Create a table for plot with relevant columns (no need to edit)
 t_nmb_plot <- data.frame(
   strategy = rep(t_CE$Strategy, each = length(wtp_vec)),
   wtp = rep(wtp_vec, times = nrow(t_CE)),
@@ -481,25 +475,25 @@ t_nmb_plot <- data.frame(
   QALYs = rep(t_CE$QALYs, each = length(wtp_vec))
 )
 
-#Calculate NMB
+#Calculate NMB as new column in t_nmb_plot
 t_nmb_plot$NMB <- 0 #REPLACE WITH CORRECT CODE
 
 
-#Plot it with ggplot
+#Plot  with ggplot (no need to edit)
 ggplot(t_nmb_plot, aes(x = wtp, y = NMB, color = strategy))+
   geom_line()
 
 ```
 
-Comparing the net monetary benefit plot to your incremental analysis from the societal perspective, you should observe the following:
+Comparing the net monetary benefit plot to your incremental analysis from the societal perspective, you should observe the following that:
 
--   All non-dominated interventions maximize net monetary benefit for some willingness-to-pay level (i.e., their line is the highest on the Y axis for some segment of the X axis).
+-   All non-dominated interventions maximize NMB for some willingness-to-pay level (i.e., their line is the highest on the Y axis for some segment of the X axis).
 
--   The willingness-to-pay level at which we 'flip' from preferring non-dominated strategy i to non-dominated strategy j can be derived from the NMB analysis or the incremental analysis:
+-   There is no willingness-to-pay level at which a dominated intervention maximizes WTP (this is one definition of dominated)
 
-    -   In incremental analysis, this corresponds to the ICER for intervention j vs. i
+On the NMB plot, what is the significance or meaning of the willingness-to-pay level at which the non-dominated intervention X crosses non-dominated intervention Y to become the NMB-maximizing intervention? (Hint: can compare the NMB plot to your incremental analysis table.
 
-    -   In the NMB plot, this corresponds to the WTP level (x-axis value) at which the line for strategy j crosses from below to above the line for strategy i.
+> Your answer here.
 
 # Last two questions
 

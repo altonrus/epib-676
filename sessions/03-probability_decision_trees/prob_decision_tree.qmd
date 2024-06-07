@@ -93,7 +93,7 @@ $$
 
 'Rescaling' the sample space to account for B occurring
 
-![<https://www.geeksforgeeks.org/conditional-probability/>](figs/conditional_prob.png)
+![https://www.geeksforgeeks.org/conditional-probability/](figs/conditional_prob.png)
 
 ## Conditional probability for mutually exclusive events?
 
@@ -382,7 +382,7 @@ We administer the drug to 40 new patients, and 4 of them have a side effect. Wha
 
 ## Bayesian updating with beta
 
-We administer to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?
+We administer the drug to 40 new patients, and 4 of them have a side effect. What distribution describes my uncertainty in the probability of side effect now?
 
 $$
 p \sim Beta(\alpha = 5, \beta = 38) \quad E[p] = 0.116
@@ -458,7 +458,7 @@ Beta(220, 138)
 :::
 :::
 
-^1^ <https://www.r-bloggers.com/2020/04/an-animated-example-of-bayesian-updating/>
+^1^ https://www.r-bloggers.com/2020/04/an-animated-example-of-bayesian-updating/
 
 ## Today
 
@@ -550,6 +550,10 @@ Beta(220, 138)
 
 **Time horizon:** one year
 
+```{r}
+
+```
+
 ## Stent prevention tree
 
 ```{r}
@@ -561,11 +565,11 @@ library(readxl) #for read_excel()
 library(dplyr) # I use mutate at one point
 theme_set(theme_bw()) #Makes ggplots look better
 
-# Decision problem: Should we use diet or excercise to reduce chance of needing a stent in a high-risk population?
+# Decision problem: Should we use diet or exercise to reduce chance of needing a stent in a high-risk population?
 
 # Parameters
 c_diet <- 50 #cost of diet
-c_excercise <- 750 #cost of exercise
+c_exercise <- 750 #cost of exercise
 c_stent <- 5000 #cost of a stent
 u_stent <- 0.75 #utility of getting a stent (relative to 1.0)
 p_stent_diet <- (68 - 12)/68 #probability needing stent if we diet
@@ -574,7 +578,7 @@ p_stent_exercise <- (58 - 18)/58 #probability of needing a stent if we exercise
 #Build model using rdecision package
 
 #Create decision and chance nodes
-decision_node <- DecisionNode$new("Diet or excercise")
+decision_node <- DecisionNode$new("Diet or exercise")
 chance_node_diet <- ChanceNode$new("Stent?")
 chance_node_exercise <- ChanceNode$new("Stent?")
 
@@ -589,7 +593,7 @@ action_diet <- Action$new(
   decision_node, chance_node_diet, cost = c_diet, label = "Diet"
 )
 action_exercise <- Action$new(
-  decision_node, chance_node_exercise, cost = c_excercise, label = "Exercise"
+  decision_node, chance_node_exercise, cost = c_exercise, label = "Exercise"
 )
 
 #Create 'reactions', paths from your chance node(s)
@@ -641,7 +645,7 @@ In a small trial of the "diet" programme, **12 out of 68** patients (17.6%) avoi
 #| echo: true
 # Parameters
 c_diet <- 50 #cost of diet intervention
-c_excercise <- 750 #cost of exercise
+c_exercise <- 750 #cost of exercise
 c_stent <- 5000 #cost of a stent
 qaly_stent <- 0.75 #QALYs experienced with stent
 qaly_no_stent <- 1 #QALYs experienced without stent
@@ -681,13 +685,13 @@ $$
 DT1$draw() #Plot it
 ```
 
-## Roll back stent prevention
+## Roll back stentTree (manual calculations)
 
 ```{r}
 #| echo: true
 # Parameters
 c_diet <- 50 #cost of diet intervention
-c_excercise <- 750 #cost of exercise
+c_exercise <- 750 #cost of exercise
 c_stent <- 5000 #cost of a stent
 qaly_stent <- 0.75 #QALYs experienced with stent
 qaly_no_stent <- 1 #QALYs experienced withou stent
@@ -695,26 +699,26 @@ p_stent_diet <- (68 - 12)/68 #prob. needing stent if diet
 p_stent_exercise <- (58 - 18)/58 #prob. needing a stent if exercise
 
 exp_tot_cost_diet = NA
-exp_tot_cost_excercise = NA
+exp_tot_cost_exercise = NA
 exp_qaly_diet = NA
-exp_qaly_excercise = NA
+exp_qaly_exercise = NA
 ICER = NA
 ```
 
-## Roll back stent prevention
+## Roll back stentTree (manual calculations)
 
 ```{r}
 #| echo: true
 exp_tot_cost_diet = c_diet + p_stent_diet*c_stent
 exp_tot_cost_diet
-exp_tot_cost_excercise = c_excercise + p_stent_exercise*c_stent
-exp_tot_cost_excercise
+exp_tot_cost_exercise = c_exercise + p_stent_exercise*c_stent
+exp_tot_cost_exercise
 exp_qaly_diet = qaly_stent*p_stent_diet + qaly_no_stent*(1-p_stent_diet)
 exp_qaly_diet
-exp_qaly_excercise = qaly_stent*p_stent_exercise + qaly_no_stent*(1-p_stent_exercise)
-exp_qaly_excercise
-ICER_excer_vs_diet = (exp_tot_cost_excercise - exp_tot_cost_diet)/(exp_qaly_excercise - exp_qaly_diet)
-ICER_excer_vs_diet #GBP per QALY
+exp_qaly_exercise = qaly_stent*p_stent_exercise + qaly_no_stent*(1-p_stent_exercise)
+exp_qaly_exercise
+ICER_exer_vs_diet = (exp_tot_cost_exercise - exp_tot_cost_diet)/(exp_qaly_exercise - exp_qaly_diet)
+ICER_exer_vs_diet #GBP per QALY
 ```
 
 ## Rollback with sequential decisions
