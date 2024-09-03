@@ -8,7 +8,7 @@
 <link href="economic_evaluation_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="economic_evaluation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="economic_evaluation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
   <meta name="dcterms.date" content="2024-09-03">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="economic_evaluation_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="economic_evaluation_files/libs/revealjs/dist/theme/quarto.css">
   <link href="economic_evaluation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="economic_evaluation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="economic_evaluation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -459,8 +460,7 @@ Alton Russell
 <p><em>Health states only</em></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_0-01.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-1" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -475,8 +475,7 @@ Alton Russell
 </ul>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_0.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-2" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -491,8 +490,7 @@ Alton Russell
 </ul>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_1.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-3" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -511,8 +509,7 @@ Alton Russell
 </ul>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_1.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-4" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -521,8 +518,7 @@ Alton Russell
 <p><em>Health states and cost</em></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_2.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-5" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -541,8 +537,7 @@ Alton Russell
 </ul>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_2.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-6" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -551,8 +546,7 @@ Alton Russell
 <p><em>Health states, costs, health-state utilities</em></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_3.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="modeled-outcomes-and-frameworks-7" class="slide level2">
 <h2>Modeled outcomes and frameworks</h2>
@@ -567,8 +561,7 @@ Alton Russell
 </ul>
 </div><div class="column" style="width:40%;">
 <p><img data-src="images/toy_model_3.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="choosing-decision-analytic-framework" class="slide level2">
 <h2>Choosing decision analytic framework</h2>
@@ -634,8 +627,7 @@ Alton Russell
 <p>Reduction in emergency room visits or readmissions</p>
 <p>Survey-based score (e.g., overall health, anxiety)</p>
 <p>…</p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="choice-of-health-measure" class="slide level2">
 <h2>Choice of health measure</h2>
@@ -661,11 +653,11 @@ Alton Russell
 NPV = Q \frac{1}{(1+r)^t}
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Q <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co">#dollars</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>t <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>r <span class="ot">&lt;-</span> .<span class="dv">05</span> <span class="co">#5 percent annual discount rate</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>NPV <span class="ot">&lt;-</span> Q<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>r)<span class="sc">^</span>t)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>NPV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>Q <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co">#dollars</span></span>
+<span id="cb1-2"><a href=""></a>t <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co">#years into the future</span></span>
+<span id="cb1-3"><a href=""></a>r <span class="ot">&lt;-</span> .<span class="dv">05</span> <span class="co">#5 percent annual discount rate</span></span>
+<span id="cb1-4"><a href=""></a>NPV <span class="ot">&lt;-</span> Q<span class="sc">*</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>r)<span class="sc">^</span>t)</span>
+<span id="cb1-5"><a href=""></a>NPV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 78.35262</code></pre>
 </div>
@@ -737,7 +729,7 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p>Often vary considerably across patients</p></li>
 <li><p><strong>Patient-level</strong> costs often right-skewed (a few high-cost patients)</p>
 <ul>
-<li>But uncertainty in population parameters, e.g.&nbsp;<strong>average cost</strong>, usually less skewed</li>
+<li>Uncertainty in population parameters, e.g.&nbsp;<strong>average cost</strong>, may still be skewed, but less so</li>
 </ul></li>
 </ul>
 </section>
@@ -782,36 +774,36 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <h2>Currency + inflation</h2>
 <p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>PPP_2006 <span class="ot">=</span> <span class="cn">NA</span>;    CPI_CAN_2006 <span class="ot">=</span> <span class="cn">NA</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>PPP_2021 <span class="ot">=</span> <span class="cn">NA</span>;    CPI_CAN_2021 <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
+<span id="cb3-2"><a href=""></a>PPP_2006 <span class="ot">=</span> <span class="cn">NA</span>;    CPI_CAN_2006 <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb3-3"><a href=""></a>PPP_2021 <span class="ot">=</span> <span class="cn">NA</span>;    CPI_CAN_2021 <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="currency-inflation-1" class="slide level2">
 <h2>Currency + inflation</h2>
 <p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
+<span id="cb4-2"><a href=""></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
+<span id="cb4-3"><a href=""></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Currency then inflation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>cost_2021CAD <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>cost_2021CAD <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="currency-inflation-2" class="slide level2">
 <h2>Currency + inflation</h2>
 <p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>cost_2006USD <span class="ot">=</span> <span class="dv">5400</span></span>
+<span id="cb6-2"><a href=""></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
+<span id="cb6-3"><a href=""></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Currency then inflation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>cost_2021CAD <span class="ot">=</span> (cost_2006USD<span class="sc">/</span>PPP_2006)<span class="sc">*</span>(CPI_CAN_2021<span class="sc">/</span>CPI_CAN_2006)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>cost_2021CAD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>cost_2021CAD <span class="ot">=</span> (cost_2006USD<span class="sc">/</span>PPP_2006)<span class="sc">*</span>(CPI_CAN_2021<span class="sc">/</span>CPI_CAN_2006)</span>
+<span id="cb7-2"><a href=""></a>cost_2021CAD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5820.386</code></pre>
 </div>
@@ -821,13 +813,13 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <h2>Currency + inflation</h2>
 <p>Convert $5,400 in 2006 USD to 2021 CAD?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>PPP_2006 <span class="ot">=</span> <span class="fl">1.205</span>;   CPI_CAN_2006 <span class="ot">=</span> <span class="fl">109.1</span></span>
+<span id="cb9-2"><a href=""></a>PPP_2021 <span class="ot">=</span> <span class="fl">1.236</span>;   CPI_CAN_2021 <span class="ot">=</span> <span class="fl">141.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Inflation then currency:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>cost_2021CAD <span class="ot">=</span> (cost_2006USD<span class="sc">*</span>(CPI_CAN_2021<span class="sc">/</span>CPI_CAN_2006))<span class="sc">/</span>PPP_2021</span>
-<span id="cb10-2"><a href="#cb10-2"></a>cost_2021CAD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>cost_2021CAD <span class="ot">=</span> (cost_2006USD<span class="sc">*</span>(CPI_CAN_2021<span class="sc">/</span>CPI_CAN_2006))<span class="sc">/</span>PPP_2021</span>
+<span id="cb10-2"><a href=""></a>cost_2021CAD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5674.406</code></pre>
 </div>
@@ -865,7 +857,7 @@ QALE = \sum_{t=0}^T u_tLY_t \frac{1}{(1+r)^t}
 <li><p><a href="https://doi.org/10.2165/00019053-200826100-00003">Rappange et. al.&nbsp;2008</a></p></li>
 <li><p><a href="https://doi.org/10.1007/s10198-018-0976-0">van Baal et. al.&nbsp;2018</a></p></li>
 </ul></li>
-<li><p>But most analysts don’t, and methods to do so are not well-established</p></li>
+<li><p>Most analysts don’t, and standardized methods to do so are established</p></li>
 </ul>
 </section>
 <section id="today-3" class="slide level2">
@@ -896,7 +888,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-9-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -905,8 +901,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <li>Slope of line from origin → ICER</li>
 <li>Cost-effectiveness of alternative (vs.&nbsp;status quo) depends which quadrant alternative falls into</li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="q2-and-q4" class="slide level2">
 <h2>Q2 and Q4</h2>
@@ -914,7 +909,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-10-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -928,8 +927,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <li>Cheaper, gives better health outcome</li>
 </ul></li>
 </ul>
-</div>
-</div>
+</div></div>
 <p>Dominated interventions can never be cost-effective!</p>
 </section>
 <section id="q1-and-q3" class="slide level2">
@@ -938,7 +936,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-11-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -951,8 +953,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <li><p>Politically difficult!</p></li>
 </ul></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="avoid-confusion-when-reporting-icers" class="slide level2">
 <h2>Avoid confusion when reporting ICERS</h2>
@@ -985,7 +986,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-12-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -999,8 +1004,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 5   E     45 10000</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="strong-dominance-1" class="slide level2">
 <h2>Strong dominance</h2>
@@ -1012,7 +1016,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-14-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1028,8 +1036,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 </div>
 <p><br></p>
 <p><strong>D dominated by E!</strong></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="extended-weak-dominance" class="slide level2">
 <h2>Extended (weak) dominance</h2>
@@ -1041,7 +1048,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-16-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1055,8 +1066,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 5   E     45 10000       406</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="extended-weak-dominance-1" class="slide level2">
 <h2>Extended (weak) dominance</h2>
@@ -1068,7 +1078,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-18-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1084,8 +1098,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 </div>
 <p><strong>B dominated</strong> (by linear combo of A and C)</p>
 <p>Remove B and re-calculate ICERs</p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="efficiency-frontier-plot" class="slide level2">
 <h2>Efficiency frontier plot</h2>
@@ -1093,7 +1106,11 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-20-1.png" width="480"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1107,8 +1124,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 5   E     45 10000        406</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <p>Undominated alternatives form the <strong>efficiency frontier</strong></p>
 <ul>
 <li><p>a ‘convex hull’ (no concavities)</p></li>
@@ -1136,10 +1152,18 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <div class="column" style="width:25%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-22-1.png" width="240"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="economic_evaluation_files/figure-revealjs/unnamed-chunk-22-2.png" width="240"></p>
+</figure>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:75%;">
@@ -1150,8 +1174,7 @@ ICER = \frac{\bar{c}_1 - \bar{c}_0}{\bar{e}_1 - \bar{e}_0} = \frac{E[\Delta_c]}{
 <li><p><a href="https://doi.org/10.1016/j.jval.2016.09.821">Griffiths and Vadlamudi (2016)</a> found drugs with ICERs up to $131,100 often approved</p></li>
 <li><p>WTP higher in some contexts (orphan drugs, blood safety)</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="net-monetary-benefit" class="slide level2">
 <h2>Net monetary benefit</h2>
@@ -1199,10 +1222,12 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <ul>
 <li>Due Friday, September 12</li>
 </ul></li>
-<li>Office hours 1:30-2:30pm in Room #1122 Tuesdays and Thursdays</li>
+<li>Office hours 1:30-2:30pm in Room #1103 Tuesdays and Thursdays</li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -1231,7 +1256,6 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1486,18 +1510,7 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1529,11 +1542,50 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1543,8 +1595,17 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1558,7 +1619,11 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

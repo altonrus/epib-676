@@ -366,7 +366,7 @@ If no published estimate available:
 
 -   **Patient-level** costs often right-skewed (a few high-cost patients)
 
-    -   But uncertainty in population parameters, e.g. **average cost**, usually less skewed
+    -   Uncertainty in population parameters, e.g. **average cost**, may still be skewed, but less so
 
 ## Health resources and costs?
 
@@ -504,7 +504,7 @@ cost_2021CAD
 
     -   [van Baal et. al. 2018](https://doi.org/10.1007/s10198-018-0976-0)
 
--   But most analysts don't, and methods to do so are not well-established
+-   Most analysts don't, and standardized methods to do so are established
 
 ## Today
 
@@ -893,4 +893,4 @@ $$
 -   Complete readings before Thursday's class
 -   Assignment 1 (cost-effectiveness and decision trees) available.
     -   Due Friday, September 12
--   Office hours 1:30-2:30pm in Room #1122 Tuesdays and Thursdays
+-   Office hours 1:30-2:30pm in Room #1103 Tuesdays and Thursdays

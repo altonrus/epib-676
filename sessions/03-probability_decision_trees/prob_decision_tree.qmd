@@ -136,7 +136,7 @@ P(B \mid AC) = P(B \mid C)\\
 P(AB \mid C) = P( A \mid C)P( B \mid C)
 $$
 
-Example: Are human height and vocabulary independent?
+Ex: Are Canadians' height and vocabulary independent?
 
 ## Conditional independence
 
@@ -777,4 +777,4 @@ For 'downstream' decision nodes:
 
 -   Assignment 1 due Friday, September 12
 
--   Office hours 1:30-2:30pm in Room #1122 Tuesdays and Thursdays
+-   Office hours 1:30-2:30pm in Room #1103 Tuesdays and Thursdays
