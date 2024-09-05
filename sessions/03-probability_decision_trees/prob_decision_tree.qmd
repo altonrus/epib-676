@@ -150,7 +150,7 @@ $$
 
 Ex: Are Canadians' height and vocabulary independent?
 
-> No, shorter humans are more likely to be children who know fewer words. But height and vocabulary are likely independent **conditioned on** a person being \>20 years old
+> No, shorter Canadians are more likely to be children who know fewer words. But height and vocabulary may be independent **conditioned on** a person being \>20 years old
 
 ## Bayes theorem
 
@@ -269,7 +269,7 @@ PPV = $P(disease+ \mid test+)$ = `r sum(disease*test_pos)/sum(test_pos)` `sum(di
 
 ## Bayesian updating
 
-What's my distribution of uncertainy in parameter $\theta$, based on prior distribution $P(\theta)$ and data $x$?
+What distribution describes my uncertainty in parameter $\theta$, after observing new data $x$, if my uncertainty before observing $x$ was described by $P(\theta)$?
 
 $$
 P( \theta \mid x) = \frac{P(x \mid \theta)  P(\theta)}{P(x)}, \text{  }
@@ -408,7 +408,7 @@ plot(p, dbeta(p, 1230, 10000 - 1230), type='l')
 
 ## Beta distribution summary
 
--   Describes belief of values an uncertain probability may take
+-   Describes uncertainty in an event probability
 
 -   Parameters $\alpha$ and $\beta$ map to event and non-event counts from a binomial experiment
 
@@ -472,7 +472,7 @@ Beta(220, 138)
 
 -   "Grows" from left to right
 
--   Starts with 'root node' (usually a 'decision node') ends in 'leaf nodes ('terminal nodes')
+-   Starts with **root node** (usually a decision) ends in **leaf nodes** (also called **terminal nodes**)
 
 -   "Payoffs" received at terminal nodes (sometimes, payoffs received along the way)
 
@@ -637,7 +637,7 @@ DT1$draw() #Plot it
 
 The healthcare provider cost of the stent is **5000 GBP**; the cost of providing lifestyle advice, an appointment with a dietician, is **50 GBP** and the cost of the exercise programme, is **750 GBP**.
 
-In a small trial of the "diet" programme, **12 out of 68** patients (17.6%) avoided having a procedure. in a small trial of the "exercise" programme **18 out of 58** patients (31.0%) avoided the procedure (assume the baseline characteristics in the two trials were comparable). A stent leads to one year with a health state utility of **0.75**.
+In a small trial **12 out of 68** patients (17.6%) assigned to the diet program avoided a procedure, and **18 out of 58** patients (31.0%) assigned to the exercise program avoided the procedure. A stent leads to one year with a health state utility of **0.75**; otherwise people experience a year with a health state utility of 1.0
 
 ## Stent prevention parameters
 
@@ -685,7 +685,7 @@ $$
 DT1$draw() #Plot it
 ```
 
-## Roll back stentTree (manual calculations)
+## Roll back stent tree (manual calculations)
 
 ```{r}
 #| echo: true
@@ -757,6 +757,8 @@ For 'downstream' decision nodes:
 
 -   Not great for chronic conditions or recurring risks
 
+    -   Tree gets too complicated
+
 ## Recap
 
 -   Key probability building blocks:
@@ -775,6 +777,10 @@ For 'downstream' decision nodes:
 
 -   Complete readings before Thursday's class
 
--   Assignment 1 due Friday, September 12
+-   Assignment 0 deadline extended to tomorrow
+
+-   Assignment 1 due next Friday, September 13
+
+    -   Decision trees and cost-effectiveness analysis
 
 -   Office hours 1:30-2:30pm in Room #1103 Tuesdays and Thursdays

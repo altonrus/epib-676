@@ -524,7 +524,7 @@ P(AB \mid C) = P( A \mid C)P( B \mid C)
 \]</span></p>
 <p>Ex: Are Canadians’ height and vocabulary independent?</p>
 <blockquote>
-<p>No, shorter humans are more likely to be children who know fewer words. But height and vocabulary are likely independent <strong>conditioned on</strong> a person being &gt;20 years old</p>
+<p>No, shorter Canadians are more likely to be children who know fewer words. But height and vocabulary may be independent <strong>conditioned on</strong> a person being &gt;20 years old</p>
 </blockquote>
 </section>
 <section id="bayes-theorem" class="slide level2">
@@ -637,7 +637,7 @@ disease     0     1   Sum
 </section>
 <section id="bayesian-updating" class="slide level2">
 <h2>Bayesian updating</h2>
-<p>What’s my distribution of uncertainy in parameter <span class="math inline">\(\theta\)</span>, based on prior distribution <span class="math inline">\(P(\theta)\)</span> and data <span class="math inline">\(x\)</span>?</p>
+<p>What distribution describes my uncertainty in parameter <span class="math inline">\(\theta\)</span>, after observing new data <span class="math inline">\(x\)</span>, if my uncertainty before observing <span class="math inline">\(x\)</span> was described by <span class="math inline">\(P(\theta)\)</span>?</p>
 <p><span class="math display">\[
 P( \theta \mid x) = \frac{P(x \mid \theta)  P(\theta)}{P(x)}, \text{  }
 \text{Posterior} = \frac{\text{Likelihood} \times Prior}{Evidence}
@@ -759,7 +759,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <section id="beta-distribution-summary" class="slide level2">
 <h2>Beta distribution summary</h2>
 <ul>
-<li><p>Describes belief of values an uncertain probability may take</p></li>
+<li><p>Describes uncertainty in an event probability</p></li>
 <li><p>Parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> map to event and non-event counts from a binomial experiment</p></li>
 <li><p>As we collect data:</p>
 <ul>
@@ -812,7 +812,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <ul>
 <li><p>Nodes connected by branches</p></li>
 <li><p>“Grows” from left to right</p></li>
-<li><p>Starts with ‘root node’ (usually a ‘decision node’) ends in ‘leaf nodes (’terminal nodes’)</p></li>
+<li><p>Starts with <strong>root node</strong> (usually a decision) ends in <strong>leaf nodes</strong> (also called <strong>terminal nodes</strong>)</p></li>
 <li><p>“Payoffs” received at terminal nodes (sometimes, payoffs received along the way)</p></li>
 </ul>
 </section>
@@ -876,7 +876,7 @@ p \sim Beta(\alpha = 1230, \beta = 8770) \quad E[p] = 0.1230
 <section id="stent-prevention-data" class="slide level2">
 <h2>Stent prevention data</h2>
 <p>The healthcare provider cost of the stent is <strong>5000 GBP</strong>; the cost of providing lifestyle advice, an appointment with a dietician, is <strong>50 GBP</strong> and the cost of the exercise programme, is <strong>750 GBP</strong>.</p>
-<p>In a small trial of the “diet” programme, <strong>12 out of 68</strong> patients (17.6%) avoided having a procedure. in a small trial of the “exercise” programme <strong>18 out of 58</strong> patients (31.0%) avoided the procedure (assume the baseline characteristics in the two trials were comparable). A stent leads to one year with a health state utility of <strong>0.75</strong>.</p>
+<p>In a small trial <strong>12 out of 68</strong> patients (17.6%) assigned to the diet program avoided a procedure, and <strong>18 out of 58</strong> patients (31.0%) assigned to the exercise program avoided the procedure. A stent leads to one year with a health state utility of <strong>0.75</strong>; otherwise people experience a year with a health state utility of 1.0</p>
 </section>
 <section id="stent-prevention-parameters" class="slide level2">
 <h2>Stent prevention parameters</h2>
@@ -921,8 +921,8 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <h2>Stent prevention tree</h2>
 
 <img data-src="prob_decision_tree_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
-<section id="roll-back-stenttree-manual-calculations" class="slide level2">
-<h2>Roll back stentTree (manual calculations)</h2>
+<section id="roll-back-stent-tree-manual-calculations" class="slide level2">
+<h2>Roll back stent tree (manual calculations)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co"># Parameters</span></span>
 <span id="cb11-2"><a href=""></a>c_diet <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="co">#cost of diet intervention</span></span>
@@ -940,7 +940,7 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <span id="cb11-14"><a href=""></a>ICER <span class="ot">=</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="roll-back-stenttree-manual-calculations-1" class="slide level2">
+<section id="roll-back-stenttree-manual-calculations" class="slide level2">
 <h2>Roll back stentTree (manual calculations)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>exp_tot_cost_diet <span class="ot">=</span> c_diet <span class="sc">+</span> p_stent_diet<span class="sc">*</span>c_stent</span>
@@ -998,7 +998,10 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <ul>
 <li><p>Discrete possibility space</p></li>
 <li><p>No time dimension</p></li>
-<li><p>Not great for chronic conditions or recurring risks</p></li>
+<li><p>Not great for chronic conditions or recurring risks</p>
+<ul>
+<li>Tree gets too complicated</li>
+</ul></li>
 </ul>
 </section>
 <section id="recap" class="slide level2">
@@ -1018,7 +1021,11 @@ E[x] = \sum_{i=1}^I x_iP(x_i)
 <h2>Logistics</h2>
 <ul>
 <li><p>Complete readings before Thursday’s class</p></li>
-<li><p>Assignment 1 due Friday, September 12</p></li>
+<li><p>Assignment 0 deadline extended to tomorrow</p></li>
+<li><p>Assignment 1 due next Friday, September 13</p>
+<ul>
+<li>Decision trees and cost-effectiveness analysis</li>
+</ul></li>
 <li><p>Office hours 1:30-2:30pm in Room #1103 Tuesdays and Thursdays</p></li>
 </ul>
 <div class="quarto-auto-generated-content">

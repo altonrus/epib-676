@@ -7,6 +7,16 @@ format: revealjs
 editor: visual
 ---
 
+## Quick intros
+
+-   Name
+
+-   Degree program
+
+-   Research or career interests
+
+-   Why this class?
+
 ## Today
 
 -   **Decision analytic frameworks**
@@ -369,6 +379,10 @@ If no published estimate available:
     -   Uncertainty in population parameters, e.g. **average cost**, may still be skewed, but less so
 
 ## Health resources and costs?
+
+-   **Public information:** drug formularies with prices sometimes public; hospitalization costs published by Canadian Institute for Health Information or CIHI (not Quebec)
+
+-   Other publications (may need inflation or currency adjustment)
 
 -   **Administrative data:** encounters (clinic, emergency room, hospital), procedures, length of stay. Follow patients across care settings
 
