@@ -22,7 +22,7 @@ library(dplyr) #for filter()
 library(tibble) #for working with tibbles (optional)
 ```
 
-In this assignment, we will construct functions for evaluating generic discrete time cohort state transition models, as long as the inputs are provided in a specific format. This will help you learn how to make modular code, where repeated operations are broken into small functions, and some functions are called within other functions. We will then use the functions you've created to run Markov models. Lets get started!
+In this assignment, we will construct functions for evaluating a generic discrete time cohort state transition model. These functions can work for any application, as long as the inputs are provided in a specific format. This will help you understand modular coding, where repeated operations are broken into small functions, and some functions are called within other functions. We will then use the functions you've created to run cohort state transition models. Lets get started!
 
 ## 1. Functions for cohort state transition model
 
@@ -30,31 +30,35 @@ We're going to design a function `sim_cstm` which simulates a cohort state trans
 
 Some notes on this function:
 
--   If there are only state rewards (no transition rewards) for cost and/or QALYs, the `sim_cstm` function expects a vector `v_cost_states` or `v_qaly_states` as an input. If there are transition rewards, then a matrix `m_cost_transitions` or `m_qaly_transitions` should be provided instead. The matrix should contain both state rewards and transition rewards. **See session 5 slides on Transition Rewards and/or the assigned reading.**
+-   If there are only state rewards (no transition rewards) for cost and/or QALYs, the `sim_cstm` function expects a vector `v_cost_states` or `v_qaly_states` as an input.
 
--   The reward matrix with cycle tree correction will be generated from within this function, so the reward vectors or matrices provided as inputs should be uncorrected.
+-   If there are transition rewards, then a matrix `m_cost_transitions` or `m_qaly_transitions` should be provided instead of `v_cost_states` or `v_qaly_states`. The matrix should contain state rewards and transition rewards. **See session 5 slides on Transition Rewards.**
 
--   This function can compute simulation time-dependent transitions if `arr_P` is provided instead of `m_P`. But it is not set up to have time-dependent costs or QALY rewards (could be expanded to do so, but outside the scope of this assignment).
+-   A reward matrix with cycle tree correction will be generated from within this function. Therefore, the reward vectors or matrices provided as inputs should not have any corrections.
 
--   Note that in the function argument list, the `NA`'s you see are supposed to be there, don't edit them! This is assigning NA as a default value so that the function will still run even if you don't assign something to those parameters.
+-   If transitions between states do not depend on the cycle number (a truly Markov model), a transition matrix called `m_P` should be supplied (rows = "from" state, columns = "to" states.
 
-You'll be using these functions in Sections 2 and 3, which might help you debug them, so it's OK to skip back and forth between the three sections. It may be helpful to start working on the first code block in part 2 (formatting model inputs) before this one.
+-   If transitions can differ depending on the cycle number (semi-Markov model with time-varying transitions), `arr_P` should be provided instead of `m_P`. The third dimension corresponds to the the cycle number.
+
+-   In the function arguments, the `NA`'s you see are supposed to be there (don't edit them). This is assigning NA as a default value so that the function will still run even if you don't assign anything to the optional arguments.
+
+Using these functions in Sections 2 and 3 might help you debug them. Feel free to read through the whole assignment and then work on it out of order. It may be helpful to start working on the first code block in part 2 (formatting model inputs) before completing these functions.
 
 ```{r}
 sim_cstm <- function(n_cycles, #number of cycles ("T")
-                     cycle_length = 1, #numeric, in years, default 1 yr
-                     v_state_names, #N_s-length vector of strings
-                     v_m_0, #N_s-length vector of the initial distribution
-                     m_P = NA, #Transition matrix (if not time dependent)
-                     arr_P = NA, #3D transition arraw (if time dependent)
-                     #m_P or arr_P should be provided, but NOT BOTH
-                     v_cost_states = NA, #N_s-length vector if not time dependent
-                     m_cost_transitions = NA, #N_s x N_s matrix due to transition costs
-                     #v_cost_states or m_cost_transitions should be provided, but NOT BOTH
-                     v_qaly_states=NA, #N_s vector if not time dependentOR 
-                     m_qaly_transitions=NA, # T x N_s matrix if time-dependent
-                     #v_util_states or m_util_states should be provided, not both
                      disc_fac=0.03, #annual discount factor
+                     cycle_length = 1, #numeric, in years, default 1 yr
+                     v_state_names, #N_s-length vector of strings with the name of each state
+                     v_m_0, #N_s-length vector of cohort's distribution at time 0
+                     m_P = NA, #Transition matrix (use if transitions not time dependent)
+                     arr_P = NA, #3D transition array (use if transitions are time dependent)
+                     #m_P or arr_P should be provided, but NOT BOTH
+                     v_cost_states = NA, #N_s-length vector (if no transition costs)
+                     m_cost_transitions = NA, #N_s x N_s matrix (if transition costs exist)
+                     #v_cost_states or m_cost_transitions should be provided, but NOT BOTH
+                     v_qaly_states=NA, #N_s vector (if no transition costs)
+                     m_qaly_transitions=NA, #N_s x N_s matrix (if transition costs exist)
+                     #v_qaly_states or m_qaly_transitions should be provided, not both
                      t_0_cost=0 #Optionally, can add in cycle 0 costs which are
                      #. not specific to any health state
                      ){
@@ -70,34 +74,38 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
     return()
   }
   
-  #Extract number of states from the state_names parameter
+  #Determine number of states from the v_state_names parameter
   n_states <- NA #edit this
   
   #Create reward matrix with cycle tree correction from 
   #. the provided reward vector or matrix
   #. (will not work until you complete cycleTree_from_vec
   #. and cycleTree_from_mat functions below)
-  #. Feel free to insert code before the if statements to do necessary computations
+  #. Feel free to insert code before the if statements to do any necessary computations
   if (max(!is.na(v_cost_states))){
+    # if cost vector provided, use it to make cycle tree corrected cost matrix
     m_cost_cycleTree <- cycleTree_from_vec(v_cost_states)
   } else {
+    # otherwise, use cost matrix to make cycle tree corrected cost matrix
     m_cost_cycleTree <- cycleTree_from_mat(m_cost_transitions)
   }
   
   if (max(!is.na(v_qaly_states))){
+    # if qaly vector provided, use it to make cycle tree corrected cost matrix
     m_qaly_cycleTree <- cycleTree_from_vec(v_qaly_states)
   } else {
+    # otherwise, use qaly matrix to make cycle tree corrected cost matrix
     m_qaly_cycleTree <- cycleTree_from_mat(m_qaly_states)
   }
   
   #Add the conditions (replace F below) to check that:
   #. if transition matrix provided, all rows sum to one
-  #. if transition array provided, the marginal sum across the first dim 
-  #. (I did this one already)
+  #. if transition array provided, all marginal sums across the first 
+  #. diminsions equal one (I did this one already).
   #. Feel free to insert code before the if statements to do necessary computations
   if(max(!is.na(m_P))){
     #m_P matrix provided
-    if(F){ #replace F
+    if(F){ #REPLACE F WITH YOUR CODE
       stop("rows of transition matrix must all sum to one")
     }
   } else{
@@ -105,6 +113,7 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
     #check that all transition matrices contained are proper
     for(t in 1:n_cycles){
       row_sums = rowSums(arr_P[,,t])
+      #. Computation allows for very small rounding errors below 0.0005
       if(min(row_sums) - 1 > 1e-5 | max(row_sums) - 1 > 1e-5){
         stop("rows of the transition matrices in the transition 
             array do not all sum to 1 for all cycles")
@@ -113,7 +122,7 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
   }
   
   #Pre-allocate mat_M, the "cohort trace" matrix. 
-  #. Rows will contain cohort distribution across state at time t. 
+  #. Rows should contain cohort distribution across states at time t. 
   #. First row corresponds to t=0, so mat_M should have n_cycles+1 rows
   #. Name the columns with the state names
   #. use n_states and n_cycles for the size
@@ -122,18 +131,19 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
   #Fill in first row of mat_M which corresponds to t=0
   NA
   
-  #Preallocate matrices to track the costs by states and QALYs by states
+  #Preallocate two matrices to track the costs by states and QALYs by states
   #. each row corresponds to one cycle (don't include t=0)
   #. each column corresponds to one of your states
+  #. Name the columns with the state names
   m_cost_outcome_by_cycle_by_state <- NA
   m_qaly_outcome_by_cycle_by_state <- NA
   
   #For loop to simulate model
   for (t in 1:n_cycles){
-    # If m_P is provided by user we can use for every cycle
-    #. if arr_P instead provided, we extract m_P for each cycle
+    # If m_P is provided, use it to determine transitions for every cycle
+    #. if arr_P is instead provided, we extract a unique m_P for each cycle
     if(max(!is.na(arr_P))){
-      m_P <- arr_P[,,t]
+      m_P <- arr_P[,,t] # no edits needed
     }
     
     #Calculate how the cohort is distributed across states after cycle t 
@@ -142,10 +152,10 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
     
     #Calculate costs by state (undiscounted) after cycle t
     #. insert as t'th row of m_cost_by_state_cycle (which has n_s columns)
-    #. use m_cost_cycleTree so that discretization error is addressed.
+    #. Compute using m_cost_cycleTree so that discretization error is addressed.
     m_cost_outcome_by_cycle_by_state[t, ] <- NA
     
-    #Calculate qalys by state (undiscounted) after cycle t
+    #Calculate qalys experienced by state (undiscounted) after cycle t
     #. insert as the t'th row of m_qaly_by_state_cycle (with n_s columns)
     #. use m_qaly_cycleTree so that discretization error is addressed.
     m_qaly_outcome_by_cycle_by_state[t, ] <- NA
@@ -155,30 +165,31 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
   #. NOTE: computer rounding errors can create changes in the cohort size that
   #. are very close to zero, so the minimum cohort size can be slightly
   #. different from the maximum, but no more than 1e-3.
-  if(max(rowSums(m_M))-min(rowSums(m_M))>1e-3){
+  if(max(rowSums(m_M))-min(rowSums(m_M))>1e-3){ #no edits needed
     stop("Error: cohort size is not conserved over all cycles")
   }
   
   #Create vector of discount weights for calculating net present costs and QALYs
   #. discount weight should be close to 1 for first cycle and get smaller
-  #. the vector length should match that of n_cycle
-  #. This should still work for cycle_length other than 1 year
+  #. the vector length should be n_cycle
+  #. (we do not need a discount weight for cycle = 0)
+  #. This should work even if cycle_length is different than 1 year
   v_discountweight <- NA
   
   #Compute total net present discounted cost (single number)
-  #. sum the state-specific non-discounted costs for each cycle
-  #. multiply by the discount weight
-  #. then sum it all up
-  #. and add in t_0_cost
+  #. sum the state-specific non-discounted costs within each cycle
+  #. multiply by the discount weight for discounted costs by cycle
+  #. Sum them up for the total net present cost
+  #. Add in t_0_cost
   total_net_present_cost <- NA
   
   #Compute total net present discounted QALYs (single number)
-  #. similar to net present cost above
+  #. similar to net present cost above (but with no t_0 QALY)
   total_net_present_qaly <- NA
   
   #Save everything as a list and return it
   return(list(
-    "m_M" = m_M,
+    "m_M" = m_M, #cohort trace
     "m_cost_outcome_by_cycle_by_state" = m_cost_outcome_by_cycle_by_state,
     "m_qaly_outcome_by_cycle_by_state" = m_qaly_outcome_by_cycle_by_state,
     "total_net_present_cost" = total_net_present_cost,
@@ -191,16 +202,19 @@ sim_cstm <- function(n_cycles, #number of cycles ("T")
 We also need to create the functions `cycleTree_from_vec` and `cycleTree_from_mat`, which are called from within the `sim_cstm` function. These functions create a reward matrix (for either cost or QALYs) by applying the cycle tree method to a reward vector or reward matrix. **See Session 5 slides about the cycle tree transition reward matrices.**
 
 ```{r}
-#Computes the cycle tree reward matrix if provided a
-#. VECTOR of the state rewards (when there are no transition rewards)
+#Computes the cycle tree reward matrix from a VECTOR
+#. of the state rewards (when there are no transition rewards)
+#. should work for either costs or QALYs
 cycleTree_from_vec <- function(v_reward_states){
   #extract the number of states
   n_states <- NA
   
-  #preallocate matrix with the reward
+  #preallocate an empty matrix (all 0s) in which you'll calculate 
+  #. rewards with cycle tree corrections
   m_reward_cycleTree <- NA
   
-  #Loop over the rows and columns to fill in m_reward_cycleTree[i, j] with cycle tree correction (see session 5 slides)
+  #Loop over the rows and columns to fill in m_reward_cycleTree[i, j] 
+  #. with the cycle tree corrected value (see session 5 slides)
   for (i in 1:n_states){
     for(j in 1:n_states){
       m_reward_cycleTree[i,j] = NA
@@ -210,8 +224,9 @@ cycleTree_from_vec <- function(v_reward_states){
 }
 
 
-#Computes the cycle tree reward matrix if provided a
-#. MATRIX that include both state and transition rewards
+#Computes the cycle tree reward matrix from a MATRIX
+#. that include both state and transition rewards
+#. should work for either costs or QALYs
 cycleTree_from_mat <- function(m_reward_transitions){
   #extract the number of states
   n_states <- NA
@@ -221,42 +236,47 @@ cycleTree_from_mat <- function(m_reward_transitions){
   #. This matrix should be 0 on the diagonal. For any off-diagonal, it 
   #. will be non-zero only when a transition reward is incurred
   m_transitions_only <- cbind(m_reward_transitions) #copy the reward transition
-  
-  #Loops over columns and subtracts the cost in j,j from each element of the column
+    #Loops over columns and subtracts the cost in j,j from each element of the column
   for(j in 1:n_states){
     m_transitions_only[,j] <- m_transitions_only[,j] - unlist(m_transitions_only[j,j])
   }
   
-  #preallocate matrix for the reward transition (n_s by n_s)
+  #preallocate an empty matrix (all 0s) in which you'll calculate 
+  #. rewards with cycle tree corrections
   m_reward_cycleTree <- NA
   
+  #Loop over the rows and columns to fill in m_reward_cycleTree[i, j] 
+  #. with the cycle tree corrected value
+  #. (you can leave transition rewards out; we'll add them back in the next step)
   for (i in 1:n_states){
     for(j in 1:n_states){
-      #Fill in m_reward_cycleTree[i, j] with cycle tree correction
-      #. (Same as previous function except must add back in any transitions 
-      #.  rewards which are stored in m_transitions_only)
       m_reward_cycleTree[i,j] = NA
     }
   }
+  
+  #Add m_transitions_only back your cycle-tree adjusted reward matrix
+  m_reward_cycleTree <- m_reward_cycleTree + m_transitions_only
+  
   return(m_reward_cycleTree)
 }
 ```
 
-Finally, we want to develop a function to create a 3D transition array that combines other-cause mortality with a transition matrix that is missing other-cause mortality, using a lookup table that gives us age-specific other-cause mortality (usually based on a country's life table). This array should down-weight all of the transitions between states and then add in the background other-cause mortality to all states (see session 4 slides for an example). You can work on Sections 2 and 3 before coming back to this part.
+Those are all the functions you need for section 2 and the first few code chunks in section 3. Feel free to skip over the next part until after completing those.
+
+The last major function we'll write is designed to create a 3D transition array transition array that can be used as an input to `sim_cstm` in cases where transitions are the same over time except for other cause mortality. The function generates this transition array `arr_P` using a lookup table with age-specific other-cause mortality `t_OCM` (usually based on a country's life table) and a transition matrix `m_P` that does not account for other cause mortality. To generate the slice of `arr+P` corresponding to each cycle, the transitions between states in `m_P` are down-weighted to account for other-cause mortality, and then background other-cause mortality is added to all states (see session 5 slides for an example).
 
 The function is designed to take in the ***annual*** probability of death from a life table, but the cycle length of our model may be different from one year. For this, we'll need a helper function `prob_to_prob` that can convert a probability for one cycle length (like an annual probability of death) into another cycle length (e.g., 0.25 years).
 
 ```{r}
 gen_arr_P_with_OCM <- function(m_P, #transition matrix without other cause mortality
-                               t_OCM, #lookup table with cols age_lower
-                               # and p_death_annual 
+                               t_OCM, #lookup table with cols age_lower and p_death_annual 
                                cycle_length = 1, #cycle length of Markov model
                                n_cycles = 10,
                                age_start = 10
                                ){
   n_states <- nrow(m_P)
   
-  #Preallocate 3D array. 
+  #Preallocate 3D array with all 0s
   #. 1st dim = "from" state, 2nd dim = "to" state, 3rd dim = cycle number
   arr_P <- NA
   
@@ -276,12 +296,14 @@ gen_arr_P_with_OCM <- function(m_P, #transition matrix without other cause morta
       p_OCM <- prob_to_prob(p_OCM, cycle_length_orig=1, cycle_length_new=cycle_length)
     }
     
-    #First down-weight all transitions, then adjust up all of the transitions
-    #. to death to reflect the p_OCM
-    m_P_thisCycle <- m_P #adjust this, can expand to mult. lines
-    
-    #Save m_P_thisCycle into the arr_P
-    arr_P[ , , t] <- NA
+    #First down-weight all transitions, then increase all the transitions
+    #. to death to add in the p_OCM
+    # edit both of these
+    m_P_thisCycle <- m_P*NA
+    m_P_thisCycle[,"Death"] = NA
+     
+    #Place m_P_thisCycle into arr_P (done for you)
+    arr_P[ , , t] <- m_P_thisCycle
   }
   
   return(arr_P)
@@ -299,29 +321,36 @@ prob_to_prob <- function(p_orig, cycle_length_orig, cycle_length_new){
 }
 ```
 
-Test out your "prob_to_prob function by converting a 0.3 6-month probability into a 2-year probability
+Test out your `prob_to_prob()` function by converting a 0.3 6-month probability into a 2-year probability
 
 ```{r}
 prob_6mo <- 0.3
 cycle_length_orig = 0.5
 cycle_length_new = 2
 
-prob_2yr <- NA
+prob_2yr <- NA #use your function
 prob_2yr
 ```
 
 ## 2. Markov model
 
-For a true Markov model, where the transition matrix doesn't change over time, we can solve for a future state distribution two ways: with the matrix multiplication solution that only works for Markov models, or with our `sim_cstm` function, which is designed to work for both markov and semi-markov models. Here we'll do both.
+For a true Markov model, where the transition matrix doesn't change over time, we can solve for a future state distribution two ways:
 
-In this chunk, you'll feed the provided parameters into the `sim_cstm` function and look at the output. Then, you'll use the matrix multiplication solution, and you'll plot the Markov trace figure.
+-   Using the matrix multiplication solution that only works for Markov models
+
+-   Using our `sim_cstm` function, which is designed to work for both markov and semi-markov models. Here we'll do both.
+
+In this chunk, you'll feed the provided parameters into the `sim_cstm` function and look at the output, verify the function's output by comparing it to the matrix multiplication solution, and then plot a Markov trace diagram.
 
 ```{r}
 #State names and initial distribution
+#. (no edits needed)
 v_state_names <- c("Healthy", "Moderate", "Severe", "Dead")
 v_m_0 = c(2000, 1000, 0, 0)
-n_states <- NA #edit this
+n_states <- length(v_state_names)
 
+# Provided transition probabilities
+#. (no edits needed)
 p_HtoM = 0.2 #otherwise stays in healthy
 p_MtoH = 0.4; p_MtoS = 0.4; p_MtoD = 0.01 #otherwise stay in moderate
 p_StoH = 0.1; p_StoM = 0.1; p_StoD = 0.3  #otherwise stay in severe
@@ -329,10 +358,30 @@ p_StoH = 0.1; p_StoM = 0.1; p_StoD = 0.3  #otherwise stay in severe
 
 #Create and fill in transition matrix. n_S by n_S
 #. Name the rows and columns with the state names
-m_P <- NA
+m_P <- matrix(0, nrow = n_states, ncol = n_states,
+              dimnames = list(v_state_names, v_state_names))
+
+# Transitions from healthy (I did this for you)
+m_P["Healthy", "Moderate"] <- p_HtoM
+m_P["Healthy", "Healthy"] <- 1 - p_HtoM
+
+# Transitions from moderate
+m_P["Moderate", "Healthy"] <- NA
+m_P["Moderate", "Severe"] <- NA
+m_P["Moderate", "Dead"] <- NA
+m_P["Moderate", "Moderate"] <- NA
+
+# Transitions from severe
+m_P["Severe", "Healthy"] <- NA
+m_P["Severe", "Moderate"] <- NA
+m_P["Severe", "Dead"] <- NA
+m_P["Severe", "Severe"] <- NA
+
+# Once dead, always dead
+m_P["Dead", "Dead"] <- 1
 
 cycle_length = 0.5 #half a year
-n_cycles = 20 #20 cycles or 10 years as time horizon
+n_cycles = 20 #20 cycle (10 year) time horizon
 
 #Costs per state vector
 v_cost_states <- c(0, 150, 2000, 0)
@@ -346,46 +395,55 @@ names(v_qaly_states) <- v_state_names
 #Discount factor
 disc_fac = 0.03
 
-#Compute solution with sim_cstm function and display output
+#Run the Markov model using your sim_cstm function and display the output
 cstm_output <- NA
 cstm_output
 
 #Now using the MATRIX MARKOV SOLUTION, calcuate the state distribution after
 #. the 20th cycle and print it to the console
-#. You should not use a loop or your cstm_output function here
-#. Hint: will need to convert v_m_0 from vector to a matrix with one row
-NA
+#. I did this for you. Note we had to  convert v_m_0 from a vector 
+#. to a single-row matrix for the matrix multiplication %^% to work
+matrix(v_m_0, nrow=1) %*% (m_P %^% 20)
 
-#Does it match what's in cstm_output$m_M[21,]?
+#CHECK: does this match what's in cstm_output$m_M[21,]?
 
 #Finally, develop a cohort trace plot. 
 
 #. first step is converting m_M from wide to long format
-#. Can use tidyr::gather as in session 4 slides
-NA
+#. Can uncomment this code once cstm_output$m_M looks correct
+# t_trace <- as_tibble(cstm_output$m_M) |>
+#   add_column(cycle_num = 0:n_cycles) |>
+#   gather(key = state, value = count, 1:4)
 
 # second step is to make plot with ggplot (or other methd if preferred)
 #. X axis should have the cycle number
 #. Y axis should be the percent of the cohort in each state
 #. Each state should have a line and points in a different color 
-NA
+ggplot()
 ```
 
-Lastly, let's add a transition toll of \$3,000 whenever someone dies in this model. In this code chunk, create the matrix `m_cost_transition` to have the transition cost, then rerun `sim_cstm` using your new cost matrix instead of `v_cost_state` from before
+Lastly, let's add a transition toll of \$3,000 whenever someone dies in this model. In this code chunk, create the matrix `m_cost_transition` that includes this transition cost, then rerun `sim_cstm` providing `m_cost_transition` as an argument instead of `v_cost_state`.
 
 ```{r}
 #Create transition matrix
 #. use same state rewards as in v_cost_states
 #. Add a transition toll of 3000 for transitioning
 #. to dead from any state
-m_cost_transitions <- NA
+# Pre-allocate matrix
+m_cost_transitions <- matrix(0, nrow=n_states, ncol=n_states,
+                            dimnames = list(v_state_names, v_state_names))
+#Set each column to the "to state's cost:
+NA
+
+#add transition toll
+NA
 
 #Compute solution with sim_cstm function and display output
 cstm_output_deathToll <- NA
 cstm_output_deathToll
 ```
 
-By how much did the total net present cost change after adding the \$3,000 dearth toll?
+By how much did the total net present cost change after adding the \$3,000 death toll?
 
 ```{r}
 NA
@@ -393,9 +451,9 @@ NA
 
 ## 3. Transfusion-transmitted HIV
 
-We'll now use our functions from 1A for a more complex cohort state transition model, roughly based on [one of my publications](https://doi.org/10.1111/trf.16704) (your results will not match those in the paper though). This analysis is from a healthcare payer perspective, so the only costs are HIV-related medical costs.
+We'll now use our functions from 1A for a more complex cohort state transition model, roughly based on [one of my publications](https://doi.org/10.1111/trf.16704) (your results will not match those in the paper though). This analysis is from a healthcare payer perspective, and the only costs are HIV-related medical costs.
 
-We will read all parameters into three tables, coming from three different tabs of our excel file.
+We will read all parameters into three tables, coming from three different tabs of the provided excel file.
 
 This chunk reads in a table with the annual costs and the disability weights applied to each state. Note that the original analysis used disability-adjusted life years (DALYs) which are a little different from QALYs. But in this assignment, we are going to approximate QALYs by calculating a health state utility as one minus the disability weight times the duration in the cycle:
 
@@ -404,6 +462,8 @@ QALY_t \approx (1 - [\text{disability weight}]) \times [\text{cycle length}]
 $$
 
 ```{r}
+# No edits needed
+
 #read table from Excel
 t_rewards <- read_excel('params_assign2.xlsx', sheet = "rewards")
 #Display it nicely
@@ -414,27 +474,30 @@ t_rewards |>
   autofit() #automatically set column widths to reasonable values
 ```
 
-We have another table with our transition probabilities. We are going to simulate two cohorts: a pediatric cohort with an average age of 5 years at infection and an adult cohort with an average age of 40 at infection. Because untreated HIV progresses to AIDS faster in adults compared to children, some of the natural history parameters are different for the adult and pediatric cohorts. But most transitions are the same for both.
+We have another table with our transition probabilities. We are going to simulate two cohorts: a pediatric cohort with an average age of 5 years at infection and an adult cohort with an average age of 40 at infection. Because untreated HIV progresses to AIDS faster in adults compared to children, some of the natural history parameters are different for the adult and pediatric cohorts. Other transitions are the same for both.
 
-If a transition between A and B does not appear in the table, it is 0, that means it should be set to 0. If a transition value is shown as **999**, that indicates that it's value should be calculated as one minus all the other transitions out of the 'from' state.
+If a transition between A and B does not appear in the table that means it cannot happen (the probability is 0). f a transition value is shown as **999**, that indicates that it's value should be calculated as one minus all the other transitions out of the 'from' state.
 
-**Note:** the values in the table reflect transition probabilities before factoring in background other-cause mortality.
+The values in the table reflect transition probabilities before factoring in background other-cause mortality.
 
 ```{r}
+# No edits needed
+
 #read table from Excel
 t_probs <- read_excel('params_assign2.xlsx', sheet = "p_transitions") |>
   as_tibble()
 #Display it nicely
 t_probs |>
   flextable() |> #turn into flextable object
-  merge_v(j=c(1,3,5)) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
+  merge_v(j=c(1,2)) |> #Merge cells in first column with same value (group probabilities, costs, etc.)
   theme_box() |> #Apply a theme for aesthetics
   autofit() #automatically set column widths to reasonable values
 ```
 
-Finally, we read in the age-specific all cause mortality table, which we will use to approximate other cause mortality in our model. Note that this data source, the WHO Global Health Observatory, provides the age specific death rate for 5-year age blocks, instead of for every possible age. Data are also disaggregated by sex, but since our model is the same for men and women, I've taken the average of these two values in the column `p_death_annual`.
+Finally, we read in the age-specific all cause mortality table, which we will use to approximate other-cause mortality in our model. Note that this data source, the WHO Global Health Observatory, provides the age specific death rate for 5-year age blocks, instead of for every possible age. Data are also disaggregated by sex, but since our model is the same for men and women, I've taken the average of these two values in the column `p_death_annual`.
 
 ```{r}
+# no edits needed
 #read table from Excel
 t_ocm <- read_excel('params_assign2.xlsx', sheet = "all_cause_mortality")
 #Display it nicely
@@ -444,7 +507,7 @@ t_ocm |>
   autofit() #automatically set column widths to reasonable values
 ```
 
-First, let's create our two transition matrices. We'll pre-allocate an empty transition matrix, and then fill it in. Don't worry about other cause mortality yet. Let's first create one for the adult, then one for the pediatric cohort
+Let's create our two transition matrices. We'll pre-allocate an empty transition matrix, and then fill it in. Don't worry about other cause mortality yet. Let's first create one for the adult, then one for the pediatric cohort
 
 ```{r}
 v_state_names <- c('HIV_SC_1', 'HIV_SC_2', 'HIV_SC_3', 'ART_1', 'ART_2', 'ART_3', 'ART_4', 
@@ -452,7 +515,7 @@ v_state_names <- c('HIV_SC_1', 'HIV_SC_2', 'HIV_SC_3', 'ART_1', 'ART_2', 'ART_3'
 
 n_states <- length(v_state_names) #Calculate the number of states from v_state_names
 
-#Create empty transition matrix
+#Create empty transition matrix, all 0s
 m_P_adult <- matrix(0, nrow = n_states, ncol = n_states,
               dimnames = list(v_state_names, v_state_names))
 
@@ -463,6 +526,8 @@ m_P_adult <- matrix(0, nrow = n_states, ncol = n_states,
 #. Go row by row and make sure transitions out of each
 #.   row sum to 1
 
+#  Transitions from Subclinical HIV states are done for you.
+#.  Note these are tunnel states (probability of staying in the same state is 0)
 #From HIV_SC_1
 m_P_adult["HIV_SC_1", "ART_1"] <- filter(t_probs, 
                                          From=="HIV_SC_1" & 
@@ -470,6 +535,10 @@ m_P_adult["HIV_SC_1", "ART_1"] <- filter(t_probs,
 m_P_adult["HIV_SC_1", "HIV_SC_2"] <- 1 - m_P_adult["HIV_SC_1", "ART_1"] 
 
 #From HIV_SC_2
+m_P_adult["HIV_SC_2", "ART_1"] <- filter(t_probs, 
+                                         From=="HIV_SC_2" & 
+                                         To=="ART_1")$value
+m_P_adult["HIV_SC_2", "HIV_SC_3"] <- 1 - m_P_adult["HIV_SC_2", "ART_1"] 
  
 
 #From HIV_SC_3
@@ -493,22 +562,22 @@ NA
 #From Death
 NA
 
-#From ART_1
+#From ART_1 (tunnel state)
 m_P_adult["ART_1", "ART_2"] <- 1
 
-#From ART_2
+#From ART_2 (tunnel state)
 NA
 
-#From ART_3
+#From ART_3 (tunnel state)
 NA
 
-#From ART_4
+#From ART_4 (tunnel state)
 NA
 
-#From AIDS_ART_1
+#From AIDS_ART_1 (tunnel state)
 NA
 
-#From AIDS_ART_2
+#From AIDS_ART_2 (tunnel state)
 NA
 
 #From AIDS_RD
@@ -525,22 +594,27 @@ m_P_adult["AIDS_RD", "AIDS_RD"] <- 1 - m_P_adult["AIDS_RD", "Death"]
 m_P_ped <- m_P_adult
 
 #From HIV_SC_3
-NA
+m_P_ped["HIV_SC_3", "AIDS_SC"] <- filter(t_probs, 
+                                           From=="HIV_SC_3" & 
+                                           To=="AIDS_SC" &
+                                           Cohort=="Pediatric")$value
+m_P_ped["HIV_SC_3", "Death"] <- filter(t_probs, From=="HIV_SC_3" & 
+                                             To=="Death" &
+                                             Cohort=="Pediatric")$value
+m_P_ped["HIV_SC_3", "HIV_SC_3"] <- (1 - m_P_ped["HIV_SC_3", "AIDS_SC"]
+                                      - m_P_ped["HIV_SC_3", "Death"]
+                                      - m_P_ped["HIV_SC_3", "ART_1"])
 
 #From AIDS_SC
-m_P_ped["AIDS_SC", "Death"] <- filter(t_probs, 
-                                           From=="AIDS_SC" & 
-                                           To=="Death" &
-                                           Cohort=="Pediatric")$value
-m_P_ped["AIDS_SC", "AIDS_SC"] <-(1 - m_P_ped["AIDS_SC", "Death"]
-                                      - m_P_ped["AIDS_SC", "AIDS_ART_1"])
+m_P_ped["AIDS_SC", "Death"] <- NA
+m_P_ped["AIDS_SC", "AIDS_SC"] <- NA
 
 #Check both to make sure transition probabilities out of each state sum to one
 rowSums(m_P_adult)
 rowSums(m_P_ped)
 ```
 
-Next, we want to take our transition ***matrices***, which don't include other cause mortality, and create a transition ***array***, which factors in age-specific other cause mortality. Fortunately we already wrote a function that does just this, `gen_arr_P_with_OCM`
+Next, we want to take our transition ***matrices***, which don't include other cause mortality, and create a transition ***array***, which factors in age-specific other cause mortality. We'll use this using the function `gen_arr_P_with_OCM`, which you'll need to write in section 1.
 
 ```{r}
 #Parameters given to you
@@ -552,7 +626,7 @@ cycle_length = 1
 n_cycle_ped = 95-age_start_ped+1
 n_cycle_adult = 95-age_start_adult+1
 
-#Now use the gen_arr_P_with_OCM function to generate the 3D transition array
+#Use the gen_arr_P_with_OCM function to generate the 3D transition array
 #. for each cohort
 arr_P_adult <- NA
 
@@ -560,7 +634,7 @@ arr_P_ped <- NA
 
 ```
 
-Next, we need to extract the rewards out of t_rewards and populate state reward vectors for cost and for QALYs. The vector works here because we have no transition rewards (we used tunnel states to account for differences in costs or utility when someone first enters a health state instead of transition rewards). Remember that we have disability weights--not utility weights--in our table. Utility is duration in state times one minus the disability weight.
+Next, we need to extract the rewards out of the table t_rewards and put them in state reward vectors, one for costs and one for QALYs. The vector works here because we have no transition rewards. Remember that we have disability weights--not utility weights--in our table. We will approximate QALYs as the duration in state times one minus the disability weight.
 
 ```{r}
 l_rewards <-as.list(t_rewards$value)
@@ -578,7 +652,8 @@ v_cost_states <- c(
   l_rewards$cost_AIDS_ART_1,
   l_rewards$cost_AIDS_ART_2,
   l_rewards$cost_AIDS_RD,
-   0)
+  0 # death
+  )
 names(v_cost_states) <- v_state_names
 
 v_cost_states
@@ -597,6 +672,7 @@ v_dw_states <- c(
   l_rewards$dw_AIDS_RD,
   1)
 
+# calculate using the vector of disability weights and the duration of a cycle
 v_qaly_states <- NA
 
 # names(v_qaly_states) <- v_state_names
@@ -604,35 +680,52 @@ v_qaly_states <- NA
 v_qaly_states
 ```
 
-We're finally ready to do a stylized decision analysis. We will estimate the cost-effectiveness of diagnosing HIV and initiating treatment within one year of infection as opposed to not immediately diagnosing HIV. The only difference between these two alternatives will be the initial distribution of the cohort at $t=0$: the whole cohort will start in `HIV_SC_1` in the "no first year diagnosis" scenario and the whole cohort will start in `ART_1` in the "first year diagnosis" scenario. Those who don't begin treatment can still get diagnosed and treted later on, because they have symptoms or participate in HIV screening, and make the transition into ART in a later year. We'll estimate the cost-effectiveness for both the pediatric and the adult cohort, meaning we'll need to run our model 4 times (with and without first year diagnosis in the adult and pediatric cohorts).
+After all that setup, we're ready to do a stylized decision analysis. We will estimate the cost-effectiveness of diagnosing HIV and initiating treatment within one year of infection as opposed to not immediately diagnosing HIV.
+
+The only difference between these two alternatives will be the initial distribution of the cohort at $t=0$:
+
+-   In the "no first year diagnosis" strategy, the whole cohort will start in `HIV_SC_1`.
+
+-   In the "diagnosed in first year" strategy, the whole cohort will start in `ART_1`.
+
+Those who don't begin treatment can still get diagnosed and treated later on, because they have symptoms or participate in HIV screening, and make the transition into ART in a later year. We'll estimate the cost-effectiveness for both the pediatric and the adult cohort, meaning we'll need to run our model 4 times (with and without first year diagnosis in the adult and pediatric cohorts).
 
 ```{r}
 n_cohort = 10000 #use a cohort size of 10,000
 
-n_cohort = 10000 #use a cohort size of 10,000
+## Simultate first year diagnosis in the pediatric cohort
 
-# Simultate first year diagnosis in the pediatric cohort
+# create initial distribution (done for you)
 v_m_0 <- rep(0, 12)
 names(v_m_0) <- v_state_names
 v_m_0["ART_1"] <- n_cohort
 
+# Run the model
 HIVsim_peds_detect <- NA
 
-# Simultate NO first year diagnosis in the pediatric cohort
+## Simultate NO first year diagnosis in the pediatric cohort
+
+# create initial distribution (done for you)
 v_m_0 <- rep(0, 12)
 names(v_m_0) <- v_state_names
 v_m_0["HIV_SC_1"] <- n_cohort
 
+# Run the model
 HIVsim_peds_noDetect <- NA
 
-# Simultate first year diagnosis in the adult cohort
+## Simultate first year diagnosis in the adult cohort
+
+# create initial distribution (done for you)
 v_m_0 <- rep(0, 12)
 names(v_m_0) <- v_state_names
 v_m_0["ART_1"] <- n_cohort
 
+# Run the model
 HIVsim_adult_detect <- NA
 
-# Simultate NO first year diagnosis in the adult cohort
+## Simultate NO first year diagnosis in the adult cohort
+
+# create initial distribution (done for you)
 v_m_0 <- rep(0, 12)
 names(v_m_0) <- v_state_names
 v_m_0["HIV_SC_1"] <- n_cohort
@@ -641,7 +734,7 @@ HIVsim_adult_noDetect <- NA
 
 ```
 
-Now do some cost-effectiveness calculations based on the questions in the comments
+Now, do some cost-effectiveness calculations to answer the questions in the comments
 
 ```{r}
 #What is the Incremental cost, Incremental QALYs, and ICER for first year diagnosis (vs. no first year diagnosis) in the pediatric cohort? If the ICER is negative, is early detection dominated or dominating?
