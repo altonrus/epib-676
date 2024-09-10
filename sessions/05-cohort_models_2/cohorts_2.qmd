@@ -1,0 +1,628 @@
+---
+title: "Cohort models 2"
+subtitle: "EPIB  676 session 5, McGill University"
+author: "Alton Russell"
+date: "12 Sep 2024"
+format: revealjs
+editor: visual
+---
+
+## Packages
+
+```{r}
+#| echo: true
+library(heemod) #health economic markov models
+library(tidyr) #for spread function for wide-to-long table formating
+library(ggplot2) #plotting
+library(expm) #raise matrices to exponents with %^%
+
+#use install.packages("Package") for any you don't have already
+
+theme_set(theme_bw()) #set ggplot theme
+```
+
+## Recall: Specifying a discrete time CSTM
+
+Transition matrix ($n_s \times n_s$, where $n_s$ is the number of states)
+
+$$
+P = \begin{array}{c}\begin{matrix}Healthy & moderate & severe & dead \end{matrix} 
+\\\left[\ 
+\begin{matrix}
+p_{H \rightarrow H} & p_{H \rightarrow M} & p_{H \rightarrow S} & p_{H \rightarrow D}\\
+p_{M \rightarrow H} & p_{M \rightarrow M} & p_{M \rightarrow S} & p_{M \rightarrow D}\\
+p_{S \rightarrow H} & p_{S \rightarrow M} & p_{S \rightarrow S} & p_{S \rightarrow D}\\
+p_{D \rightarrow H} & p_{D \rightarrow M} & p_{D \rightarrow S} & p_{D \rightarrow D}
+\end{matrix}\ \right]
+\end{array}
+$$
+
+Initial distribution: $m_0 = \begin{bmatrix} 2000 & 0 & 0 & 0 \end{bmatrix}$
+
+Cycle length: 1 year; Number of cycles: $T=20$
+
+## Recall: Running a discrete time CSTM
+
+Matrix $M$ stores cohort dist'n after each cycle
+
+-   $n_s$ columns and $T+1$ rows
+
+-   Row $t$ contains $m_t$, the cohort's dist'n after cycle $t$
+
+To calculate rewards (costs or QALYs)
+
+-   Specify reward vectors $c,q$ (state rewards only) or reward matrices $C,Q$ (have transition rewards)
+
+-   Store in reward matrices $M_c, M_Q$.
+
+-   Apply discount factor to row sums for net present cost/QALY
+
+## Today
+
+-   **Time-varying transitions**
+
+-   Time-varying rewards
+
+-   Correcting discrete time error
+
+-   Capturing epidemiological outcomes
+
+-   Differential equation models
+
+## Limit of (pure) Markov model
+
+-   Transition probabilities often depend on
+
+    -   **simulation time:** how long the model has been running
+
+    -   **state residence time:** how long someone has been in a state
+
+-   Not allowed in a (pure) Markov model
+
+-   **Matrix solution only works for a pure Markov model**
+
+## Most common time-varying transition
+
+-   Over several years, cohort will die from "other causes" (not the disease modeled)
+
+-   Prob. of other cause death changes with age
+
+-   Usually approximated with country-specific life tables
+
+-   [Canadian life tables available from StatsCan](https://www150.statcan.gc.ca/n1/pub/84-537-x/84-537-x2021001-eng.htm)
+
+-   Use column "Death probability between age X and X+1"
+
+## 2020 life table data
+
+```{r}
+#| echo: true
+t_other_cause_death <- read.csv2("prob_death_by_age_2020_StatsCan.csv",
+                                 sep=",")
+t_other_cause_death$prob_death<-as.numeric(t_other_cause_death$prob_death)
+ggplot(data=t_other_cause_death, aes(x=Age, y=prob_death))+
+  geom_point()+geom_line()
+```
+
+## 3D transition arrays
+
+-   Use if some transitions differ by cycle
+
+    -   E.G., other cause death
+
+-   A "stack" of transition matrices, one for each cycle
+
+-   $P[i,j,t]$: transition prob. from state $i$ to state $j$ in cycle $t$
+
+    -   Dim 1: "From" health state $1, ..., i, ... I$
+
+    -   Dim 2: "To" health state $1, ... , j, ... , J$
+
+    -   Dim 3: during cycle $1,\ldots,t,\ldots,T$
+
+## One approach to age-specific OCM
+
+Multiply all transitions by $(1 - P_{OCM})$ (age-specific probability of other cause mortality), then add $P_{OCM}$ to the probability of transitioning to death.
+
+For $P_{i \rightarrow j}$ for all $i,j \neq Death$:
+
+$$
+P_{i \rightarrow j}^{adjusted} = P_{i \rightarrow j}^{orig} (1 - P_{OCM})
+$$
+
+For $P_{i \rightarrow D}$ for all $i \neq Death$:
+
+$$
+P_{i \rightarrow D}^{adjusted} = P_{i \rightarrow D}^{orig} (1 - P_{OCM})+P_{OCM}
+$$
+
+## Ex: transition from 'Moderate'
+
+Without other cause mortality:
+
+$$
+\begin{array}{c}\begin{matrix}H & M & S & D \end{matrix} 
+\\\left[\ 
+\begin{matrix}
+0.40 & 0.19 & 0.40 & 0.01\\
+\end{matrix}\ \right]
+\end{array}
+$$
+
+With $P_{OCM}=0.03$:
+
+$$
+\begin{array}{c}\begin{matrix} H & M & S & D \end{matrix} 
+\\\left[\ 
+\begin{matrix}
+0.40(0.97) & 0.19(0.97) & 0.40(0.97) & 0.01(0.97)+0.03\\
+\end{matrix}\ \right]
+\end{array}
+$$
+
+$$
+\begin{bmatrix}
+0.388 & 0.1843 & 0.388 & 0.0397\\
+\end{bmatrix}
+$$
+
+## Ex: model from last class (no OCM)
+
+```{r}
+#| echo: true
+v_state_names <- c("H","M","S","D") #vector of state names
+m_0 = matrix(c(2000, 0, 0, 0), nrow = 1, #initial dist
+             dimnames = list(c(""), v_state_names)) 
+n_cycles = 20; p_HtoM = 0.2; p_MtoH = 0.4; p_MtoS = 0.4; p_MtoD = 0.01; p_StoH = 0.1; p_StoD = 0.3
+mat_P = matrix(c(1-p_HtoM, p_HtoM,                 0,                0,
+                 p_MtoH,   1-p_MtoH-p_MtoS-p_MtoD, p_MtoS,          p_MtoD,
+                 p_StoH,   0,                      1-p_StoH-p_StoD, p_StoD,
+                 0,        0,                      0,                1), 
+              nrow = 4, byrow = T,
+              dimnames = list(v_state_names, v_state_names))
+M = matrix(rep(0, 4*21), ncol=4,
+           dimnames = list(0:20, c("H","M","S","D")))
+for (i in 1:21){
+  M[i,] <- m_0 %*% (mat_P %^% (i-1))
+}
+t_trace <- as_tibble(M) #convert from matrix
+t_trace$Cycle_num <- 0:20 #add col for cycle number
+t_trace <- t_trace |> #Long to wide
+  gather(key=State, value=Count, H:D) #wide to long format
+```
+
+## Ex: transition array with OCM
+
+Cycle length is 1 year, cohort is age 50 at time 0.
+
+```{r}
+#| echo: true
+# Pre-allocate 3D transition array
+arr_P <- array(0,
+              dim=c(4, 4, 20),
+              dimnames=list(v_state_names, v_state_names, 1:20))
+
+# Fill in array with transition matrix for each cycle
+for(cycle in 1:20){
+  #.  cohort age at start of this cycle
+  age = 50+cycle-1
+  #.  get prob. other cause mortality from table
+  p_OCM <- t_other_cause_death[t_other_cause_death$Age==age,"prob_death"]
+  #.  Adjust all probs DOWN to "make room" for OCM
+  mat_P_this_year = mat_P*(1-p_OCM)
+  #.  Adjust prob. transitioning to death UP to account for OCM
+  mat_P_this_year[,"D"]<-mat_P_this_year[,"D"]+p_OCM
+  #.  Put adjusted transition matrix into the transition array
+  arr_P[ , , cycle] <- mat_P_this_year
+}
+
+```
+
+## Age-specific death: T array
+
+```{r}
+#| echo: true
+#| eval: true
+
+arr_P # inspect transition array
+#Verify that for each cycle, rows of transition matrix sum to 1
+for (cycle in 1:20){
+  print(rowSums(arr_P[ , , cycle]))    }
+```
+
+## Age-specific death: M matrix
+
+```{r}
+#| echo: true
+
+M_OCM = matrix(0, ncol=4, nrow = 21,
+               dimnames = list(paste0("t",0:20), c("H","M","S","D")))
+M_OCM[1,] <- m_0 #save initial distribution of cohort
+for (i in 1:20){ #calculate distribution after each cycle
+  M_OCM[i+1,] <- M_OCM[i,] %*% arr_P[ , , i]
+}
+M_OCM
+```
+
+## Markov trace with and without age-specific other cause mortality
+
+```{r}
+#| echo: false
+t_trace$scenario <- "No other cause mortality"
+
+t_trace_OCM <- as_tibble(M_OCM) #convert from matrix
+t_trace_OCM$Cycle_num <- 0:20 #add col for cycle number
+t_trace_OCM <- t_trace_OCM |>
+  gather(M, key=State, value=Count, H:D) #wide to long format
+t_trace_OCM$scenario <- "With age-specific other cause mortality"
+t_trace_compare <- rbind(t_trace, t_trace_OCM)
+ggplot(data=t_trace_compare, aes(x=Cycle_num, y=Count, color=State))+
+  geom_line()+geom_point()+
+  facet_grid(cols = vars(scenario))
+```
+
+## Today
+
+-   Time-varying transitions
+
+-   **Time-varying rewards**
+
+-   Correcting discrete time error
+
+-   Capturing epidemiological outcomes
+
+-   Differential equation models
+
+## Recall: reward matrices
+
+$$ 
+\textbf{C}= 
+\begin{bmatrix}
+c_H & c_M+c_{H \rightarrow M} & c_S+c_{H \rightarrow S} & c_D+c_{H \rightarrow D}\\ 
+c_H+c_{M \rightarrow H} & c_M & c_S+c_{M \rightarrow S} & c_D+c_{M \rightarrow D}\\ 
+c_H+c_{S \rightarrow H} & c_M+c_{S \rightarrow M} & c_S & c_D+c_{S \rightarrow D}\\ 
+c_H+c_{D \rightarrow H} & c_M+c_{D \rightarrow M} & c_S+c_{D \rightarrow S} & c_D 
+\end{bmatrix},\\
+\textbf{Q} =
+\begin{bmatrix}
+q_H & q_M+q_{H \rightarrow M} & q_S+q_{H \rightarrow S} & q_D+q_{H \rightarrow D}\\ 
+q_H+q_{M \rightarrow H} & q_M & q_S+q_{M \rightarrow S} & q_D+q_{M \rightarrow D}\\ 
+q_H+q_{S \rightarrow H} & q_M+q_{S \rightarrow M} & q_S & q_D+q_{S \rightarrow D}\\ 
+q_H+q_{D \rightarrow H} & q_M+q_{D \rightarrow M} & q_S+q_{D \rightarrow S} & q_D 
+\end{bmatrix}
+$$
+
+## Vary rewards with simulation time
+
+-   Reward ***matrix*** assumes costs/QALYs don't depend on cycle number
+
+-   Use 3D ***array*** to assign different rewards by cycle
+
+    -   $\textbf{C}[i,j,t]$ and $\textbf{Q}[i,j,t]$ contain rewards (state + transition) for person going from $i$ to $j$ in cycle $t$
+
+    -   Can compute total rewards of people who end cycle $t$ in each state:
+
+        -   $\hat{C}_t =m_{t-1} (P \bigodot C[:,:,t])$
+
+        -   $\hat{Q}_t = m_{t-1} (P \bigodot Q[:,:,t])$
+
+## Alternative: 2D matrix in-loop
+
+If you don't like 3D arrays, can instead generate cycle-specific 2D matrices within a for loop
+
+```{r}
+#| eval: false
+#| echo: true
+#Pseudocode, won't run without modifications
+mat_M <- matrix(0, ncol=4, nrow = n_cycles+1,
+           dimnames = list(0:n_cycles, c("H","M","S","D")))
+v_costs_per_cycle <- matrix(0, nrow = ncycles, ncol=1)
+v_QALYs_per_cycle <- matrix(0, nrow = ncycles, ncol=1)
+
+mat_M[1, ] <- m_0 # initial distribution
+for(i in 1:n_cycles){
+  mat_P_cycle <- NA # Calculate transition matrix for this cycle
+  mat_C_cycle <- NA # Calculate cost reward matrix for this cycle
+  mat_Q_cycle <- NA # Calculate QALY reward matrix for this cycle
+  
+  M[i+1,] <- M[i,] %*% mat_T_cycle #update cohort distribution
+  v_costs_per_cycle[i] <- sum(M[i+1,] %*% mat_C_cycle) #calculate costs
+  v_QALYs_per_cycle[i] <- sum(M[i+1,] %*% mat_Q_cycle) #calculate QALYs
+}
+```
+
+## Today
+
+-   Capturing health-economic outcomes
+
+-   **Correcting discrete time error**
+
+-   Capturing epidemiological outcomes
+
+-   Differential equation models
+
+## Discrete time error
+
+-   In uncorrected models, transitions occur at cycle [**end**]{.underline}
+
+-   Transition probs. are cumulative probability of transitioning [**during**]{.underline} a cycle
+
+-   In real life, transitions occur in continuous time
+
+## Discrete time error
+
+[![](figs/discretation_error_updown.jpeg)](www.doi.org/10.1177/0272989X13501558)
+
+[Naimark et. al. 2013](https://www.doi.org/10.1177/0272989X13501558)
+
+## Fix 1: Shorter cycle lengths
+
+As cycle length $\rightarrow$ 0, discretization error $\rightarrow$ 0.
+
+**But**, more cycles means more compute needed, and may lead to less interpretable probabilities
+
+Modelers usually use another fix
+
+## Solutions to discrete time error
+
+[![](figs/discretization_corrections.jpg){width="730"}](https://doi.org/10.1101/2020.07.27.20162651)
+
+[Srivastava et. al. 2020](https://doi.org/10.1101/2020.07.27.20162651)
+
+## Simpson's method
+
+Numerical process to approximate integrating a curve
+
+**Simpson's 1/3rd method** (quadratic approximation; requires even number of cycles):
+
+-   Multiply reward by 1/3 for first and last cycle
+
+-   In between, multiply by 4/3 for odd cycles and 2/3 for even
+
+**Simpson's 3/8 method** (cubic approximation; requires that number of cycles are multiple of 3):
+
+-   Multiply reward by 3/8 in first and last cycle
+
+-   In between, multiply by 6/8 if mult. of 3 and 9/8 otherwise
+
+## Cycle tree approach
+
+-   **Intuition:** If individuals make transitions halfway through a cycle on average, they should incur half the cost (QALY) associated with their "from" state and half the cost (QALY) of their "to" state
+
+-   Can be implemented similarly to transition rewards in a reward matrix
+
+$\hat{C}_t =m_{t-1} (P \bigodot C)$ or $\hat{Q}_t =m_{t-1} (P \bigodot Q)$ with C and Q as given on next slide
+
+## Cycle tree transition reward matrices
+
+$$
+\textbf{C}= 
+\begin{bmatrix}
+c_H & .5c_H+.5c_M & .5c_H+.5c_S & .5c_H+.5c_D\\ 
+.5c_M+.5c_H & c_M & .5c_M+.5c_S & .5c_M+.5c_D\\ 
+.5c_S+.5c_H & .5c_S+.5c_M & c_S & .5c_S+.5c_D\\ 
+.5c_D+.5c_H & .5c_D+.5c_M & .5c_D+.5c_S & c_D 
+\end{bmatrix},\\
+\textbf{Q} =
+\begin{bmatrix}
+q_H & .5q_H+.5q_M & .5q_H+.5q_S & .5q_H+.5q_D\\ 
+.5q_M+.5q_H & q_M & .5q_M+.5q_S & .5q_M+.5q_D\\ 
+.5q_S+.5q_H & .5q_S+.5q_M & q_S & .5q_S+.5q_D\\ 
+.5q_D+.5q_H & .5q_D+.5q_M & .5q_D+.5q_S & q_D 
+\end{bmatrix}
+$$
+
+## Comparison of discrete time correction methods
+
+Simpson rule and cycle tree method both good. I find cycle tree method most intuitive.
+
+![[Naimark et. al. 2013](https://doi.org/10.1177/0272989X13501558)](figs/discrete_time_corrections_compare.jpeg)
+
+## Today
+
+-   Capturing health-economic outcomes
+
+-   Correcting discrete time error
+
+-   **Capturing epidemiological outcomes**
+
+-   Differential equation models
+
+## Why capture epidemiologic outcomes
+
+-   Measure of intervention effectiveness
+
+-   Of interest to decision makers
+
+-   Can used to calibrate or validate your model (more later)
+
+**Examples**: survival, prevalence, incidence, lifetime risk
+
+## Survival
+
+-   Number of people not dead at time $t$
+
+-   For each cycle, sum all states (columns of $M$ matrix) except dead
+
+    -   Equivalently, cohort size minus number in dead state
+
+## Remaining life expectancy
+
+Expected number of years before death. Integral of survival:
+
+$$
+LE = \int_{t=0}^\infty S(t)
+$$
+
+In discrete time can calculate as:
+
+$$
+LE = \Sigma_{t=0}^\infty S(t)
+$$
+
+For expected age at death, must add cohorts age at $t=0$.
+
+## Prevalence
+
+-   Proportion of living population in a health state at a specific time.
+
+-   Calculated as ratio of number in state i over number in any state other than dead
+
+-   If multiple model states correspond to health state (e.g., tunnel states), must add them together for the numerator
+
+## Incidence
+
+-   Proportion of population entering health state at $t$
+
+-   For a state $j$:
+
+    -   $m_{t-1} P[:,j]$ is the number entering or staying in state $j$ in cycle $t$
+
+    -   $m_{t-1} P[j,j]$ is the number staying in state $j$ in cycle $t$
+
+    -   $m_{t-1} P[:,j] - m_{t-1} P[j,j]$ is the number entering state $j$ in cycle $t$
+
+-   Divide by number alive at time $t$ to make it a proportion
+
+## Today
+
+-   Capturing health-economic outcomes
+
+-   Correcting discrete time error
+
+-   Capturing epidemiological outcomes
+
+-   **Differential equation models**
+
+## Differential equation models
+
+-   Most common **continuous time** cohort models
+
+-   Transitions depend on how cohort distributed across states (compartments)
+
+-   Very useful for modeling epidemics
+
+-   Often approximated with difference equations
+
+## Differential eqn vs. (semi-)Markov
+
+Similarities
+
+-   Individual in one state (compartment) at a time
+
+-   Individuals in state treated identically
+
+-   Transition between states over time
+
+Difference:
+
+-   Continuous time (unless using difference eqn approximation)
+
+-   Transition rates depend how population cohort is distributed across states in that instant
+
+## SIR model
+
+Three states: [**S**]{.underline}usceptible, [**I**]{.underline}nfectious, [**R**]{.underline}emoved (recovered or dead)
+
+Infection rate $\beta$ governs S $\rightarrow$ I
+
+Removal rate $\mu$ governs S $\rightarrow$ R
+
+![](sir_compartments.png)
+
+## Differential equations for SIR
+
+::: columns
+::: {.column width="40%"}
+$$
+\begin{aligned}
+&\frac{dS}{dt}= -\beta S I\\
+&\frac{dI}{dt} = \beta S I - \mu I\\
+&\frac{dR}{dt} = \mu I
+\end{aligned}
+$$
+:::
+
+::: {.column width="60%"}
+$$
+\begin{aligned}
+&S(t+m) = S(t) + \int_t^m -\beta S I dt\\
+&I(t+m) = I(t) + \int_t^m (\beta S I - \mu I)dt\\
+&R(t+m) = R(t) + \int_t^m \mu I dt
+\end{aligned}
+$$
+:::
+:::
+
+![](sir_compartments.png)
+
+## SIR
+
+![](figs/sir_slide.png)
+
+## Bigger R0 means bigger and faster epidemic
+
+![](R0_comparison.png)
+
+## Difference equations: a discrete approximation
+
+::: columns
+::: {.column width="60%"}
+$$
+\begin{aligned}
+&S(t+m) = S(t) + \int_t^m -\beta S I dt\\
+&I(t+m) = I(t) + \int_t^m (\beta S I - \mu I)dt\\
+&R(t+m) = R(t) + \int_t^m \mu I dt
+\end{aligned}
+$$
+:::
+
+::: {.column width="40%"}
+$$
+\begin{aligned}
+&S_t = S_{t-1} -\beta^* S_{t-1} I_{t_1}\\
+\\
+&I_t = I_{t-1} + \beta^* S_{t-1} I_{t-1} - \mu^* I_{t-1}\\
+\\
+&R_t = R_{t-1} + \mu^* I_{t-1}
+\end{aligned}
+$$
+:::
+:::
+
+$\beta^*$ and $\mu^*$ are discrete analogs for $\beta$ and $\mu$ and their value depends on the cycle length.
+
+## Open cohorts models
+
+-   While (Semi)Markov models usually closed, differential eqn models can be open
+
+-   People enter (born, age in, get condition) and leave (die, age out)
+
+-   Cohort size not constant
+
+![](demographic_sir.png)
+
+## Age-structuring
+
+-   In (Semi-)Markov models, usually build separate models to capture age cohorts
+
+-   For differential eqn model, may need to put age groups in same model for proper transition dynamics
+
+![](figs/age_structured_SIR.png)
+
+## Recap
+
+-   If transitions or rewards are time-varying, can create 3D arrays and select "slice" for each cycle in a loop
+
+-   Cycle tree method corrects discrete time error using a modified transition reward matrix
+
+-   Epidemiological measures can be calculated from a cohort model
+
+-   Differential (difference) equation models useful when distribution of population across states influences transitions, like in an epidemic
+
+## Logistics
+
+-   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15
+-   Assignment 2 due Wednesday 9/27
+    -   Trickier; you have more time for a reason!
+-   Office hours 1:15 - 2pm, room #1122

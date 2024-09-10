@@ -8,10 +8,10 @@
 <link href="cohorts_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="cohorts_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="cohorts_2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-09-14">
+  <meta name="dcterms.date" content="2024-09-12">
   <title>Cohort models 2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="cohorts_2_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="cohorts_2_files/libs/revealjs/dist/theme/quarto.css">
   <link href="cohorts_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="cohorts_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="cohorts_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -402,23 +403,23 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-09-14</p>
+  <p class="date">2024-09-12</p>
 </section>
 <section id="packages" class="slide level2">
 <h2>Packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(heemod) <span class="co">#health economic markov models</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyr) <span class="co">#for spread function for wide-to-long table formating</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(expm) <span class="co">#raise matrices to exponents with %^%</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#use install.packages("Package") for any you don't have already</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(heemod) <span class="co">#health economic markov models</span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyr) <span class="co">#for spread function for wide-to-long table formating</span></span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
+<span id="cb1-4"><a href=""></a><span class="fu">library</span>(expm) <span class="co">#raise matrices to exponents with %^%</span></span>
+<span id="cb1-5"><a href=""></a></span>
+<span id="cb1-6"><a href=""></a><span class="co">#use install.packages("Package") for any you don't have already</span></span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="recall-specifying-a-discrete-time-cohort-state-transition-model" class="slide level2">
-<h2>Recall: Specifying a discrete time cohort state transition model</h2>
+<section id="recall-specifying-a-discrete-time-cstm" class="slide level2">
+<h2>Recall: Specifying a discrete time CSTM</h2>
 <p>Transition matrix (<span class="math inline">\(n_s \times n_s\)</span>, where <span class="math inline">\(n_s\)</span> is the number of states)</p>
 <p><span class="math display">\[
 P = \begin{array}{c}\begin{matrix}Healthy &amp; moderate &amp; severe &amp; dead \end{matrix}
@@ -434,8 +435,8 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <p>Initial distribution: <span class="math inline">\(m_0 = \begin{bmatrix} 2000 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}\)</span></p>
 <p>Cycle length: 1 year; Number of cycles: <span class="math inline">\(T=20\)</span></p>
 </section>
-<section id="recall-running-a-discrete-time-cohort-state-transition-model" class="slide level2">
-<h2>Recall: Running a discrete time cohort state transition model</h2>
+<section id="recall-running-a-discrete-time-cstm" class="slide level2">
+<h2>Recall: Running a discrete time CSTM</h2>
 <p>Matrix <span class="math inline">\(M\)</span> stores cohort dist’n after each cycle</p>
 <ul>
 <li><p><span class="math inline">\(n_s\)</span> columns and <span class="math inline">\(T+1\)</span> rows</p></li>
@@ -477,17 +478,17 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <li><p>Prob. of other cause death changes with age</p></li>
 <li><p>Usually approximated with country-specific life tables</p></li>
 <li><p><a href="https://www150.statcan.gc.ca/n1/pub/84-537-x/84-537-x2021001-eng.htm">Canadian life tables available from StatsCan</a></p></li>
-<li><p>Use “Death probability between age X and X+1”</p></li>
+<li><p>Use column “Death probability between age X and X+1”</p></li>
 </ul>
 </section>
 <section id="life-table-data" class="slide level2">
 <h2>2020 life table data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>t_other_cause_death <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"prob_death_by_age_2020_StatsCan.csv"</span>,</span>
-<span id="cb2-2"><a href="#cb2-2"></a>                                 <span class="at">sep=</span><span class="st">","</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>t_other_cause_death<span class="sc">$</span>prob_death<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(t_other_cause_death<span class="sc">$</span>prob_death)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_other_cause_death, <span class="fu">aes</span>(<span class="at">x=</span>Age, <span class="at">y=</span>prob_death))<span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>t_other_cause_death <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"prob_death_by_age_2020_StatsCan.csv"</span>,</span>
+<span id="cb2-2"><a href=""></a>                                 <span class="at">sep=</span><span class="st">","</span>)</span>
+<span id="cb2-3"><a href=""></a>t_other_cause_death<span class="sc">$</span>prob_death<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(t_other_cause_death<span class="sc">$</span>prob_death)</span>
+<span id="cb2-4"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_other_cause_death, <span class="fu">aes</span>(<span class="at">x=</span>Age, <span class="at">y=</span>prob_death))<span class="sc">+</span></span>
+<span id="cb2-5"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="cohorts_2_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
@@ -496,7 +497,7 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <ul>
 <li><p>Use if some transitions differ by cycle</p>
 <ul>
-<li>Like other cause death</li>
+<li>E.G., other cause death</li>
 </ul></li>
 <li><p>A “stack” of transition matrices, one for each cycle</p></li>
 <li><p><span class="math inline">\(P[i,j,t]\)</span>: transition prob. from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p>
@@ -507,8 +508,8 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 </ul></li>
 </ul>
 </section>
-<section id="one-approach-to-age-specific-other-cause-death" class="slide level2">
-<h2>One approach to age-specific other cause death</h2>
+<section id="one-approach-to-age-specific-ocm" class="slide level2">
+<h2>One approach to age-specific OCM</h2>
 <p>Multiply all transitions by <span class="math inline">\((1 - P_{OCM})\)</span> (age-specific probability of other cause mortality), then add <span class="math inline">\(P_{OCM}\)</span> to the probability of transitioning to death.</p>
 <p>For <span class="math inline">\(P_{i \rightarrow j}\)</span> for all <span class="math inline">\(i,j \neq Death\)</span>:</p>
 <p><span class="math display">\[
@@ -545,58 +546,58 @@ P_{i \rightarrow D}^{adjusted} = P_{i \rightarrow D}^{orig} (1 - P_{OCM})+P_{OCM
 \end{bmatrix}
 \]</span></p>
 </section>
-<section id="ex-model-from-last-class" class="slide level2">
-<h2>Ex: model from last class</h2>
+<section id="ex-model-from-last-class-no-ocm" class="slide level2">
+<h2>Ex: model from last class (no OCM)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
-<span id="cb3-4"><a href="#cb3-4"></a>n_cycles <span class="ot">=</span> <span class="dv">20</span>; p_HtoM <span class="ot">=</span> <span class="fl">0.2</span>; p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span>; p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
-<span id="cb3-6"><a href="#cb3-6"></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
-<span id="cb3-8"><a href="#cb3-8"></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
-<span id="cb3-9"><a href="#cb3-9"></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
-<span id="cb3-10"><a href="#cb3-10"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names, v_state_names))</span>
-<span id="cb3-11"><a href="#cb3-11"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb3-12"><a href="#cb3-12"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">21</span>){</span>
-<span id="cb3-14"><a href="#cb3-14"></a>  M[i,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> (i<span class="dv">-1</span>))</span>
-<span id="cb3-15"><a href="#cb3-15"></a>}</span>
-<span id="cb3-16"><a href="#cb3-16"></a>t_trace <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M) <span class="co">#convert from matrix</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a>t_trace<span class="sc">$</span>Cycle_num <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span> <span class="co">#add col for cycle number</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a>t_trace <span class="ot">&lt;-</span> t_trace <span class="sc">|&gt;</span> <span class="co">#Long to wide</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a>  <span class="fu">gather</span>(<span class="at">key=</span>State, <span class="at">value=</span>Count, H<span class="sc">:</span>D) <span class="co">#wide to long format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
+<span id="cb3-2"><a href=""></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
+<span id="cb3-3"><a href=""></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
+<span id="cb3-4"><a href=""></a>n_cycles <span class="ot">=</span> <span class="dv">20</span>; p_HtoM <span class="ot">=</span> <span class="fl">0.2</span>; p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span>; p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span></span>
+<span id="cb3-5"><a href=""></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
+<span id="cb3-6"><a href=""></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
+<span id="cb3-7"><a href=""></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
+<span id="cb3-8"><a href=""></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
+<span id="cb3-9"><a href=""></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
+<span id="cb3-10"><a href=""></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names, v_state_names))</span>
+<span id="cb3-11"><a href=""></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
+<span id="cb3-12"><a href=""></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb3-13"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">21</span>){</span>
+<span id="cb3-14"><a href=""></a>  M[i,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> (i<span class="dv">-1</span>))</span>
+<span id="cb3-15"><a href=""></a>}</span>
+<span id="cb3-16"><a href=""></a>t_trace <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M) <span class="co">#convert from matrix</span></span>
+<span id="cb3-17"><a href=""></a>t_trace<span class="sc">$</span>Cycle_num <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span> <span class="co">#add col for cycle number</span></span>
+<span id="cb3-18"><a href=""></a>t_trace <span class="ot">&lt;-</span> t_trace <span class="sc">|&gt;</span> <span class="co">#Long to wide</span></span>
+<span id="cb3-19"><a href=""></a>  <span class="fu">gather</span>(<span class="at">key=</span>State, <span class="at">value=</span>Count, H<span class="sc">:</span>D) <span class="co">#wide to long format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ex-transition-array-with-ocm" class="slide level2">
 <h2>Ex: transition array with OCM</h2>
 <p>Cycle length is 1 year, cohort is age 50 at time 0.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Pre-allocate 3D transition array</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>arr_P <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,</span>
-<span id="cb4-3"><a href="#cb4-3"></a>              <span class="at">dim=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">20</span>),</span>
-<span id="cb4-4"><a href="#cb4-4"></a>              <span class="at">dimnames=</span><span class="fu">list</span>(v_state_names, v_state_names, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
-<span id="cb4-5"><a href="#cb4-5"></a></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># Fill in array with transition matrix for each cycle</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="cf">for</span>(cycle <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){<span class="co">#} 1:20){</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="co">#.  cohort age at start of cycle</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  age <span class="ot">=</span> <span class="dv">49</span><span class="sc">+</span>cycle</span>
-<span id="cb4-10"><a href="#cb4-10"></a>  <span class="co">#.  get prob. other cause mortality from table</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>  p_OCM <span class="ot">&lt;-</span> t_other_cause_death[t_other_cause_death<span class="sc">$</span>Age<span class="sc">==</span>age,<span class="st">"prob_death"</span>]</span>
-<span id="cb4-12"><a href="#cb4-12"></a>  <span class="co">#.  Adjust all probs down to account for OCM</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>  mat_P_this_year <span class="ot">=</span> mat_P<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_OCM)</span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="co">#.  Adjust probs into death state up to account for OCM</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>  mat_P_this_year[,<span class="st">"D"</span>]<span class="ot">&lt;-</span>mat_P_this_year[,<span class="st">"D"</span>]<span class="sc">+</span>p_OCM</span>
-<span id="cb4-16"><a href="#cb4-16"></a>  <span class="co">#.  Put it in the transition array</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a>  arr_P[ , , cycle] <span class="ot">&lt;-</span> mat_P_this_year</span>
-<span id="cb4-18"><a href="#cb4-18"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># Pre-allocate 3D transition array</span></span>
+<span id="cb4-2"><a href=""></a>arr_P <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,</span>
+<span id="cb4-3"><a href=""></a>              <span class="at">dim=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">20</span>),</span>
+<span id="cb4-4"><a href=""></a>              <span class="at">dimnames=</span><span class="fu">list</span>(v_state_names, v_state_names, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
+<span id="cb4-5"><a href=""></a></span>
+<span id="cb4-6"><a href=""></a><span class="co"># Fill in array with transition matrix for each cycle</span></span>
+<span id="cb4-7"><a href=""></a><span class="cf">for</span>(cycle <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb4-8"><a href=""></a>  <span class="co">#.  cohort age at start of this cycle</span></span>
+<span id="cb4-9"><a href=""></a>  age <span class="ot">=</span> <span class="dv">50</span><span class="sc">+</span>cycle<span class="dv">-1</span></span>
+<span id="cb4-10"><a href=""></a>  <span class="co">#.  get prob. other cause mortality from table</span></span>
+<span id="cb4-11"><a href=""></a>  p_OCM <span class="ot">&lt;-</span> t_other_cause_death[t_other_cause_death<span class="sc">$</span>Age<span class="sc">==</span>age,<span class="st">"prob_death"</span>]</span>
+<span id="cb4-12"><a href=""></a>  <span class="co">#.  Adjust all probs DOWN to "make room" for OCM</span></span>
+<span id="cb4-13"><a href=""></a>  mat_P_this_year <span class="ot">=</span> mat_P<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_OCM)</span>
+<span id="cb4-14"><a href=""></a>  <span class="co">#.  Adjust prob. transitioning to death UP to account for OCM</span></span>
+<span id="cb4-15"><a href=""></a>  mat_P_this_year[,<span class="st">"D"</span>]<span class="ot">&lt;-</span>mat_P_this_year[,<span class="st">"D"</span>]<span class="sc">+</span>p_OCM</span>
+<span id="cb4-16"><a href=""></a>  <span class="co">#.  Put adjusted transition matrix into the transition array</span></span>
+<span id="cb4-17"><a href=""></a>  arr_P[ , , cycle] <span class="ot">&lt;-</span> mat_P_this_year</span>
+<span id="cb4-18"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="age-specific-death-t-array" class="slide level2">
 <h2>Age-specific death: T array</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>arr_P <span class="co"># inspect transition array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>arr_P <span class="co"># inspect transition array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>, , 1
 
@@ -758,9 +759,9 @@ M 0.394636 0.1874521 0.394636 0.0232759
 S 0.098659 0.0000000 0.591954 0.3093870
 D 0.000000 0.0000000 0.000000 1.0000000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#Verify that for each cycle, rows of transition matrix sum to 1</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="cf">for</span> (cycle <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">print</span>(<span class="fu">rowSums</span>(arr_P[ , , cycle]))    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co">#Verify that for each cycle, rows of transition matrix sum to 1</span></span>
+<span id="cb7-2"><a href=""></a><span class="cf">for</span> (cycle <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb7-3"><a href=""></a>  <span class="fu">print</span>(<span class="fu">rowSums</span>(arr_P[ , , cycle]))    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>H M S D 
 1 1 1 1 
@@ -808,36 +809,36 @@ H M S D
 <section id="age-specific-death-m-matrix" class="slide level2">
 <h2>Age-specific death: M matrix</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>M_OCM <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb9-2"><a href="#cb9-2"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb9-3"><a href="#cb9-3"></a>M_OCM[<span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0 <span class="co">#save initial distribution of cohort</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){ <span class="co">#calculate distribution after each cycle</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  M_OCM[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> M_OCM[i,] <span class="sc">%*%</span> arr_P[ , , i]</span>
-<span id="cb9-6"><a href="#cb9-6"></a>}</span>
-<span id="cb9-7"><a href="#cb9-7"></a>M_OCM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>M_OCM <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">21</span>,</span>
+<span id="cb9-2"><a href=""></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>,<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>), <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb9-3"><a href=""></a>M_OCM[<span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0 <span class="co">#save initial distribution of cohort</span></span>
+<span id="cb9-4"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){ <span class="co">#calculate distribution after each cycle</span></span>
+<span id="cb9-5"><a href=""></a>  M_OCM[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> M_OCM[i,] <span class="sc">%*%</span> arr_P[ , , i]</span>
+<span id="cb9-6"><a href=""></a>}</span>
+<span id="cb9-7"><a href=""></a>M_OCM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           H        M        S          D
-0  2000.0000   0.0000   0.0000    0.00000
-1  1595.8240 398.9560   0.0000    5.22000
-2  1432.1914 393.8526 159.1324   14.82359
-3  1315.1970 360.1720 252.2513   72.37966
-4  1217.4208 330.3782 294.4447  157.75631
-5  1131.4785 305.1627 307.7156  255.64316
-6  1053.9249 283.1765 305.5075  357.39107
-7   982.8062 263.4746 295.3265  458.39271
-8   916.9577 245.4943 281.2943  556.25362
-9   855.6197 228.8922 265.6475  649.84068
-10  798.2672 213.4502 249.5852  738.69736
-11  744.5260 199.0257 233.7416  822.70660
-12  694.1063 185.5176 218.4394  901.93671
-13  646.7506 172.8442 203.8256  976.57966
-14  602.2535 160.9433 189.9609 1046.84236
-15  560.4174 149.7582 176.8521 1112.97226
-16  521.0734 139.2418 164.4839 1175.20089
-17  484.0600 129.3495 152.8262 1233.76424
-18  449.2280 120.0410 141.8434 1288.88754
-19  416.4399 111.2790 131.4984 1340.78275
-20  385.5725 103.0306 121.7557 1389.64121</code></pre>
+<pre><code>            H        M        S          D
+t0  2000.0000   0.0000   0.0000    0.00000
+t1  1595.8240 398.9560   0.0000    5.22000
+t2  1432.1914 393.8526 159.1324   14.82359
+t3  1315.1970 360.1720 252.2513   72.37966
+t4  1217.4208 330.3782 294.4447  157.75631
+t5  1131.4785 305.1627 307.7156  255.64316
+t6  1053.9249 283.1765 305.5075  357.39107
+t7   982.8062 263.4746 295.3265  458.39271
+t8   916.9577 245.4943 281.2943  556.25362
+t9   855.6197 228.8922 265.6475  649.84068
+t10  798.2672 213.4502 249.5852  738.69736
+t11  744.5260 199.0257 233.7416  822.70660
+t12  694.1063 185.5176 218.4394  901.93671
+t13  646.7506 172.8442 203.8256  976.57966
+t14  602.2535 160.9433 189.9609 1046.84236
+t15  560.4174 149.7582 176.8521 1112.97226
+t16  521.0734 139.2418 164.4839 1175.20089
+t17  484.0600 129.3495 152.8262 1233.76424
+t18  449.2280 120.0410 141.8434 1288.88754
+t19  416.4399 111.2790 131.4984 1340.78275
+t20  385.5725 103.0306 121.7557 1389.64121</code></pre>
 </div>
 </div>
 </section>
@@ -893,22 +894,22 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Alternative: 2D matrix in-loop</h2>
 <p>If you don’t like 3D arrays, can instead generate cycle-specific 2D matrices within a for loop</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#Pseudocode, won't run without modifications</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>mat_M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">nrow =</span> n_cycles<span class="sc">+</span><span class="dv">1</span>,</span>
-<span id="cb11-3"><a href="#cb11-3"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span>n_cycles, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb11-4"><a href="#cb11-4"></a>v_costs_per_cycle <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> ncycles, <span class="at">ncol=</span><span class="dv">1</span>)</span>
-<span id="cb11-5"><a href="#cb11-5"></a>v_QALYs_per_cycle <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> ncycles, <span class="at">ncol=</span><span class="dv">1</span>)</span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-7"><a href="#cb11-7"></a>mat_M[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> m_0 <span class="co"># initial distribution</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_cycles){</span>
-<span id="cb11-9"><a href="#cb11-9"></a>  mat_P_cycle <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># Calculate transition matrix for this cycle</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a>  mat_C_cycle <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># Calculate cost reward matrix for this cycle</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a>  mat_Q_cycle <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># Calculate QALY reward matrix for this cycle</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a>  </span>
-<span id="cb11-13"><a href="#cb11-13"></a>  M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> M[i,] <span class="sc">%*%</span> mat_T_cycle <span class="co">#update cohort distribution</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a>  v_costs_per_cycle[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="sc">%*%</span> mat_C_cycle) <span class="co">#calculate costs</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a>  v_QALYs_per_cycle[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="sc">%*%</span> mat_Q_cycle) <span class="co">#calculate QALYs</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co">#Pseudocode, won't run without modifications</span></span>
+<span id="cb11-2"><a href=""></a>mat_M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">nrow =</span> n_cycles<span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb11-3"><a href=""></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span>n_cycles, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb11-4"><a href=""></a>v_costs_per_cycle <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> ncycles, <span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb11-5"><a href=""></a>v_QALYs_per_cycle <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> ncycles, <span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb11-6"><a href=""></a></span>
+<span id="cb11-7"><a href=""></a>mat_M[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> m_0 <span class="co"># initial distribution</span></span>
+<span id="cb11-8"><a href=""></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_cycles){</span>
+<span id="cb11-9"><a href=""></a>  mat_P_cycle <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># Calculate transition matrix for this cycle</span></span>
+<span id="cb11-10"><a href=""></a>  mat_C_cycle <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># Calculate cost reward matrix for this cycle</span></span>
+<span id="cb11-11"><a href=""></a>  mat_Q_cycle <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># Calculate QALY reward matrix for this cycle</span></span>
+<span id="cb11-12"><a href=""></a>  </span>
+<span id="cb11-13"><a href=""></a>  M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> M[i,] <span class="sc">%*%</span> mat_T_cycle <span class="co">#update cohort distribution</span></span>
+<span id="cb11-14"><a href=""></a>  v_costs_per_cycle[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="sc">%*%</span> mat_C_cycle) <span class="co">#calculate costs</span></span>
+<span id="cb11-15"><a href=""></a>  v_QALYs_per_cycle[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="sc">%*%</span> mat_Q_cycle) <span class="co">#calculate QALYs</span></span>
+<span id="cb11-16"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="today-2" class="slide level2">
@@ -930,8 +931,8 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 </section>
 <section id="discrete-time-error-1" class="slide level2">
 <h2>Discrete time error</h2>
-
-<img data-src="discretation_error_updown.png" class="r-stretch quarto-figure-center"><p><a href="www.doi.org/10.1177/0272989X13501558">Naimark et. al.&nbsp;2013</a></p>
+<p><a href="www.doi.org/10.1177/0272989X13501558"><img data-src="figs/discretation_error_updown.jpeg"></a></p>
+<p><a href="https://www.doi.org/10.1177/0272989X13501558">Naimark et. al.&nbsp;2013</a></p>
 </section>
 <section id="fix-1-shorter-cycle-lengths" class="slide level2">
 <h2>Fix 1: Shorter cycle lengths</h2>
@@ -941,8 +942,8 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 </section>
 <section id="solutions-to-discrete-time-error" class="slide level2">
 <h2>Solutions to discrete time error</h2>
-
-<img data-src="discretization_corrections.jpg" class="r-stretch quarto-figure-center"><p><a href="https://doi.org/10.1101/2020.07.27.20162651">Srivastava et. al.&nbsp;2020</a></p>
+<p><a href="https://doi.org/10.1101/2020.07.27.20162651"><img data-src="figs/discretization_corrections.jpg" width="730"></a></p>
+<p><a href="https://doi.org/10.1101/2020.07.27.20162651">Srivastava et. al.&nbsp;2020</a></p>
 </section>
 <section id="simpsons-method" class="slide level2">
 <h2>Simpson’s method</h2>
@@ -952,7 +953,7 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <li><p>Multiply reward by 1/3 for first and last cycle</p></li>
 <li><p>In between, multiply by 4/3 for odd cycles and 2/3 for even</p></li>
 </ul>
-<p>S<strong>impson’s 3/8 method</strong> (cubic approximation; requires that number of cycles are multiple of 3):</p>
+<p><strong>Simpson’s 3/8 method</strong> (cubic approximation; requires that number of cycles are multiple of 3):</p>
 <ul>
 <li><p>Multiply reward by 3/8 in first and last cycle</p></li>
 <li><p>In between, multiply by 6/8 if mult. of 3 and 9/8 otherwise</p></li>
@@ -962,7 +963,7 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Cycle tree approach</h2>
 <ul>
 <li><p><strong>Intuition:</strong> If individuals make transitions halfway through a cycle on average, they should incur half the cost (QALY) associated with their “from” state and half the cost (QALY) of their “to” state</p></li>
-<li><p>Can be implemented as like transition rewards in a reward matrix</p></li>
+<li><p>Can be implemented similarly to transition rewards in a reward matrix</p></li>
 </ul>
 <p><span class="math inline">\(\hat{C}_t =m_{t-1} (P \bigodot C)\)</span> or <span class="math inline">\(\hat{Q}_t =m_{t-1} (P \bigodot Q)\)</span> with C and Q as given on next slide</p>
 </section>
@@ -989,7 +990,7 @@ q_H &amp; .5q_H+.5q_M &amp; .5q_H+.5q_S &amp; .5q_H+.5q_D\\
 <h2>Comparison of discrete time correction methods</h2>
 <p>Simpson rule and cycle tree method both good. I find cycle tree method most intuitive.</p>
 
-<img data-src="discrete_time_correction_compare.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="10.1177/0272989X13501558">Naimark et. al.&nbsp;2013</a></p></section>
+<img data-src="figs/discrete_time_corrections_compare.jpeg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://doi.org/10.1177/0272989X13501558">Naimark et. al.&nbsp;2013</a></p></section>
 <section id="today-3" class="slide level2">
 <h2>Today</h2>
 <ul>
@@ -1108,14 +1109,13 @@ LE = \Sigma_{t=0}^\infty S(t)
 &amp;R(t+m) = R(t) + \int_t^m \mu I dt
 \end{aligned}
 \]</span></p>
-</div>
-</div>
+</div></div>
 
 <img data-src="sir_compartments.png" class="r-stretch"></section>
 <section id="sir" class="slide level2">
 <h2>SIR</h2>
 
-<img data-src="sir_slide.png" class="r-stretch"></section>
+<img data-src="figs/sir_slide.png" class="r-stretch"></section>
 <section id="bigger-r0-means-bigger-and-faster-epidemic" class="slide level2">
 <h2>Bigger R0 means bigger and faster epidemic</h2>
 
@@ -1141,8 +1141,7 @@ LE = \Sigma_{t=0}^\infty S(t)
 &amp;R_t = R_{t-1} + \mu^* I_{t-1}
 \end{aligned}
 \]</span></p>
-</div>
-</div>
+</div></div>
 <p><span class="math inline">\(\beta^*\)</span> and <span class="math inline">\(\mu^*\)</span> are discrete analogs for <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\mu\)</span> and their value depends on the cycle length.</p>
 </section>
 <section id="open-cohorts-models" class="slide level2">
@@ -1161,7 +1160,7 @@ LE = \Sigma_{t=0}^\infty S(t)
 <li><p>For differential eqn model, may need to put age groups in same model for proper transition dynamics</p></li>
 </ul>
 
-<img data-src="age_structured_SIR.png" class="r-stretch"></section>
+<img data-src="figs/age_structured_SIR.png" class="r-stretch"></section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
@@ -1175,14 +1174,16 @@ LE = \Sigma_{t=0}^\infty S(t)
 <h2>Logistics</h2>
 <ul>
 <li>Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15</li>
-<li>Assignment 2 due Wednesday 9/16
+<li>Assignment 2 due Wednesday 9/27
 <ul>
 <li>Trickier; you have more time for a reason!</li>
 </ul></li>
 <li>Office hours 1:15 - 2pm, room #1122</li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -1211,7 +1212,6 @@ LE = \Sigma_{t=0}^\infty S(t)
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1466,18 +1466,7 @@ LE = \Sigma_{t=0}^\infty S(t)
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1509,11 +1498,50 @@ LE = \Sigma_{t=0}^\infty S(t)
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1523,8 +1551,17 @@ LE = \Sigma_{t=0}^\infty S(t)
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1538,7 +1575,11 @@ LE = \Sigma_{t=0}^\infty S(t)
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

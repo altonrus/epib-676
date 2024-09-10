@@ -2,7 +2,7 @@
 title: "Cohort models 1"
 subtitle: "EPIB  676 session 4, McGill University"
 author: "Alton Russell"
-date: "12 Sep 2023"
+date: "10 Sep 2024"
 format: revealjs
 editor: visual
 ---
@@ -20,6 +20,7 @@ editor: visual
 ```{r}
 #| echo: true
 library(heemod) #health economic markov models
+#. also need to install 
 library(expm) #raise matrices to exponents with %^%
 library(tidyr) #using 'spread' for wide-to-long table formating
 library(ggplot2) #plotting
@@ -33,7 +34,7 @@ theme_set(theme_bw()) #set ggplot theme
 
 -   Dynamic mathematical model
 
--   A hypothetical cohort of individuals move between health states over time.
+-   Hypothetical cohort of individuals move between states over time.
 
 -   Classical example is the Markov model, where transition probabilities
 
@@ -53,11 +54,11 @@ theme_set(theme_bw()) #set ggplot theme
 
 ::: columns
 ::: {.column width="50%"}
-![](ghana_markov_schematics.png)
+![](figs/ghana_markov_schematics.png)
 :::
 
 ::: {.column width="50%"}
-TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis.
+TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis, HCC=hepatocellular carcinoma.
 
 [Russell et. al. 2021](www.doi.org/0.1111/trf.16704)
 :::
@@ -69,7 +70,7 @@ TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effecti
 
 -   Mutually exclusive and exhaustive
 
--   Individuals in the same state treated as **identical**
+-   Individuals in the same state treated **identically**
 
     -   same costs, health outcomes
 
@@ -77,7 +78,7 @@ TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effecti
 
 ## Transitions, cycles, time horizon
 
--   Only transition at end of a cycle
+-   Transition happen at the end of a cycle
 
 -   Cycle duration is design choice (1 second, day, month, quarter, year...)
 
@@ -248,11 +249,13 @@ TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effecti
 
 ## Transition matrix for HIV model
 
-![](hiv_transition_matrix.png)
+![](figs/hiv_transition_matrix.png)
 
 **Tunnel states:** no self loop
 
 **Absorbing states:** only self loop
+
+TU=treatment uptake; OCM=other-cause mortality; \# indicates probability is one minus other probabilities
 
 ## Initial state vector $m_0$
 
@@ -286,25 +289,11 @@ $$
 
 -   We need transition probabilities [specific to cycle length]{.underline}
 
--   We may have:
+-   Our data could be:
 
-    -   probability for different cycle length (2-year instead of 6 month)
+    -   Probability for different cycle length (2-year instead of 6 month)
 
-    -   rate (e.g., 200 events per person-year)
-
-## Converting rates to probabilities
-
-Generating an annual probablity $p(t)$ from an event rate $r$ with units events/year:
-
-$$
-p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
-$$
-
-Example:
-
--   In a population of 800, 87 became ill over a 2 year period
-
--   **What's the rate?**
+    -   Rate (e.g., 200 events per person-year)
 
 ## Converting rates to probabilities
 
@@ -318,7 +307,21 @@ Example:
 
 -   In a population of 800, 87 became ill over a 2 year period
 
--   $r = 87/(2 \times 800) = 0.0544$ illnesses/year
+-   **What's the rate (events per person-year)?**
+
+## Converting rates to probabilities
+
+Generating an annual probablity $p(t)$ from an event rate $r$ with units events/year:
+
+$$
+p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
+$$
+
+Example:
+
+-   In a population of 800, 87 became ill over a 2 year period
+
+-   $r = 87/(2 \times 800) = 0.0544$ illnesses/person-year
 
 -   **What's the transition probability for 0.5 year cycle length?**
 
@@ -344,7 +347,7 @@ Example:
 
 -   Must convert to a rate then convert back to probability (with new cycle length)
 
-**Example:** One-year prob. of developing cancer is 0.2. What transition prob. do I use with a **1-month** cycle length?
+**Example:** 1-year prob. of developing cancer is 0.2. What transition prob. do I use with a **1-month** cycle length?
 
 $$
 p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
@@ -527,13 +530,12 @@ Use matrix $M$ to store cohort distribution after each cycle:
 
 -   $n_s$ columns corresponding to our states
 
--   $T+1$ rows corresponding to our state distribution after cycle $0, 1, ... t,…,T$
+-   $T+1$ rows contain state distribution after cycle $0, 1, ... t,…,T$ (i.e., row $t$ contains $m_t$)
 
 ```{r}
 #| echo: true
-M = matrix(rep(0, 4*21), ncol=4,
-           dimnames = list(0:20, c("H","M","S","D")))
-
+M = matrix(0, ncol=4, nrow = 20+1,
+           dimnames = list(paste0("t",0:20), c("H","M","S","D")))
 M
 ```
 
@@ -585,7 +587,7 @@ Costs and QALYs can be added to a cohort model in two ways:
 
 -   Per transition (transition reward/toll)
 
-Must assign same rewards to everyone in the same state or making transition. People in same state or making same transition treated as identical!
+Everyone in same state or making same transition in a cycle gets the same reward.
 
 ## State reward vector
 
@@ -625,13 +627,13 @@ v_qaly_states = matrix(c(1, 0.8, 0.6, 0), nrow=1,
 
 ```
 
-## Compute rewards as model runs
+## Compute rewards as the model runs
 
 To compute total costs/QALYs in cycle $t$ by state:
 
 -   Create $T \times n_s$ matrices $M_C$ and $M_Q$
 
--   $M_C[t, j]$ is sum of costs incurred during cycle $t$ for people ending the cycle in state $j$.
+-   $M_C[t, j]$ stores the total costs incurred during cycle $t$ for people who ended the cycle in state $j$.
 
 -   Row $M_C[t, \text{ }] = c \bigodot m_t$
 
@@ -647,15 +649,15 @@ $\bigodot$ indicates element-wise multiplication
 #| echo: true
 #m_M will store dist'n after cycle t; first row is cycle 0
 m_M = matrix(0, nrow=21, ncol=4,
-           dimnames = list(0:20, c("H","M","S","D")))
+           dimnames = list(paste0("t",0:20), c("H","M","S","D")))
 m_M[1,] <- m_0
 
 #m_cost_by_cyclestate & m_qalys_by_cyclestate will store 
 #.  rewards gained in cycle t for each state
 m_cost_by_cyclestate = matrix(0, nrow=20, ncol=4,
-           dimnames = list(1:20, c("H","M","S","D")))
+           dimnames = list(paste0("t",1:20), c("H","M","S","D")))
 m_qalys_by_cyclestate = matrix(0, nrow=20, ncol=4,
-           dimnames = list(1:20, c("H","M","S","D")))
+           dimnames = list(paste0("t",1:20), c("H","M","S","D")))
 
 for (i in 1:20){
   m_t <- m_M[i,] %*% (mat_P %^% i) #m_M[i, ] is m_{t-1}
@@ -678,7 +680,7 @@ m_qalys_by_cyclestate
 
 To simulate cost/QALY rewards during transitions:
 
--   Create $n_s \times n_s$ reward matrix for each outcome (e.g., $C$ for cost, $Q$ for QALYs)
+-   Create $n_s \times n_s$ **"reward matrix"** for each outcome (e.g., $C$ for cost, $Q$ for QALYs)
 
     -   Set $C[\text{ }, j] \leftarrow c_j$ (state reward) for each column $j$
 
@@ -692,7 +694,26 @@ To simulate cost/QALY rewards during transitions:
 
 $\bigodot$ indicates element-wise multiplication
 
-## Ex: reward matrix w transition rewards
+## Ex: reward matrix WITHOUT transition rewards
+
+$$ 
+\textbf{C}= 
+\begin{bmatrix}
+c_H & c_M & c_S & c_D\\ 
+c_H & c_M & c_S & c_D\\ 
+c_H & c_M & c_S & c_D\\ 
+c_H & c_M & c_S & c_D
+\end{bmatrix},\\
+\textbf{Q} =
+\begin{bmatrix}
+q_H & q_M & q_S & q_D\\ 
+q_H & q_M & q_S & q_D\\ 
+q_H & q_M & q_S & q_D\\ 
+q_H & q_M & q_S & q_D
+\end{bmatrix}
+$$
+
+## Ex: reward matrix WITH transition rewards
 
 $$ 
 \textbf{C}= 
@@ -715,11 +736,11 @@ $$
 
 -   Must discount to get net present costs or QALYs
 
--   Can create "discount multiplier vector" to apply for cost and outcomes from each cycle
+-   Can create "discount multiplier vector" and apply to cost and outcomes from each cycle
 
 ```{r}
 #| echo: true
-disc_rate = 0.03; cycle_length = 0.5; n_cycles = 20
+disc_rate = 0.03; cycle_length = 0.5; n_cycles = 10
 disc_mults <- 1/((1+(disc_rate*cycle_length))^(1:n_cycles))
 disc_mults
 v_costs_per_cycle = rep(1000, n=10)
@@ -730,21 +751,18 @@ sum(v_costs_per_cycle*disc_mults)
 
 ```{r}
 #| echo: true
-disc_rate = 0.03; cycle_length = 1; n_cycles = 20
+disc_rate = 0.03; cycle_length = 1; n_cycles = 10
 disc_mults <- 1/((1+(disc_rate*cycle_length))^(1:n_cycles))
-#undiscounted cost by year
-rowSums(m_cost_by_cyclestate)
-#Discounted costs by year
-rowSums(m_cost_by_cyclestate)*disc_mults
-#Net present costs starting in cycle 1
-sum(rowSums(m_cost_by_cyclestate)*disc_mults)
+rowSums(m_cost_by_cyclestate[1:10,]) #undiscounted cost by year
+rowSums(m_cost_by_cyclestate[1:10,])*disc_mults #Discounted costs by year
+sum(rowSums(m_cost_by_cyclestate[1:10,])*disc_mults) #Net present costs starting in cycle 1
 ```
 
 ## Initial costs
 
 -   Often, we have initial costs at time 0
 
--   Example: intervention at time 0 has a cost, then cohort enters Markov model to understand post-transfusion outcomes/costs
+-   Example: Costs \$40 per person to vaccinate cohort at time 0, then cohort enters Markov model to understand post-vaccine outcomes/costs
 
 -   Can simply add initial cost to the net present costs from the model
 
@@ -759,19 +777,19 @@ sum(rowSums(m_cost_by_cyclestate)*disc_mults) + c_initial
 
 Important to get right, easy to get wrong. My convention:
 
--   matrix $M$ (cohort distribution) starts at 0, has $T+1$ rows
+-   matrix $M$ (cohort distribution) starts at [**cycle 0**]{.underline}, has $T+1$ rows
 
     -   Assign $m_0 \rightarrow M[1, \text{ }]$,
 
     -   Loop from 1 to $T$ to fill $M[2:(T+1),\text{ }]$
 
--   $M_C$ and $M_Q$ (cohort rewards) start at 1, have $T$ rows
+-   $M_C$ and $M_Q$ (cohort rewards) start at [**cycle 1**]{.underline}, have $T$ rows
 
-    -   Loop from 1 to $T$ to fill $M[1:T,\text{ }]$
+    -   Loop from 1 to $T$ to fill $M_C[1:T,\text{ }]$, $M_Q[1:T,\text{ }]$
 
 ## Recap
 
--   Cohort models: simulate cohort transitioning between states over time
+-   Cohort models simulate cohort transitioning between states over time
 
 -   If transitions are constant, it's a Markov model (can use the matrix solution)
 
@@ -781,7 +799,7 @@ Important to get right, easy to get wrong. My convention:
 
 ## Logistics
 
--   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15
--   Assignment 2 available; due Wednesday 9/26
-    -   Trickier; you have more time for a reason!
--   Office hours 1:15 - 2pm, room #1122
+-   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/13
+-   Assignment 2 available; due Wednesday 9/25
+    -   Past students found it to be most challenging
+-   Office hours 1:30 - 2:20pm, room #1103

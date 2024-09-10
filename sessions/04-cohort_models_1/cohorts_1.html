@@ -8,10 +8,10 @@
 <link href="cohorts_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="cohorts_1_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="cohorts_1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-09-12">
+  <meta name="dcterms.date" content="2024-09-10">
   <title>Cohort models 1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="cohorts_1_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="cohorts_1_files/libs/revealjs/dist/theme/quarto.css">
   <link href="cohorts_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="cohorts_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="cohorts_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -402,7 +403,7 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-09-12</p>
+  <p class="date">2024-09-10</p>
 </section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
@@ -415,21 +416,22 @@ Alton Russell
 <section id="packages" class="slide level2">
 <h2>Packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(heemod) <span class="co">#health economic markov models</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(expm) <span class="co">#raise matrices to exponents with %^%</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyr) <span class="co">#using 'spread' for wide-to-long table formating</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#use install.packages("Package") for any you don't have already</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(heemod) <span class="co">#health economic markov models</span></span>
+<span id="cb1-2"><a href=""></a><span class="co">#. also need to install </span></span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(expm) <span class="co">#raise matrices to exponents with %^%</span></span>
+<span id="cb1-4"><a href=""></a><span class="fu">library</span>(tidyr) <span class="co">#using 'spread' for wide-to-long table formating</span></span>
+<span id="cb1-5"><a href=""></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="co">#use install.packages("Package") for any you don't have already</span></span>
+<span id="cb1-8"><a href=""></a></span>
+<span id="cb1-9"><a href=""></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="cohort-state-transition-model" class="slide level2">
 <h2><strong>Cohort state-transition model</strong></h2>
 <ul>
 <li><p>Dynamic mathematical model</p></li>
-<li><p>A hypothetical cohort of individuals move between health states over time.</p></li>
+<li><p>Hypothetical cohort of individuals move between states over time.</p></li>
 <li><p>Classical example is the Markov model, where transition probabilities</p>
 <ul>
 <li><p>Are constant</p></li>
@@ -449,12 +451,11 @@ Alton Russell
 <h2>Example: Transfusion-transmitted chronic conditions</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="ghana_markov_schematics.png"></p>
+<p><img data-src="figs/ghana_markov_schematics.png"></p>
 </div><div class="column" style="width:50%;">
-<p>TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis.</p>
+<p>TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis, HCC=hepatocellular carcinoma.</p>
 <p><a href="www.doi.org/0.1111/trf.16704">Russell et. al.&nbsp;2021</a></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="states" class="slide level2">
 <h2><strong>States</strong></h2>
@@ -463,7 +464,7 @@ Alton Russell
 </blockquote>
 <ul>
 <li><p>Mutually exclusive and exhaustive</p></li>
-<li><p>Individuals in the same state treated as <strong>identical</strong></p>
+<li><p>Individuals in the same state treated <strong>identically</strong></p>
 <ul>
 <li><p>same costs, health outcomes</p></li>
 <li><p>same probability of transitioning out (no matter how long they’ve been there)</p></li>
@@ -473,7 +474,7 @@ Alton Russell
 <section id="transitions-cycles-time-horizon" class="slide level2">
 <h2>Transitions, cycles, time horizon</h2>
 <ul>
-<li><p>Only transition at end of a cycle</p></li>
+<li><p>Transition happen at the end of a cycle</p></li>
 <li><p>Cycle duration is design choice (1 second, day, month, quarter, year…)</p></li>
 <li><p>Time horizon = cycle duration x number of cycles</p></li>
 </ul>
@@ -499,23 +500,22 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 <li><p>Rows correspond to “<strong>from</strong>” state (sum to 1)</p></li>
 <li><p>Columns correspond to “<strong>to</strong>” states</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="transition-matrix-example" class="slide level2">
 <h2>Transition matrix example</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>mat_dim <span class="ot">&lt;-</span> </span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">define_transition</span>(</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="at">state_names =</span> </span>
-<span id="cb2-4"><a href="#cb2-4"></a>      <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>),</span>
-<span id="cb2-5"><a href="#cb2-5"></a>   .<span class="dv">3</span>, .<span class="dv">6</span>, .<span class="dv">1</span>, </span>
-<span id="cb2-6"><a href="#cb2-6"></a>   .<span class="dv">2</span>, .<span class="dv">5</span>, .<span class="dv">3</span>,</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">1</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">plot</span>(mat_dim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mat_dim <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href=""></a>  <span class="fu">define_transition</span>(</span>
+<span id="cb2-3"><a href=""></a>    <span class="at">state_names =</span> </span>
+<span id="cb2-4"><a href=""></a>      <span class="fu">c</span>(<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>),</span>
+<span id="cb2-5"><a href=""></a>   .<span class="dv">3</span>, .<span class="dv">6</span>, .<span class="dv">1</span>, </span>
+<span id="cb2-6"><a href=""></a>   .<span class="dv">2</span>, .<span class="dv">5</span>, .<span class="dv">3</span>,</span>
+<span id="cb2-7"><a href=""></a>    <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">1</span>)</span>
+<span id="cb2-8"><a href=""></a></span>
+<span id="cb2-9"><a href=""></a><span class="fu">plot</span>(mat_dim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="column" style="width:50%;">
 <p><span class="math display">\[
@@ -528,15 +528,17 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 \end{matrix}\ \right]
 \end{array}
 \]</span></p>
-</div>
-</div><div class="column" style="width:60%;">
+</div></div><div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-3-1.png" width="576"></p>
+</figure>
 </div>
 </div>
 </div>
-</div>
+</div></div>
 </section>
 <section id="absorbing-states" class="slide level2">
 <h2>Absorbing states</h2>
@@ -544,7 +546,11 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-4-1.png" width="384"></p>
+</figure>
+</div>
 </div>
 </div>
 <p><span class="math display">\[
@@ -561,8 +567,7 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 <li><p>No escape (like death)</p></li>
 <li><p>Transition matrix row has a 1 on diagonal entry, all other entries 0</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="tunnel-states" class="slide level2">
 <h2>Tunnel states</h2>
@@ -570,7 +575,11 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-5-1.png" width="384"></p>
+</figure>
+</div>
 </div>
 </div>
 <p><span class="math display">\[
@@ -590,8 +599,7 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 <li><p>A ‘workaround’ for the Markov property.</p></li>
 <li><p>If costs, outcomes, or transitions differ for beginning or end of health condition, break into tunnel states</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="example-transfusion-transmitted-chronic-conditions-1" class="slide level2">
 <h2>Example: Transfusion-transmitted chronic conditions</h2>
@@ -601,14 +609,14 @@ p_{s_3 \rightarrow s_1} &amp; p_{s_3 \rightarrow s_2} &amp; p_{s_3 \rightarrow s
 </div><div class="column" style="width:50%;">
 <p>TU=treatment uptake; SC=subclinical; AVT=antiviral therapy; TE=treatment effectiveness; TF=treatment failure; CC=compensated cirrhosis; DCC=decompensated cirrhosis.</p>
 <p><a href="www.doi.org/0.1111/trf.16704">Russell et. al.&nbsp;2021</a></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="transition-matrix-for-hiv-model" class="slide level2">
 <h2>Transition matrix for HIV model</h2>
 
-<img data-src="hiv_transition_matrix.png" class="r-stretch"><p><strong>Tunnel states:</strong> no self loop</p>
+<img data-src="figs/hiv_transition_matrix.png" class="r-stretch"><p><strong>Tunnel states:</strong> no self loop</p>
 <p><strong>Absorbing states:</strong> only self loop</p>
+<p>TU=treatment uptake; OCM=other-cause mortality; # indicates probability is one minus other probabilities</p>
 </section>
 <section id="initial-state-vector-m_0" class="slide level2">
 <h2>Initial state vector <span class="math inline">\(m_0\)</span></h2>
@@ -637,10 +645,10 @@ m_0 =
 <li><p><strong>Rates</strong>: instantaneous force of an event</p></li>
 <li><p><strong>Probabilities:</strong> cumulative risk of event over defined period</p></li>
 <li><p>We need transition probabilities <u>specific to cycle length</u></p></li>
-<li><p>We may have:</p>
+<li><p>Our data could be:</p>
 <ul>
-<li><p>probability for different cycle length (2-year instead of 6 month)</p></li>
-<li><p>rate (e.g., 200 events per person-year)</p></li>
+<li><p>Probability for different cycle length (2-year instead of 6 month)</p></li>
+<li><p>Rate (e.g., 200 events per person-year)</p></li>
 </ul></li>
 </ul>
 </section>
@@ -653,7 +661,7 @@ p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 <p>Example:</p>
 <ul>
 <li><p>In a population of 800, 87 became ill over a 2 year period</p></li>
-<li><p><strong>What’s the rate?</strong></p></li>
+<li><p><strong>What’s the rate (events per person-year)?</strong></p></li>
 </ul>
 </section>
 <section id="converting-rates-to-probabilities-1" class="slide level2">
@@ -665,7 +673,7 @@ p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 <p>Example:</p>
 <ul>
 <li><p>In a population of 800, 87 became ill over a 2 year period</p></li>
-<li><p><span class="math inline">\(r = 87/(2 \times 800) = 0.0544\)</span> illnesses/year</p></li>
+<li><p><span class="math inline">\(r = 87/(2 \times 800) = 0.0544\)</span> illnesses/person-year</p></li>
 <li><p><strong>What’s the transition probability for 0.5 year cycle length?</strong></p></li>
 </ul>
 </section>
@@ -688,7 +696,7 @@ p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 <li><p>If probability is for a duration that doesn’t match your cycle length, you <strong>can not</strong> simply multiply/divide the probability</p></li>
 <li><p>Must convert to a rate then convert back to probability (with new cycle length)</p></li>
 </ul>
-<p><strong>Example:</strong> One-year prob. of developing cancer is 0.2. What transition prob. do I use with a <strong>1-month</strong> cycle length?</p>
+<p><strong>Example:</strong> 1-year prob. of developing cancer is 0.2. What transition prob. do I use with a <strong>1-month</strong> cycle length?</p>
 <p><span class="math display">\[
 p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 \]</span></p>
@@ -697,21 +705,21 @@ p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 <h2>Prob → rate → prob</h2>
 <p>Wrong way</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>p_1yr <span class="ot">=</span> <span class="fl">0.2</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>p_1month <span class="ot">=</span> p_1yr<span class="sc">/</span><span class="dv">12</span>; p_1month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>p_1yr <span class="ot">=</span> <span class="fl">0.2</span></span>
+<span id="cb3-2"><a href=""></a>p_1month <span class="ot">=</span> p_1yr<span class="sc">/</span><span class="dv">12</span>; p_1month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01666667</code></pre>
 </div>
 </div>
 <p>Right way</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>rate <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="fl">-0.2</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>rate <span class="co">#events/person-year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>rate <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="fl">-0.2</span>)</span>
+<span id="cb5-2"><a href=""></a>rate <span class="co">#events/person-year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2231436</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p_1month <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>rate<span class="sc">/</span><span class="dv">12</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>p_1month <span class="co">#probability developing cancer in 1-month period</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>p_1month <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>rate<span class="sc">/</span><span class="dv">12</span>)</span>
+<span id="cb7-2"><a href=""></a>p_1month <span class="co">#probability developing cancer in 1-month period</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01842347</code></pre>
 </div>
@@ -728,9 +736,9 @@ p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 <section id="matrix-calculations-in-r" class="slide level2">
 <h2>Matrix calculations in R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb9-3"><a href="#cb9-3"></a>A;B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb9-2"><a href=""></a>B <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb9-3"><a href=""></a>A;B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    1    3
@@ -741,15 +749,15 @@ p(t) = 1 - e^{-rt} \quad r = -\frac{1}{t}log(1-p)
 [1,]    5    7
 [2,]    6    8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#element-wise multiplication</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>A <span class="sc">*</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co">#element-wise multiplication</span></span>
+<span id="cb12-2"><a href=""></a>A <span class="sc">*</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]    5   21
 [2,]   12   32</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#matrix multiplication</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>A <span class="sc">%*%</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="co">#matrix multiplication</span></span>
+<span id="cb14-2"><a href=""></a>A <span class="sc">%*%</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]   23   31
@@ -778,37 +786,37 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <h2>Parameterizing the matrix</h2>
 <p>Copy/paste and fill in the transition matrix. Use variable names rather than typing the numbers directly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a></span>
-<span id="cb16-3"><a href="#cb16-3"></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
-<span id="cb16-5"><a href="#cb16-5"></a></span>
-<span id="cb16-6"><a href="#cb16-6"></a>p_HtoM <span class="ot">=</span> <span class="fl">0.2</span> <span class="co">#otherwise stays in healthy</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span> <span class="co">#otherwise stay in moderate</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span> <span class="co">#otherwise stay in severe</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a></span>
-<span id="cb16-10"><a href="#cb16-10"></a>n_cycles <span class="ot">=</span> <span class="dv">20</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a></span>
-<span id="cb16-12"><a href="#cb16-12"></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
-<span id="cb16-13"><a href="#cb16-13"></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
-<span id="cb16-14"><a href="#cb16-14"></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
-<span id="cb16-15"><a href="#cb16-15"></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
-<span id="cb16-16"><a href="#cb16-16"></a>               <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
-<span id="cb16-17"><a href="#cb16-17"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names,</span>
-<span id="cb16-18"><a href="#cb16-18"></a>                               v_state_names))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
+<span id="cb16-2"><a href=""></a></span>
+<span id="cb16-3"><a href=""></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
+<span id="cb16-4"><a href=""></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
+<span id="cb16-5"><a href=""></a></span>
+<span id="cb16-6"><a href=""></a>p_HtoM <span class="ot">=</span> <span class="fl">0.2</span> <span class="co">#otherwise stays in healthy</span></span>
+<span id="cb16-7"><a href=""></a>p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span> <span class="co">#otherwise stay in moderate</span></span>
+<span id="cb16-8"><a href=""></a>p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span> <span class="co">#otherwise stay in severe</span></span>
+<span id="cb16-9"><a href=""></a></span>
+<span id="cb16-10"><a href=""></a>n_cycles <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb16-11"><a href=""></a></span>
+<span id="cb16-12"><a href=""></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb16-13"><a href=""></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb16-14"><a href=""></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
+<span id="cb16-15"><a href=""></a>                 <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
+<span id="cb16-16"><a href=""></a>               <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
+<span id="cb16-17"><a href=""></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names,</span>
+<span id="cb16-18"><a href=""></a>                               v_state_names))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="parameterizing-the-transition-matrix" class="slide level2">
 <h2>Parameterizing the transition matrix</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
-<span id="cb17-2"><a href="#cb17-2"></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
-<span id="cb17-3"><a href="#cb17-3"></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
-<span id="cb17-4"><a href="#cb17-4"></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
-<span id="cb17-5"><a href="#cb17-5"></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
-<span id="cb17-6"><a href="#cb17-6"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names,</span>
-<span id="cb17-7"><a href="#cb17-7"></a>                              v_state_names))</span>
-<span id="cb17-8"><a href="#cb17-8"></a>mat_P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
+<span id="cb17-2"><a href=""></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
+<span id="cb17-3"><a href=""></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
+<span id="cb17-4"><a href=""></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
+<span id="cb17-5"><a href=""></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
+<span id="cb17-6"><a href=""></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names,</span>
+<span id="cb17-7"><a href=""></a>                              v_state_names))</span>
+<span id="cb17-8"><a href=""></a>mat_P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    H    M   S    D
 H 0.8 0.20 0.0 0.00
@@ -816,8 +824,8 @@ M 0.4 0.19 0.4 0.01
 S 0.1 0.00 0.6 0.30
 D 0.0 0.00 0.0 1.00</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#Check: do all rows sum to 1?</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">rowSums</span>(mat_P)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co">#Check: do all rows sum to 1?</span></span>
+<span id="cb19-2"><a href=""></a><span class="fu">rowSums</span>(mat_P)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>H M S D 
 1 1 1 1 </code></pre>
@@ -849,22 +857,22 @@ m^{t-1}_A(p_{A \rightarrow B})+ m^{t-1}_B(p_{B \rightarrow B})\\
 <section id="partial-definition-example" class="slide level2">
 <h2>Partial definition example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>m_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>m_0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    H M S D
  2000 0 0 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>m_1 <span class="ot">=</span> m_0 <span class="sc">%*%</span> mat_P;   m_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>m_1 <span class="ot">=</span> m_0 <span class="sc">%*%</span> mat_P;   m_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    H   M S D
  1600 400 0 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>m_2 <span class="ot">=</span> m_1 <span class="sc">%*%</span> mat_P;   m_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>m_2 <span class="ot">=</span> m_1 <span class="sc">%*%</span> mat_P;   m_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    H   M   S D
  1440 396 160 4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>m_3 <span class="ot">=</span> m_2 <span class="sc">%*%</span> mat_P;   m_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>m_3 <span class="ot">=</span> m_2 <span class="sc">%*%</span> mat_P;   m_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      H      M     S     D
  1326.4 363.24 254.4 55.96</code></pre>
@@ -890,12 +898,12 @@ m_t = m_0 P^t
 <section id="matrix-solution-code" class="slide level2">
 <h2>Matrix solution code</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#m_20 = m_0 %*% (mat_P %^% 20)</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>cycles_to_print <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">20</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="cf">for</span> (i <span class="cf">in</span> cycles_to_print){</span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"t="</span>,i))</span>
-<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">print</span>(m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> i))</span>
-<span id="cb29-6"><a href="#cb29-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="co">#m_20 = m_0 %*% (mat_P %^% 20)</span></span>
+<span id="cb29-2"><a href=""></a>cycles_to_print <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb29-3"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> cycles_to_print){</span>
+<span id="cb29-4"><a href=""></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"t="</span>,i))</span>
+<span id="cb29-5"><a href=""></a>  <span class="fu">print</span>(m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> i))</span>
+<span id="cb29-6"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "t=2"
     H   M   S D
@@ -914,68 +922,67 @@ m_t = m_0 P^t
 <p>Use matrix <span class="math inline">\(M\)</span> to store cohort distribution after each cycle:</p>
 <ul>
 <li><p><span class="math inline">\(n_s\)</span> columns corresponding to our states</p></li>
-<li><p><span class="math inline">\(T+1\)</span> rows corresponding to our state distribution after cycle <span class="math inline">\(0, 1, ... t,…,T\)</span></p></li>
+<li><p><span class="math inline">\(T+1\)</span> rows contain state distribution after cycle <span class="math inline">\(0, 1, ... t,…,T\)</span> (i.e., row <span class="math inline">\(t\)</span> contains <span class="math inline">\(m_t\)</span>)</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span><span class="sc">*</span><span class="dv">21</span>), <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb31-2"><a href="#cb31-2"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">20</span><span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb31-2"><a href=""></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>,<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>), <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb31-3"><a href=""></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   H M S D
-0  0 0 0 0
-1  0 0 0 0
-2  0 0 0 0
-3  0 0 0 0
-4  0 0 0 0
-5  0 0 0 0
-6  0 0 0 0
-7  0 0 0 0
-8  0 0 0 0
-9  0 0 0 0
-10 0 0 0 0
-11 0 0 0 0
-12 0 0 0 0
-13 0 0 0 0
-14 0 0 0 0
-15 0 0 0 0
-16 0 0 0 0
-17 0 0 0 0
-18 0 0 0 0
-19 0 0 0 0
-20 0 0 0 0</code></pre>
+<pre><code>    H M S D
+t0  0 0 0 0
+t1  0 0 0 0
+t2  0 0 0 0
+t3  0 0 0 0
+t4  0 0 0 0
+t5  0 0 0 0
+t6  0 0 0 0
+t7  0 0 0 0
+t8  0 0 0 0
+t9  0 0 0 0
+t10 0 0 0 0
+t11 0 0 0 0
+t12 0 0 0 0
+t13 0 0 0 0
+t14 0 0 0 0
+t15 0 0 0 0
+t16 0 0 0 0
+t17 0 0 0 0
+t18 0 0 0 0
+t19 0 0 0 0
+t20 0 0 0 0</code></pre>
 </div>
 </div>
 </section>
 <section id="storing-state-transitions" class="slide level2">
 <h2>Storing state transitions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">21</span>){</span>
-<span id="cb33-2"><a href="#cb33-2"></a>  M[i,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> (i<span class="dv">-1</span>))</span>
-<span id="cb33-3"><a href="#cb33-3"></a>};    M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">21</span>){</span>
+<span id="cb33-2"><a href=""></a>  M[i,] <span class="ot">&lt;-</span> m_0 <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> (i<span class="dv">-1</span>))</span>
+<span id="cb33-3"><a href=""></a>};    M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           H        M        S         D
-0  2000.0000   0.0000   0.0000    0.0000
-1  1600.0000 400.0000   0.0000    0.0000
-2  1440.0000 396.0000 160.0000    4.0000
-3  1326.4000 363.2400 254.4000   55.9600
-4  1231.8560 334.2956 297.9360  135.9124
-5  1148.9966 309.8874 312.4798  228.6362
-6  1074.4002 288.6779 311.4428  325.4790
-7  1006.1356 269.7289 302.3369  421.7986
-8   943.0337 252.4756 289.2937  515.1970
-9   884.3466 236.5771 274.5664  604.5098
-10  829.5648 221.8190 259.3707  689.2455
-11  778.3165 208.0586 244.3500  769.2749
-12  730.3116 195.1944 229.8334  844.6605
-13  685.3104 183.1493 215.9778  915.5625
-14  643.1058 171.8604 202.8464  982.1873
-15  603.5135 161.2746 190.4520 1044.7599
-16  566.3658 151.3449 178.7811 1103.5082
-17  531.5087 142.0287 167.8066 1158.6560
-18  498.7991 133.2872 157.4954 1210.4183
-19  468.1037 125.0844 147.8121 1258.9998
-20  439.2979 117.3868 138.7210 1304.5942</code></pre>
+<pre><code>            H        M        S         D
+t0  2000.0000   0.0000   0.0000    0.0000
+t1  1600.0000 400.0000   0.0000    0.0000
+t2  1440.0000 396.0000 160.0000    4.0000
+t3  1326.4000 363.2400 254.4000   55.9600
+t4  1231.8560 334.2956 297.9360  135.9124
+t5  1148.9966 309.8874 312.4798  228.6362
+t6  1074.4002 288.6779 311.4428  325.4790
+t7  1006.1356 269.7289 302.3369  421.7986
+t8   943.0337 252.4756 289.2937  515.1970
+t9   884.3466 236.5771 274.5664  604.5098
+t10  829.5648 221.8190 259.3707  689.2455
+t11  778.3165 208.0586 244.3500  769.2749
+t12  730.3116 195.1944 229.8334  844.6605
+t13  685.3104 183.1493 215.9778  915.5625
+t14  643.1058 171.8604 202.8464  982.1873
+t15  603.5135 161.2746 190.4520 1044.7599
+t16  566.3658 151.3449 178.7811 1103.5082
+t17  531.5087 142.0287 167.8066 1158.6560
+t18  498.7991 133.2872 157.4954 1210.4183
+t19  468.1037 125.0844 147.8121 1258.9998
+t20  439.2979 117.3868 138.7210 1304.5942</code></pre>
 </div>
 </div>
 </section>
@@ -986,11 +993,11 @@ m_t = m_0 P^t
 <li><p>Convert <span class="math inline">\(M\)</span> into long-format data table for ggplot</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>t_trace <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M) <span class="co">#convert from matrix</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>t_trace<span class="sc">$</span>Cycle_num <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span> <span class="co">#add col for cycle number</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>t_trace <span class="ot">&lt;-</span> t_trace <span class="sc">|&gt;</span> <span class="co">#Long to wide</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">gather</span>(<span class="at">key=</span>State, <span class="at">value=</span>Count, H<span class="sc">:</span>D) <span class="co">#wide to long format</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a>t_trace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>t_trace <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M) <span class="co">#convert from matrix</span></span>
+<span id="cb35-2"><a href=""></a>t_trace<span class="sc">$</span>Cycle_num <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span> <span class="co">#add col for cycle number</span></span>
+<span id="cb35-3"><a href=""></a>t_trace <span class="ot">&lt;-</span> t_trace <span class="sc">|&gt;</span> <span class="co">#Long to wide</span></span>
+<span id="cb35-4"><a href=""></a>  <span class="fu">gather</span>(<span class="at">key=</span>State, <span class="at">value=</span>Count, H<span class="sc">:</span>D) <span class="co">#wide to long format</span></span>
+<span id="cb35-5"><a href=""></a>t_trace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 84 × 3
    Cycle_num State Count
@@ -1012,8 +1019,8 @@ m_t = m_0 P^t
 <section id="cohort-trace-diagram-1" class="slide level2">
 <h2>Cohort trace diagram</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_trace, <span class="fu">aes</span>(<span class="at">x=</span>Cycle_num, <span class="at">y=</span>Count, <span class="at">color=</span>State))<span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_trace, <span class="fu">aes</span>(<span class="at">x=</span>Cycle_num, <span class="at">y=</span>Count, <span class="at">color=</span>State))<span class="sc">+</span></span>
+<span id="cb37-2"><a href=""></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="cohorts_1_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
@@ -1032,7 +1039,7 @@ m_t = m_0 P^t
 <li><p>Per cycle spent in a state (state reward)</p></li>
 <li><p>Per transition (transition reward/toll)</p></li>
 </ul>
-<p>Must assign same rewards to everyone in the same state or making transition. People in same state or making same transition treated as identical!</p>
+<p>Everyone in same state or making same transition in a cycle gets the same reward.</p>
 </section>
 <section id="state-reward-vector" class="slide level2">
 <h2>State reward vector</h2>
@@ -1051,38 +1058,38 @@ q_{H} &amp; q_{M} &amp; q_{S} &amp; q_{D}
 <section id="ex-model-with-state-rewards" class="slide level2">
 <h2>Ex: model with state rewards</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
-<span id="cb38-4"><a href="#cb38-4"></a>n_cycles <span class="ot">=</span> <span class="dv">20</span>; p_HtoM <span class="ot">=</span> <span class="fl">0.2</span>; p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span>; p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
-<span id="cb38-6"><a href="#cb38-6"></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
-<span id="cb38-7"><a href="#cb38-7"></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
-<span id="cb38-8"><a href="#cb38-8"></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
-<span id="cb38-9"><a href="#cb38-9"></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
-<span id="cb38-10"><a href="#cb38-10"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names, v_state_names))</span>
-<span id="cb38-11"><a href="#cb38-11"></a></span>
-<span id="cb38-12"><a href="#cb38-12"></a><span class="co">#State reward vectors</span></span>
-<span id="cb38-13"><a href="#cb38-13"></a>v_cost_states <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">150</span>, <span class="dv">500</span>, <span class="dv">0</span>), <span class="at">nrow=</span><span class="dv">1</span>, </span>
-<span id="cb38-14"><a href="#cb38-14"></a>                       <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)); v_cost_states</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>v_state_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>) <span class="co">#vector of state names</span></span>
+<span id="cb38-2"><a href=""></a>m_0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>, <span class="co">#initial dist</span></span>
+<span id="cb38-3"><a href=""></a>             <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)) </span>
+<span id="cb38-4"><a href=""></a>n_cycles <span class="ot">=</span> <span class="dv">20</span>; p_HtoM <span class="ot">=</span> <span class="fl">0.2</span>; p_MtoH <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoS <span class="ot">=</span> <span class="fl">0.4</span>; p_MtoD <span class="ot">=</span> <span class="fl">0.01</span>; p_StoH <span class="ot">=</span> <span class="fl">0.1</span>; p_StoD <span class="ot">=</span> <span class="fl">0.3</span></span>
+<span id="cb38-5"><a href=""></a>mat_P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p_HtoM, p_HtoM,                 <span class="dv">0</span>,                <span class="dv">0</span>,</span>
+<span id="cb38-6"><a href=""></a>                 p_MtoH,   <span class="dv">1</span><span class="sc">-</span>p_MtoH<span class="sc">-</span>p_MtoS<span class="sc">-</span>p_MtoD, p_MtoS,          p_MtoD,</span>
+<span id="cb38-7"><a href=""></a>                 p_StoH,   <span class="dv">0</span>,                      <span class="dv">1</span><span class="sc">-</span>p_StoH<span class="sc">-</span>p_StoD, p_StoD,</span>
+<span id="cb38-8"><a href=""></a>                 <span class="dv">0</span>,        <span class="dv">0</span>,                      <span class="dv">0</span>,                <span class="dv">1</span>), </span>
+<span id="cb38-9"><a href=""></a>              <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T,</span>
+<span id="cb38-10"><a href=""></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(v_state_names, v_state_names))</span>
+<span id="cb38-11"><a href=""></a></span>
+<span id="cb38-12"><a href=""></a><span class="co">#State reward vectors</span></span>
+<span id="cb38-13"><a href=""></a>v_cost_states <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">150</span>, <span class="dv">500</span>, <span class="dv">0</span>), <span class="at">nrow=</span><span class="dv">1</span>, </span>
+<span id="cb38-14"><a href=""></a>                       <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)); v_cost_states</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   H   M   S D
  182 150 500 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>v_qaly_states <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.6</span>, <span class="dv">0</span>), <span class="at">nrow=</span><span class="dv">1</span>, </span>
-<span id="cb40-2"><a href="#cb40-2"></a>                       <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)); v_qaly_states</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a>v_qaly_states <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.6</span>, <span class="dv">0</span>), <span class="at">nrow=</span><span class="dv">1</span>, </span>
+<span id="cb40-2"><a href=""></a>                       <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">""</span>), v_state_names)); v_qaly_states</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> H   M   S D
  1 0.8 0.6 0</code></pre>
 </div>
 </div>
 </section>
-<section id="compute-rewards-as-model-runs" class="slide level2">
-<h2>Compute rewards as model runs</h2>
+<section id="compute-rewards-as-the-model-runs" class="slide level2">
+<h2>Compute rewards as the model runs</h2>
 <p>To compute total costs/QALYs in cycle <span class="math inline">\(t\)</span> by state:</p>
 <ul>
 <li><p>Create <span class="math inline">\(T \times n_s\)</span> matrices <span class="math inline">\(M_C\)</span> and <span class="math inline">\(M_Q\)</span></p></li>
-<li><p><span class="math inline">\(M_C[t, j]\)</span> is sum of costs incurred during cycle <span class="math inline">\(t\)</span> for people ending the cycle in state <span class="math inline">\(j\)</span>.</p></li>
+<li><p><span class="math inline">\(M_C[t, j]\)</span> stores the total costs incurred during cycle <span class="math inline">\(t\)</span> for people who ended the cycle in state <span class="math inline">\(j\)</span>.</p></li>
 <li><p>Row <span class="math inline">\(M_C[t, \text{ }] = c \bigodot m_t\)</span></p></li>
 </ul>
 <p><u><strong>Or</strong></u>, compute total costs/QALYs during cycle <span class="math inline">\(t\)</span> (all states):</p>
@@ -1094,77 +1101,77 @@ q_{H} &amp; q_{M} &amp; q_{S} &amp; q_{D}
 <section id="ex-run-model-store-rewards" class="slide level2">
 <h2>Ex: run model &amp; store rewards</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co">#m_M will store dist'n after cycle t; first row is cycle 0</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a>m_M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="dv">21</span>, <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb42-3"><a href="#cb42-3"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb42-4"><a href="#cb42-4"></a>m_M[<span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0</span>
-<span id="cb42-5"><a href="#cb42-5"></a></span>
-<span id="cb42-6"><a href="#cb42-6"></a><span class="co">#m_cost_by_cyclestate &amp; m_qalys_by_cyclestate will store </span></span>
-<span id="cb42-7"><a href="#cb42-7"></a><span class="co">#.  rewards gained in cycle t for each state</span></span>
-<span id="cb42-8"><a href="#cb42-8"></a>m_cost_by_cyclestate <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="dv">20</span>, <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb42-9"><a href="#cb42-9"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb42-10"><a href="#cb42-10"></a>m_qalys_by_cyclestate <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="dv">20</span>, <span class="at">ncol=</span><span class="dv">4</span>,</span>
-<span id="cb42-11"><a href="#cb42-11"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
-<span id="cb42-12"><a href="#cb42-12"></a></span>
-<span id="cb42-13"><a href="#cb42-13"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
-<span id="cb42-14"><a href="#cb42-14"></a>  m_t <span class="ot">&lt;-</span> m_M[i,] <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> i) <span class="co">#m_M[i, ] is m_{t-1}</span></span>
-<span id="cb42-15"><a href="#cb42-15"></a>  m_M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> m_t <span class="co">#for m_M, row i+1 corresponds to cycle t</span></span>
-<span id="cb42-16"><a href="#cb42-16"></a>  <span class="co">#For reward matrices; row i corresponds to cycle t</span></span>
-<span id="cb42-17"><a href="#cb42-17"></a>  m_cost_by_cyclestate[i,] <span class="ot">&lt;-</span> m_t <span class="sc">*</span> v_cost_states</span>
-<span id="cb42-18"><a href="#cb42-18"></a>  m_qalys_by_cyclestate[i,] <span class="ot">&lt;-</span> m_t <span class="sc">*</span> v_qaly_states</span>
-<span id="cb42-19"><a href="#cb42-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a><span class="co">#m_M will store dist'n after cycle t; first row is cycle 0</span></span>
+<span id="cb42-2"><a href=""></a>m_M <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="dv">21</span>, <span class="at">ncol=</span><span class="dv">4</span>,</span>
+<span id="cb42-3"><a href=""></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>,<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>), <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb42-4"><a href=""></a>m_M[<span class="dv">1</span>,] <span class="ot">&lt;-</span> m_0</span>
+<span id="cb42-5"><a href=""></a></span>
+<span id="cb42-6"><a href=""></a><span class="co">#m_cost_by_cyclestate &amp; m_qalys_by_cyclestate will store </span></span>
+<span id="cb42-7"><a href=""></a><span class="co">#.  rewards gained in cycle t for each state</span></span>
+<span id="cb42-8"><a href=""></a>m_cost_by_cyclestate <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="dv">20</span>, <span class="at">ncol=</span><span class="dv">4</span>,</span>
+<span id="cb42-9"><a href=""></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>), <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb42-10"><a href=""></a>m_qalys_by_cyclestate <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="dv">20</span>, <span class="at">ncol=</span><span class="dv">4</span>,</span>
+<span id="cb42-11"><a href=""></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>), <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
+<span id="cb42-12"><a href=""></a></span>
+<span id="cb42-13"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb42-14"><a href=""></a>  m_t <span class="ot">&lt;-</span> m_M[i,] <span class="sc">%*%</span> (mat_P <span class="sc">%^%</span> i) <span class="co">#m_M[i, ] is m_{t-1}</span></span>
+<span id="cb42-15"><a href=""></a>  m_M[i<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">&lt;-</span> m_t <span class="co">#for m_M, row i+1 corresponds to cycle t</span></span>
+<span id="cb42-16"><a href=""></a>  <span class="co">#For reward matrices; row i corresponds to cycle t</span></span>
+<span id="cb42-17"><a href=""></a>  m_cost_by_cyclestate[i,] <span class="ot">&lt;-</span> m_t <span class="sc">*</span> v_cost_states</span>
+<span id="cb42-18"><a href=""></a>  m_qalys_by_cyclestate[i,] <span class="ot">&lt;-</span> m_t <span class="sc">*</span> v_qaly_states</span>
+<span id="cb42-19"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ex-run-model-and-store-rewards" class="slide level2">
 <h2>Ex: run model and store rewards</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>m_cost_by_cyclestate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>m_cost_by_cyclestate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              H            M            S D
-1  2.912000e+05 6.000000e+04 0.000000e+00 0
-2  2.414048e+05 5.448600e+04 1.272000e+05 0
-3  1.955408e+05 4.330169e+04 1.557214e+05 0
-4  1.509808e+05 3.327285e+04 1.296854e+05 0
-5  1.098395e+05 2.419120e+04 9.522601e+04 0
-6  7.503226e+04 1.652446e+04 6.509367e+04 0
-7  4.810315e+04 1.059380e+04 4.173272e+04 0
-8  2.894129e+04 6.373768e+03 2.510853e+04 0
-9  1.634106e+04 3.598807e+03 1.417698e+04 0
-10 8.658857e+03 1.906949e+03 7.512147e+03 0
-11 4.305851e+03 9.482818e+02 3.735618e+03 0
-12 2.009442e+03 4.425414e+02 1.743327e+03 0
-13 8.800553e+02 1.938155e+02 7.635078e+02 0
-14 3.617117e+02 7.966012e+01 3.138095e+02 0
-15 1.395189e+02 3.072639e+01 1.210422e+02 0
-16 5.050353e+01 1.112244e+01 4.381525e+01 0
-17 1.715649e+01 3.778391e+00 1.488442e+01 0
-18 5.469569e+00 1.204569e+00 4.745223e+00 0
-19 1.636424e+00 3.603913e-01 1.419709e+00 0
-20 4.594695e-01 1.011894e-01 3.986210e-01 0</code></pre>
+<pre><code>               H            M            S D
+t1  2.912000e+05 6.000000e+04 0.000000e+00 0
+t2  2.414048e+05 5.448600e+04 1.272000e+05 0
+t3  1.955408e+05 4.330169e+04 1.557214e+05 0
+t4  1.509808e+05 3.327285e+04 1.296854e+05 0
+t5  1.098395e+05 2.419120e+04 9.522601e+04 0
+t6  7.503226e+04 1.652446e+04 6.509367e+04 0
+t7  4.810315e+04 1.059380e+04 4.173272e+04 0
+t8  2.894129e+04 6.373768e+03 2.510853e+04 0
+t9  1.634106e+04 3.598807e+03 1.417698e+04 0
+t10 8.658857e+03 1.906949e+03 7.512147e+03 0
+t11 4.305851e+03 9.482818e+02 3.735618e+03 0
+t12 2.009442e+03 4.425414e+02 1.743327e+03 0
+t13 8.800553e+02 1.938155e+02 7.635078e+02 0
+t14 3.617117e+02 7.966012e+01 3.138095e+02 0
+t15 1.395189e+02 3.072639e+01 1.210422e+02 0
+t16 5.050353e+01 1.112244e+01 4.381525e+01 0
+t17 1.715649e+01 3.778391e+00 1.488442e+01 0
+t18 5.469569e+00 1.204569e+00 4.745223e+00 0
+t19 1.636424e+00 3.603913e-01 1.419709e+00 0
+t20 4.594695e-01 1.011894e-01 3.986210e-01 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>m_qalys_by_cyclestate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href=""></a>m_qalys_by_cyclestate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              H            M            S D
-1  1.600000e+03 3.200000e+02 0.000000e+00 0
-2  1.326400e+03 2.905920e+02 1.526400e+02 0
-3  1.074400e+03 2.309423e+02 1.868657e+02 0
-4  8.295648e+02 1.774552e+02 1.556224e+02 0
-5  6.035135e+02 1.290197e+02 1.142712e+02 0
-6  4.122652e+02 8.813046e+01 7.811240e+01 0
-7  2.643030e+02 5.650029e+01 5.007927e+01 0
-8  1.590181e+02 3.399343e+01 3.013024e+01 0
-9  8.978603e+01 1.919364e+01 1.701237e+01 0
-10 4.757614e+01 1.017039e+01 9.014576e+00 0
-11 2.365852e+01 5.057503e+00 4.482742e+00 0
-12 1.104089e+01 2.360221e+00 2.091993e+00 0
-13 4.835469e+00 1.033682e+00 9.162094e-01 0
-14 1.987427e+00 4.248540e-01 3.765714e-01 0
-15 7.665875e-01 1.638741e-01 1.452506e-01 0
-16 2.774919e-01 5.931970e-02 5.257830e-02 0
-17 9.426643e-02 2.015142e-02 1.786130e-02 0
-18 3.005258e-02 6.424366e-03 5.694268e-03 0
-19 8.991342e-03 1.922087e-03 1.703651e-03 0
-20 2.524558e-03 5.396769e-04 4.783452e-04 0</code></pre>
+<pre><code>               H            M            S D
+t1  1.600000e+03 3.200000e+02 0.000000e+00 0
+t2  1.326400e+03 2.905920e+02 1.526400e+02 0
+t3  1.074400e+03 2.309423e+02 1.868657e+02 0
+t4  8.295648e+02 1.774552e+02 1.556224e+02 0
+t5  6.035135e+02 1.290197e+02 1.142712e+02 0
+t6  4.122652e+02 8.813046e+01 7.811240e+01 0
+t7  2.643030e+02 5.650029e+01 5.007927e+01 0
+t8  1.590181e+02 3.399343e+01 3.013024e+01 0
+t9  8.978603e+01 1.919364e+01 1.701237e+01 0
+t10 4.757614e+01 1.017039e+01 9.014576e+00 0
+t11 2.365852e+01 5.057503e+00 4.482742e+00 0
+t12 1.104089e+01 2.360221e+00 2.091993e+00 0
+t13 4.835469e+00 1.033682e+00 9.162094e-01 0
+t14 1.987427e+00 4.248540e-01 3.765714e-01 0
+t15 7.665875e-01 1.638741e-01 1.452506e-01 0
+t16 2.774919e-01 5.931970e-02 5.257830e-02 0
+t17 9.426643e-02 2.015142e-02 1.786130e-02 0
+t18 3.005258e-02 6.424366e-03 5.694268e-03 0
+t19 8.991342e-03 1.922087e-03 1.703651e-03 0
+t20 2.524558e-03 5.396769e-04 4.783452e-04 0</code></pre>
 </div>
 </div>
 </section>
@@ -1172,7 +1179,7 @@ q_{H} &amp; q_{M} &amp; q_{S} &amp; q_{D}
 <h2>Transition rewards (can be added)</h2>
 <p>To simulate cost/QALY rewards during transitions:</p>
 <ul>
-<li><p>Create <span class="math inline">\(n_s \times n_s\)</span> reward matrix for each outcome (e.g., <span class="math inline">\(C\)</span> for cost, <span class="math inline">\(Q\)</span> for QALYs)</p>
+<li><p>Create <span class="math inline">\(n_s \times n_s\)</span> <strong>“reward matrix”</strong> for each outcome (e.g., <span class="math inline">\(C\)</span> for cost, <span class="math inline">\(Q\)</span> for QALYs)</p>
 <ul>
 <li><p>Set <span class="math inline">\(C[\text{ }, j] \leftarrow c_j\)</span> (state reward) for each column <span class="math inline">\(j\)</span></p></li>
 <li><p>Add the <span class="math inline">\(i \rightarrow j\)</span> transition reward to <span class="math inline">\(C[i,j]\)</span></p></li>
@@ -1185,8 +1192,27 @@ q_{H} &amp; q_{M} &amp; q_{S} &amp; q_{D}
 </ul>
 <p><span class="math inline">\(\bigodot\)</span> indicates element-wise multiplication</p>
 </section>
-<section id="ex-reward-matrix-w-transition-rewards" class="slide level2">
-<h2>Ex: reward matrix w transition rewards</h2>
+<section id="ex-reward-matrix-without-transition-rewards" class="slide level2">
+<h2>Ex: reward matrix WITHOUT transition rewards</h2>
+<p><span class="math display">\[
+\textbf{C}=
+\begin{bmatrix}
+c_H &amp; c_M &amp; c_S &amp; c_D\\
+c_H &amp; c_M &amp; c_S &amp; c_D\\
+c_H &amp; c_M &amp; c_S &amp; c_D\\
+c_H &amp; c_M &amp; c_S &amp; c_D
+\end{bmatrix},\\
+\textbf{Q} =
+\begin{bmatrix}
+q_H &amp; q_M &amp; q_S &amp; q_D\\
+q_H &amp; q_M &amp; q_S &amp; q_D\\
+q_H &amp; q_M &amp; q_S &amp; q_D\\
+q_H &amp; q_M &amp; q_S &amp; q_D
+\end{bmatrix}
+\]</span></p>
+</section>
+<section id="ex-reward-matrix-with-transition-rewards" class="slide level2">
+<h2>Ex: reward matrix WITH transition rewards</h2>
 <p><span class="math display">\[
 \textbf{C}=
 \begin{bmatrix}
@@ -1208,57 +1234,45 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Discounting</h2>
 <ul>
 <li><p>Must discount to get net present costs or QALYs</p></li>
-<li><p>Can create “discount multiplier vector” to apply for cost and outcomes from each cycle</p></li>
+<li><p>Can create “discount multiplier vector” and apply to cost and outcomes from each cycle</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>disc_rate <span class="ot">=</span> <span class="fl">0.03</span>; cycle_length <span class="ot">=</span> <span class="fl">0.5</span>; n_cycles <span class="ot">=</span> <span class="dv">20</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a>disc_mults <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>((<span class="dv">1</span><span class="sc">+</span>(disc_rate<span class="sc">*</span>cycle_length))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n_cycles))</span>
-<span id="cb47-3"><a href="#cb47-3"></a>disc_mults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href=""></a>disc_rate <span class="ot">=</span> <span class="fl">0.03</span>; cycle_length <span class="ot">=</span> <span class="fl">0.5</span>; n_cycles <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb47-2"><a href=""></a>disc_mults <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>((<span class="dv">1</span><span class="sc">+</span>(disc_rate<span class="sc">*</span>cycle_length))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n_cycles))</span>
+<span id="cb47-3"><a href=""></a>disc_mults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 0.9852217 0.9706617 0.9563170 0.9421842 0.9282603 0.9145422 0.9010268
- [8] 0.8877111 0.8745922 0.8616672 0.8489332 0.8363874 0.8240270 0.8118493
-[15] 0.7998515 0.7880310 0.7763853 0.7649116 0.7536075 0.7424704</code></pre>
+ [8] 0.8877111 0.8745922 0.8616672</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>v_costs_per_cycle <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1000</span>, <span class="at">n=</span><span class="dv">10</span>)</span>
-<span id="cb49-2"><a href="#cb49-2"></a><span class="fu">sum</span>(v_costs_per_cycle<span class="sc">*</span>disc_mults)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href=""></a>v_costs_per_cycle <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1000</span>, <span class="at">n=</span><span class="dv">10</span>)</span>
+<span id="cb49-2"><a href=""></a><span class="fu">sum</span>(v_costs_per_cycle<span class="sc">*</span>disc_mults)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 17168.64</code></pre>
+<pre><code>[1] 9222.185</code></pre>
 </div>
 </div>
 </section>
 <section id="ex-discounting" class="slide level2">
 <h2>Ex: discounting</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>disc_rate <span class="ot">=</span> <span class="fl">0.03</span>; cycle_length <span class="ot">=</span> <span class="dv">1</span>; n_cycles <span class="ot">=</span> <span class="dv">20</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>disc_mults <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>((<span class="dv">1</span><span class="sc">+</span>(disc_rate<span class="sc">*</span>cycle_length))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n_cycles))</span>
-<span id="cb51-3"><a href="#cb51-3"></a><span class="co">#undiscounted cost by year</span></span>
-<span id="cb51-4"><a href="#cb51-4"></a><span class="fu">rowSums</span>(m_cost_by_cyclestate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a>disc_rate <span class="ot">=</span> <span class="fl">0.03</span>; cycle_length <span class="ot">=</span> <span class="dv">1</span>; n_cycles <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb51-2"><a href=""></a>disc_mults <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>((<span class="dv">1</span><span class="sc">+</span>(disc_rate<span class="sc">*</span>cycle_length))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n_cycles))</span>
+<span id="cb51-3"><a href=""></a><span class="fu">rowSums</span>(m_cost_by_cyclestate[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]) <span class="co">#undiscounted cost by year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           1            2            3            4            5            6 
-3.512000e+05 4.230908e+05 3.945640e+05 3.139390e+05 2.292567e+05 1.566504e+05 
-           7            8            9           10           11           12 
-1.004297e+05 6.042358e+04 3.411684e+04 1.807795e+04 8.989751e+03 4.195311e+03 
-          13           14           15           16           17           18 
-1.837379e+03 7.551813e+02 2.912875e+02 1.054412e+02 3.581930e+01 1.141936e+01 
-          19           20 
-3.416525e+00 9.592799e-01 </code></pre>
+<pre><code>       t1        t2        t3        t4        t5        t6        t7        t8 
+351200.00 423090.80 394563.96 313938.99 229256.66 156650.39 100429.68  60423.58 
+       t9       t10 
+ 34116.84  18077.95 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co">#Discounted costs by year</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a><span class="fu">rowSums</span>(m_cost_by_cyclestate)<span class="sc">*</span>disc_mults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a><span class="fu">rowSums</span>(m_cost_by_cyclestate[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,])<span class="sc">*</span>disc_mults <span class="co">#Discounted costs by year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           1            2            3            4            5            6 
-3.409709e+05 3.988037e+05 3.610819e+05 2.789307e+05 1.977588e+05 1.311922e+05 
-           7            8            9           10           11           12 
-8.165852e+04 4.769894e+04 2.614772e+04 1.345169e+04 6.494388e+03 2.942507e+03 
-          13           14           15           16           17           18 
-1.251165e+03 4.992638e+02 1.869663e+02 6.570748e+01 2.167127e+01 6.707671e+00 
-          19           20 
-1.948396e+00 5.311300e-01 </code></pre>
+<pre><code>       t1        t2        t3        t4        t5        t6        t7        t8 
+340970.87 398803.66 361081.92 278930.73 197758.81 131192.23  81658.52  47698.94 
+       t9       t10 
+ 26147.72  13451.69 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="co">#Net present costs starting in cycle 1</span></span>
-<span id="cb55-2"><a href="#cb55-2"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(m_cost_by_cyclestate)<span class="sc">*</span>disc_mults)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href=""></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(m_cost_by_cyclestate[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,])<span class="sc">*</span>disc_mults) <span class="co">#Net present costs starting in cycle 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1889166</code></pre>
+<pre><code>[1] 1877695</code></pre>
 </div>
 </div>
 </section>
@@ -1266,15 +1280,15 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Initial costs</h2>
 <ul>
 <li><p>Often, we have initial costs at time 0</p></li>
-<li><p>Example: intervention at time 0 has a cost, then cohort enters Markov model to understand post-transfusion outcomes/costs</p></li>
+<li><p>Example: Costs $40 per person to vaccinate cohort at time 0, then cohort enters Markov model to understand post-vaccine outcomes/costs</p></li>
 <li><p>Can simply add initial cost to the net present costs from the model</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>c_initial <span class="ot">=</span> <span class="dv">10000</span></span>
-<span id="cb57-2"><a href="#cb57-2"></a><span class="co">#net present costs, including initial</span></span>
-<span id="cb57-3"><a href="#cb57-3"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(m_cost_by_cyclestate)<span class="sc">*</span>disc_mults) <span class="sc">+</span> c_initial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a>c_initial <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb57-2"><a href=""></a><span class="co">#net present costs, including initial</span></span>
+<span id="cb57-3"><a href=""></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(m_cost_by_cyclestate)<span class="sc">*</span>disc_mults) <span class="sc">+</span> c_initial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1899166</code></pre>
+<pre><code>[1] 1903111</code></pre>
 </div>
 </div>
 </section>
@@ -1282,21 +1296,21 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Indexing</h2>
 <p>Important to get right, easy to get wrong. My convention:</p>
 <ul>
-<li><p>matrix <span class="math inline">\(M\)</span> (cohort distribution) starts at 0, has <span class="math inline">\(T+1\)</span> rows</p>
+<li><p>matrix <span class="math inline">\(M\)</span> (cohort distribution) starts at <u><strong>cycle 0</strong></u>, has <span class="math inline">\(T+1\)</span> rows</p>
 <ul>
 <li><p>Assign <span class="math inline">\(m_0 \rightarrow M[1, \text{ }]\)</span>,</p></li>
 <li><p>Loop from 1 to <span class="math inline">\(T\)</span> to fill <span class="math inline">\(M[2:(T+1),\text{ }]\)</span></p></li>
 </ul></li>
-<li><p><span class="math inline">\(M_C\)</span> and <span class="math inline">\(M_Q\)</span> (cohort rewards) start at 1, have <span class="math inline">\(T\)</span> rows</p>
+<li><p><span class="math inline">\(M_C\)</span> and <span class="math inline">\(M_Q\)</span> (cohort rewards) start at <u><strong>cycle 1</strong></u>, have <span class="math inline">\(T\)</span> rows</p>
 <ul>
-<li>Loop from 1 to <span class="math inline">\(T\)</span> to fill <span class="math inline">\(M[1:T,\text{ }]\)</span></li>
+<li>Loop from 1 to <span class="math inline">\(T\)</span> to fill <span class="math inline">\(M_C[1:T,\text{ }]\)</span>, <span class="math inline">\(M_Q[1:T,\text{ }]\)</span></li>
 </ul></li>
 </ul>
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
-<li><p>Cohort models: simulate cohort transitioning between states over time</p></li>
+<li><p>Cohort models simulate cohort transitioning between states over time</p></li>
 <li><p>If transitions are constant, it’s a Markov model (can use the matrix solution)</p></li>
 <li><p>Health-economic outcomes can be added as state rewards and/or transition rewards</p></li>
 <li><p>Indexing of matrices, arrays, and loops is tricky!</p></li>
@@ -1305,15 +1319,17 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li>Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15</li>
-<li>Assignment 2 available; due Wednesday 9/26
+<li>Assignment 1 (cost-effectiveness, decision trees) due Friday 9/13</li>
+<li>Assignment 2 available; due Wednesday 9/25
 <ul>
-<li>Trickier; you have more time for a reason!</li>
+<li>Past students found it to be most challenging</li>
 </ul></li>
-<li>Office hours 1:15 - 2pm, room #1122</li>
+<li>Office hours 1:30 - 2:20pm, room #1103</li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -1342,7 +1358,6 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1597,18 +1612,7 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1640,11 +1644,50 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1654,8 +1697,17 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1669,7 +1721,11 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
