@@ -21,7 +21,7 @@ library(expm) #raise matrices to exponents with %^%
 theme_set(theme_bw()) #set ggplot theme
 ```
 
-## Recall: Specifying a discrete time CSTM
+## Recall: Specify a discrete time CSTM
 
 Transition matrix ($n_s \times n_s$, where $n_s$ is the number of states)
 
@@ -41,7 +41,7 @@ Initial distribution: $m_0 = \begin{bmatrix} 2000 & 0 & 0 & 0 \end{bmatrix}$
 
 Cycle length: 1 year; Number of cycles: $T=20$
 
-## Recall: Running a discrete time CSTM
+## Recall: Run a discrete time CSTM
 
 Matrix $M$ stores cohort dist'n after each cycle
 
@@ -59,7 +59,7 @@ To calculate rewards (costs or QALYs)
 
 ## Today
 
--   **Time-varying transitions**
+-   **Time-varying transitions and rewards**
 
 -   Time-varying rewards
 
@@ -81,7 +81,7 @@ To calculate rewards (costs or QALYs)
 
 -   **Matrix solution only works for a pure Markov model**
 
-## Most common time-varying transition
+## Common time-varying transition
 
 -   Over several years, cohort will die from "other causes" (not the disease modeled)
 
@@ -93,7 +93,7 @@ To calculate rewards (costs or QALYs)
 
 -   Use column "Death probability between age X and X+1"
 
-## 2020 life table data
+## 2020 life table data for Canada
 
 ```{r}
 #| echo: true
@@ -230,7 +230,7 @@ for (cycle in 1:20){
   print(rowSums(arr_P[ , , cycle]))    }
 ```
 
-## Age-specific death: M matrix
+## Calculate M matrix with age-specific OCM
 
 ```{r}
 #| echo: true
@@ -263,7 +263,7 @@ ggplot(data=t_trace_compare, aes(x=Cycle_num, y=Count, color=State))+
 
 ## Today
 
--   Time-varying transitions
+-   Time-varying transitions and rewards
 
 -   **Time-varying rewards**
 
@@ -296,7 +296,7 @@ $$
 
 -   Reward ***matrix*** assumes costs/QALYs don't depend on cycle number
 
--   Use 3D ***array*** to assign different rewards by cycle
+-   Can use 3D ***array*** to assign different rewards by cycle
 
     -   $\textbf{C}[i,j,t]$ and $\textbf{Q}[i,j,t]$ contain rewards (state + transition) for person going from $i$ to $j$ in cycle $t$
 
@@ -308,7 +308,7 @@ $$
 
 ## Alternative: 2D matrix in-loop
 
-If you don't like 3D arrays, can instead generate cycle-specific 2D matrices within a for loop
+If you don't like 3D arrays, instead generate cycle-specific 2D matrices within your for loop
 
 ```{r}
 #| eval: false
@@ -333,7 +333,9 @@ for(i in 1:n_cycles){
 
 ## Today
 
--   Capturing health-economic outcomes
+-   Time-varying transitions and reward**s**
+
+-   Time-varying rewards
 
 -   **Correcting discrete time error**
 
@@ -345,9 +347,9 @@ for(i in 1:n_cycles){
 
 -   In uncorrected models, transitions occur at cycle [**end**]{.underline}
 
--   Transition probs. are cumulative probability of transitioning [**during**]{.underline} a cycle
-
 -   In real life, transitions occur in continuous time
+
+-   Transition probs. are cumulative probability of transitioning [**during**]{.underline} a cycle
 
 ## Discrete time error
 
@@ -414,13 +416,15 @@ $$
 
 ## Comparison of discrete time correction methods
 
-Simpson rule and cycle tree method both good. I find cycle tree method most intuitive.
+Simpson rule and cycle tree method both good. I find cycle tree method intuitive (and it doesn't matter if total number of cycles are a multiple of 2 or 3)
 
 ![[Naimark et. al. 2013](https://doi.org/10.1177/0272989X13501558)](figs/discrete_time_corrections_compare.jpeg)
 
 ## Today
 
--   Capturing health-economic outcomes
+-   **Time-varying transitions and rewards**
+
+-   Time-varying rewards
 
 -   Correcting discrete time error
 
@@ -454,17 +458,17 @@ $$
 LE = \int_{t=0}^\infty S(t)
 $$
 
-In discrete time can calculate as:
+In model with discrete time, calculate as:
 
 $$
 LE = \Sigma_{t=0}^\infty S(t)
 $$
 
-For expected age at death, must add cohorts age at $t=0$.
+Expected age at death = remaining life expectancy + cohorts age at $t=0$.
 
 ## Prevalence
 
--   Proportion of living population in a health state at a specific time.
+-   Proportion of population alive in a health state at a specific time.
 
 -   Calculated as ratio of number in state i over number in any state other than dead
 
@@ -486,7 +490,9 @@ For expected age at death, must add cohorts age at $t=0$.
 
 ## Today
 
--   Capturing health-economic outcomes
+-   Time-varying transitions and rewards
+
+-   Time-varying rewards
 
 -   Correcting discrete time error
 
@@ -496,7 +502,7 @@ For expected age at death, must add cohorts age at $t=0$.
 
 ## Differential equation models
 
--   Most common **continuous time** cohort models
+-   Most common method for [**continuous time**]{.underline} cohort modeling
 
 -   Transitions depend on how cohort distributed across states (compartments)
 
@@ -504,9 +510,9 @@ For expected age at death, must add cohorts age at $t=0$.
 
 -   Often approximated with difference equations
 
-## Differential eqn vs. (semi-)Markov
+## Differential equation models
 
-Similarities
+Similarities to discrete time CSTMs
 
 -   Individual in one state (compartment) at a time
 
@@ -514,11 +520,11 @@ Similarities
 
 -   Transition between states over time
 
-Difference:
+Differences from discrete time CSTMs
 
 -   Continuous time (unless using difference eqn approximation)
 
--   Transition rates depend how population cohort is distributed across states in that instant
+-   Transition rates can depend how population cohort is distributed across states in that instant
 
 ## SIR model
 
@@ -528,7 +534,7 @@ Infection rate $\beta$ governs S $\rightarrow$ I
 
 Removal rate $\mu$ governs S $\rightarrow$ R
 
-![](sir_compartments.png)
+![](figs/sir_compartments.png)
 
 ## Differential equations for SIR
 
@@ -554,15 +560,15 @@ $$
 :::
 :::
 
-![](sir_compartments.png)
+![](figs/sir_compartments.png)
 
 ## SIR
 
 ![](figs/sir_slide.png)
 
-## Bigger R0 means bigger and faster epidemic
+## Bigger R0 means bigger and shorter epidemic
 
-![](R0_comparison.png)
+![](figs/R0_comparison.png)
 
 ## Difference equations: a discrete approximation
 
@@ -598,9 +604,9 @@ $\beta^*$ and $\mu^*$ are discrete analogs for $\beta$ and $\mu$ and their value
 
 -   People enter (born, age in, get condition) and leave (die, age out)
 
--   Cohort size not constant
+-   Cohort size not conserved for open cohorts
 
-![](demographic_sir.png)
+![](figs/demographic_sir.png)
 
 ## Age-structuring
 
@@ -618,11 +624,11 @@ $\beta^*$ and $\mu^*$ are discrete analogs for $\beta$ and $\mu$ and their value
 
 -   Epidemiological measures can be calculated from a cohort model
 
--   Differential (difference) equation models useful when distribution of population across states influences transitions, like in an epidemic
+-   Differential (difference) equation models useful when distribution of population across states influences transitions (e.g., infectious diseases)
 
 ## Logistics
 
--   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15
--   Assignment 2 due Wednesday 9/27
-    -   Trickier; you have more time for a reason!
--   Office hours 1:15 - 2pm, room #1122
+-   Assignment 1 (cost-effectiveness, decision trees) due Friday 9/13
+-   Assignment 2 CSTM; due Wednesday 9/25
+-   Next class: workflow for reproducible research
+-   Office hours 1:30 - 2:20pm, room #1103

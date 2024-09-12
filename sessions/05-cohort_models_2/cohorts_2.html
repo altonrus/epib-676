@@ -418,8 +418,8 @@ Alton Russell
 <span id="cb1-8"><a href=""></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="recall-specifying-a-discrete-time-cstm" class="slide level2">
-<h2>Recall: Specifying a discrete time CSTM</h2>
+<section id="recall-specify-a-discrete-time-cstm" class="slide level2">
+<h2>Recall: Specify a discrete time CSTM</h2>
 <p>Transition matrix (<span class="math inline">\(n_s \times n_s\)</span>, where <span class="math inline">\(n_s\)</span> is the number of states)</p>
 <p><span class="math display">\[
 P = \begin{array}{c}\begin{matrix}Healthy &amp; moderate &amp; severe &amp; dead \end{matrix}
@@ -435,8 +435,8 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <p>Initial distribution: <span class="math inline">\(m_0 = \begin{bmatrix} 2000 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}\)</span></p>
 <p>Cycle length: 1 year; Number of cycles: <span class="math inline">\(T=20\)</span></p>
 </section>
-<section id="recall-running-a-discrete-time-cstm" class="slide level2">
-<h2>Recall: Running a discrete time CSTM</h2>
+<section id="recall-run-a-discrete-time-cstm" class="slide level2">
+<h2>Recall: Run a discrete time CSTM</h2>
 <p>Matrix <span class="math inline">\(M\)</span> stores cohort dist’n after each cycle</p>
 <ul>
 <li><p><span class="math inline">\(n_s\)</span> columns and <span class="math inline">\(T+1\)</span> rows</p></li>
@@ -452,7 +452,7 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <section id="today" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p><strong>Time-varying transitions</strong></p></li>
+<li><p><strong>Time-varying transitions and rewards</strong></p></li>
 <li><p>Time-varying rewards</p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
@@ -471,8 +471,8 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <li><p><strong>Matrix solution only works for a pure Markov model</strong></p></li>
 </ul>
 </section>
-<section id="most-common-time-varying-transition" class="slide level2">
-<h2>Most common time-varying transition</h2>
+<section id="common-time-varying-transition" class="slide level2">
+<h2>Common time-varying transition</h2>
 <ul>
 <li><p>Over several years, cohort will die from “other causes” (not the disease modeled)</p></li>
 <li><p>Prob. of other cause death changes with age</p></li>
@@ -481,8 +481,8 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <li><p>Use column “Death probability between age X and X+1”</p></li>
 </ul>
 </section>
-<section id="life-table-data" class="slide level2">
-<h2>2020 life table data</h2>
+<section id="life-table-data-for-canada" class="slide level2">
+<h2>2020 life table data for Canada</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>t_other_cause_death <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"prob_death_by_age_2020_StatsCan.csv"</span>,</span>
 <span id="cb2-2"><a href=""></a>                                 <span class="at">sep=</span><span class="st">","</span>)</span>
@@ -806,8 +806,8 @@ H M S D
 </div>
 </div>
 </section>
-<section id="age-specific-death-m-matrix" class="slide level2">
-<h2>Age-specific death: M matrix</h2>
+<section id="calculate-m-matrix-with-age-specific-ocm" class="slide level2">
+<h2>Calculate M matrix with age-specific OCM</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>M_OCM <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">21</span>,</span>
 <span id="cb9-2"><a href=""></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(<span class="st">"t"</span>,<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>), <span class="fu">c</span>(<span class="st">"H"</span>,<span class="st">"M"</span>,<span class="st">"S"</span>,<span class="st">"D"</span>)))</span>
@@ -849,7 +849,7 @@ t20  385.5725 103.0306 121.7557 1389.64121</code></pre>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p>Time-varying transitions</p></li>
+<li><p>Time-varying transitions and rewards</p></li>
 <li><p><strong>Time-varying rewards</strong></p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
@@ -879,7 +879,7 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Vary rewards with simulation time</h2>
 <ul>
 <li><p>Reward <strong><em>matrix</em></strong> assumes costs/QALYs don’t depend on cycle number</p></li>
-<li><p>Use 3D <strong><em>array</em></strong> to assign different rewards by cycle</p>
+<li><p>Can use 3D <strong><em>array</em></strong> to assign different rewards by cycle</p>
 <ul>
 <li><p><span class="math inline">\(\textbf{C}[i,j,t]\)</span> and <span class="math inline">\(\textbf{Q}[i,j,t]\)</span> contain rewards (state + transition) for person going from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p></li>
 <li><p>Can compute total rewards of people who end cycle <span class="math inline">\(t\)</span> in each state:</p>
@@ -892,7 +892,7 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 </section>
 <section id="alternative-2d-matrix-in-loop" class="slide level2">
 <h2>Alternative: 2D matrix in-loop</h2>
-<p>If you don’t like 3D arrays, can instead generate cycle-specific 2D matrices within a for loop</p>
+<p>If you don’t like 3D arrays, instead generate cycle-specific 2D matrices within your for loop</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co">#Pseudocode, won't run without modifications</span></span>
 <span id="cb11-2"><a href=""></a>mat_M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">nrow =</span> n_cycles<span class="sc">+</span><span class="dv">1</span>,</span>
@@ -915,7 +915,8 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <section id="today-2" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p>Capturing health-economic outcomes</p></li>
+<li><p>Time-varying transitions and reward<strong>s</strong></p></li>
+<li><p>Time-varying rewards</p></li>
 <li><p><strong>Correcting discrete time error</strong></p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
 <li><p>Differential equation models</p></li>
@@ -925,8 +926,8 @@ q_H+q_{D \rightarrow H} &amp; q_M+q_{D \rightarrow M} &amp; q_S+q_{D \rightarrow
 <h2>Discrete time error</h2>
 <ul>
 <li><p>In uncorrected models, transitions occur at cycle <u><strong>end</strong></u></p></li>
-<li><p>Transition probs. are cumulative probability of transitioning <u><strong>during</strong></u> a cycle</p></li>
 <li><p>In real life, transitions occur in continuous time</p></li>
+<li><p>Transition probs. are cumulative probability of transitioning <u><strong>during</strong></u> a cycle</p></li>
 </ul>
 </section>
 <section id="discrete-time-error-1" class="slide level2">
@@ -988,13 +989,14 @@ q_H &amp; .5q_H+.5q_M &amp; .5q_H+.5q_S &amp; .5q_H+.5q_D\\
 </section>
 <section id="comparison-of-discrete-time-correction-methods" class="slide level2">
 <h2>Comparison of discrete time correction methods</h2>
-<p>Simpson rule and cycle tree method both good. I find cycle tree method most intuitive.</p>
+<p>Simpson rule and cycle tree method both good. I find cycle tree method intuitive (and it doesn’t matter if total number of cycles are a multiple of 2 or 3)</p>
 
 <img data-src="figs/discrete_time_corrections_compare.jpeg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://doi.org/10.1177/0272989X13501558">Naimark et. al.&nbsp;2013</a></p></section>
 <section id="today-3" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p>Capturing health-economic outcomes</p></li>
+<li><p><strong>Time-varying transitions and rewards</strong></p></li>
+<li><p>Time-varying rewards</p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p><strong>Capturing epidemiological outcomes</strong></p></li>
 <li><p>Differential equation models</p></li>
@@ -1003,37 +1005,38 @@ q_H &amp; .5q_H+.5q_M &amp; .5q_H+.5q_S &amp; .5q_H+.5q_D\\
 <section id="why-capture-epidemiologic-outcomes" class="slide level2">
 <h2>Why capture epidemiologic outcomes</h2>
 <ul>
+<li><p>Measure of intervention effectiveness</p></li>
 <li><p>Of interest to decision makers</p></li>
 <li><p>Can used to calibrate or validate your model (more later)</p></li>
 </ul>
-<p>Examples of epidemiological outcomes: survival, prevalence, incidence, lifetime risk</p>
+<p><strong>Examples</strong>: survival, prevalence, incidence, lifetime risk</p>
 </section>
 <section id="survival" class="slide level2">
 <h2>Survival</h2>
 <ul>
-<li><p>Number of people not dead at a given point in time</p></li>
+<li><p>Number of people not dead at time <span class="math inline">\(t\)</span></p></li>
 <li><p>For each cycle, sum all states (columns of <span class="math inline">\(M\)</span> matrix) except dead</p>
 <ul>
 <li>Equivalently, cohort size minus number in dead state</li>
 </ul></li>
 </ul>
 </section>
-<section id="restricted-life-expectancy" class="slide level2">
-<h2>Restricted life expectancy</h2>
+<section id="remaining-life-expectancy" class="slide level2">
+<h2>Remaining life expectancy</h2>
 <p>Expected number of years before death. Integral of survival:</p>
 <p><span class="math display">\[
 LE = \int_{t=0}^\infty S(t)
 \]</span></p>
-<p>In discrete time can calculate as:</p>
+<p>In model with discrete time, calculate as:</p>
 <p><span class="math display">\[
 LE = \Sigma_{t=0}^\infty S(t)
 \]</span></p>
-<p>This is restricted life expectancy; for expected age at death, must add cohorts age at <span class="math inline">\(t=0\)</span>.</p>
+<p>Expected age at death = remaining life expectancy + cohorts age at <span class="math inline">\(t=0\)</span>.</p>
 </section>
 <section id="prevalence" class="slide level2">
 <h2>Prevalence</h2>
 <ul>
-<li><p>Proportion of living population in a health state at a specific time.</p></li>
+<li><p>Proportion of population alive in a health state at a specific time.</p></li>
 <li><p>Calculated as ratio of number in state i over number in any state other than dead</p></li>
 <li><p>If multiple model states correspond to health state (e.g., tunnel states), must add them together for the numerator</p></li>
 </ul>
@@ -1054,7 +1057,8 @@ LE = \Sigma_{t=0}^\infty S(t)
 <section id="today-4" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p>Capturing health-economic outcomes</p></li>
+<li><p>Time-varying transitions and rewards</p></li>
+<li><p>Time-varying rewards</p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
 <li><p><strong>Differential equation models</strong></p></li>
@@ -1063,24 +1067,24 @@ LE = \Sigma_{t=0}^\infty S(t)
 <section id="differential-equation-models" class="slide level2">
 <h2>Differential equation models</h2>
 <ul>
-<li><p>Most common <strong>continuous time</strong> cohort models</p></li>
+<li><p>Most common method for <u><strong>continuous time</strong></u> cohort modeling</p></li>
 <li><p>Transitions depend on how cohort distributed across states (compartments)</p></li>
 <li><p>Very useful for modeling epidemics</p></li>
 <li><p>Often approximated with difference equations</p></li>
 </ul>
 </section>
-<section id="differential-eqn-vs.-semi-markov" class="slide level2">
-<h2>Differential eqn vs.&nbsp;(semi-)Markov</h2>
-<p>Similarities</p>
+<section id="differential-equation-models-1" class="slide level2">
+<h2>Differential equation models</h2>
+<p>Similarities to discrete time CSTMs</p>
 <ul>
 <li><p>Individual in one state (compartment) at a time</p></li>
 <li><p>Individuals in state treated identically</p></li>
 <li><p>Transition between states over time</p></li>
 </ul>
-<p>Difference:</p>
+<p>Differences from discrete time CSTMs</p>
 <ul>
 <li><p>Continuous time (unless using difference eqn approximation)</p></li>
-<li><p>Transition rates depend how population cohort is distributed across states in that instant</p></li>
+<li><p>Transition rates can depend how population cohort is distributed across states in that instant</p></li>
 </ul>
 </section>
 <section id="sir-model" class="slide level2">
@@ -1089,7 +1093,7 @@ LE = \Sigma_{t=0}^\infty S(t)
 <p>Infection rate <span class="math inline">\(\beta\)</span> governs S <span class="math inline">\(\rightarrow\)</span> I</p>
 <p>Removal rate <span class="math inline">\(\mu\)</span> governs S <span class="math inline">\(\rightarrow\)</span> R</p>
 
-<img data-src="sir_compartments.png" class="r-stretch"></section>
+<img data-src="figs/sir_compartments.png" class="r-stretch"></section>
 <section id="differential-equations-for-sir" class="slide level2">
 <h2>Differential equations for SIR</h2>
 <div class="columns">
@@ -1111,15 +1115,15 @@ LE = \Sigma_{t=0}^\infty S(t)
 \]</span></p>
 </div></div>
 
-<img data-src="sir_compartments.png" class="r-stretch"></section>
+<img data-src="figs/sir_compartments.png" class="r-stretch"></section>
 <section id="sir" class="slide level2">
 <h2>SIR</h2>
 
 <img data-src="figs/sir_slide.png" class="r-stretch"></section>
-<section id="bigger-r0-means-bigger-and-faster-epidemic" class="slide level2">
-<h2>Bigger R0 means bigger and faster epidemic</h2>
+<section id="bigger-r0-means-bigger-and-shorter-epidemic" class="slide level2">
+<h2>Bigger R0 means bigger and shorter epidemic</h2>
 
-<img data-src="R0_comparison.png" class="r-stretch"></section>
+<img data-src="figs/R0_comparison.png" class="r-stretch"></section>
 <section id="difference-equations-a-discrete-approximation" class="slide level2">
 <h2>Difference equations: a discrete approximation</h2>
 <div class="columns">
@@ -1149,10 +1153,10 @@ LE = \Sigma_{t=0}^\infty S(t)
 <ul>
 <li><p>While (Semi)Markov models usually closed, differential eqn models can be open</p></li>
 <li><p>People enter (born, age in, get condition) and leave (die, age out)</p></li>
-<li><p>Cohort size not constant</p></li>
+<li><p>Cohort size not conserved for open cohorts</p></li>
 </ul>
 
-<img data-src="demographic_sir.png" class="r-stretch"></section>
+<img data-src="figs/demographic_sir.png" class="r-stretch"></section>
 <section id="age-structuring" class="slide level2">
 <h2>Age-structuring</h2>
 <ul>
@@ -1167,18 +1171,16 @@ LE = \Sigma_{t=0}^\infty S(t)
 <li><p>If transitions or rewards are time-varying, can create 3D arrays and select “slice” for each cycle in a loop</p></li>
 <li><p>Cycle tree method corrects discrete time error using a modified transition reward matrix</p></li>
 <li><p>Epidemiological measures can be calculated from a cohort model</p></li>
-<li><p>Differential (difference) equation models useful when distribution of population across states influences transitions, like in an epidemic</p></li>
+<li><p>Differential (difference) equation models useful when distribution of population across states influences transitions (e.g., infectious diseases)</p></li>
 </ul>
 </section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li>Assignment 1 (cost-effectiveness, decision trees) due Friday 9/15</li>
-<li>Assignment 2 due Wednesday 9/27
-<ul>
-<li>Trickier; you have more time for a reason!</li>
-</ul></li>
-<li>Office hours 1:15 - 2pm, room #1122</li>
+<li>Assignment 1 (cost-effectiveness, decision trees) due Friday 9/13</li>
+<li>Assignment 2 CSTM; due Wednesday 9/25</li>
+<li>Next class: workflow for reproducible research</li>
+<li>Office hours 1:30 - 2:20pm, room #1103</li>
 </ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
