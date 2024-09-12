@@ -59,7 +59,7 @@ To calculate rewards (costs or QALYs)
 
 ## Today
 
--   **Time-varying transitions and rewards**
+-   **Time-varying transitions**
 
 -   Time-varying rewards
 
@@ -263,7 +263,7 @@ ggplot(data=t_trace_compare, aes(x=Cycle_num, y=Count, color=State))+
 
 ## Today
 
--   Time-varying transitions and rewards
+-   Time-varying transitions
 
 -   **Time-varying rewards**
 
@@ -422,7 +422,7 @@ Simpson rule and cycle tree method both good. I find cycle tree method intuitive
 
 ## Today
 
--   **Time-varying transitions and rewards**
+-   **Time-varying transitions**
 
 -   Time-varying rewards
 
@@ -482,15 +482,15 @@ Expected age at death = remaining life expectancy + cohorts age at $t=0$.
 
     -   $m_{t-1} P[:,j]$ is the number entering or staying in state $j$ in cycle $t$
 
-    -   $m_{t-1} P[j,j]$ is the number staying in state $j$ in cycle $t$
+    -   $m_{t-1}^j P[j,j]$ is the number staying in state $j$ in cycle $t$
 
-    -   $m_{t-1} P[:,j] - m_{t-1} P[j,j]$ is the number entering state $j$ in cycle $t$
+    -   $m_{t-1} P[:,j] - m_{t-1}^j P[j,j]$ is the number entering state $j$ in cycle $t$
 
 -   Divide by number alive at time $t$ to make it a proportion
 
 ## Today
 
--   Time-varying transitions and rewards
+-   Time-varying transitions
 
 -   Time-varying rewards
 

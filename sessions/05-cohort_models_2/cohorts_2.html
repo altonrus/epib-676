@@ -452,7 +452,7 @@ p_{D \rightarrow H} &amp; p_{D \rightarrow M} &amp; p_{D \rightarrow S} &amp; p_
 <section id="today" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p><strong>Time-varying transitions and rewards</strong></p></li>
+<li><p><strong>Time-varying transitions</strong></p></li>
 <li><p>Time-varying rewards</p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
@@ -849,7 +849,7 @@ t20  385.5725 103.0306 121.7557 1389.64121</code></pre>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p>Time-varying transitions and rewards</p></li>
+<li><p>Time-varying transitions</p></li>
 <li><p><strong>Time-varying rewards</strong></p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
@@ -995,7 +995,7 @@ q_H &amp; .5q_H+.5q_M &amp; .5q_H+.5q_S &amp; .5q_H+.5q_D\\
 <section id="today-3" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p><strong>Time-varying transitions and rewards</strong></p></li>
+<li><p><strong>Time-varying transitions</strong></p></li>
 <li><p>Time-varying rewards</p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p><strong>Capturing epidemiological outcomes</strong></p></li>
@@ -1048,8 +1048,8 @@ LE = \Sigma_{t=0}^\infty S(t)
 <li><p>For a state <span class="math inline">\(j\)</span>:</p>
 <ul>
 <li><p><span class="math inline">\(m_{t-1} P[:,j]\)</span> is the number entering or staying in state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p></li>
-<li><p><span class="math inline">\(m_{t-1} P[j,j]\)</span> is the number staying in state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p></li>
-<li><p><span class="math inline">\(m_{t-1} P[:,j] - m_{t-1} P[j,j]\)</span> is the number entering state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p></li>
+<li><p><span class="math inline">\(m_{t-1}^j P[j,j]\)</span> is the number staying in state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p></li>
+<li><p><span class="math inline">\(m_{t-1} P[:,j] - m_{t-1}^j P[j,j]\)</span> is the number entering state <span class="math inline">\(j\)</span> in cycle <span class="math inline">\(t\)</span></p></li>
 </ul></li>
 <li><p>Divide by number alive at time <span class="math inline">\(t\)</span> to make it a proportion</p></li>
 </ul>
@@ -1057,7 +1057,7 @@ LE = \Sigma_{t=0}^\infty S(t)
 <section id="today-4" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><p>Time-varying transitions and rewards</p></li>
+<li><p>Time-varying transitions</p></li>
 <li><p>Time-varying rewards</p></li>
 <li><p>Correcting discrete time error</p></li>
 <li><p>Capturing epidemiological outcomes</p></li>
