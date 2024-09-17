@@ -1,26 +1,22 @@
 ---
 title: "Reproducible modeling workflow"
-subtitle: "EPIB  676 session 11, McGill University"
+subtitle: "EPIB  676 session 6, McGill University"
 author: "Alton Russell"
-date: "5 Oct 2023"
+date: "17 Sep 2024"
 format: revealjs
 editor: visual
 ---
-
-## Non-programing assignments
-
-See [Info for non-programming assignments](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html) in syllabus folder of Github.
 
 
 ## Today
 
 -   **Open and reproducible principles**
 
--   Example R Project workflow
+-   My R Project workflow
 
 ## Reproducible
 
-Can be exactly redone, given same materials
+Analysis can be exactly redone, given same materials
 
 -   Code
 
@@ -75,7 +71,7 @@ Manuscript is an advertisement. The product is the associated work
 -  Shiny app, etc.
 
 
-> An article about computational result is advertising, not scholarship. The **actual scholarship is the full software environment, code and data, that produced the result.**
+> An article about a computational result is advertising, not scholarship. The **actual scholarship is the full software environment, code and data, that produced the result.**
 
 [Buckheit and Donoho (1995)](https://statweb.stanford.edu/~wavelab/Wavelab_850/wavelab.pdf)
 
@@ -91,7 +87,7 @@ Manuscript is an advertisement. The product is the associated work
 
 -   Mistakes might be found
 
-**Usually, not good reasons**
+**Usually, not the best reasons**
 
 ## Why should we share code?
 
@@ -99,7 +95,7 @@ Manuscript is an advertisement. The product is the associated work
 
 -   Only way to fully communicate methods
 
--   Publc/non-profit-funded research is a public good
+-   Public or non-profit funded research is a public good
 
 -   Extend your potential contribution
 
@@ -149,7 +145,7 @@ Increase reproducibility without sharing data with
 
 ## Environment
 
--   R and packages updated all the time
+-   R and R packages get updated
 
 -   No guarantee of backwards compatibility
 
@@ -174,7 +170,7 @@ Increase reproducibility without sharing data with
 
 ## Each script should run error-free in new session
 
--  Use console when writing, but 'restart r and clear output' before final run
+-  Use console when developing code, but 'restart r and clear output' before final run
 
 -  Set global options to maximize reproducibility
 
@@ -241,23 +237,23 @@ Increase reproducibility without sharing data with
 
 - Based on Linux distribution (usually Ubuntu)
 
--  On new machine (with Linux), can create container based on the image
+-  On new machine (with Linux), you can create the container based on the image
 
 ## Literate programming
 
 Idea of Donald Knuth: Code snippets and 'natural language' (e.g., English) interspersed in one document
 
--   **Jupyter notebooks** Python, Julia
+-   **Jupyter notebooks** Python, Julia, others
 
--   **RMarkdown** R, Python with some extra steps
+-   **RMarkdown** R
 
--   **Quarto documents** R, Python, Julia
+-   **Quarto documents** R, Python, Julia, JavaScript
 
     -   In 2022, RStudio the company re-branded to Posit and released Quarto
 
 ## Repositories
 
-Put all shareable materials in one publicly-accessible, citeable spot (and cite it!)
+Put all shareable materials in one publicly-accessible, citeable spot (and cite it in your manuscript!)
 
 Permanent third-party repo \> github repo
 
@@ -265,7 +261,7 @@ Permanent third-party repo \> github repo
 
 -   [OSF.io](OSF.io): open science framework, can DOI repo but not version
 
--   [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/orchard/open-source-model-clearinghouse) (18 models; 4 in R)
+-   [Global Health CEA open-source model clearinghouse](http://ghcearegistry.org/orchard/open-source-model-clearinghouse) (25 models; 4 in R)
 
 -   [SMDM COVID-19 modeling repository](https://smdm.org/news/detail/smdm-covid-19-modeling-special-committee-creating-a-platform-for-collaborat)
 
@@ -273,10 +269,10 @@ Permanent third-party repo \> github repo
 
 -   Open and reproducible principles
 
--   **Example R Project workflow**
+-   **My R Project workflow**
 
 
-Download my template here:
+Can clone or download my template here:
 
 <https://github.com/altonrus/generic-project>
 
@@ -304,30 +300,30 @@ Download my template here:
 
 -   Also put data documentation (dictionary, meta-data) here
 
-    -   Make meta-data public even if data can't be
+    -   Share meta-data even when you can't share data
 
--   Put model parameter tables in Excel (Assign2 has example)
+-   Put parameter tables in Excel (Assign2 has example)
 
     -   Read into RScript to run model
 
-    -   Read by manuscript Rmd/Quarto to display in main text or supplement
+    -   Read into Quarto to display in manuscript
 
 -   Line-level data in csv, json or [feather or parquet](https://arrow.apache.org/docs/index.html)
 
-## 3_intermediate and 4_output folders
+## 3_intermediate and 4_output
 
--   Tables/objects generated in your scripts should go to intermediate or output folder (**not data**!)
+-   Tables/objects generated by scripts go to intermediate or output folder (**not data**!)
 
--   Use intermediate folder for non-final objects (that are later read into another script)
+-   Use intermediate folder for non-final objects (objects later read into another script)
 
     -   e.g., preprocessed data
 
--   For smaller projects, can get rid of intermediate and just save everything to output
+-   For smaller projects, you could get rid of intermediate and just save everything to output
 
 
-## Figures
+## 4_output/figs
 
--   Save via code, not RStudio 'export'
+-   Save figures via code, not RStudio 'export'
 
 ```{r}
 #| eval: false
@@ -336,13 +332,13 @@ ggsave("./4_output/plt_prob_ce_grid.svg",
        width=7,  height=8, unit="in")
 ```
 
--   Tweak based on saved file, not Rstudio viewer (size & filetype matter)
+-   Look at saved output, not Rstudio viewer, to tweak
 
--   Vector format (svg, pdf) preferred over raster (usually)
+-   Vector format (svg, pdf) usually preferred over raster
 
     -   Vector looks sharp no matter how zoomed in
     
-    -   Small filesize for line plots plots (not true for complex figures)
+    -   Small filesize for line plots plots (but not complex figures)
 
     -   PDF figures don't play nice with Word
 
@@ -367,7 +363,7 @@ ggsave("./4_output/plt_prob_ce_grid.svg",
 
 ::: {.callout-warning}
 
-Scripts should work in new environment. Load needed packages & save-to-disk objects needed by future scripts!
+Each script should run error-free in new environment without running another script first. Need to load packages, source helper scripts, read in data
 
 :::
 
@@ -376,15 +372,16 @@ Scripts should work in new environment. Load needed packages & save-to-disk obje
 
 ## Functionalize code
 
+Smaller functions that call each other are easier to understand & debug than one massive function
+
 Often develops over time:
 
 -   At first, write code directly in script (no function)
 
 -   Then, break key parts into functions
 
--   As number of functions grow, move into `00-hepler-functions` script and `source()` into analysis scripts
+-   As number of functions grow, move some to `00-hepler-functions` script and `source()` into analysis scripts
 
-Smaller functions calling each other easier to understand & debug vs. 1 massive function
 
 ## Headings in .R scripts
 
@@ -428,7 +425,7 @@ List all folders/files you don't want on github
 
 -   "private" sub-folders for objects that cannot be made public
 
-Github repos private (with collaborators) while developing project, but they become public when I publish.
+Usually make github repo private while developing project and change to public when publishing
 
 :::
 :::
@@ -437,19 +434,19 @@ Github repos private (with collaborators) while developing project, but they bec
 
 -   Use when data use agreement and/or ethics prevents sharing data
 
--   Should never push private data to github, even if private
+-   Never store private data on github, even in private repo
 
 ::: {.callout-warning}
 
-Objects other than data tables can include data (e.g., saving an ML model or cross-validation object often has embedded data!)
+Objects other than data tables can include data (e.g., saving an ML model or multiply-imputed dataset object may have embedded data!)
 
 :::
 
 -   **If sensitive data were ever in repo, hard to remove! (just nuke and re-create before making public)**
 
-## Merge conflict
+## Merge conflicts
 
-Can happen if two users edit same line of file, or one user edits a file  another  deletes
+Happen if two users (or same user on two different machines) edits same line of file, or one user edits a file that another deletes
 
 <!-- -->
 
@@ -468,13 +465,13 @@ Avoid by pulling, & committing+pushing often!
 This is why if you edit the assignments you may be unable to pull the class repo. Can copy anything you want to edit into another location so you can always pull.
 :::
 
-## RMarkdown/Quarto documents
+## Quarto documents
 
--   Quarto will eventually replace RMarkdown
+-   Replacing RMarkdown (can embed Python or Julia)
 
 -   Some RMarkdown packages don't (yet) work properly in Quarto
 
--   "Knit" (RMarkdown) or "Render" (Quarto) to:
+-   Can "knit" (RMarkdown) or "Render" (Quarto) to:
 
     -   HTML (this document)
 
@@ -510,9 +507,9 @@ It talks longer to write inline code than hard-code numbers.
 
 **But:**
 
--   If you change parameter and rerun scrips, all results will update
+-   If you change parameter and rerun your scripts, all results will update
 
--   Reduces risk of transcription error (but may introduce new risk of coding error)
+-   Reduces risk of transcription error (but introduces risk of coding error)
 
 ## My Manuscript template
 
@@ -537,7 +534,7 @@ It talks longer to write inline code than hard-code numbers.
 
 -   Allows latex equations
 
--   Weird hack for supplemental table/fig crossreferencing (see note in the .Qmd file)
+-   Custom crossref for supplemental tables and figures
 
 
 ## Manuscript folder contents
@@ -550,7 +547,7 @@ It talks longer to write inline code than hard-code numbers.
 ::: {.column width="60%"}
 -   **Reference manuscript:** set format for headers, table of content, etc.
 
--   **.csl file** specifies citation format (AMA format with numbers in brackets)
+-   **.csl file** specifies citation format (default is AMA format with numbers in brackets)
 
 -   **.bib file** contains references to cite by citation code, e.g., `[@russell2021a]`
 :::
@@ -580,11 +577,11 @@ It talks longer to write inline code than hard-code numbers.
 :::
 
 ::: {.column width="60%"}
--   Export Zotero collection to Bibtex in same folder as .Rmd
+-   Export Zotero collection to Bibtex in same folder as manuscript.qmd
 
 -   To replace default CiteKey, add `Citation Key: <CiteKey>` to 'extra' field
 
--   In .Rmd header, set `bibliography: [filename].bib`
+-   In .qmd header, set `bibliography: [filename].bib`
 
 -   Cite with `[@CiteKey]` or `[@CiteKey1; @CiteKey2]`
 :::
@@ -596,9 +593,9 @@ It talks longer to write inline code than hard-code numbers.
 ::: {.column width="50%"}
 [Better BibTex for Zotero](https://retorque.re/zotero-better-bibtex/) (also see [this blog](https://www.andrewheiss.com/blog/2023/01/08/bibdesk-to-zotero-pandoc/#example-workflow-with-quarto-r-markdown-pandoc))
 
--   Auto-assign citation keys and prevents duplicates withen Zenodo
+-   Auto-assigns citation keys within Zenodo
 
--   If you export to "Better bibtex" format, with "Keep updated" checked, .bib file auto-adds anything added to the Zotero repo
+-   If you export to "Better bibtex" format, with "Keep updated" checked, .bib file auto-adds anything added in Zotero
 :::
 
 ::: {.column width="50%"}
@@ -606,7 +603,7 @@ It talks longer to write inline code than hard-code numbers.
 :::
 :::
 
-## Zenodo repository
+## Zenodo repository for code/data
 
 <https://zenodo.org/>
 
@@ -614,7 +611,10 @@ It talks longer to write inline code than hard-code numbers.
 
 -   Assigned a DOI (cite the repo in the manuscript!)
 
--   Can drag-and-drop files or auto-add a 'release' from Github
+-   Two options
+
+   - Upload manually 
+   - :ink Github account and auto-update Zenodo whenever making a 'release' on Github
 
 ## Example: Evaluating COVID-19 quarantine and testing policies for arriving travelers
 
@@ -629,13 +629,11 @@ It talks longer to write inline code than hard-code numbers.
 
 ## Learn more
 
--   [D3Mod lab manual](https://altonrus.quarto.pub/decision-modeling-lab-manual/)
-
 -   [Reproducible Analytical Pipelines Course](https://rap4mads.eu/), Bruno Rodrigues
 
 -   [Reproducible research in R workshop](https://r-cubed.rostools.org/index.html), Johnston et. al.
 
--   ["Telling Stories with Data"](https://tellingstorieswithdata.com/04-workflow.html) Ch. 4 by Rohan Alexander
+-   ["Telling Stories with Data"](https://tellingstorieswithdata.com/) Ch. 3 by Rohan Alexander
 
 -   [Good enough practices in scientific computing](https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1005510&type=printable) Wilson et. al.
 
@@ -643,16 +641,15 @@ It talks longer to write inline code than hard-code numbers.
 
 -   [ISPOR open source models interest group](https://www.ispor.org/member-groups/special-interest-groups/open-source-models)
 
+## Non-programing assignments
+
+See [Info for non-programming assignments](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html) in syllabus folder of Github.
+
+-   Project proposal due Nov. 1
+-   Open-source modelling presentations Nov. 5
+
 ## Logistics
 
-Plan ahead given close deadlines for open source model presentation, project proposal, and assignment 4.
-
--   Assignment 3 due [**Wed, Oct 11**]{.underline}
-
--   Open source model presentations [**Th, Oct 26**]{.underline}
-
--   Project proposals due [**Mon, Oct 30**]{.underline}
-
--   Assignment 4 due [**Fri, Nov 2**]{.underline}
-
-Happy Thanksgiving! See you next Thursday
+-   Assignment 2 CSTM due Wednesday 9/25
+-   Next 3 classes on simulation
+-   Office hours 1:30 - 2:30pm, room #1103
