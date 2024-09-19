@@ -1,8 +1,8 @@
 ---
 title: "Simulation 1"
-subtitle: "EPIB  676 session 6, McGill University"
+subtitle: "EPIB  676 session 7, McGill University"
 author: "Alton Russell"
-date: "19 Sep 2023"
+date: "19 Sep 2024"
 format: revealjs
 editor: visual
 ---
@@ -32,7 +32,7 @@ To add heterogeneity in cohort model
 
 -   Add states
 
--   Make new version of model
+-   Make separate model versions (e.g., 40, 50, 60 year old starting age, male and female)
 
 Can quickly become unwieldy:
 
@@ -44,15 +44,15 @@ Can quickly become unwieldy:
 
 -   Capture individual (patient) variation
 
--   Model more diverse pathways
+-   Model diverse pathways
 
--   History can impact future events
+-   Simulants' history can impact future events
 
     -   No Markov assumption
 
 ## Monte Carlo simulation
 
-Use repeated sampling of random numbers to estimate quantity. Used in risk analysis, physics, estimating integral, etc.
+Repeated sampling of random numbers to estimate a quantity. Used in risk analysis, physics, integration, etc.
 
 ::: columns
 ::: {.column width="65%"}
@@ -70,7 +70,7 @@ Use repeated sampling of random numbers to estimate quantity. Used in risk analy
 :::
 
 ::: {.column width="35%"}
-![](monte_carlo_gif_wiki.gif)
+![](figs/monte_carlo_gif_wiki.gif)
 :::
 :::
 
@@ -78,11 +78,11 @@ Use repeated sampling of random numbers to estimate quantity. Used in risk analy
 
 ::: columns
 ::: {.column width="50%"}
-![](pi_monte_carlo1_berkorbay.png)
+![](figs/pi_monte_carlo1_berkorbay.png)
 :::
 
 ::: {.column width="50%"}
-![](pi_monte_carlo2_berkorbay.png)
+![](figs/pi_monte_carlo2_berkorbay.png)
 :::
 :::
 
@@ -94,7 +94,7 @@ Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation
 #| echo: true
 monte_carlo = function(N) {
   hits = 0
-  for (i in seq_len(N)) {
+  for (i in 1:N) {
     u1 = runif(1)
     u2 = runif(1)
     if (sqrt(u1^2 + u2^2) <=1 ){
@@ -109,7 +109,7 @@ monte_carlo(N)
 
 ## Patient level Monte Carlo simulation
 
--   Identify inputs and assign distributions
+-   Identify **inputs** and assign distributions
 
     -   Patient characteristics
 
@@ -123,7 +123,7 @@ monte_carlo(N)
 
     -   Simulate outcomes under \>1 strategy
 
--   Aggregate to estimate relative population impact
+-   Aggregate population outcomes under each strategy
 
 ## Microsimulation defined
 
@@ -137,12 +137,12 @@ monte_carlo(N)
     -   Capacity/queues $\rightarrow$ discrete event simulation
 
 ::: callout-note
-## Some use different terminology and consider agent base or discrete event models subsets of microsimulations
+Some use different terminology and consider agent base or discrete event models subsets of microsimulations
 :::
 
 ## "Memory" in a microsimulation
 
-Risks, costs, and health impacts **can** depend on anything you keep track of
+Risks, costs, and health impacts can depend on any variable you track
 
 -   Patient baseline characteristics
 
@@ -150,7 +150,9 @@ Risks, costs, and health impacts **can** depend on anything you keep track of
 
 -   Patient's path up until that point
 
-Think conditional probabilities/distributions
+    -   Risk differs based on number of prior cancers, overdoses, relapses...
+
+Think conditional probabilities (given age, sex, history, etc.)
 
 ## Variation: microsim vs. cohort
 
@@ -166,9 +168,7 @@ Think conditional probabilities/distributions
 
 -   "X% of patients would have costs over \$Y" or "adverse event would occur in X% of patients from Y subgroup"
 
-::: callout-note
-## Microsims only capture full variability if parameterized to do so
-:::
+Microsims only capture full variability if parameterized to do so
 
 ## Downside: complexity and compute
 
@@ -214,13 +214,13 @@ Example:
 
 -   Will I get cancer? $\rightarrow$ stochasticity
 
-Microsimulations model [stochasticity]{.underline}. Parametric uncertainty assessed through sensitivity analysis (planned for session 10)
+Microsimulations model [stochasticity]{.underline}. Parametric uncertainty assessed through sensitivity analysis (planned for session 11)
 
 ## Bayesian analog
 
 Posterior distribution describes **parameteric uncertainty**. Sampling distribution describes **stochasticity**.
 
-![[Statistical Rethinking Ch. 3 by Richard McElreath](https://xcelab.net/rm/statistical-rethinking/)](sampling_dists_posterior_statisticalRethinking.png)
+![[Statistical Rethinking Ch. 3 by Richard McElreath](https://xcelab.net/rm/statistical-rethinking/)](figs/sampling_dists_posterior_statisticalRethinking.png)
 
 ## Two options for sampling
 
@@ -230,7 +230,9 @@ Posterior distribution describes **parameteric uncertainty**. Sampling distribut
 
 ## Sampling binary outcome
 
-Parameter: probability of one outcome
+Parameter: probability the outcome happens
+
+Simulate with binomial distribution:
 
 ```{r}
 #| echo: true
@@ -238,7 +240,12 @@ Parameter: probability of one outcome
 p_female = 0.7
 v_isFemale <- rbinom(n=100, size=1, p=p_female)
 sum(v_isFemale)
+```
 
+Simulate by sampling from uniform distribution
+
+```{r}
+#| echo: true
 #Sampling gender for 100 simulants (runif)
 v_isFemale <- ifelse(runif(n=100) < 0.7, 1, 0)
 sum(v_isFemale)
@@ -253,7 +260,7 @@ Input: probability for each outcome (or all but one outcome)
 race_dist <- c(0.1, 0.05, 0.2, 0.15, 0.4)
 names(race_dist) <- c("black", "indigenous", "latino","other", "white")
 
-#Use sample function
+#Use sample function with prob argument
 v_race = sample(x=names(race_dist), size=100, prob=race_dist, replace=T)
 
 # Number simulants in each race category
@@ -320,7 +327,7 @@ Probabilities, costs, health outcomes can be correlated, could depend on baselin
 
     -   Copulas [(Jeong et al 2015)](https://doi.org/10.1371/journal.pone.0159496)
 
-    -   Parameter calibration (planned fo session 12)
+    -   Bayesian parameter calibration (session 11)
 
 ## Sample directly or fit distribution?
 
@@ -337,6 +344,18 @@ Reasons to fit distribution (even if you have data)
 -   Don't need to load data into memory to run model (efficient)
 
 -   Others can run your model even if data cannot be shared
+
+## Uncertainty in population parameters
+
+-   Should simulate enough patients that error due to stochasticity is negligible
+
+-   Population estimates should not depend on which patients or random numbers happened to be picked
+
+-   To assess:
+
+    -   Run same simulation 2X with different seed
+
+    -   Calculate Monte Carlo Standard Error
 
 ## Today
 
@@ -360,9 +379,9 @@ Reasons to fit distribution (even if you have data)
 
 -   Generate individuals with baseline characteristics
 
-    -   Sample from dataset or some approx. of joint distribution
+    -   Sample from a dataset or an approximation of the joint distribution
 
--   Calculate individual's probabilities, costs, outcomes, some of which depend on baseline characteristics
+-   Calculate individual's probabilities, costs, outcomes (some of which depend on baseline characteristics)
 
 -   Compute tree for that individual and store outcome
 
@@ -370,7 +389,7 @@ Reasons to fit distribution (even if you have data)
 
 ## Use case: transfusion-transmitted infections
 
--   Transfused patients receive combo of red blood cells, platelets, and plasma
+-   Transfused patients may receive a combination of red blood cells, platelets, and plasma
 
 -   Infection risk can vary by product
 
@@ -397,6 +416,7 @@ prev = 0.08 # 8 in 100 donations infected
 
 p_transmit_by_prod <- c(0.5, 0.5, 0.7) # Transmissibility by product
 names(p_transmit_by_prod) <- c("RBC","PLT","FFP")
+p_transmit_by_prod
 
 #function for individual risk of transmission
 get_p_transmit <- function(prev, p_transmit_by_prod, 
@@ -428,7 +448,7 @@ t_simulants |>
 
 ## TT-Zika parameters depend on age, sex, component mix
 
-![](simulated_decision_tree_zika.png)
+![](figs/simulated_decision_tree_zika.png)
 
 ## Today
 
@@ -458,19 +478,31 @@ Transitions, costs, health outcomes can depend on complex functions of
 
 For each variable, use $n_i \times n_t$ matrices, or $n_i \times (n_t+1)$, where $n_i$ is the number of individuals and $n_t$ is the number of cycles.
 
-Typically:
+**Setup building on our CSTM notation:**
 
 -   $M_m[i,t]$ matrix gives state of individual $i$ during cycle $t$
 
 -   $M_c[i,t]$ matrix gives costs accrued by individual $i$ during cycle $t$
 
--   $M_e[i,t]$ matrix gives the health accrued accumulated by individual $i$ during cycle $t$
+-   $M_e[i,t]$ matrix gives the health outcome accumulated by individual $i$ during cycle $t$
 
 -   Can add more
 
-## Sick-sicker model (Krijkamp et. al. 2018)
+## Sick-sicker sim, Krijkamp et. al. 2018
 
-Open up `sicksicker_microsim_B.R` on your laptop. We will walk through it together
+![](figs/sim_CSTM_parameters.png)
+
+## Sick-sicker sim, Krijkamp et. al. 2018
+
+![](figs/sim_CSTM_algorithm.png)
+
+## Sick-sicker sim, Krijkamp et. al. 2018
+
+Open up `sicksicker_microsim_B.R`. We will walk through it together
+
+## Simulate enough patients that simulation error is negligible
+
+![](figs/sim_CSTM_sim_error.png)
 
 ## Recap
 

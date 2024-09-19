@@ -109,8 +109,10 @@ MicroSim <- function(v.M_1, n.i, n.t, v.n, X = NULL, d.c, d.e, TR.out = TRUE, TS
       } else {
         dur <- 0}        # reset duration variable 
       
-    } # close the loop for the time points 
-    if(i/100 == round(i/100,0)) {            # display the progress of the simulation
+    } # close the loop for the time points
+    
+    # display the progress of the simulation
+    if(i/100 == round(i/100,0)) {            
       cat('\r', paste(i/n.i * 100, "% done", sep = ""))
     }
   } # close the loop for the individuals
@@ -205,6 +207,11 @@ Effs <- function (M_it, dur, Trt = FALSE, cl = 1, X = NULL) {
 sim_no_trt <- MicroSim(v.M_1, n.i, n.t, v.n, X = v.x, d.c, d.e, TS.out = FALSE, TR.out = TRUE, Trt = FALSE) # run for no treatment
 sim_trt    <- MicroSim(v.M_1, n.i, n.t, v.n, X = v.x, d.c, d.e, TS.out = FALSE, TR.out = TRUE, Trt = TRUE) # run for treatment
 
+sim_no_trt$m.M[1:5,1:15]
+sim_trt$m.M[1:5,1:15]
+
+sim_no_trt$m.C[1:5,1:15]
+sim_no_trt$m.E[1:5,1:15]
 ################################# Cost-effectiveness analysis #############################
 
 # store the mean costs (and the MCSE)of each strategy in a new variable C (vector costs)
