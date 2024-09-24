@@ -1,8 +1,8 @@
 ---
-title: "Simulation 2"
-subtitle: "EPIB  676 session 7, McGill University"
+title: "Simulation 2: Efficiency"
+subtitle: "EPIB  676 session 8, McGill University"
 author: "Alton Russell"
-date: "21 Sep 2023"
+date: "24 Sep 2023"
 format: revealjs
 editor: visual
 ---
@@ -37,7 +37,7 @@ From [Efficient R Programming by Gillespie and Lovelace](https://csgillespie.git
 
 ## Pre-allocate vectors, matrices, arrays
 
-Make a proper-sized object (all NAs or 0s) to store output before a loop
+Make a proper-sized object (all NAs or 0s) to store output before looping
 
 ```{r}
 #| echo: true
@@ -60,11 +60,11 @@ system.time({
 
 ::: columns
 ::: {.column width="50%"}
-![](pi_monte_carlo1_berkorbay.png)
+![](figs/pi_monte_carlo1_berkorbay.png)
 :::
 
 ::: {.column width="50%"}
-![](pi_monte_carlo2_berkorbay.png)
+![](figs/pi_monte_carlo2_berkorbay.png)
 :::
 :::
 
@@ -121,7 +121,7 @@ Use when performing same operation on:
 
 ## Apply() visualized
 
-![](apply_visualized_datacamp.png)
+![](figs/apply_visualized_datacamp.png)
 
 Source: [Datacamp](https://www.datacamp.com/tutorial/r-tutorial-apply-family)
 
@@ -159,11 +159,10 @@ system.time({
 
 ## Use R's byte compiler
 
-Don't need to understand [technical details](https://homepage.cs.uiowa.edu/~luke/R/compiler/compiler.pdf) to use. It makescode faster, particularly with loops
+Don't need to understand [technical details](https://homepage.cs.uiowa.edu/~luke/R/compiler/compiler.pdf) to use. Makes code faster, particularly with loops
 
 ```{r}
 #| echo: true
-library("compiler") #comes with R
 # uncompiled function
 mean_r = function(x) {
   m = 0
@@ -173,6 +172,7 @@ mean_r = function(x) {
 }
 system.time(mean_r(x))
 
+library("compiler") #comes with R
 cmp_mean_r = cmpfun(mean_r) #byte compiled version
 system.time(cmp_mean_r(x))
 ```
@@ -188,21 +188,6 @@ months_string <- sample(month_names, size = 5000, replace = T)
 object.size(months_string)
 months_fac <- factor(months_string, levels = month_names)
 object.size(months_fac)
-```
-
-## RCCP for C++ code
-
-If a specific part of your code is especially slow, can re-write in C++ (more info in [Advanced R by Hadley Wickham](http://adv-r.had.co.nz/Rcpp.html))
-
-```{r}
-#| echo: true
-#add numbers together
-cppFunction('int add(int x, int y, int z) {
-  int sum = x + y + z;
-  return sum;
-}')
-add
-add(1, 2, 3)
 ```
 
 ## Don't optimize everything!
@@ -227,6 +212,7 @@ Must be run in RStudio
 library(profvis)
 library("compiler") #comes with R
 
+profvis({
 monte_carlo = function(N) {
   hits = 0
   for (i in seq_len(N)) {
@@ -238,15 +224,31 @@ monte_carlo = function(N) {
   }
   return(4*hits / N)
 }
-N = 500000
+
 monte_carlo_vec = function(N) {
   4*sum(sqrt(runif(N)^2 + runif(N)^2) <=1) / N
 }
 
-profvis({
-  A <- monte_carlo(N)
-  B <- monte_carlo_vec(N)
-})
+N = 500000
+A <- monte_carlo(N)
+B <- monte_carlo_vec(N)
+
+}) #end profvis
+```
+
+## RCCP for C++ code
+
+If a specific part of your code is especially slow, can re-write in C++ (more info in [Advanced R by Hadley Wickham](http://adv-r.had.co.nz/Rcpp.html))
+
+```{r}
+#| echo: true
+#add numbers together
+cppFunction('int add(int x, int y, int z) {
+  int sum = x + y + z;
+  return sum;
+}')
+add
+add(1, 2, 3)
 ```
 
 ## Today: Improving efficiency
@@ -255,7 +257,7 @@ profvis({
 
 -   **Simulation-specific methods**
 
-## Review: Tracking individuals state transition microsim
+## Review: Tracking individuals in microsims
 
 For each variable, use $n_i \times n_t$ (or $n_i \times (n_t+1)$) matrix where $n_i$ is the number of individuals and $n_t$ is the number of cycles.
 
@@ -273,7 +275,7 @@ For each variable, use $n_i \times n_t$ (or $n_i \times (n_t+1)$) matrix where $
 
     -   Sampling rows from data table at once
 
-    -   Generate random variables with one call to `runif`, `rgamma`, etc.
+    -   Generate random variables en mass with `runif(N)` not `runif(1)` (or `rgamma`, `rbeta`, etc.)
 
 ## Vectorization in microsimulation
 
@@ -314,9 +316,9 @@ Gains from simulating 10% fewer individuals $\approx$ simulating each individual
 
 -   Generate cohort baseline characteristics [**once**]{.underline}, then simulate those individuals under each alternative strategy
 
--   Otherwise, variance in outcomes partly due to different simulated populations
+-   Otherwise, variance in population characteristics partly responsible for variance in outcomes between strategies
 
-![](sim_one_cohort_all_strategies.png)
+![](figs/sim_one_cohort_all_strategies.png)
 
 ## Antithetic variates
 
@@ -346,7 +348,7 @@ Generate two **negatively-correlated sets** of random variables: U, original set
 
 ## Inversion transform: CDF in reverse
 
-![](norm_cdf_heds.png)
+![](figs/norm_cdf_heds.png)
 
 $$
 F_X(x) = P(X \leq x) = p \qquad \qquad F^{-1}_X(p) = x
@@ -374,7 +376,7 @@ ggplot(df, aes(x=value, fill = method))+geom_density(alpha = 0.5)
 
 ## Ex: Without antithetic variates
 
-Simulating heads or tails coinflip
+Simulating heads or tails for a biased coin flip, calculating standard error
 
 ```{r}
 #| echo: true
@@ -382,7 +384,6 @@ n<-5000 #number of instances
 
 #Naive calculation
 h_or_t_naive <- runif(n) < 0.3
-
 mu=mean(h_or_t_naive)
 SE=1.96*sd(h_or_t_naive)/sqrt(n)
 
@@ -413,7 +414,7 @@ Standard error reduced by \~25%
 
 ## Common random numbers
 
--   When modeling \>1 policy, using the same random variables in same place of model improves estimation of the ***incremental*** outcomes (costs, QALYs).
+-   When modeling \>1 policy, using the same random variables in the same place within model improves estimation of the ***incremental*** outcomes (costs, QALYs).
 
 -   Random variables must have the same purpose in both systems (synchronized)
 
@@ -468,21 +469,21 @@ Source: [Berk Orbay](https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation
 
 ## Challenge of rare events
 
-![](trad_monte_carlo.png)
+![](figs/trad_monte_carlo.png)
 
 ## Conditional Monte Carlo
 
-![](conditional_monte_carlo.png)
+![](figs/conditional_monte_carlo.png)
 
-## Variance reduction overview
+## Should I use variance reduction?
 
-Some easier to implement than others; some give greater performance gain than others (but can depend on context)
+Ease of implementation and benefits differ and can depend on context
 
 **Start with easy ones.** Often:
 
 -   Simulate same cohort in all strategies, common random numbers
 
-**Consider others** if reallyneeded
+**Consider others** if needed
 
 -   Antithetic variates, conditional Monte Carlo (if rare events are an issue)
 
@@ -492,13 +493,14 @@ Some easier to implement than others; some give greater performance gain than ot
 
 -   Your time value \>\>\>\> computer time value!
 
--   First get your model running with easy-to-implement variance reduction. Only if needed:
+-   Get a working model before optimizing efficiency! Then, if needed:
 
     -   use `profvis()` to profile code & find efficiency improvement opportunities
 
-    -   Consider other variance reduction techniques
+    -   Consider variance reduction techniques
 
 ## Logistics
 
--   Assignment 2 due 11:59 Wed, Sep 27
--   Assignment 3 available, due Wed, Oct 11
+-   Assignment 2 due 11:59 tomorrow
+-   Assignment 3 available, due Fri, Oct 4
+-   Assignments 0 & 1 graded, solution posted to mycourses

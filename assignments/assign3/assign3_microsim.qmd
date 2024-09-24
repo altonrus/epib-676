@@ -401,9 +401,9 @@ Within the microsim_vectorized() function, what sub-function was being run for t
 
 # 2. Simulated decision tree
 
-In this section, you will implement a version of the simulated decision tree from my papers about transfusion-transmitted Zika virus, discussed in class (see [Russell et. al. 2019](https://doi.org/10.7326/M18-2238), [Russell et. al. 2021](https://www.doi.org/10.1007/s10729-021-09557-1), and [Russell 2022](https://doi.org/10.7326/M20-6879)). You will employ two variation reduction techniques: simulating outcomes on the same cohort across each scenario and conditional Monte Carlo, to improve the efficiency of the analysis. Lets get started!
+In this section, you will implement an adapted version of the simulated decision tree from my papers about transfusion-transmitted Zika virus, discussed in class (Used in [Russell et. al. 2019](https://doi.org/10.7326/M18-2238), [Russell et. al. 2021](https://www.doi.org/10.1007/s10729-021-09557-1), and [Russell 2022](https://doi.org/10.7326/M20-6879)). You will employ two variation reduction techniques: simulating outcomes on the same cohort across each scenario and conditional Monte Carlo, to improve the efficiency of the analysis. Lets get started!
 
-We will assess a hypothetical pathogen inactivation technology that reduces the risk of transfusion-transmitted Zika by 95% and costs \$18 per component transfused. As depicted below, my full simulation model consider adverse events to the transfusion recipient, their sexual partner, and an infant born to the transfusion recipient (if pregnant at the time of transfusion) or sexual partner (if pregnant at the time of sexual transmission). However, we're going to ignore sexual partners and only account for adverse outcomes experienced by the tranfusion recipients and infants they have if they are pregnant at the time of transfusion. We will also simplify by ignoring cost and QALY discounting, as well as productivity loss due to illness or death. I've also inflated the probability of Guillain-Barre Syndrome so that we can get a stable solution while simulating a smaller number of transfusion recipients.
+We will assess a hypothetical pathogen inactivation technology that reduces the risk of transfusion-transmitted Zika by 95% and costs \$18 per component transfused. As depicted below, my full simulation model consider adverse events to the transfusion recipient, their sexual partner, and an infant born to the transfusion recipient (if pregnant at the time of transfusion) or sexual partner (if pregnant at the time of sexual transmission). However, we're going to ignore sexual partners and only account for adverse outcomes experienced by the tranfusion recipients and their future child, if pregnant. We will also simplify by ignoring cost and QALY discounting, as well as productivity loss due to illness or death. I've also inflated the probability of Guillain-Barre Syndrome so that we can get a stable solution while simulating a smaller number of transfusion recipients.
 
 ![](simulated_decision_tree_zika.png)
 
@@ -445,8 +445,9 @@ In this code chunk, you should read in the file `transfusion_cohort.csv` and ran
 # Read in dataset
 t_transfusion_cohort <- NA
 
-# Sample 3,000 recipients
-t_sim_cohort <- NA
+# Sample 3,000 recipients (uncomment once t_transfusion_cohort loaded)
+#set.seed(500)
+#t_sim_cohort <- sample_n(t_transfusion_cohort, 3000, replace = F)
 
 # Assign their age
 # t_sim_cohort <- t_sim_cohort |>
@@ -476,12 +477,14 @@ NOTE: this function could probably be made more efficient using vectorization.
 
 ```{r}
 #Takes t_sim_cohort and uBaseline, calculates remaining life years and QALYs assuming no transfusion-transmitted Zika and adds these as additional columns to t_sim_cohort
-get_survival <- function(t_sim_cohort, #table of a (simulated) cohort of 
-                         #.  individuals, which includes columns units_rbc, units_plt, 
-                                       #. units_ffp and age
-                         uBaseline #.  Baseline (without Zika) utility, from parameter list
-                         ){
+# INPUTS
+# t_sim_cohort: table of a (simulated) cohort of individuals, with columns 
+#.    units_rbc, units_plt, units_ffp, and age
+# u_baseline: Baseline (without Zika) utility, from parameter list
+get_survival <- function(t_sim_cohort, uBaseline){
+    
   t_sim_cohort$survival <- 0
+    
   for (row in 1:nrow(t_sim_cohort)){
     #Preallocate v_survProb, a vector with the recipient's cumulative 
     #. survival probability (e.g., probability of surviving to post-
@@ -492,7 +495,7 @@ get_survival <- function(t_sim_cohort, #table of a (simulated) cohort of
   
     #SURVIVING YEAR 0
     #. Tidyverse was slow and I switched it to
-    #. data.table, so I'm providing all the year 0
+    #. data.table, so I'm providing all the year 1
     #. code for you.
     
     #from t_US_survival, get the probabiltiy of surviving to post-
@@ -534,6 +537,7 @@ get_survival <- function(t_sim_cohort, #table of a (simulated) cohort of
       v_survProb[i] <- p_surv_unadjusted + 
         survival_multiplier*(p_survive_OCM - p_surv_unadjusted)
     }
+    
     #Beyond post-transfusion year 5, cumulative survival is based only 
     #. on the annual probablity of other cause death
     for(i in 6:length(v_survProb)){
@@ -620,6 +624,8 @@ Now apply your function to add the pregnancy variables `t_sim_cohort` and take a
 
 We first simulate outcomes assuming that Zika transmitted to the transfusion recipient by writing a series of functions that take `t_sim_cohort` as an input, calculate some outcomes, append these to the table, and return it.
 
+This section uses data.table rolling joins. Here is a useful guide on them: <https://www.r-bloggers.com/2016/06/understanding-data-table-rolling-joins/>
+
 ```{r recipient-outcomes}
 #Calculates recipient outcomes if transfusion-transmitted Zika occurs
 recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
@@ -629,20 +635,20 @@ recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
   setDT(t_sim_cohort) #The way I added uFlu male used data.table package's 
   #.  join, which is why I set the table to a data.table. Tidyverse methods were slower
   
-  #uFlu male
+  #Get uFlu assuming recipient is male 
   t_uFluMale <- data.table(l_params$uFluMale)
   setnames(t_uFluMale, 
            c("age_lower", "value"),
            c("age", "uFluMale"))
   t_sim_cohort <- t_uFluMale[t_sim_cohort, roll = Inf, on="age"]
   
-  #uFlu female
+  #Get uFlu assuming recipient is male 
   NA # your code here
   
-  #uFlu (uFluFemale if is_female = 1; otherwise uFluMale)
+  #add column uFlu (uFluFemale if is_female = 1; otherwise uFluMale)
   NA # your code here
   
-  #p_GBS_perm
+  #Get p_GBS_perm based on recipient's age
   t_GBS_perm <- data.table(l_params$p_GBS_perm)
   NA #your code here
   
@@ -664,7 +670,7 @@ recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
            GBS = (rand_recip > l_params$p_flu_like_symptoms & 
                     rand_recip <= l_params$p_flu_like_symptoms + l_params$p_GBS))
   
-  # Simulate whetehr GBS was fatal or lead to permanent disability
+  # Simulate whether GBS was fatal or lead to permanent disability
   #.  based on the lookup table in l_params$p_GBS_perm if 
   #.  GBS==True (it should be 0 if GBS==F)
   #.  Then replace 0's in the mutate function with functions to simulate
@@ -687,7 +693,7 @@ recipient_outcomes_ttz <- function(t_sim_cohort, l_params){
       cost_zika_symptoms=case_when(
         GBS_death ~ NA,
         flulike ~ l_params$costFluR,
-        GBS_perm ~ NA, #Note; l_params$costGBS_perm is per year remaining
+        GBS_perm ~ NA, #Note; l_params$costGBS_perm is per year of life remaining
         GBS ~ NA,
         T ~ 0), #otherwise no cost
       QALYs_zika_symptoms=case_when(
@@ -777,6 +783,8 @@ getProbZika <- function(probZika=0.0001,
     ))}
 
 getPolOutcomes <- function(t_sim_cohort, l_params, prev=0.0001){
+  # Replace all the NAs
+  
   # DO NOTHIING SCENARIO
   #. calculate cost to blood center
   #. and each recipient's risk of transfusion-
@@ -791,16 +799,17 @@ getPolOutcomes <- function(t_sim_cohort, l_params, prev=0.0001){
   #. and each recipient's risk of transfusion-
   #. transmitted Zika
   #. cost_athInact is per unit transfused (RBC+PLT+FFP)
+  #. Calculate p_TTZ_pathInact using p_TTZ_doNothing and p_pathInact_prevent_TTZ
   t_sim_cohort <- t_sim_cohort |>
     mutate(
-      cost_bloodCenter_pathInact = NA,
-      p_TTZ_pathInact = NA) #use p_TTZ_doNothing and p_pathInact_prevent_TTZ
+      cost_bloodCenter_pathInact = NA, 
+      p_TTZ_pathInact = NA) 
   
   # Calculate total costs and QALYs under each scenario
-  #. Use conditional monte carlo!
-  #. blood center costs are incurred no matter what
-  #. cost_CZS and cost_zika_symptoms incorred only
-  #. when tansfusion-transmitted Zika (TTZ) occurs
+  #. USE CONDITIONAL MONTE-CARLO
+  #.  blood center costs are incurred no matter what
+  #.  cost_CZS and cost_zika_symptoms are incurred only
+  #.  when tansfusion-transmitted Zika (TTZ) occurs
   t_sim_cohort <- t_sim_cohort |>
     mutate(
       tot_cost_doNothing = NA,
@@ -817,6 +826,7 @@ Finally, use the functions above to run `t_sim_cohort` through the simulation. C
 # COST-EFFECTIVENESS WITH ZIKA PREVALENCE OF 0.0001 (1 in 10,000 donations)
 
 # Simulate t_sim_cohort
+NA
 
 # Calculate incremental cost
 IC_pathInact_vs_doNothing <- NA
