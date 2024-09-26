@@ -8,10 +8,10 @@
 <link href="simulation_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="simulation_3_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="simulation_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-09-26">
+  <meta name="dcterms.date" content="2024-09-26">
   <title>Other simulation methods</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="simulation_3_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="simulation_3_files/libs/revealjs/dist/theme/quarto.css">
   <link href="simulation_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="simulation_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="simulation_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -392,7 +393,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Other simulation methods</h1>
-  <p class="subtitle">EPIB 676 session 8, McGill University</p>
+  <p class="subtitle">EPIB 676 session 9, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -402,7 +403,7 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-09-26</p>
+  <p class="date">2024-09-26</p>
 </section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
@@ -438,9 +439,12 @@ Alton Russell
 <li><p><strong>Events:</strong> instantaneous change to entity or system</p></li>
 <li><p><strong>Entities:</strong> person or thing that experiences events</p>
 <ul>
-<li>patients, providers, implant, ambulance, etc.</li>
+<li>patients, providers, ambulance, etc.</li>
 </ul></li>
-<li><p><strong>Attributes:</strong> information specific to entity</p></li>
+<li><p><strong>Attributes:</strong> information specific to entity</p>
+<ul>
+<li>Age, health state, ‘in service’</li>
+</ul></li>
 <li><p><strong>Resources:</strong> provide service and have fixed capacity</p>
 <ul>
 <li>Providers, exam room, operating room, ventillator, etc.</li>
@@ -456,20 +460,20 @@ Alton Russell
 <ul>
 <li>Production volume, wastage, resource utilization, processing time</li>
 </ul></li>
-<li><p>Health applications focus more on state of <strong>entities</strong> (patients)</p>
+<li><p>Health applications focus more on <strong>entities’</strong> state and pathway (patients)</p>
 <ul>
-<li>Often, track more individual-level attributes</li>
+<li>Often track more entity-level attributes</li>
 </ul></li>
 </ul>
 </section>
 <section id="examples-of-events" class="slide level2">
 <h2>Examples of events</h2>
 
-<img data-src="des_event_examples.png" class="r-stretch"></section>
+<img data-src="figs/des_event_examples.png" class="r-stretch"></section>
 <section id="event-graph" class="slide level2">
 <h2>Event graph</h2>
 
-<img data-src="DES-event-graph.png" class="r-stretch"><p>Arrows show sequence of events.</p>
+<img data-src="figs/DES-event-graph.png" class="r-stretch"><p>Arrows show sequence of events.</p>
 </section>
 <section id="discrete-events-but-continuous-time" class="slide level2">
 <h2>Discrete events but continuous time</h2>
@@ -490,59 +494,61 @@ Alton Russell
 <li><p>Probability &amp; timing of events can depend on attributes</p></li>
 </ul>
 
-<img data-src="entity-attribute-example.png" class="r-stretch"></section>
+<img data-src="figs/entity-attribute-example.png" class="r-stretch"></section>
 <section id="examples-of-attributes" class="slide level2">
 <h2>Examples of attributes</h2>
 
-<img data-src="attribute-examples.png" class="r-stretch"></section>
+<img data-src="figs/attribute-examples.png" class="r-stretch"></section>
 <section id="example-of-next-event-time-advance" class="slide level2">
 <h2>Example of next-event-time-advance</h2>
-<pre><code>id: 0, state: 0, kind: 0, previous: 0.000000, now: 1.554306
-id: 0, state: 1, kind: 1, previous: 1.554306, now: 1.660357
-id: 0, state: 2, kind: 3, previous: 1.660357, now: 2.137922
-id: 1, state: 0, kind: 0, previous: 0.000000, now: 22.523279
-id: 1, state: 1, kind: 2, previous: 22.523279, now: 23.538790
-id: 1, state: 0, kind: 0, previous: 23.538790, now: 25.110528
-id: 1, state: 1, kind: 2, previous: 25.110528, now: 25.529621
-id: 1, state: 0, kind: 4, previous: 25.529621, now: 31.000000
-id: 2, state: 0, kind: 0, previous: 0.000000, now: 1.279403
-id: 2, state: 1, kind: 2, previous: 1.279403, now: 2.482209
-id: 2, state: 0, kind: 0, previous: 2.482209, now: 4.467754
-id: 2, state: 1, kind: 2, previous: 4.467754, now: 5.240185
-id: 2, state: 0, kind: 0, previous: 5.240185, now: 6.123519
-id: 2, state: 1, kind: 2, previous: 6.123519, now: 7.951863
-id: 2, state: 0, kind: 0, previous: 7.951863, now: 10.967305
-id: 2, state: 1, kind: 2, previous: 10.967305, now: 11.127479
-id: 2, state: 0, kind: 0, previous: 11.127479, now: 15.295999
-id: 2, state: 1, kind: 1, previous: 15.295999, now: 16.663526
-id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
-</section>
+
+<img data-src="figs/des_advance_1.png" class="r-stretch"></section>
+<section id="example-of-next-event-time-advance-1" class="slide level2">
+<h2>Example of next-event-time-advance</h2>
+
+<img data-src="figs/des_advance_2.png" class="r-stretch"></section>
+<section id="example-of-next-event-time-advance-2" class="slide level2">
+<h2>Example of next-event-time-advance</h2>
+
+<img data-src="figs/des_advance_3.png" class="r-stretch"></section>
+<section id="example-of-next-event-time-advance-3" class="slide level2">
+<h2>Example of next-event-time-advance</h2>
+
+<img data-src="figs/des_advance_4.png" class="r-stretch"></section>
+<section id="example-of-next-event-time-advance-4" class="slide level2">
+<h2>Example of next-event-time-advance</h2>
+
+<img data-src="figs/des_advance_5.png" class="r-stretch"></section>
+<section id="example-of-next-event-time-advance-5" class="slide level2">
+<h2>Example of next-event-time-advance</h2>
+
+<img data-src="figs/des_advance_6.png" class="r-stretch"></section>
 <section id="example-time-to-competing-events" class="slide level2">
 <h2>Example: time to competing events</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Events can have different distributions</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>time_to_checkup <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">15</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>time_to_polyp <span class="ot">=</span> <span class="fu">rexp</span>(<span class="at">n=</span><span class="dv">15</span>, <span class="at">rate =</span> <span class="fl">1.5</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># The clock goes until the next one occurs</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>time <span class="ot">=</span> <span class="fu">pmin</span>(time_to_checkup, time_to_polyp)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>event<span class="ot">=</span><span class="fu">ifelse</span>(time_to_checkup<span class="sc">&lt;</span>time_to_polyp, <span class="st">"checkup"</span>,<span class="st">"polyp developed"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"i: "</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="st">"   event: "</span>, event, <span class="st">"   time: "</span>, time, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Events can have different distributions</span></span>
+<span id="cb1-2"><a href=""></a>time_to_checkup <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">15</span>) <span class="co"># Always 1 year apart</span></span>
+<span id="cb1-3"><a href=""></a>time_to_polyp <span class="ot">=</span> <span class="fu">rexp</span>(<span class="at">n=</span><span class="dv">15</span>, <span class="at">rate =</span> <span class="fl">1.5</span>) <span class="co"># Sampled from distribution</span></span>
+<span id="cb1-4"><a href=""></a><span class="co"># The clock goes until the next one occurs</span></span>
+<span id="cb1-5"><a href=""></a>time <span class="ot">=</span> <span class="fu">pmin</span>(time_to_checkup, time_to_polyp)</span>
+<span id="cb1-6"><a href=""></a>event<span class="ot">=</span><span class="fu">ifelse</span>(time_to_checkup<span class="sc">&lt;</span>time_to_polyp, <span class="st">"checkup"</span>,<span class="st">"polyp developed"</span>)</span>
+<span id="cb1-7"><a href=""></a><span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"i: "</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="st">"   event: "</span>, event, <span class="st">"   time: "</span>, time, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>i: 1   event: polyp developed   time: 0.413878323199848
- i: 2   event: polyp developed   time: 0.414412849272291
- i: 3   event: checkup   time: 1
- i: 4   event: polyp developed   time: 0.356098282461365
- i: 5   event: polyp developed   time: 0.38678125757724
+<pre><code>i: 1   event: polyp developed   time: 0.234440769379338
+ i: 2   event: polyp developed   time: 0.87620646379571
+ i: 3   event: polyp developed   time: 0.111216503481538
+ i: 4   event: polyp developed   time: 0.296262541371941
+ i: 5   event: polyp developed   time: 0.71072904638629
  i: 6   event: checkup   time: 1
- i: 7   event: polyp developed   time: 0.0539852799847722
- i: 8   event: polyp developed   time: 0.307946838748952
- i: 9   event: polyp developed   time: 0.379772369749844
- i: 10   event: polyp developed   time: 0.686373971374639
- i: 11   event: polyp developed   time: 0.515492750303753
- i: 12   event: polyp developed   time: 0.0592125843589505
- i: 13   event: polyp developed   time: 0.0291746940210177
- i: 14   event: polyp developed   time: 0.326177048807343
- i: 15   event: polyp developed   time: 0.283000556441645</code></pre>
+ i: 7   event: polyp developed   time: 0.167558185890643
+ i: 8   event: polyp developed   time: 0.117159810848534
+ i: 9   event: polyp developed   time: 0.584617621553108
+ i: 10   event: polyp developed   time: 0.313791689012049
+ i: 11   event: polyp developed   time: 0.922716410802611
+ i: 12   event: polyp developed   time: 0.136260743563374
+ i: 13   event: checkup   time: 1
+ i: 14   event: polyp developed   time: 0.070443971393009
+ i: 15   event: polyp developed   time: 0.287799868666174</code></pre>
 </div>
 </div>
 </section>
@@ -554,11 +560,11 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>Some applications track only global variables</p></li>
 </ul>
 
-<img data-src="attribute-vs-global-variable.png" class="r-stretch"></section>
+<img data-src="figs/attribute-vs-global-variable.png" class="r-stretch"></section>
 <section id="global-variable-examples" class="slide level2">
 <h2>Global variable examples</h2>
 
-<img data-src="global_variable_examples.png" class="r-stretch"></section>
+<img data-src="figs/global_variable_examples.png" class="r-stretch"></section>
 <section id="time" class="slide level2">
 <h2>Time</h2>
 <ul>
@@ -566,14 +572,15 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>Entities enter (are created) and exit at various times</p></li>
 <li><p>Capacity constrained resources are “seized” and “released” by entities</p>
 <ul>
+<li>Entities must queue if all resources are seized</li>
 <li>This is the interaction between entities!</li>
 </ul></li>
 </ul>
 </section>
-<section id="capacity-and-availability-illustrated" class="slide level2">
-<h2>Capacity and availability illustrated</h2>
+<section id="resource-capacity-and-availability" class="slide level2">
+<h2>Resource capacity and availability</h2>
 
-<img data-src="capacity_illustration.png" class="r-stretch"></section>
+<img data-src="figs/capacity_illustration.png" class="r-stretch"></section>
 <section id="resources-for-des" class="slide level2">
 <h2>Resources for DES</h2>
 <ul>
@@ -602,11 +609,11 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <ul>
 <li>Model autonomous agents interacting with each other and their environment</li>
 </ul>
-<p>Can combine benefits of:</p>
+<p>Combines benefits of:</p>
 <ul>
 <li><p>Differential equations model</p>
 <ul>
-<li>direct modeling of disease transmission or information spread</li>
+<li>model ‘infectiousness’ of disease or behavior</li>
 </ul></li>
 <li><p>Microsimulation/discrete event simulation</p>
 <ul>
@@ -616,8 +623,13 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 </section>
 <section id="schematic" class="slide level2">
 <h2>Schematic</h2>
-
-<img data-src="agent_based_transmission.png" class="r-stretch quarto-figure-center"><p class="caption">Chhatwal et. a. 2015</p></section>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="www.doi.org/10.1007/s40273-015-0254-2"><img data-src="figs/agent_based_transmission.png" alt="Chhatwal et. a. 2015"></a></p>
+<figcaption>Chhatwal et. a. 2015</figcaption>
+</figure>
+</div>
+</section>
 <section id="agents-and-environments" class="slide level2">
 <h2>Agents and environments</h2>
 <ul>
@@ -636,7 +648,7 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>Allows estimation of “network effects”</p>
 <ul>
 <li><p>Benefit of intervention depends on others’ behavior</p></li>
-<li><p>e.g., vaccination, sexually transmitted disease testing</p></li>
+<li><p>e.g., vaccination, sexually transmitted disease test and treat, behavior/social conditioning</p></li>
 </ul></li>
 </ul>
 </section>
@@ -657,11 +669,10 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <h2>Network topology</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="networkA.png"></p>
+<p><img data-src="figs/networkA.png"></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="networkB.png"></p>
-</div>
-</div>
+<p><img data-src="figs/networkB.png"></p>
+</div></div>
 </section>
 <section id="network-structure-matters" class="slide level2">
 <h2>Network structure matters</h2>
@@ -687,11 +698,11 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>Fixed cycle lengths (like cohort models)</p></li>
 <li><p>Continuous time discrete event approach (like discrete event model)</p></li>
 </ul></li>
-<li><p>Fixed cycle lengths usually easier to program</p></li>
 </ul>
+<p>Fixed cycle lengths usually easier to program</p>
 </section>
-<section id="the-downside-compute" class="slide level2">
-<h2>The downside: compute</h2>
+<section id="downside-compute" class="slide level2">
+<h2>Downside: compute</h2>
 <ul>
 <li><p>Often most computationally intensive models</p></li>
 <li><p>Microsimulation variance reduction techniques hard to apply</p>
@@ -704,6 +715,7 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <section id="ex-prep-for-people-who-inject-drugs1" class="slide level2">
 <h2>Ex: PrEP for people who inject drugs<sup>1</sup></h2>
 <p><strong>Objective:</strong> Evaluate the cost-effectiveness of PrEP for PWID under different targeting strategies (Assume PrEP+Screen+ART and 25% coverage)</p>
+<p><strong>Strategies:</strong></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
@@ -715,41 +727,39 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>Target Most Partners</p></li>
 <li><p>Target Most Infected Partners</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Published in <a href="https://doi.org/10.1097%2FQAD.0000000000001747">Fu, Owens and Brandeau 2019</a>. Material adapted from MS&amp;E 292 by Margaret Brandeau</p></li></ol></aside></section>
 <section id="prep-model" class="slide level2">
 <h2>PrEP model</h2>
-<p>Network model of PWID in a representative US urban center</p>
 <ul>
+<li><p>Network model</p></li>
 <li><p>Sexual and needlesharing HIV transmission</p></li>
 <li><p>4 HIV stages (acute infection, …, AIDS)</p></li>
 <li><p>Calibrated to data from a large PWID network in Chicago</p></li>
-<li><p>Health system perspective</p></li>
 <li><p>Track costs, QALYs, HIV infections averted</p></li>
 <li><p>Programmed in Matlab</p></li>
+<li><p>Health system perspective</p></li>
 </ul>
 </section>
 <section id="model-schematic" class="slide level2">
 <h2>Model Schematic</h2>
 
-<img data-src="PrEP_network_schematic.png" class="r-stretch"></section>
+<img data-src="figs/PrEP_network_schematic.png" class="r-stretch"></section>
 <section id="prep-cea-results" class="slide level2">
 <h2>PrEP CEA results</h2>
 <div class="columns">
-<div class="column" style="width:75%;">
-<p><img data-src="PrEP_CEA_results.png"></p>
-</div><div class="column" style="width:25%;">
-<p>Note: “US style” efficiency frontier plots have costs on X axis, QALYs on Y axis.</p>
-</div>
-</div>
+<div class="column" style="width:70%;">
+<p><img data-src="figs/PrEP_CEA_results.png"></p>
+</div><div class="column" style="width:30%;">
+<p>“US style” efficiency frontier plots have costs on X axis, QALYs on Y axis.</p>
+</div></div>
 </section>
 <section id="resources-for-abm" class="slide level2">
 <h2>Resources for ABM</h2>
 <ul>
 <li><p><a href="http://rnetlogo.r-forge.r-project.org/">RNetLogo package</a> [<a href="https://www.r-bloggers.com/2014/07/agent-based-models-and-rnetlogo/">blog</a>]</p></li>
 <li><p><a href="https://bookdown.org/f_lennert/book-toolbox_css/agent-based-modeling.html">Agent-based modeling chapter</a> from “Toolbox CSS” by Felix Lennert</p></li>
-<li><p><a href="https://doi.org/10.18637/jss.v084.i08">EpiModel R package</a> (includes network models)</p></li>
+<li><p><a href="https://doi.org/10.18637/jss.v084.i08">EpiModel R package</a> (has compartmental and network models)</p></li>
 </ul>
 </section>
 <section id="today-2" class="slide level2">
@@ -770,9 +780,9 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 </section>
 <section id="system-dynamics-philosophy" class="slide level2">
 <h2>System dynamics philosophy</h2>
-<p>Actions can have consequences through complex and non-linear feedback loops</p>
+<p>Actions can have consequences through complex, non-linear feedback loops</p>
 
-<img data-src="SD-domino-guy.png" class="r-stretch"></section>
+<img data-src="figs/SD-domino-guy.png" class="r-stretch"></section>
 <section id="stocks-and-flows" class="slide level2">
 <h2>Stocks and flows</h2>
 <ul>
@@ -780,11 +790,11 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>Analogy: faucet, bathtub, drain</p></li>
 </ul>
 
-<img data-src="SD_disease_stock_flow.png" class="r-stretch"></section>
+<img data-src="figs/SD_disease_stock_flow.png" class="r-stretch"></section>
 <section id="more-stocks-and-flows" class="slide level2">
 <h2>More stocks and flows</h2>
 
-<img data-src="SD-stock-flows-more.png" class="r-stretch"></section>
+<img data-src="figs/SD-stock-flows-more.png" class="r-stretch"></section>
 <section id="feedback-loops" class="slide level2">
 <h2>Feedback loops</h2>
 <blockquote>
@@ -800,19 +810,19 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <section id="heating-a-room-balancing-loop-negative-feedback" class="slide level2">
 <h2>Heating a room: balancing loop (negative feedback)</h2>
 
-<img data-src="SD_feedback_room_heat.png" class="r-stretch"></section>
+<img data-src="figs/SD_feedback_room_heat.png" class="r-stretch"></section>
 <section id="capital-investment-reinforcing-loop-positive-feedback" class="slide level2">
 <h2>Capital investment: reinforcing loop (positive feedback)</h2>
 
-<img data-src="SD_feedback_capital_growth.png" class="r-stretch"></section>
+<img data-src="figs/SD_feedback_capital_growth.png" class="r-stretch"></section>
 <section id="ex-opioid-misuse-and-use-disorder" class="slide level2">
 <h2>Ex: Opioid misuse and use disorder</h2>
 
-<img data-src="SD-opioid-schematic.svg" class="r-stretch"></section>
+<img data-src="figs/SD-opioid-schematic.svg" class="r-stretch"></section>
 <section id="feedback-loops-in-opioid-example" class="slide level2">
 <h2>Feedback loops in opioid example</h2>
 
-<img data-src="SD-opioid-feedbacks.png" class="r-stretch"><p><a href="https://pubmed.ncbi.nlm.nih.gov/35749492/">Stringfellow et. al.&nbsp;2022</a></p>
+<img data-src="figs/SD-opioid-feedbacks.png" class="r-stretch"><p><a href="https://pubmed.ncbi.nlm.nih.gov/35749492/">Stringfellow et. al.&nbsp;2022</a></p>
 <p><a href="www.doi.org/10.1073/pnas.2115714119">Lim et. al.&nbsp;2022</a></p>
 </section>
 <section id="resources-for-sd-modeling" class="slide level2">
@@ -840,7 +850,7 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <li><p>“As complex as needed, as simple as possible.”</p></li>
 </ul>
 
-<img data-src="model_categorization.png" class="r-stretch"></section>
+<img data-src="figs/model_categorization.png" class="r-stretch"></section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
@@ -854,18 +864,19 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
 <h2>Where we are</h2>
 <ul>
 <li><p>Have completed method lectures on model structures!</p></li>
-<li><p>Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis</p></li>
-<li><p>Will soon start ‘applied’ phase with lots of examples</p></li>
+<li><p>Six more methods lectures which focus on design, parameterization, calibration, and uncertainty analysis</p></li>
+<li><p>Then, ‘applied’ phase where you examine many examples</p></li>
 </ul>
 </section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li>Assignment 2 due 11:59 tomorrow</li>
-<li>Assignment 3 due Wed, Oct 11</li>
+<li>Assignment 3 due Fri, Oct 4</li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
 
@@ -895,7 +906,6 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1150,18 +1160,7 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1193,11 +1192,50 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1207,8 +1245,17 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1222,7 +1269,11 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

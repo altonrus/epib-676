@@ -1,8 +1,8 @@
 ---
 title: "Other simulation methods"
-subtitle: "EPIB  676 session 8, McGill University"
+subtitle: "EPIB  676 session 9, McGill University"
 author: "Alton Russell"
-date: "26 Sep 2023"
+date: "26 Sep 2024"
 format: revealjs
 editor: visual
 ---
@@ -45,9 +45,11 @@ Much of this section is based on:
 
 -   **Entities:** person or thing that experiences events
 
-    -   patients, providers, implant, ambulance, etc.
+    -   patients, providers, ambulance, etc.
 
 -   **Attributes:** information specific to entity
+
+    -   Age, health state, 'in service'
 
 -   **Resources:** provide service and have fixed capacity
 
@@ -63,17 +65,17 @@ Much of this section is based on:
 
     -   Production volume, wastage, resource utilization, processing time
 
--   Health applications focus more on state of **entities** (patients)
+-   Health applications focus more on **entities'** state and pathway (patients)
 
-    -   Often, track more individual-level attributes
+    -   Often track more entity-level attributes
 
 ## Examples of events
 
-![](des_event_examples.png)
+![](figs/des_event_examples.png)
 
 ## Event graph
 
-![](DES-event-graph.png)
+![](figs/DES-event-graph.png)
 
 Arrows show sequence of events.
 
@@ -95,35 +97,35 @@ Arrows show sequence of events.
 
 -   Probability & timing of events can depend on attributes
 
-![](entity-attribute-example.png)
+![](figs/entity-attribute-example.png)
 
 ## Examples of attributes
 
-![](attribute-examples.png)
+![](figs/attribute-examples.png)
 
 ## Example of next-event-time-advance
 
-```         
-id: 0, state: 0, kind: 0, previous: 0.000000, now: 1.554306
-id: 0, state: 1, kind: 1, previous: 1.554306, now: 1.660357
-id: 0, state: 2, kind: 3, previous: 1.660357, now: 2.137922
-id: 1, state: 0, kind: 0, previous: 0.000000, now: 22.523279
-id: 1, state: 1, kind: 2, previous: 22.523279, now: 23.538790
-id: 1, state: 0, kind: 0, previous: 23.538790, now: 25.110528
-id: 1, state: 1, kind: 2, previous: 25.110528, now: 25.529621
-id: 1, state: 0, kind: 4, previous: 25.529621, now: 31.000000
-id: 2, state: 0, kind: 0, previous: 0.000000, now: 1.279403
-id: 2, state: 1, kind: 2, previous: 1.279403, now: 2.482209
-id: 2, state: 0, kind: 0, previous: 2.482209, now: 4.467754
-id: 2, state: 1, kind: 2, previous: 4.467754, now: 5.240185
-id: 2, state: 0, kind: 0, previous: 5.240185, now: 6.123519
-id: 2, state: 1, kind: 2, previous: 6.123519, now: 7.951863
-id: 2, state: 0, kind: 0, previous: 7.951863, now: 10.967305
-id: 2, state: 1, kind: 2, previous: 10.967305, now: 11.127479
-id: 2, state: 0, kind: 0, previous: 11.127479, now: 15.295999
-id: 2, state: 1, kind: 1, previous: 15.295999, now: 16.663526
-id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000
-```
+![](figs/des_advance_1.png)
+
+## Example of next-event-time-advance
+
+![](figs/des_advance_2.png)
+
+## Example of next-event-time-advance
+
+![](figs/des_advance_3.png)
+
+## Example of next-event-time-advance
+
+![](figs/des_advance_4.png)
+
+## Example of next-event-time-advance
+
+![](figs/des_advance_5.png)
+
+## Example of next-event-time-advance
+
+![](figs/des_advance_6.png)
 
 ## Example: time to competing events
 
@@ -131,8 +133,8 @@ id: 2, state: 2, kind: 4, previous: 16.663526, now: 31.000000
 #| echo: true
 
 # Events can have different distributions
-time_to_checkup = rep(1, 15)
-time_to_polyp = rexp(n=15, rate = 1.5)
+time_to_checkup = rep(1, 15) # Always 1 year apart
+time_to_polyp = rexp(n=15, rate = 1.5) # Sampled from distribution
 # The clock goes until the next one occurs
 time = pmin(time_to_checkup, time_to_polyp)
 event=ifelse(time_to_checkup<time_to_polyp, "checkup","polyp developed")
@@ -147,11 +149,11 @@ cat(paste0("i: ", 1:15, "   event: ", event, "   time: ", time, "\n"))
 
 -   Some applications track only global variables
 
-![](attribute-vs-global-variable.png)
+![](figs/attribute-vs-global-variable.png)
 
 ## Global variable examples
 
-![](global_variable_examples.png)
+![](figs/global_variable_examples.png)
 
 ## Time
 
@@ -161,11 +163,12 @@ cat(paste0("i: ", 1:15, "   event: ", event, "   time: ", time, "\n"))
 
 -   Capacity constrained resources are "seized" and "released" by entities
 
+    -   Entities must queue if all resources are seized
     -   This is the interaction between entities!
 
-## Capacity and availability illustrated
+## Resource capacity and availability
 
-![](capacity_illustration.png)
+![](figs/capacity_illustration.png)
 
 ## Resources for DES
 
@@ -197,11 +200,11 @@ Much of this section based on
 
 -   Model autonomous agents interacting with each other and their environment
 
-Can combine benefits of:
+Combines benefits of:
 
 -   Differential equations model
 
-    -   direct modeling of disease transmission or information spread
+    -   model 'infectiousness' of disease or behavior
 
 -   Microsimulation/discrete event simulation
 
@@ -209,7 +212,7 @@ Can combine benefits of:
 
 ## Schematic
 
-[![Chhatwal et. a. 2015](agent_based_transmission.png)](www.doi.org/10.1007/s40273-015-0254-2)
+[![Chhatwal et. a. 2015](figs/agent_based_transmission.png)](www.doi.org/10.1007/s40273-015-0254-2)
 
 ## Agents and environments
 
@@ -228,7 +231,7 @@ Can combine benefits of:
 
     -   Benefit of intervention depends on others' behavior
 
-    -   e.g., vaccination, sexually transmitted disease testing
+    -   e.g., vaccination, sexually transmitted disease test and treat, behavior/social conditioning
 
 ## "Bottom up" system modeling
 
@@ -246,15 +249,15 @@ Can combine benefits of:
 
 ## Network topology
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
-![](networkA.png)
+![](figs/networkA.png)
 :::
 
 ::: {.column width="50%"}
-![](networkB.png)
+![](figs/networkB.png)
 :::
-:::
+:::::
 
 ## Network structure matters
 
@@ -280,9 +283,9 @@ Can combine benefits of:
 
     -   Continuous time discrete event approach (like discrete event model)
 
--   Fixed cycle lengths usually easier to program
+Fixed cycle lengths usually easier to program
 
-## The downside: compute
+## Downside: compute
 
 -   Often most computationally intensive models
 
@@ -298,7 +301,9 @@ Can combine benefits of:
 
 **Objective:** Evaluate the cost-effectiveness of PrEP for PWID under different targeting strategies (Assume PrEP+Screen+ART and 25% coverage)
 
-::: columns
+**Strategies:**
+
+::::: columns
 ::: {.column width="50%"}
 -   No Targeting
 
@@ -310,11 +315,11 @@ Can combine benefits of:
 
 -   Target Most Infected Partners
 :::
-:::
+:::::
 
 ## PrEP model
 
-Network model of PWID in a representative US urban center
+-   Network model
 
 -   Sexual and needlesharing HIV transmission
 
@@ -322,27 +327,27 @@ Network model of PWID in a representative US urban center
 
 -   Calibrated to data from a large PWID network in Chicago
 
--   Health system perspective
-
 -   Track costs, QALYs, HIV infections averted
 
 -   Programmed in Matlab
 
+-   Health system perspective
+
 ## Model Schematic
 
-![](PrEP_network_schematic.png)
+![](figs/PrEP_network_schematic.png)
 
 ## PrEP CEA results
 
-::: columns
-::: {.column width="75%"}
-![](PrEP_CEA_results.png)
+::::: columns
+::: {.column width="70%"}
+![](figs/PrEP_CEA_results.png)
 :::
 
-::: {.column width="25%"}
-Note: "US style" efficiency frontier plots have costs on X axis, QALYs on Y axis.
+::: {.column width="30%"}
+"US style" efficiency frontier plots have costs on X axis, QALYs on Y axis.
 :::
-:::
+:::::
 
 ## Resources for ABM
 
@@ -350,7 +355,7 @@ Note: "US style" efficiency frontier plots have costs on X axis, QALYs on Y axis
 
 -   [Agent-based modeling chapter](https://bookdown.org/f_lennert/book-toolbox_css/agent-based-modeling.html) from "Toolbox CSS" by Felix Lennert
 
--   [EpiModel R package](https://doi.org/10.18637/jss.v084.i08) (includes network models)
+-   [EpiModel R package](https://doi.org/10.18637/jss.v084.i08) (has compartmental and network models)
 
 ## Today
 
@@ -370,9 +375,9 @@ Much of this section based on
 
 ## System dynamics philosophy
 
-Actions can have consequences through complex and non-linear feedback loops
+Actions can have consequences through complex, non-linear feedback loops
 
-![](SD-domino-guy.png)
+![](figs/SD-domino-guy.png)
 
 ## Stocks and flows
 
@@ -380,11 +385,11 @@ Actions can have consequences through complex and non-linear feedback loops
 
 -   Analogy: faucet, bathtub, drain
 
-![](SD_disease_stock_flow.png)
+![](figs/SD_disease_stock_flow.png)
 
 ## More stocks and flows
 
-![](SD-stock-flows-more.png)
+![](figs/SD-stock-flows-more.png)
 
 ## Feedback loops
 
@@ -400,19 +405,19 @@ What separate SD models from traditional differential equations models
 
 ## Heating a room: balancing loop (negative feedback)
 
-![](SD_feedback_room_heat.png)
+![](figs/SD_feedback_room_heat.png)
 
 ## Capital investment: reinforcing loop (positive feedback)
 
-![](SD_feedback_capital_growth.png)
+![](figs/SD_feedback_capital_growth.png)
 
 ## Ex: Opioid misuse and use disorder
 
-![](SD-opioid-schematic.svg)
+![](figs/SD-opioid-schematic.svg)
 
 ## Feedback loops in opioid example
 
-![](SD-opioid-feedbacks.png)
+![](figs/SD-opioid-feedbacks.png)
 
 [Stringfellow et. al. 2022](https://pubmed.ncbi.nlm.nih.gov/35749492/)
 
@@ -444,7 +449,7 @@ What separate SD models from traditional differential equations models
 
 -   "As complex as needed, as simple as possible."
 
-![](model_categorization.png)
+![](figs/model_categorization.png)
 
 ## Recap
 
@@ -460,11 +465,10 @@ What separate SD models from traditional differential equations models
 
 -   Have completed method lectures on model structures!
 
--   Remaining methods lectures focus on design, parameterization, workflow, uncertainty analysis
+-   Six more methods lectures which focus on design, parameterization, calibration, and uncertainty analysis
 
--   Will soon start 'applied' phase with lots of examples
+-   Then, 'applied' phase where you examine many examples
 
 ## Logistics
 
--   Assignment 3 due Wed, Oct 11
--   Open-source modeling presentations on
+-   Assignment 3 due Fri, Oct 4
