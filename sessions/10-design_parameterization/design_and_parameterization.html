@@ -8,10 +8,10 @@
 <link href="design_and_parameterization_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="design_and_parameterization_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="design_and_parameterization_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-10-03">
+  <meta name="dcterms.date" content="2024-10-01">
   <title>Design and parameterization of analyses</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="design_and_parameterization_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="design_and_parameterization_files/libs/revealjs/dist/theme/quarto.css">
   <link href="design_and_parameterization_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="design_and_parameterization_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="design_and_parameterization_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -392,7 +393,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Design and parameterization of analyses</h1>
-  <p class="subtitle">EPIB 676 session 12, McGill University</p>
+  <p class="subtitle">EPIB 676 session 10, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -402,12 +403,12 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-10-03</p>
+  <p class="date">2024-10-01</p>
 </section>
 <section id="r-packages" class="slide level2">
 <h2>R packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="today" class="slide level2">
@@ -439,6 +440,14 @@ Alton Russell
 <li><p>Consider non-quantifiable factors</p></li>
 <li><p>Interpret the results</p></li>
 </ol>
+</section>
+<section id="capturing-what-matters" class="slide level2">
+<h2>Capturing what matters</h2>
+<ul>
+<li><p>A ‘standard’ cost-utility analysis (cost per QALY) is often warranted</p></li>
+<li><p>But creatively tailoring how an analysis is framed to the decision context can yield valuable insights</p></li>
+<li><p>Simple models sometimes more effective than complex models</p></li>
+</ul>
 </section>
 <section id="free-condoms-at-school" class="slide level2">
 <h2>Free condoms at school?</h2>
@@ -489,12 +498,12 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <section id="assessing-for-different-sti-risk-reduction-factors" class="slide level2">
 <h2>Assessing for different STI risk reduction factors</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>t_twoway <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="at">rr_STI_with_condom =</span> <span class="fu">seq</span>(<span class="fl">0.02</span>, <span class="fl">0.22</span>, <span class="at">by=</span><span class="fl">0.04</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">mutate</span>(<span class="at">delta_for_STI_inc =</span> <span class="fu">round</span>((<span class="dv">1</span> <span class="sc">-</span> rr_STI_with_condom)<span class="sc">/</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>           rr_STI_with_condom, <span class="at">digits=</span><span class="dv">1</span>))</span>
-<span id="cb2-6"><a href="#cb2-6"></a>t_twoway</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>t_twoway <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href=""></a>  <span class="at">rr_STI_with_condom =</span> <span class="fu">seq</span>(<span class="fl">0.02</span>, <span class="fl">0.22</span>, <span class="at">by=</span><span class="fl">0.04</span>)</span>
+<span id="cb2-3"><a href=""></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">delta_for_STI_inc =</span> <span class="fu">round</span>((<span class="dv">1</span> <span class="sc">-</span> rr_STI_with_condom)<span class="sc">/</span></span>
+<span id="cb2-5"><a href=""></a>           rr_STI_with_condom, <span class="at">digits=</span><span class="dv">1</span>))</span>
+<span id="cb2-6"><a href=""></a>t_twoway</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   rr_STI_with_condom delta_for_STI_inc
@@ -578,7 +587,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li><p>651 recurrent events</p></li>
 <li><p>984 surgical procedures (pacemaker, etc.)</p></li>
 </ul></li>
-<li><p>Total CHD care cost: $21.6 m</p></li>
+<li><p><strong>Total CHD care cost: $21.6 m</strong></p></li>
 </ul>
 </section>
 <section id="conclusions-from-study" class="slide level2">
@@ -610,6 +619,23 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 
 <img data-src="kaplan_scratch_model_paper.png" class="r-stretch"><p><a href="https://doi.org/10.1287/msom.2020.0891">Kaplan 2020, <em>MSOM</em></a></p>
 <p><a href="https://www.youtube.com/watch?v=FpUEKAcbBkU">Recorded talk on Youtube</a></p>
+<p>Will show 13:08 to 26:40</p>
+</section>
+<section id="what-was-covid-prevalence-in-new-haven-march-2020" class="slide level2">
+<h2>What was COVID prevalence in New Haven March 2020?</h2>
+<ul>
+<li><p>March 7, a couple cases in New England, but no information on asymptomatic/presympomatic spread yet</p></li>
+<li><p>Decided to focus on the prevalence e want to defend against</p></li>
+<li><p>People were comfortable with 1/10,000</p></li>
+<li><p>Events capped at ≤100</p></li>
+<li><p>Nine days later, federal that gatherings should have ≤10 people</p></li>
+</ul>
+</section>
+<section id="anticipating-icu-demand" class="slide level2">
+<h2>Anticipating ICU demand</h2>
+<ul>
+<li></li>
+</ul>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
@@ -643,7 +669,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <p>Health policy is a collaborative process with many stakeholders. Need to identify the target audience and understand the evaluation criteria they care about.</p>
 </section>
 <section id="what-is-vs.-what-if" class="slide level2">
-<h2>What is vs.&nbsp;what if?</h2>
+<h2>What is? vs.&nbsp;what if?</h2>
 <p><strong>What is? studies</strong></p>
 <ul>
 <li><p>Inform choice between existing options for current context</p></li>
@@ -651,7 +677,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </ul>
 <p><strong>What if? studies</strong></p>
 <ul>
-<li><p>Inform choice between potential options for future contexts with incomplete information</p>
+<li><p>Inform choice between potential options for future contexts, often with incomplete information</p>
 <ul>
 <li><p>How cheap does drug need to be?</p></li>
 <li><p>How much potential benefit from developing improved technology?</p></li>
@@ -669,8 +695,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </ul>
 </div><div class="column" style="width:50%;">
 <p><img data-src="flowchart.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="defining-alternatives" class="slide level2">
 <h2>Defining alternatives</h2>
@@ -686,6 +711,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </section>
 <section id="including-all-alternatives" class="slide level2">
 <h2>Including all alternatives</h2>
+<p>Willingness-to-pay = $100,000</p>
 
 <img data-src="include_all_alternatives.png" class="r-stretch"></section>
 <section id="define-target-population" class="slide level2">
@@ -709,7 +735,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li><p>Chemo vs.&nbsp;drug: staff time, environmental impact of production, medical waste, replacing out-of-work patient, “domino” effect of replacing the replacement….</p></li>
 <li><p>Cannot model everything!</p></li>
 </ul></li>
-<li><p>Capture outcomes/dynamics which:</p>
+<li><p>Model processes and outcomes that</p>
 <ul>
 <li><p>Make substantial contribution to <strong><em>incremental</em></strong> impact of alternatives</p></li>
 <li><p>Target audience cares about (“face validity”)</p></li>
@@ -775,6 +801,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </section>
 <section id="imperfect-hierarchy-of-evidence" class="slide level2">
 <h2>Imperfect hierarchy of evidence</h2>
+<p>“Traditional” hierarchy (best to worst):</p>
 <ul>
 <li><p>Well conducted systematic review</p></li>
 <li><p>Single best study</p></li>
@@ -784,12 +811,19 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <ul>
 <li><p>How comparable are studies in systematic reviews?</p></li>
 <li><p>How well do they map to your target population?</p></li>
+<li><p>Sometimes, need to develop your own mini-systematic review</p></li>
 </ul>
+</section>
+<section id="population-intervention-comparison-outcome" class="slide level2">
+<h2>Population Intervention Comparison Outcome</h2>
+<p>Librarians can help!</p>
+
+<img data-src="images/pico_example.png" class="r-stretch"><p>From <a href="https://www.cambridge.org/core/books/decision-making-in-health-and-medicine/finding-and-summarizing-the-evidence/8C72D78A03DEF4FBF7BEE6E01DD1F312">Hunink et. al.&nbsp;Decision Making in Health and Medicine</a> 2024 Ch. 8</p>
 </section>
 <section id="mini-meta-analysis-for-key-parameters" class="slide level2">
 <h2>Mini meta-analysis for key parameters</h2>
 
-<img data-src="meta_analysis.png" class="r-stretch"><p><a href="https://doi.org/10.1002/14651858.cd001216.pub2">Hewitson et. al.&nbsp;2007</a></p>
+<img data-src="meta_analysis.png" class="r-stretch"><p>Screening for colorectal cancer with faecal occult blood test, <a href="https://doi.org/10.1002/14651858.cd001216.pub2">Hewitson et. al.&nbsp;2007</a></p>
 </section>
 <section id="mini-meta-analysis-for-key-parameters-1" class="slide level2">
 <h2>Mini meta-analysis for key parameters</h2>
@@ -801,11 +835,12 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <ul>
 <li><p>Recent model of same health condition in same population is a great source</p></li>
 <li><p>Can borrow methods (with citation)</p></li>
-<li><p><strong>BUT</strong>, should ID root source of parameter values</p>
+<li><p><strong>BUT</strong>, find and site original empirical paper</p>
 <ul>
 <li>Avoid propagating errors</li>
-<li>Can site both the modeling study and underlying data source</li>
+<li>Can site modeling study and underlying data source</li>
 </ul></li>
+<li><p>Also check for more recent data</p></li>
 </ul>
 </section>
 <section id="expert-opinion" class="slide level2">
@@ -845,8 +880,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 </ul>
 </div><div class="column" style="width:35%;">
 <p><strong>Start simple and focus on what’s important! A model should capture important tradeoffs, not perfectly mirror reality</strong></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="today-3" class="slide level2">
 <h2>Today</h2>
@@ -857,6 +891,19 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li><p><strong>Discuss course project</strong></p></li>
 </ul>
 </section>
+<section id="applied-assignments" class="slide level2">
+<h2>Applied assignments</h2>
+<ul>
+<li><p>Present an assessment of open-source modeling study in class on Nov 4</p></li>
+<li><p>Develop your own (simplified) applied decision analysis</p>
+<ul>
+<li><p>Proposal due Nov 4</p></li>
+<li><p>Presentation Dec 3</p></li>
+<li><p>Report due Dec 10</p></li>
+</ul></li>
+</ul>
+<p>For detailed expectations and assessment criteria, see <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">Info for non-programming assignments</a> in syllabus folder on Github</p>
+</section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
@@ -865,27 +912,19 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
 <li><p>Balance of simple/transparent while complex enough to capture important trade-offs is important yet challenging</p></li>
 </ul>
 </section>
-<section id="course-project-proposal" class="slide level2">
-<h2>Course project proposal</h2>
-<p>Switch to <a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">“Info for non-programming assignments”</a> in syllabus folder of Github.</p>
-</section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Assignment 3 due <u><strong>Wed, Oct 11</strong></u></p>
+<li><p>Assignment 3 due Fri, Oct 4</p></li>
+<li><p>Project proposal due Fri, Nov 1</p>
 <ul>
-<li><a href="https://github.com/altonrus/epib-676/commit/389e9c01c32f1438b6ac72810785bcc3f3f8c1d7">Minor correction</a> made Tues</li>
+<li>Strongly recommended to discuss with me before</li>
 </ul></li>
-<li><p>Shifting to ‘applied’ assignments</p>
-<ul>
-<li><p><a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">Instructions in syllabus folder on Github</a></p></li>
-<li><p>Open source model presentations <u><strong>Th, Oct 26</strong></u></p></li>
-<li><p>Project proposals due <u><strong>Mon, Oct 30</strong></u></p></li>
-</ul></li>
-<li><p>Assignment 4 due <u><strong>Fri, Nov 2</strong></u></p></li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -914,7 +953,6 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1169,18 +1207,7 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1212,11 +1239,50 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1226,8 +1292,17 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1241,7 +1316,11 @@ P \gamma + \gamma + \Delta \gamma - 1 &amp;&gt; P \gamma\\
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

@@ -1,8 +1,8 @@
 ---
 title: "Design and parameterization of analyses"
-subtitle: "EPIB  676 session 12, McGill University"
+subtitle: "EPIB  676 session 10, McGill University"
 author: "Alton Russell"
-date: "3 Oct 2023"
+date: "1 Oct 2024"
 format: revealjs
 editor: visual
 ---
@@ -49,6 +49,14 @@ library(dplyr)
 6.  Consider non-quantifiable factors
 
 7.  Interpret the results
+
+## Capturing what matters
+
+-   A 'standard' cost-utility analysis (cost per QALY) is often warranted
+
+-   But creatively tailoring how an analysis is framed to the decision context can yield valuable insights
+
+-   Simple models sometimes more effective than complex models
 
 ## Free condoms at school?
 
@@ -193,7 +201,7 @@ Adults (sexual contact or blood transfusion):
 
     -   984 surgical procedures (pacemaker, etc.)
 
--   Total CHD care cost: \$21.6 m
+-   **Total CHD care cost: \$21.6 m**
 
 ## Conclusions from study
 
@@ -226,6 +234,24 @@ Adults (sexual contact or blood transfusion):
 [Kaplan 2020, *MSOM*](https://doi.org/10.1287/msom.2020.0891)
 
 [Recorded talk on Youtube](https://www.youtube.com/watch?v=FpUEKAcbBkU)
+
+Will show 13:08 to 26:40
+
+## What was COVID prevalence in New Haven March 2020?
+
+-   March 7, a couple cases in New England, but no information on asymptomatic/presympomatic spread yet
+
+-   Decided to focus on the prevalence e want to defend against
+
+-   People were comfortable with 1/10,000
+
+-   Events capped at ≤100
+
+-   Nine days later, federal that gatherings should have ≤10 people
+
+## Anticipating ICU demand
+
+-   
 
 ## Today
 
@@ -265,7 +291,7 @@ If the goal is to inform policy, analysis must
 
 Health policy is a collaborative process with many stakeholders. Need to identify the target audience and understand the evaluation criteria they care about.
 
-## What is vs. what if?
+## What is? vs. what if?
 
 **What is? studies**
 
@@ -275,7 +301,7 @@ Health policy is a collaborative process with many stakeholders. Need to identif
 
 **What if? studies**
 
--   Inform choice between potential options for future contexts with incomplete information
+-   Inform choice between potential options for future contexts, often with incomplete information
 
     -   How cheap does drug need to be?
 
@@ -283,7 +309,7 @@ Health policy is a collaborative process with many stakeholders. Need to identif
 
 ## Choosing analytic framework
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Informed by audience, objective, what's (un)known
 
@@ -295,7 +321,7 @@ Health policy is a collaborative process with many stakeholders. Need to identif
 ::: {.column width="50%"}
 ![](flowchart.png)
 :::
-:::
+:::::
 
 ## Defining alternatives
 
@@ -310,6 +336,8 @@ Health policy is a collaborative process with many stakeholders. Need to identif
 -   "Do nothing" or "status quo" should always be included!
 
 ## Including all alternatives
+
+Willingness-to-pay = \$100,000
 
 ![](include_all_alternatives.png)
 
@@ -335,7 +363,7 @@ Health policy is a collaborative process with many stakeholders. Need to identif
 
     -   Cannot model everything!
 
--   Capture outcomes/dynamics which:
+-   Model processes and outcomes that
 
     -   Make substantial contribution to ***incremental*** impact of alternatives
 
@@ -405,6 +433,8 @@ Should we make models without "enough" data?
 
 ## Imperfect hierarchy of evidence
 
+"Traditional" hierarchy (best to worst):
+
 -   Well conducted systematic review
 
 -   Single best study
@@ -417,11 +447,21 @@ Murky in practice
 
 -   How well do they map to your target population?
 
+-   Sometimes, need to develop your own mini-systematic review
+
+## Population Intervention Comparison Outcome
+
+Librarians can help!
+
+![](images/pico_example.png)
+
+From [Hunink et. al. Decision Making in Health and Medicine](https://www.cambridge.org/core/books/decision-making-in-health-and-medicine/finding-and-summarizing-the-evidence/8C72D78A03DEF4FBF7BEE6E01DD1F312) 2024 Ch. 8
+
 ## Mini meta-analysis for key parameters
 
 ![](meta_analysis.png)
 
-[Hewitson et. al. 2007](https://doi.org/10.1002/14651858.cd001216.pub2)
+Screening for colorectal cancer with faecal occult blood test, [Hewitson et. al. 2007](https://doi.org/10.1002/14651858.cd001216.pub2)
 
 ## Mini meta-analysis for key parameters
 
@@ -435,10 +475,12 @@ Supplement of [Russell et. al. 2022](https://doi.org/10.1111/trf.16704)
 
 -   Can borrow methods (with citation)
 
--   **BUT**, should ID root source of parameter values
+-   **BUT**, find and site original empirical paper
 
     -   Avoid propagating errors
-    -   Can site both the modeling study and underlying data source
+    -   Can site modeling study and underlying data source
+
+-   Also check for more recent data
 
 ## Expert opinion
 
@@ -464,7 +506,7 @@ Ideally, students doing applied decision analysis have
 
 ## Iterative process
 
-::: columns
+::::: columns
 ::: {.column width="65%"}
 -   Develop analysis framework (states, time horizon, consequences, etc)
 
@@ -482,7 +524,7 @@ Ideally, students doing applied decision analysis have
 ::: {.column width="35%"}
 **Start simple and focus on what's important! A model should capture important tradeoffs, not perfectly mirror reality**
 :::
-:::
+:::::
 
 ## Today
 
@@ -494,6 +536,20 @@ Ideally, students doing applied decision analysis have
 
 -   **Discuss course project**
 
+## Applied assignments
+
+-   Present an assessment of open-source modeling study in class on Nov 4
+
+-   Develop your own (simplified) applied decision analysis
+
+    -   Proposal due Nov 4
+
+    -   Presentation Dec 3
+
+    -   Report due Dec 10
+
+For detailed expectations and assessment criteria, see [Info for non-programming assignments](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html) in syllabus folder on Github
+
 ## Recap
 
 -   Well-framed simple models can be effective
@@ -504,16 +560,8 @@ Ideally, students doing applied decision analysis have
 
 ## Logistics
 
--   Assignment 3 due [**Wed, Oct 11**]{.underline}
+-   Assignment 3 due Fri, Oct 4
 
-    -   [Minor correction](https://github.com/altonrus/epib-676/commit/389e9c01c32f1438b6ac72810785bcc3f3f8c1d7) made Tues
+-   Project proposal due Fri, Nov 1
 
--   Shifting to 'applied' assignments
-
-    -   [Instructions in syllabus folder on Github](https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html)
-
-    -   Open source model presentations [**Th, Oct 26**]{.underline}
-
-    -   Project proposals due [**Mon, Oct 30**]{.underline}
-
--   Assignment 4 due [**Fri, Nov 2**]{.underline}
+    -   Strongly recommended to discuss with me before

@@ -10,7 +10,7 @@ editor: visual
 
 ## **Open-source modeling study presentation (8% final grade)**
 
-Students will find a published decision-analytic modeling study that also provides open source code in R (or another language with which the student is comfortable). Students will read the paper, review the code, and attempt to run it themselves (no need to spend over 2 hours analyzing the code; it's OK if you don't get it running). Students will give a high level class presentation about the paper with a focus on the question being answered, methodological approach, and reproducibility.
+Students will find a published decision-analytic modeling study that also provides open source code in R (or another language with which the student is comfortable). Students will read the paper, review the code, and attempt to run it themselves ([**no need to spend over 2 hours analyzing the code**]{.underline}; it's OK if you don't get it running). Students will give a high level class presentation about the paper with a focus on the question being answered, methodological approach, and reproducibility.
 
 -   Oral presentation with slides is the only deliverable (no written report)
 
@@ -66,13 +66,15 @@ The proposal should contain your initial plans with respect to your:
 
 -   Planned approach for model parameterization (e.g., secondary literature sources, analysis of primary data, or some combination thereof. In most cases, unless the project is tied to your research, students rely on secondary literature sources for parameters)
 
-If your project is in collaboration with others and/or builds on work you began before this semester, please describe this context. Make it clear what components of the larger project are being newly developed this semester by you for the class project.
+-   At least two manuscripts or data sources you expect to reference and how you will reference (e.g., this trial will inform effectiveness; this database will be used for hospitalization costs)
+
+If your project is in collaboration with others and/or builds on work you began before this semester, please describe this context. Make it clear what components of the larger project are being newly developed by you this semester for the class project.
 
 ### Project report with code (26% final grade)
 
-It is recommended that you write the report as a 'literate programming' document with Quarto and render to an HTML, PDF, or Word document (I'll grade any of them). Please include tables and figures in-line, rather than at the end. The length [**should not exceed**]{.underline} 3,500 words, the length of a typical peer reviewed manuscript in a medical journal, not including references or code. There is no lower limit on length, and concision is appreciated. Your report should describe your analysis but also engage with peer-reviewed literature, citing works related to the decision problem modeled and any works from which parameter values or methods were derived.
+It is recommended that you write the report as a 'literate programming' document with Quarto and render to an HTML, PDF, or Word document (I'll grade any of them). You are free to use [my generic project template](https://github.com/altonrus/generic-project). Please include tables and figures in-line, rather than at the end. The length [**should not exceed**]{.underline} 3,500 words, the length of a typical peer reviewed manuscript in a medical journal, not including references or code. There is no lower limit on length, and concision is appreciated. Your report should describe your analysis but also engage with peer-reviewed literature, citing works related to the decision problem modeled and any works from which parameter values or methods were derived.
 
-Here is an outline of the recommended sections and what should be included in each. Sub-headers are encouraged.
+Here is a recommended outline for the report and notes on what to include. Sub-headers are encouraged.
 
 #### Background
 
@@ -96,13 +98,14 @@ Here is an outline of the recommended sections and what should be included in ea
 
 #### Results
 
--   What are the main findings, based on your possibly flawed model? You should estimate outcomes for \>1 alternative and, if using a cost-effectiveness framework, conduct incremental analysis (compute ICERS).
+-   What are the main findings, based on your (possibly flawed) model? You should estimate outcomes for \>1 alternative and, if using a cost-effectiveness framework, conduct incremental analysis (compute ICERS).
 
 -   What was the result of your uncertainty analysis?
 
 #### Expansion plan
 
--   If you were to develop your class project into a complete analysis you could submit for peer reviewed publication, what are the main things you would enhance or add? You may use a bulleted list.
+-   If others helped with the project and/or the project builds on work done before this semester, please clarify.
+-   If you were to develop your class project into a complete analysis for peer reviewed publication, what are the main things you would enhance or add? You may use a bulleted list.
 
 #### Discussion
 
