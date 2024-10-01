@@ -422,11 +422,11 @@ Ideally, students doing applied decision analysis have
 
 ## Applied assignments
 
--   Present an assessment of open-source modeling study in class on Nov 4
+-   Present an assessment of open-source modeling study in class on Nov 5
 
 -   Develop your own (simplified) applied decision analysis
 
-    -   Proposal due Nov 4
+    -   Proposal due Nov 1
 
     -   Presentation Dec 3
 
