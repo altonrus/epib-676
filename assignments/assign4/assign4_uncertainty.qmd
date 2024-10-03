@@ -33,7 +33,7 @@ Create an R script called `model_functions.R` in the same folder as this .Qmd fi
 To use your model functions within this Qmd document, load them into your R environment using `source()` in this code chunk:
 
 ```{r source_model_functions}
-# Load in functions for the transfusion-transmitted HIV model
+# Load in functions for the transfusion-transmitted HIV model using source()
 NA
 ```
 
@@ -372,8 +372,8 @@ rgamma_mean_quantile <- function(mean, lb, ub, n=1){
 In this code chunk, sample each parameter from its indicated distribution. In the version you turn in, you should sample 1000 parameters from each distribution. Until you get your code working, it may be easier to just sample 5.
 
 ```{r}
-n_psa_iter <- 5 #Use this to get your code working, switch to 1,000 when ready
-#n_psa_iters <- 1000 #Uncomment this for the final version
+n_psa_iter <- 5 #Comment out this line of code for final version
+#n_psa_iters <- 1000 #Uncomment this once your code is working
 
 #SAMPLE REWARD PARAMETERS
 #Get names of reward parameters
@@ -391,14 +391,14 @@ for (param in reward_param_names){
   #.  specified in t_rewards$distribution
   #.  and fill in the appropriate column
   #.  of m_reward_params_psa
-  #.  If is.na(Distribution), just add
-  #.  the parameter to the table without sampling
+  #.  If is.na(Distribution), add
+  #.  the parameter as a constant value
   NA
 }
 
 #SAMPLE TRANSITION PROBABILTIES
 
-#Create table with just the paramters varied in 
+#Create table with just the parameters varied in 
 #.  PSA and add unique name "FromTo" for the transition
 t_probs_psa_only <- t_probs |>
   filter(!is.na(distribution))
@@ -496,7 +496,7 @@ m_owsa_result <- matrix(
   nrow = length(reward_param_names),
   ncol = 4,
   dimnames = list(
-    rows = reward_param_names_owsa,
+    rows = reward_param_names_owsa$rname,
     cols = c("input_low", "input_high", "ICER_detect_low", "ICER_detect_high")
   )
 )

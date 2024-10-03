@@ -8,10 +8,10 @@
 <link href="uncertainty_analysis_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="uncertainty_analysis_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="uncertainty_analysis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-09-28">
+  <meta name="dcterms.date" content="2024-10-03">
   <title>Uncertainty analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="uncertainty_analysis_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="uncertainty_analysis_files/libs/revealjs/dist/theme/quarto.css">
   <link href="uncertainty_analysis_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="uncertainty_analysis_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="uncertainty_analysis_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -392,7 +393,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Uncertainty analysis</h1>
-  <p class="subtitle">EPIB 676 session 9, McGill University</p>
+  <p class="subtitle">EPIB 676 session 11, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -402,16 +403,17 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-09-28</p>
+  <p class="date">2024-10-03</p>
 </section>
 <section id="packages" class="slide level2">
 <h2>Packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dampack) <span class="co">#cost-effectiveness sensitivity analysis</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># https://github.com/DARTH-git/dampack</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(rriskDistributions) <span class="co">#fit distn to quantile</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(ggplot2) <span class="co">#plotting</span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(dampack) <span class="co">#cost-effectiveness sensitivity analysis</span></span>
+<span id="cb1-4"><a href=""></a><span class="co"># https://github.com/DARTH-git/dampack</span></span>
+<span id="cb1-5"><a href=""></a><span class="fu">library</span>(rriskDistributions) <span class="co">#fit distn to quantile</span></span>
+<span id="cb1-6"><a href=""></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co">#set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="today" class="slide level2">
@@ -431,7 +433,7 @@ Alton Russell
 </ul></li>
 </ul>
 
-<img data-src="model-inputs-outputs.svg" class="r-stretch"></section>
+<img data-src="figs/model-inputs-outputs.svg" class="r-stretch"></section>
 <section id="three-types-of-uncertainty" class="slide level2">
 <h2>Three types of uncertainty</h2>
 <ul>
@@ -445,15 +447,15 @@ Alton Russell
 <ul>
 <li><p><strong>First order</strong> <strong>(stochastic):</strong> variation between statistically identical patients</p>
 <ul>
-<li>Use enough simulation runs to make negligible</li>
+<li>Eliminate (run enough simulations to make negligible)</li>
 </ul></li>
 <li><p><strong>Second order (parameter):</strong> uncertainty in a population parameter</p>
 <ul>
-<li>Estimate va <strong>parametric sensitivity analysis</strong></li>
+<li>Estimate using <strong>p<u>arametric sensitivity analysis</u></strong></li>
 </ul></li>
 <li><p><strong>Third order (structural):</strong> uncertainty in relation between parameters</p>
 <ul>
-<li>Estimate via <strong>structural sensitivity analysis</strong></li>
+<li>Estimate using <u><strong>structural sensitivity analysis</strong></u></li>
 </ul></li>
 </ul>
 </section>
@@ -468,38 +470,37 @@ Alton Russell
 </ul>
 <p>Changing model</p>
 <ul>
-<li><strong>Structural:</strong> vary relation between parameters in model</li>
+<li><strong>Structural:</strong> scenario analysis with a different functional form (e.g., altered causal relationship between parameters)</li>
 </ul>
 </section>
-<section id="toy-model-a-death-averting-treatment-decision-tree" class="slide level2">
-<h2>Toy model: a death-averting treatment decision tree</h2>
+<section id="toy-model-death-averting-treatment-decision-tree" class="slide level2">
+<h2>Toy model: death-averting treatment decision tree</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>l_prms <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cost_treat =</span> <span class="dv">60000</span>, <span class="co">#base case parameters</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>               <span class="at">prob_death_noTreat =</span> .<span class="dv">3</span>,</span>
-<span id="cb2-3"><a href="#cb2-3"></a>               <span class="at">rr_death_drug =</span> <span class="fl">0.5</span>,</span>
-<span id="cb2-4"><a href="#cb2-4"></a>               <span class="at">QALY_survive =</span> <span class="dv">12</span>,</span>
-<span id="cb2-5"><a href="#cb2-5"></a>               <span class="at">cost_survive =</span> <span class="dv">12000</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(l_prms){</span>
-<span id="cb2-8"><a href="#cb2-8"></a>  tot_cost_noTreat <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat)<span class="sc">*</span>l_prms<span class="sc">$</span>cost_survive</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  tot_cost_treat <span class="ot">=</span> (l_prms<span class="sc">$</span>cost_treat <span class="sc">+</span> </span>
-<span id="cb2-10"><a href="#cb2-10"></a>                    (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat<span class="sc">*</span>l_prms<span class="sc">$</span>rr_death_drug)<span class="sc">*</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>                    l_prms<span class="sc">$</span>cost_survive)</span>
-<span id="cb2-12"><a href="#cb2-12"></a>  tot_QALY_noTreat <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat)<span class="sc">*</span>l_prms<span class="sc">$</span>QALY_survive</span>
-<span id="cb2-13"><a href="#cb2-13"></a>  tot_QALY_treat <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat<span class="sc">*</span>l_prms<span class="sc">$</span>rr_death_drug)<span class="sc">*</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>                   l_prms<span class="sc">$</span>QALY_survive</span>
-<span id="cb2-15"><a href="#cb2-15"></a>  <span class="fu">return</span>(</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    <span class="fu">list</span>(<span class="at">tot_cost_noTreat=</span>tot_cost_noTreat, <span class="at">tot_cost_treat=</span>tot_cost_treat,</span>
-<span id="cb2-17"><a href="#cb2-17"></a>      <span class="at">tot_QALY_noTreat=</span>tot_QALY_noTreat, <span class="at">tot_QALY_treat=</span>tot_QALY_treat,</span>
-<span id="cb2-18"><a href="#cb2-18"></a>      <span class="at">ICER_treat =</span> (tot_cost_treat <span class="sc">-</span> tot_cost_noTreat)<span class="sc">/</span>(tot_QALY_treat <span class="sc">-</span> tot_QALY_noTreat)))</span>
-<span id="cb2-19"><a href="#cb2-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co">#base case parameters</span></span>
+<span id="cb2-2"><a href=""></a>l_prms <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cost_treat =</span> <span class="dv">60000</span>,      <span class="at">prob_death_noTreat =</span> .<span class="dv">3</span>,</span>
+<span id="cb2-3"><a href=""></a>               <span class="at">rr_death_drug =</span> <span class="fl">0.5</span>,     <span class="at">QALY_survive =</span> <span class="dv">12</span>,</span>
+<span id="cb2-4"><a href=""></a>               <span class="at">cost_survive =</span> <span class="dv">12000</span>)</span>
+<span id="cb2-5"><a href=""></a></span>
+<span id="cb2-6"><a href=""></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(l_prms){</span>
+<span id="cb2-7"><a href=""></a>  tot_cost_noTreat <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat)<span class="sc">*</span>l_prms<span class="sc">$</span>cost_survive</span>
+<span id="cb2-8"><a href=""></a>  tot_cost_treat <span class="ot">=</span> (l_prms<span class="sc">$</span>cost_treat <span class="sc">+</span> </span>
+<span id="cb2-9"><a href=""></a>                    (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat<span class="sc">*</span>l_prms<span class="sc">$</span>rr_death_drug)<span class="sc">*</span></span>
+<span id="cb2-10"><a href=""></a>                    l_prms<span class="sc">$</span>cost_survive)</span>
+<span id="cb2-11"><a href=""></a>  tot_QALY_noTreat <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat)<span class="sc">*</span>l_prms<span class="sc">$</span>QALY_survive</span>
+<span id="cb2-12"><a href=""></a>  tot_QALY_treat <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>l_prms<span class="sc">$</span>prob_death_noTreat<span class="sc">*</span>l_prms<span class="sc">$</span>rr_death_drug)<span class="sc">*</span></span>
+<span id="cb2-13"><a href=""></a>                   l_prms<span class="sc">$</span>QALY_survive</span>
+<span id="cb2-14"><a href=""></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">tot_cost_noTreat=</span>tot_cost_noTreat,  <span class="at">tot_cost_treat=</span>tot_cost_treat,</span>
+<span id="cb2-15"><a href=""></a>              <span class="at">tot_QALY_noTreat=</span>tot_QALY_noTreat,  <span class="at">tot_QALY_treat=</span>tot_QALY_treat,</span>
+<span id="cb2-16"><a href=""></a>             <span class="at">ICER_treat =</span> (tot_cost_treat <span class="sc">-</span> tot_cost_noTreat)<span class="sc">/</span></span>
+<span id="cb2-17"><a href=""></a>               (tot_QALY_treat <span class="sc">-</span> tot_QALY_noTreat)))</span>
+<span id="cb2-18"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="base-case-results" class="slide level2">
 <h2>Base case results</h2>
 <p>All parameters at their expected value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>l_basecase_results <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms); l_basecase_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>l_basecase_results <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms); l_basecase_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$tot_cost_noTreat
 [1] 8400
@@ -521,7 +522,10 @@ $ICER_treat
 <section id="one-way-sensitivity-analysis" class="slide level2">
 <h2>One way sensitivity analysis</h2>
 <ul>
-<li><p>Define a “min” and “max” plausible value for an uncertain parameter</p></li>
+<li><p>Define the <strong>minimum</strong> and <strong>maximum</strong> plausible value for an uncertain parameter</p>
+<ul>
+<li>Sometimes based on 95% confidence interval from a study or meta-analysis</li>
+</ul></li>
 <li><p>Change the parameter value along the range</p></li>
 <li><p>Observe change in the output</p></li>
 </ul>
@@ -529,11 +533,11 @@ $ICER_treat
 <section id="ex-one-way-sensitivity-analysis" class="slide level2">
 <h2>Ex: One way sensitivity analysis</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>rr_drug_min <span class="ot">=</span> <span class="fl">0.2</span>; rr_drug_max <span class="ot">=</span> <span class="fl">0.6</span>; l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
-<span id="cb5-2"><a href="#cb5-2"></a>l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> rr_drug_min <span class="co">#Min value</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>result_rr_drug_min <span class="ot">=</span> <span class="fu">model</span>(l_prms_temp)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> rr_drug_max <span class="co">#Max value</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>result_rr_drug_max <span class="ot">=</span> <span class="fu">model</span>(l_prms_temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>rr_drug_min <span class="ot">=</span> <span class="fl">0.2</span>; rr_drug_max <span class="ot">=</span> <span class="fl">0.6</span>; l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
+<span id="cb5-2"><a href=""></a>l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> rr_drug_min <span class="co">#Min value</span></span>
+<span id="cb5-3"><a href=""></a>result_rr_drug_min <span class="ot">=</span> <span class="fu">model</span>(l_prms_temp)</span>
+<span id="cb5-4"><a href=""></a>l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> rr_drug_max <span class="co">#Max value</span></span>
+<span id="cb5-5"><a href=""></a>result_rr_drug_max <span class="ot">=</span> <span class="fu">model</span>(l_prms_temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -576,8 +580,7 @@ $ICER_treat
 [1] 42666.67</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="note-on-one-way-sensitivity-analysis" class="slide level2">
 <h2>Note on one-way sensitivity analysis</h2>
@@ -591,33 +594,33 @@ $ICER_treat
 <li><p>If any doubt, check several points and plot</p></li>
 </ul>
 </section>
-<section id="plot-parameter-rightarrow-output-in-owsa" class="slide level2">
-<h2>Plot parameter <span class="math inline">\(\rightarrow\)</span> output in OWSA</h2>
+<section id="owsa-plot-single-input-parameter" class="slide level2">
+<h2>OWSA plot: single input parameter</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>t_rr_drug_owsa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">rr_death_drug =</span> <span class="fu">seq</span>(<span class="at">from=</span>rr_drug_min, <span class="at">to=</span>rr_drug_max, <span class="at">length.out=</span><span class="dv">20</span>),</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">ICER_treat =</span> <span class="dv">0</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_rr_drug_owsa)){</span>
-<span id="cb8-5"><a href="#cb8-5"></a>  l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
-<span id="cb8-6"><a href="#cb8-6"></a>  l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> t_rr_drug_owsa[row, <span class="st">"rr_death_drug"</span>]</span>
-<span id="cb8-7"><a href="#cb8-7"></a>  t_rr_drug_owsa[row, <span class="st">"ICER_treat"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat}</span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_rr_drug_owsa, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>ICER_treat))<span class="sc">+</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>t_rr_drug_owsa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href=""></a>  <span class="at">rr_death_drug =</span> <span class="fu">seq</span>(<span class="at">from=</span>rr_drug_min, <span class="at">to=</span>rr_drug_max, <span class="at">length.out=</span><span class="dv">20</span>),</span>
+<span id="cb8-3"><a href=""></a>  <span class="at">ICER_treat =</span> <span class="dv">0</span>)</span>
+<span id="cb8-4"><a href=""></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_rr_drug_owsa)){</span>
+<span id="cb8-5"><a href=""></a>  l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
+<span id="cb8-6"><a href=""></a>  l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> t_rr_drug_owsa[row, <span class="st">"rr_death_drug"</span>]</span>
+<span id="cb8-7"><a href=""></a>  t_rr_drug_owsa[row, <span class="st">"ICER_treat"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat}</span>
+<span id="cb8-8"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_rr_drug_owsa, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>ICER_treat))<span class="sc">+</span></span>
+<span id="cb8-9"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
-<section id="one-way-sensitivity-on-every-parameter" class="slide level2">
-<h2>One-way sensitivity on every parameter</h2>
+<section id="owsa-on-all-input-parameters" class="slide level2">
+<h2>OWSA on all input parameters</h2>
 <p>All uncertain parameters assigned min and max value</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>t_owsa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="at">name =</span> <span class="fu">names</span>(l_prms),</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="at">value =</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(l_prms)),</span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="at">value.min =</span> <span class="fu">c</span>(<span class="dv">30000</span>, .<span class="dv">16</span>, .<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8000</span>),</span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="at">value.max =</span> <span class="fu">c</span>(<span class="dv">100000</span>, .<span class="dv">45</span>, .<span class="dv">6</span>, <span class="dv">16</span>, <span class="dv">16000</span>),</span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="at">ICER.min =</span> <span class="dv">0</span>,  <span class="at">ICER.max =</span> <span class="dv">0</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>)</span>
-<span id="cb9-8"><a href="#cb9-8"></a>t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>t_owsa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href=""></a>  <span class="at">name =</span> <span class="fu">names</span>(l_prms),</span>
+<span id="cb9-3"><a href=""></a>  <span class="at">value =</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(l_prms)),</span>
+<span id="cb9-4"><a href=""></a>  <span class="at">value.min =</span> <span class="fu">c</span>(<span class="dv">30000</span>, .<span class="dv">16</span>, .<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8000</span>),</span>
+<span id="cb9-5"><a href=""></a>  <span class="at">value.max =</span> <span class="fu">c</span>(<span class="dv">100000</span>, .<span class="dv">45</span>, .<span class="dv">6</span>, <span class="dv">16</span>, <span class="dv">16000</span>),</span>
+<span id="cb9-6"><a href=""></a>  <span class="at">ICER.min =</span> <span class="dv">0</span>,  <span class="at">ICER.max =</span> <span class="dv">0</span>)</span>
+<span id="cb9-7"><a href=""></a></span>
+<span id="cb9-8"><a href=""></a>t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                name   value value.min value.max ICER.min ICER.max
 1         cost_treat 60000.0   3.0e+04   1.0e+05        0        0
@@ -628,21 +631,21 @@ $ICER_treat
 </div>
 </div>
 </section>
-<section id="owsa-on-every-parameter" class="slide level2">
-<h2>OWSA on every parameter</h2>
+<section id="owsa-on-all-input-parameters-1" class="slide level2">
+<h2>OWSA on all input parameters</h2>
 <p>Loop over parameters, calculate outcome at min and max value</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_owsa)){</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  l_prms_temp <span class="ot">&lt;-</span> l_prms <span class="co"># Reset to base case value (IMPORTANT!!!!)</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="co"># Calculate ICER with parameter at min value</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.min"</span>]</span>
-<span id="cb11-5"><a href="#cb11-5"></a>  t_owsa[row, <span class="st">"ICER.min"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
-<span id="cb11-6"><a href="#cb11-6"></a>  <span class="co"># Calculate ICER with parameter at max value</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.max"</span>]</span>
-<span id="cb11-8"><a href="#cb11-8"></a>  t_owsa[row, <span class="st">"ICER.max"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
-<span id="cb11-9"><a href="#cb11-9"></a>}</span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co"># Add column for range of the ICER (absolute value)</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a>t_owsa<span class="sc">$</span>ICER.range <span class="ot">&lt;-</span> <span class="fu">abs</span>(t_owsa<span class="sc">$</span>ICER.max <span class="sc">-</span> t_owsa<span class="sc">$</span>ICER.min); t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_owsa)){</span>
+<span id="cb11-2"><a href=""></a>  l_prms_temp <span class="ot">&lt;-</span> l_prms <span class="co"># Reset to base case value (IMPORTANT!!!!)</span></span>
+<span id="cb11-3"><a href=""></a>  <span class="co"># Calculate ICER with parameter at min value</span></span>
+<span id="cb11-4"><a href=""></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.min"</span>]</span>
+<span id="cb11-5"><a href=""></a>  t_owsa[row, <span class="st">"ICER.min"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
+<span id="cb11-6"><a href=""></a>  <span class="co"># Calculate ICER with parameter at max value</span></span>
+<span id="cb11-7"><a href=""></a>  l_prms_temp[[t_owsa[row,<span class="st">"name"</span>]]] <span class="ot">&lt;-</span> t_owsa[row,<span class="st">"value.max"</span>]</span>
+<span id="cb11-8"><a href=""></a>  t_owsa[row, <span class="st">"ICER.max"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
+<span id="cb11-9"><a href=""></a>}</span>
+<span id="cb11-10"><a href=""></a><span class="co"># Add column for range of the ICER (absolute value)</span></span>
+<span id="cb11-11"><a href=""></a>t_owsa<span class="sc">$</span>ICER.range <span class="ot">&lt;-</span> <span class="fu">abs</span>(t_owsa<span class="sc">$</span>ICER.max <span class="sc">-</span> t_owsa<span class="sc">$</span>ICER.min); t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                name   value value.min value.max ICER.min ICER.max ICER.range
 1         cost_treat 60000.0   3.0e+04   1.0e+05 17666.67 56555.56 38888.8889
@@ -655,108 +658,134 @@ $ICER_treat
 </section>
 <section id="tornado-diagram-code" class="slide level2">
 <h2>Tornado diagram code</h2>
+<p>Vertical line at base case result (<strong>black</strong>) and decision threshold (<strong>red</strong>). Conclusion is sensitive to parameter whose bar crosses decision threshold.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>p_tornado <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> t_owsa) <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(name, ICER.range), </span>
-<span id="cb13-3"><a href="#cb13-3"></a>                   <span class="at">xend=</span><span class="fu">reorder</span>(name, ICER.range), </span>
-<span id="cb13-4"><a href="#cb13-4"></a>                   <span class="at">y =</span> ICER.min, </span>
-<span id="cb13-5"><a href="#cb13-5"></a>                   <span class="at">yend=</span>ICER.max), <span class="at">size=</span><span class="dv">6</span>, <span class="at">color=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"None"</span>)<span class="sc">+</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> l_basecase_results<span class="sc">$</span>ICER_treat, <span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">50000</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a>  <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))<span class="sc">+</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x){<span class="fu">paste0</span>(<span class="st">"$"</span>,x<span class="sc">/</span><span class="fl">1e3</span>,<span class="st">"K"</span>)},</span>
-<span id="cb13-12"><a href="#cb13-12"></a>                     )<span class="sc">+</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a>  <span class="fu">xlab</span>(<span class="st">""</span>)<span class="sc">+</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a>  <span class="fu">ylab</span>(<span class="st">"ICER of treatment vs. no treatment"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>p_tornado <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> t_owsa) <span class="sc">+</span></span>
+<span id="cb13-2"><a href=""></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(name, ICER.range), <span class="co">#biggest to smallest ICER range</span></span>
+<span id="cb13-3"><a href=""></a>                   <span class="at">xend=</span><span class="fu">reorder</span>(name, ICER.range), </span>
+<span id="cb13-4"><a href=""></a>                   <span class="at">y =</span> ICER.min, </span>
+<span id="cb13-5"><a href=""></a>                   <span class="at">yend=</span>ICER.max), <span class="at">size=</span><span class="dv">6</span>, <span class="at">color=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
+<span id="cb13-6"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"None"</span>)<span class="sc">+</span></span>
+<span id="cb13-7"><a href=""></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb13-8"><a href=""></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> l_basecase_results<span class="sc">$</span>ICER_treat, <span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb13-9"><a href=""></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">50000</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb13-10"><a href=""></a>  <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb13-11"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x){<span class="fu">paste0</span>(<span class="st">"$"</span>,x<span class="sc">/</span><span class="fl">1e3</span>,<span class="st">"K"</span>)},</span>
+<span id="cb13-12"><a href=""></a>                     )<span class="sc">+</span></span>
+<span id="cb13-13"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>)<span class="sc">+</span></span>
+<span id="cb13-14"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"ICER of treatment vs. no treatment"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tornado-diagram" class="slide level2">
 <h2>Tornado diagram</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>p_tornado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>p_tornado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
-<section id="publication-worthy-example" class="slide level2">
-<h2>Publication-worthy example</h2>
+<section id="example-tornado-is-pathogen-inactivation-in-ghana-cost-saving" class="slide level2">
+<h2>Example tornado: Is pathogen inactivation in Ghana cost-saving?</h2>
 
-<img data-src="wbpr_ghana_tornado.png" class="r-stretch"></section>
+<img data-src="figs/wbpr_ghana_tornado.png" class="r-stretch"></section>
 <section id="owsa-for-2-policies" class="slide level2">
 <h2>OWSA for &gt;2 policies?</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
-<p><img data-src="zika_owsa.png"></p>
+<p><img data-src="figs/zika_owsa.png"></p>
 </div><div class="column" style="width:35%;">
 <ul>
-<li><p>One approach shown here.</p></li>
+<li><p>One approach</p></li>
+<li><p>X-axis: changing parameter value two standard deviations from mean</p></li>
 <li><p>Parameter value at base case and thresholds for change in preferred strategy in red text.</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="two-way-sensitivity-analysis-twsa" class="slide level2">
 <h2>Two way sensitivity analysis (TWSA)</h2>
-<p>Simultaneously change <u><strong>pair</strong></u> of parameters</p>
+<p>Simultaneously change a <u><strong>pair</strong></u> of parameters over plausible range</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Make grid with each of 20 possible values for each parameter</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>rr_death_drug <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>rr_drug_min, <span class="at">to=</span>rr_drug_max, <span class="at">length.out=</span><span class="dv">20</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>prob_death_noTreat <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>.<span class="dv">16</span>, <span class="at">to=</span>.<span class="dv">45</span>, <span class="at">length.out=</span><span class="dv">20</span>)</span>
-<span id="cb15-4"><a href="#cb15-4"></a>t_twoway <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">rr_death_drug=</span>rr_death_drug, </span>
-<span id="cb15-5"><a href="#cb15-5"></a>                        <span class="at">prob_death_noTreat=</span>prob_death_noTreat)</span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co"># Add column for the ICER</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a>t_twoway<span class="sc">$</span>ICER <span class="ot">&lt;-</span> <span class="dv">0</span>; l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Run model &amp; save ICER for each combo of the parameters</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_twoway)){</span>
-<span id="cb15-10"><a href="#cb15-10"></a>  l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"rr_death_drug"</span>]</span>
-<span id="cb15-11"><a href="#cb15-11"></a>  l_prms_temp[[<span class="st">"prob_death_noTreat"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"prob_death_noTreat"</span>]</span>
-<span id="cb15-12"><a href="#cb15-12"></a>  t_twoway[row,<span class="st">"ICER"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat</span>
-<span id="cb15-13"><a href="#cb15-13"></a>}</span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="co"># Apply willingness-to-pay theshold to find preferred strategy</span></span>
-<span id="cb15-15"><a href="#cb15-15"></a>t_twoway<span class="sc">$</span>preferred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t_twoway<span class="sc">$</span>ICER <span class="sc">&gt;</span> <span class="dv">50000</span>, <span class="st">"Do not treat"</span>, <span class="st">"Treat"</span>)</span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="fu">head</span>(t_twoway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Make grid with each of 20 possible values for each parameter</span></span>
+<span id="cb15-2"><a href=""></a>rr_death_drug <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>rr_drug_min, <span class="at">to=</span>rr_drug_max, <span class="at">length.out=</span><span class="dv">20</span>)</span>
+<span id="cb15-3"><a href=""></a>prob_death_noTreat <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from=</span>.<span class="dv">16</span>, <span class="at">to=</span>.<span class="dv">45</span>, <span class="at">length.out=</span><span class="dv">20</span>)</span>
+<span id="cb15-4"><a href=""></a></span>
+<span id="cb15-5"><a href=""></a>t_twoway <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">rr_death_drug=</span>rr_death_drug, </span>
+<span id="cb15-6"><a href=""></a>                        <span class="at">prob_death_noTreat=</span>prob_death_noTreat)</span>
+<span id="cb15-7"><a href=""></a></span>
+<span id="cb15-8"><a href=""></a><span class="co"># Add column for the ICER</span></span>
+<span id="cb15-9"><a href=""></a>t_twoway<span class="sc">$</span>ICER <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb15-10"><a href=""></a></span>
+<span id="cb15-11"><a href=""></a><span class="fu">head</span>(t_twoway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rr_death_drug prob_death_noTreat     ICER preferred
-1     0.2000000               0.16 40062.50     Treat
-2     0.2210526               0.16 41118.24     Treat
-3     0.2421053               0.16 42232.64     Treat
-4     0.2631579               0.16 43410.71     Treat
-5     0.2842105               0.16 44658.09     Treat
-6     0.3052632               0.16 45981.06     Treat</code></pre>
+<pre><code>  rr_death_drug prob_death_noTreat ICER
+1     0.2000000               0.16    0
+2     0.2210526               0.16    0
+3     0.2421053               0.16    0
+4     0.2631579               0.16    0
+5     0.2842105               0.16    0
+6     0.3052632               0.16    0</code></pre>
+</div>
+</div>
+</section>
+<section id="two-way-sensitivity-analysis-twsa-1" class="slide level2">
+<h2>Two way sensitivity analysis (TWSA)</h2>
+<p>Simultaneously change a <u><strong>pair</strong></u> of parameters over plausible range</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># Run model &amp; save ICER for each combo of the parameters</span></span>
+<span id="cb17-2"><a href=""></a>l_prms_temp <span class="ot">&lt;-</span> l_prms</span>
+<span id="cb17-3"><a href=""></a></span>
+<span id="cb17-4"><a href=""></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(t_twoway)){</span>
+<span id="cb17-5"><a href=""></a>  l_prms_temp[[<span class="st">"rr_death_drug"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"rr_death_drug"</span>]</span>
+<span id="cb17-6"><a href=""></a>  l_prms_temp[[<span class="st">"prob_death_noTreat"</span>]] <span class="ot">&lt;-</span> t_twoway[row,<span class="st">"prob_death_noTreat"</span>]</span>
+<span id="cb17-7"><a href=""></a>  t_twoway[row,<span class="st">"ICER"</span>] <span class="ot">&lt;-</span> <span class="fu">model</span>(l_prms_temp)<span class="sc">$</span>ICER_treat}</span>
+<span id="cb17-8"><a href=""></a><span class="fu">head</span>(t_twoway)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rr_death_drug prob_death_noTreat     ICER
+1     0.2000000               0.16 40062.50
+2     0.2210526               0.16 41118.24
+3     0.2421053               0.16 42232.64
+4     0.2631579               0.16 43410.71
+5     0.2842105               0.16 44658.09
+6     0.3052632               0.16 45981.06</code></pre>
 </div>
 </div>
 </section>
 <section id="twsa-plot-of-continuous-outcome-icer" class="slide level2">
 <h2>TWSA plot of continuous outcome (ICER)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_twoway, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>prob_death_noTreat, <span class="at">fill=</span>ICER)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span><span class="fu">scale_fill_gradientn</span>(<span class="at">colors=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
-<section id="twsa-plot-of-preferred-policy" class="slide level2">
-<h2>TWSA plot of preferred policy</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_twoway, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>prob_death_noTreat, <span class="at">fill=</span>preferred)) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">geom_tile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_twoway, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>prob_death_noTreat, <span class="at">fill=</span>ICER)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href=""></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span><span class="fu">scale_fill_gradientn</span>(<span class="at">colors=</span><span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
-<section id="complex-two-way-example" class="slide level2">
-<h2>Complex two-way example</h2>
+<section id="twsa-plot-of-preferred-policy" class="slide level2">
+<h2>TWSA plot of preferred policy</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="co"># Apply willingness-to-pay theshold to find preferred strategy</span></span>
+<span id="cb20-2"><a href=""></a>t_twoway<span class="sc">$</span>preferred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(t_twoway<span class="sc">$</span>ICER <span class="sc">&gt;</span> <span class="dv">50000</span>, <span class="st">"Do not treat"</span>, <span class="st">"Treat"</span>)</span>
+<span id="cb20-3"><a href=""></a><span class="co"># Plot</span></span>
+<span id="cb20-4"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>t_twoway, <span class="fu">aes</span>(<span class="at">x=</span>rr_death_drug, <span class="at">y=</span>prob_death_noTreat, <span class="at">fill=</span>preferred)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href=""></a>  <span class="fu">geom_tile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<section id="complex-example" class="slide level2">
+<h2>Complex Example</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p><img data-src="blood_safety_portfoloi_WTP_scenarios.png"></p>
+<p><img data-src="figs/blood_safety_portfoloi_WTP_scenarios.png"></p>
 </div><div class="column" style="width:55%;">
-<p><img data-src="outcomes_by_prevalence.png"></p>
-</div>
-</div>
+<p><img data-src="figs/outcomes_by_prevalence.png"></p>
+</div></div>
 </section>
 <section id="way-sensitivity-analysis-example" class="slide level2">
 <h2>3-way sensitivity analysis example</h2>
-
-<img data-src="three_way_sens_analysis_TB_mHealth.png" class="r-stretch quarto-figure-center"><p class="caption">Cost analysis of mobile health TB contact investigation, Turimumahoro et. al.&nbsp;2022</p></section>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://doi.org/10.1371/journal.pone.0265033"><img data-src="figs/three_way_sens_analysis_TB_mHealth.png" alt="Cost analysis of mobile health TB contact investigation, Turimumahoro et. al.&nbsp;2022"></a></p>
+<figcaption>Cost analysis of mobile health TB contact investigation, Turimumahoro et. al.&nbsp;2022</figcaption>
+</figure>
+</div>
+</section>
 <section id="scenario-analysis" class="slide level2">
 <h2>Scenario analysis</h2>
 <ul>
@@ -764,15 +793,21 @@ $ICER_treat
 <li><p>Useful for:</p>
 <ul>
 <li><p>Design parameters (discount rate, time horizon, perspective)</p></li>
-<li><p>Scenarios defined by &gt;1 parameter (e.g., “Omicron wave” scenario with <span class="math inline">\(\uparrow\)</span> infectivity and <span class="math inline">\(\downarrow\)</span> vaccine efficacy)</p></li>
+<li><p>Scenarios defined by &gt;1 parameter</p></li>
+<li><p>Example:</p>
+<ul>
+<li><p>Omicron wave: <span class="math inline">\(\uparrow\)</span> infectivity and <span class="math inline">\(\downarrow\)</span> vaccine efficacy</p></li>
+<li><p>Canadian analysis with US cost scenario (resource costs sourced from USA</p></li>
 </ul></li>
+</ul></li>
+<li><p>Scenario analyses are often deterministic, but you can do PSA within a scenario</p></li>
 </ul>
 </section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
 <li><p>Deterministic uncertainty analysis</p></li>
-<li><p><strong>Probabilistic sensitivity analysis</strong></p></li>
+<li><p><strong>Probabilistic sensitivity analysis (PSA)</strong></p></li>
 </ul>
 </section>
 <section id="limits-of-deterministic-uncertainty-analysis" class="slide level2">
@@ -780,38 +815,43 @@ $ICER_treat
 <ul>
 <li><p>Lots of uncertain parameters</p></li>
 <li><p>Hard to visualize varying &gt;2</p></li>
-<li><p>Ignores that not all possible parameter values in plausible range are equally likely</p></li>
+<li><p>Deterministic methods ignore fact that all values in parameter’s plausible range are not equally likely</p></li>
 </ul>
-<p>Want to know: how certain are our results given <u><strong>all</strong></u> the uncertainty in <u><strong>all</strong></u> parameters?</p>
+<p><strong>Want to know:</strong> how certain are our results given <u><strong>all</strong></u> the uncertainty in <u><strong>all</strong></u> parameters?</p>
 </section>
-<section id="recap-uncertainty-in-bayesian-terms" class="slide level2">
-<h2>Recap: uncertainty in Bayesian terms</h2>
+<section id="recall-uncertainty-in-bayesian-terms" class="slide level2">
+<h2>Recall: uncertainty in Bayesian terms</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
-<p><img data-src="sampling_dists_posterior_statisticalRethinking.png"></p>
+<p><img data-src="figs/sampling_dists_posterior_statisticalRethinking.png"></p>
 </div><div class="column" style="width:30%;">
 <p><strong>Posterior</strong> <span class="math inline">\(\rightarrow\)</span> parameter uncertainty</p>
 <p><strong>Sampling distn</strong> <span class="math inline">\(\rightarrow\)</span> stochastic uncertainty</p>
 <p><strong>Posterior predictive distn</strong> <span class="math inline">\(\rightarrow\)</span> uncertainty in outcomes</p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="basic-psa-procedure" class="slide level2">
 <h2>Basic PSA procedure</h2>
 <ol type="1">
 <li><p>Assign distribution to uncertain parameters (or bootstrap from individual-level data)</p></li>
-<li><p>Sample N input parameter sets (often 10,000)</p></li>
+<li><p>Sample N input parameter sets (often 5-10,000)</p></li>
 <li><p>Run model and calculate outcomes for each parameter set</p></li>
 </ol>
 <p>From the output, you can:</p>
 <ul>
-<li><p>Report quantile-based credible intervals: <em>20 (95% CrI 17 to 22) adverse events averted</em></p></li>
-<li><p>Make probabilistic statements: <em>Treatment was cost-effective in 87% of iterations</em></p></li>
+<li><p>Report quantile-based credible intervals:</p>
+<ul>
+<li><em>20 (95% CrI 17 to 22) adverse events averted</em></li>
+</ul></li>
+<li><p>Make probabilistic statements:</p>
+<ul>
+<li><em>Treatment was cost-effective in 87% of iterations</em></li>
+</ul></li>
 </ul>
 </section>
-<section id="commonly-used-distributions" class="slide level2">
-<h2>Commonly used distributions</h2>
-<table>
+<section id="common-psa-distributions" class="slide level2">
+<h2>Common PSA distributions</h2>
+<table class="caption-top">
 <colgroup>
 <col style="width: 52%">
 <col style="width: 22%">
@@ -857,8 +897,8 @@ $ICER_treat
 <section id="high-uncertainty-distributions" class="slide level2">
 <h2>High uncertainty distributions</h2>
 
-<img data-src="distn_high_uncertainty.png" class="r-stretch"><p>Often used when ‘expert opinion’ is main data source</p>
-<p><u><strong>Remember</strong></u>: Want experts’ estimate of uncertainty in parameter mean, not variance in outcome!</p>
+<img data-src="figs/distn_high_uncertainty.png" class="r-stretch"><p>Mainly used when ‘expert opinion’ is main data source</p>
+<p><u><strong>Remember</strong></u>: We want experts’ estimate of uncertainty in parameter mean, not individual-level variance</p>
 </section>
 <section id="multi-outcome-probabilities" class="slide level2">
 <h2>Multi-outcome probabilities</h2>
@@ -867,7 +907,7 @@ $ICER_treat
 <li><p>2 outcomes: no problem. Sample P(A), set P(B) = 1 - P(A)</p></li>
 <li><p>&gt;2 outcomes but most small proability: Can calculate P(big) as 1 - sum(P(smalls)), might be OK</p></li>
 </ul>
-<p>What if multiple outcomes are possible and plausible?</p>
+<p>What if &gt;2 outcomes are possible and plausible?</p>
 </section>
 <section id="dirichlet-beta-for-multi-outcome-probabilities" class="slide level2">
 <h2>Dirichlet: beta for multi-outcome probabilities</h2>
@@ -879,12 +919,11 @@ $ICER_treat
 <li><p>The larger <span class="math inline">\(\sum_1^C \alpha_i\)</span>, the greater the precision</p></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="Dirichlet_tri.png"></p>
-</div>
-</div>
+<p><img data-src="figs/Dirichlet_tri.png"></p>
+</div></div>
 </section>
-<section id="where-to-use-dirichlet-in-psa" class="slide level2">
-<h2>Where to use Dirichlet in PSA?</h2>
+<section id="where-dirichlet-is-used-for-psa" class="slide level2">
+<h2>Where Dirichlet is used for PSA?</h2>
 <ul>
 <li><p>Each row of a transition matrix</p>
 <ul>
@@ -899,7 +938,7 @@ $ICER_treat
 <section id="psa-example-our-toy-model" class="slide level2">
 <h2>PSA example: our toy model</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>t_owsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                name   value value.min value.max ICER.min ICER.max ICER.range
 1         cost_treat 60000.0   3.0e+04   1.0e+05 17666.67 56555.56 38888.8889
@@ -914,53 +953,54 @@ $ICER_treat
 <section id="ex-fitting-distns-rriskdistributions" class="slide level2">
 <h2>Ex: fitting distns (rriskDistributions)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>n<span class="ot">=</span><span class="dv">1000</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>cost_treat_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">6000</span>, <span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>v_psa_cost_treat <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog =</span> cost_treat_lnorm[[<span class="st">"meanlog"</span>]],</span>
-<span id="cb22-2"><a href="#cb22-2"></a>                           <span class="at">sdlog =</span> cost_treat_lnorm[[<span class="st">"sdlog"</span>]])</span>
-<span id="cb22-3"><a href="#cb22-3"></a>prob_death_noTreat_beta <span class="ot">&lt;-</span> <span class="fu">get.beta.par</span>(<span class="at">q=</span><span class="fu">c</span>(.<span class="dv">16</span>, .<span class="dv">3</span>, .<span class="dv">45</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>v_psa_prob_death_noTreat <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(n, <span class="at">shape1=</span>prob_death_noTreat_beta[[<span class="st">"shape1"</span>]],</span>
-<span id="cb23-2"><a href="#cb23-2"></a>                              <span class="at">shape2=</span>prob_death_noTreat_beta[[<span class="st">"shape2"</span>]])</span>
-<span id="cb23-3"><a href="#cb23-3"></a>rr_death_drug_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">5</span>, .<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>v_psa_rr_death_drug <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog =</span> rr_death_drug_lnorm[[<span class="st">"meanlog"</span>]],</span>
-<span id="cb24-2"><a href="#cb24-2"></a>                           <span class="at">sdlog =</span> rr_death_drug_lnorm[[<span class="st">"sdlog"</span>]])</span>
-<span id="cb24-3"><a href="#cb24-3"></a>QALY_survive_norm <span class="ot">&lt;-</span> <span class="fu">get.norm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">16</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>v_psa_QALY_survive <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean=</span>QALY_survive_norm[[<span class="st">"mean"</span>]],</span>
-<span id="cb25-2"><a href="#cb25-2"></a>                        <span class="at">sd =</span> QALY_survive_norm[[<span class="st">"sd"</span>]])</span>
-<span id="cb25-3"><a href="#cb25-3"></a>cost_survive_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">8000</span>, <span class="dv">12000</span>, <span class="dv">16000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>v_psa_cost_survive <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog=</span>cost_survive_lnorm[[<span class="st">"meanlog"</span>]],</span>
-<span id="cb26-2"><a href="#cb26-2"></a>                         <span class="at">sdlog =</span> cost_survive_lnorm[[<span class="st">"sdlog"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>n<span class="ot">=</span><span class="dv">1000</span></span>
+<span id="cb23-2"><a href=""></a>cost_treat_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">6000</span>, <span class="dv">10000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>v_psa_cost_treat <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog =</span> cost_treat_lnorm[[<span class="st">"meanlog"</span>]],</span>
+<span id="cb24-2"><a href=""></a>                           <span class="at">sdlog =</span> cost_treat_lnorm[[<span class="st">"sdlog"</span>]])</span>
+<span id="cb24-3"><a href=""></a>prob_death_noTreat_beta <span class="ot">&lt;-</span> <span class="fu">get.beta.par</span>(<span class="at">q=</span><span class="fu">c</span>(.<span class="dv">16</span>, .<span class="dv">3</span>, .<span class="dv">45</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>v_psa_prob_death_noTreat <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(n, <span class="at">shape1=</span>prob_death_noTreat_beta[[<span class="st">"shape1"</span>]],</span>
+<span id="cb25-2"><a href=""></a>                              <span class="at">shape2=</span>prob_death_noTreat_beta[[<span class="st">"shape2"</span>]])</span>
+<span id="cb25-3"><a href=""></a>rr_death_drug_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">5</span>, .<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>v_psa_rr_death_drug <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog =</span> rr_death_drug_lnorm[[<span class="st">"meanlog"</span>]],</span>
+<span id="cb26-2"><a href=""></a>                           <span class="at">sdlog =</span> rr_death_drug_lnorm[[<span class="st">"sdlog"</span>]])</span>
+<span id="cb26-3"><a href=""></a>QALY_survive_norm <span class="ot">&lt;-</span> <span class="fu">get.norm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">16</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>v_psa_QALY_survive <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean=</span>QALY_survive_norm[[<span class="st">"mean"</span>]],</span>
+<span id="cb27-2"><a href=""></a>                        <span class="at">sd =</span> QALY_survive_norm[[<span class="st">"sd"</span>]])</span>
+<span id="cb27-3"><a href=""></a>cost_survive_lnorm <span class="ot">&lt;-</span> <span class="fu">get.lnorm.par</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="dv">8000</span>, <span class="dv">12000</span>, <span class="dv">16000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>v_psa_cost_survive <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(n, <span class="at">meanlog=</span>cost_survive_lnorm[[<span class="st">"meanlog"</span>]],</span>
+<span id="cb28-2"><a href=""></a>                         <span class="at">sdlog =</span> cost_survive_lnorm[[<span class="st">"sdlog"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="note" class="slide level2">
 <h2>Note</h2>
-<p>Distributions used for PSA should have their <u><strong>mean value (expectation)</strong></u> as the base case value. For asymmetric distributions, the median will not equal the mean. To simplify, I just set the base case value as the median.</p>
+<p>The <u><strong>expected value (mean)</strong></u> of a PSA distribution should be the base case value. For asymmetric distributions, median will not equal the mean. To simplify this in-class example, I set the base case value as the median.</p>
+<p>In assignment four, I provide functions to fit a distribution to the mean and two quantiles (e.g., 0.025 and 0.975 percentile)</p>
 </section>
 <section id="ex-run-model-for-each-psa-input-set" class="slide level2">
 <h2>Ex: run model for each PSA input set</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>t_psa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="at">cost_treat =</span> v_psa_cost_treat,</span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="at">prob_death_noTreat =</span> v_psa_prob_death_noTreat,</span>
-<span id="cb27-4"><a href="#cb27-4"></a>  <span class="at">rr_death_drug =</span> v_psa_rr_death_drug,</span>
-<span id="cb27-5"><a href="#cb27-5"></a>  <span class="at">QALY_survive =</span> v_psa_QALY_survive,</span>
-<span id="cb27-6"><a href="#cb27-6"></a>  <span class="at">cost_survive =</span> v_psa_cost_survive)</span>
-<span id="cb27-7"><a href="#cb27-7"></a>l_prm_temp <span class="ot">&lt;-</span> <span class="fu">as.list</span>(t_psa[row,])</span>
-<span id="cb27-8"><a href="#cb27-8"></a>psa_output <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">model</span>(l_prm_temp))</span>
-<span id="cb27-9"><a href="#cb27-9"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(t_psa)){</span>
-<span id="cb27-10"><a href="#cb27-10"></a>  l_prm_temp <span class="ot">&lt;-</span> <span class="fu">as.list</span>(t_psa[row,])</span>
-<span id="cb27-11"><a href="#cb27-11"></a>  psa_output <span class="ot">&lt;-</span> <span class="fu">rbind</span>(psa_output, <span class="fu">data.frame</span>(<span class="fu">model</span>(l_prm_temp)))</span>
-<span id="cb27-12"><a href="#cb27-12"></a>}</span>
-<span id="cb27-13"><a href="#cb27-13"></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>t_psa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-2"><a href=""></a>  <span class="at">cost_treat =</span> v_psa_cost_treat,</span>
+<span id="cb29-3"><a href=""></a>  <span class="at">prob_death_noTreat =</span> v_psa_prob_death_noTreat,</span>
+<span id="cb29-4"><a href=""></a>  <span class="at">rr_death_drug =</span> v_psa_rr_death_drug,</span>
+<span id="cb29-5"><a href=""></a>  <span class="at">QALY_survive =</span> v_psa_QALY_survive,</span>
+<span id="cb29-6"><a href=""></a>  <span class="at">cost_survive =</span> v_psa_cost_survive)</span>
+<span id="cb29-7"><a href=""></a>l_prm_temp <span class="ot">&lt;-</span> <span class="fu">as.list</span>(t_psa[row,])</span>
+<span id="cb29-8"><a href=""></a>psa_output <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">model</span>(l_prm_temp))</span>
+<span id="cb29-9"><a href=""></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(t_psa)){</span>
+<span id="cb29-10"><a href=""></a>  l_prm_temp <span class="ot">&lt;-</span> <span class="fu">as.list</span>(t_psa[row,])</span>
+<span id="cb29-11"><a href=""></a>  psa_output <span class="ot">&lt;-</span> <span class="fu">rbind</span>(psa_output, <span class="fu">data.frame</span>(<span class="fu">model</span>(l_prm_temp)))</span>
+<span id="cb29-12"><a href=""></a>}</span>
+<span id="cb29-13"><a href=""></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cost_treat prob_death_noTreat rr_death_drug QALY_survive cost_survive
-1   8813.843          0.3923014     0.5250826     8.814146     17050.82
-2   6582.472          0.1998505     0.4380730    10.759976     10767.32
-3   6713.110          0.2856911     0.5234283    10.021598     15873.43
+1   5613.137          0.3347203     0.4728203     8.768066      9250.18
+2   4244.706          0.3149221     0.5136047    10.255727     13795.32
+3   6846.113          0.2597922     0.5841386    13.270057     14571.85
   tot_cost_noTreat tot_cost_treat tot_QALY_noTreat tot_QALY_treat ICER_treat
-1         6888.250       15621.53         6.010659       8.311066   3796.405
-2         8615.462       16407.12         8.609590       9.817950   6448.125
-3        11338.529       20212.84         7.158516       8.522980   6503.884</code></pre>
+1         9163.717       19246.86         7.592332       9.425887   5499.228
+2         9450.873       15808.70         7.025973       8.596910   4047.154
+3        10786.195       19206.61         9.822600      11.256264   5873.355</code></pre>
 </div>
 </div>
 </section>
@@ -985,26 +1025,26 @@ $ICER_treat
 <section id="psa-with-dampack" class="slide level2">
 <h2>PSA with DAMPACK</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">data</span>(<span class="st">"example_psa"</span>) <span class="co"># create named list "example_psa"</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>example_psa<span class="sc">$</span>strategies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">data</span>(<span class="st">"example_psa"</span>) <span class="co"># creates a named list "example_psa"</span></span>
+<span id="cb31-2"><a href=""></a>example_psa<span class="sc">$</span>strategies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Chemo"   "Radio"   "Surgery"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">head</span>(example_psa<span class="sc">$</span>cost, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">head</span>(example_psa<span class="sc">$</span>cost, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Chemo_Cost Radio_Cost Surg_Cost
 1   33682.76   8942.488  29705.66
 2   30130.87  19704.842  28565.46
 3   26838.94  13249.548  22429.61</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">head</span>(example_psa<span class="sc">$</span>effectiveness,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">head</span>(example_psa<span class="sc">$</span>effectiveness,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Chemo_Eff Radio_Eff  Surg_Eff
 1  12.72801 12.130626 11.263131
 2   9.85347  9.855394 10.193810
 3  10.05273 10.011711  9.831964</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">str</span>(example_psa<span class="sc">$</span>parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="fu">str</span>(example_psa<span class="sc">$</span>parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   10000 obs. of  8 variables:
  $ pFailChemo : num  0.391 0.425 0.458 0.474 0.484 ...
@@ -1021,14 +1061,14 @@ $ICER_treat
 <section id="dampack-make-a-psa-object" class="slide level2">
 <h2>DAMPACK: make a PSA object</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>psa_obj <span class="ot">&lt;-</span> <span class="fu">make_psa_obj</span>(</span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="at">cost=</span>example_psa<span class="sc">$</span>cost,<span class="co">#col= tot cost by strategy, row=PSA iteration</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>  <span class="at">effectiveness=</span>example_psa<span class="sc">$</span>effectiveness,<span class="co">#col=effectiveness(QALY) by strategy</span></span>
-<span id="cb37-4"><a href="#cb37-4"></a>  <span class="at">parameters=</span>example_psa<span class="sc">$</span>parameters,<span class="co">#col=parameter, row=PSA iteration</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a>  <span class="at">strategies=</span>example_psa<span class="sc">$</span>strategies,<span class="co">#vector of strings, names of strategies</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>  <span class="at">currency=</span><span class="st">"$"</span>)</span>
-<span id="cb37-7"><a href="#cb37-7"></a></span>
-<span id="cb37-8"><a href="#cb37-8"></a><span class="fu">summary</span>(psa_obj, <span class="at">calc_sds=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>psa_obj <span class="ot">&lt;-</span> <span class="fu">make_psa_obj</span>(</span>
+<span id="cb39-2"><a href=""></a>  <span class="at">cost=</span>example_psa<span class="sc">$</span>cost,<span class="co">#col= tot cost by strategy, row=PSA iteration</span></span>
+<span id="cb39-3"><a href=""></a>  <span class="at">effectiveness=</span>example_psa<span class="sc">$</span>effectiveness,<span class="co">#col=effectiveness(QALY) by strategy</span></span>
+<span id="cb39-4"><a href=""></a>  <span class="at">parameters=</span>example_psa<span class="sc">$</span>parameters,<span class="co">#col=parameter, row=PSA iteration</span></span>
+<span id="cb39-5"><a href=""></a>  <span class="at">strategies=</span>example_psa<span class="sc">$</span>strategies,<span class="co">#vector of strings, names of strategies</span></span>
+<span id="cb39-6"><a href=""></a>  <span class="at">currency=</span><span class="st">"$"</span>)</span>
+<span id="cb39-7"><a href=""></a></span>
+<span id="cb39-8"><a href=""></a><span class="fu">summary</span>(psa_obj, <span class="at">calc_sds=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Strategy meanCost meanEffect    sdCost  sdEffect
 1    Chemo 30900.80   11.06869  3841.172 1.2599541
@@ -1040,14 +1080,14 @@ $ICER_treat
 <section id="psa-scatter-plot" class="slide level2">
 <h2>PSA scatter plot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">plot</span>(psa_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">plot</span>(psa_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
-<section id="id-preferred-strategy-by-wtp-level" class="slide level2">
-<h2>ID preferred strategy by WTP level</h2>
+<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
+<section id="preferred-strategy-by-wtp-level" class="slide level2">
+<h2>Preferred strategy by WTP level</h2>
 <ul>
-<li><p>Can determine preferred strategy with incremental analysis for each PSA iteration at each willingness-to-pay level with nested loops (inefficient!)</p></li>
+<li><p>Can determine preferred strategy with incremental analysis for each PSA iteration at each willingness-to-pay level with nested loops, like assignment 1, but <u><strong>inefficient</strong></u></p></li>
 <li><p>Instead, calculate <u><strong>net monetary benefit</strong></u> at each WTP level for each strategy in each PSA iteration</p>
 <ul>
 <li><p>Easy to vectorize (more efficient)</p></li>
@@ -1071,13 +1111,14 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="visualization-of-net-monetary-benefit-vs.-willingness-to-pay" class="slide level2">
 <h2>Visualization of net monetary benefit vs.&nbsp;willingness-to-pay</h2>
 
-<img data-src="NMB_plot_assign1.png" class="r-stretch"></section>
+<img data-src="figs/NMB_plot_assign1.png" class="r-stretch"></section>
 <section id="cost-effectiveness-acceptability-curve" class="slide level2">
 <h2>Cost-effectiveness acceptability curve</h2>
+<p><u><strong>Probability</strong></u> the intervention is preferred for a given willingness-to-pay level is estimated using the <u><strong>proportion of PSA iterations</strong></u> in which the intervention is preferred</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>ceac_obj <span class="ot">&lt;-</span> <span class="fu">ceac</span>(<span class="at">wtp =</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">150000</span>, <span class="at">by=</span><span class="dv">10000</span>), </span>
-<span id="cb40-2"><a href="#cb40-2"></a>                 <span class="at">psa =</span> psa_obj)</span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="fu">head</span>(ceac_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>ceac_obj <span class="ot">&lt;-</span> <span class="fu">ceac</span>(<span class="at">wtp =</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">150000</span>, <span class="at">by=</span><span class="dv">10000</span>), </span>
+<span id="cb42-2"><a href=""></a>                 <span class="at">psa =</span> psa_obj)</span>
+<span id="cb42-3"><a href=""></a><span class="fu">head</span>(ceac_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    WTP Strategy Proportion On_Frontier
 1     0    Chemo     0.0064       FALSE
@@ -1092,82 +1133,132 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="cost-effectiveness-acceptability-curve-1" class="slide level2">
 <h2>Cost-effectiveness acceptability curve</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>p_ceac <span class="ot">&lt;-</span> <span class="fu">plot</span>(ceac_obj)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Pr Most Cost-Effective"</span>); p_ceac</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a>p_ceac <span class="ot">&lt;-</span> <span class="fu">plot</span>(ceac_obj)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Pr Most Cost-Effective"</span>); p_ceac</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
-<section id="ceac-frontier" class="slide level2">
-<h2>CEAC Frontier</h2>
+<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-acceptability-curve-2" class="slide level2">
+<h2>Cost-effectiveness acceptability curve</h2>
 <ul>
+<li><p>X-axis: willingness-to-pay thresholds</p></li>
 <li><p>Y-axis: estimated probability intervention preferred (most cost-effective) given WTP</p></li>
-<li><p>Frontier: intervention with the greatest expected NMB</p>
+<li><p><strong>Frontier</strong>: intervention with the greatest expected NMB</p>
 <ul>
 <li>Optimal strategy is one that maximizes expected NMB</li>
 <li>Sometimes different from strategy with the greatest probability of being preferred</li>
 </ul></li>
 </ul>
 </section>
+<section id="more-on-frontier" class="slide level2">
+<h2>More on frontier</h2>
+<p>For a WTP, intervention with the greatest probability of cost-effectiveness may not be the intervention with the greatest expected NMB</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>For PSA data on the right</p>
+<ul>
+<li><p>Which intervention has the greater probability of cost-effective?</p></li>
+<li><p>Which intervention has the greater expected NMB?</p></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  psa_iter NMB_A NMB_B
+     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1        1     5     4
+2        2     6     7
+3        3     9     8
+4        4    25     3</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="more-on-frontier-1" class="slide level2">
+<h2>More on frontier</h2>
+<p>For a WTP, intervention with the greatest probability of cost-effectiveness may not be the intervention with the greatest expected NMB</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href=""></a><span class="co"># Estimated probability A is preferred</span></span>
+<span id="cb46-2"><a href=""></a>psa_nmb <span class="ot">&lt;-</span> psa_nmb <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">A_preferred =</span> NMB_A <span class="sc">&gt;</span> NMB_B)</span>
+<span id="cb46-4"><a href=""></a><span class="fu">mean</span>(psa_nmb<span class="sc">$</span>A_preferred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.75</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href=""></a><span class="co"># Intervention maximizing expected NMB (on the 'frontier')</span></span>
+<span id="cb48-2"><a href=""></a><span class="fu">mean</span>(psa_nmb<span class="sc">$</span>NMB_A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href=""></a><span class="fu">mean</span>(psa_nmb<span class="sc">$</span>NMB_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.5</code></pre>
+</div>
+</div>
+</section>
 <section id="ceac-with-prcost-effective-on-y-axis" class="slide level2">
 <h2>CEAC with Pr(cost-effective) on Y axis</h2>
+<p>Compares all policies to a “status quo” (does not consider incremental analysis/dominance)</p>
 
-<img data-src="CEAC%20breast%20cancer%20drug.png" class="r-stretch"></section>
+<img data-src="figs/CEAC_breast_cancer_drug.png" class="r-stretch"></section>
 <section id="expected-loss-curve" class="slide level2">
 <h2>Expected loss curve</h2>
 <p>Expected loss = expected net monitary benefit foregone by choosing less-than-optimal intervention</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>el <span class="ot">&lt;-</span> <span class="fu">calc_exp_loss</span>(<span class="at">wtp =</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">150000</span>, <span class="at">by=</span><span class="dv">10000</span>), </span>
-<span id="cb43-2"><a href="#cb43-2"></a>                    <span class="at">psa =</span> psa_obj)</span>
-<span id="cb43-3"><a href="#cb43-3"></a><span class="fu">plot</span>(el, <span class="at">n_x_ticks =</span> <span class="dv">8</span>, <span class="at">n_y_ticks =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a>el <span class="ot">&lt;-</span> <span class="fu">calc_exp_loss</span>(<span class="at">wtp =</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">150000</span>, <span class="at">by=</span><span class="dv">10000</span>), </span>
+<span id="cb52-2"><a href=""></a>                    <span class="at">psa =</span> psa_obj)</span>
+<span id="cb52-3"><a href=""></a><span class="fu">plot</span>(el, <span class="at">n_x_ticks =</span> <span class="dv">8</span>, <span class="at">n_y_ticks =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch"></section>
-<section id="what-parameters-to-vary-in-psa" class="slide level2">
-<h2>What parameters to vary in PSA</h2>
-<p><strong>Uncertain parameters</strong> should all be varied in PSA</p>
-<p><strong>Design parameters</strong> like discount rate, time horizon can be analyzed in scenario analysis</p>
+<img data-src="uncertainty_analysis_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
+<section id="which-parameters-to-vary-in-psa" class="slide level2">
+<h2>Which parameters to vary in PSA?</h2>
+<ul>
+<li><p><strong>Parameters estimated with uncertainty</strong> should all be varied in PSA</p></li>
+<li><p><strong>Design parameters</strong> like discount rate, time horizon can be analyzed in scenario analysis</p></li>
+</ul>
 </section>
 <section id="credible-intervals-from-psa-output" class="slide level2">
 <h2>Credible intervals from PSA output</h2>
 <ul>
 <li><p>Define X% credible interval as the range between the [(1-X%)/2, 1-(1-X%)/2] percentile of outcomes (or inputs) from PSA iterations</p></li>
-<li><p>E.g, 95% CrI from 2.5 %ile (lower bound) to 97.5 %ile (upper)</p></li>
+<li><p>E.g, 95% CrI: (2.5 %ile to 97.5 %ile)</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">sapply</span>(t_psa, <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">2</span>), <span class="st">" (95% CrI "</span>,</span>
-<span id="cb44-2"><a href="#cb44-2"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">025</span>),<span class="dv">2</span>),<span class="st">" to "</span>,</span>
-<span id="cb44-3"><a href="#cb44-3"></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a><span class="fu">sapply</span>(t_psa, <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">2</span>), <span class="st">" (95% CrI "</span>,</span>
+<span id="cb53-2"><a href=""></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">025</span>),<span class="dv">2</span>),<span class="st">" to "</span>,</span>
+<span id="cb53-3"><a href=""></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                              cost_treat 
- "6243.68 (95% CrI 3641.04 to 10037.07)" 
-                      prob_death_noTreat 
-           "0.31 (95% CrI 0.17 to 0.46)" 
-                           rr_death_drug 
-             "0.5 (95% CrI 0.42 to 0.6)" 
-                            QALY_survive 
-         "11.96 (95% CrI 8.86 to 15.21)" 
-                            cost_survive 
-"12150.38 (95% CrI 8955.45 to 16148.01)" 
-                        tot_cost_noTreat 
- "8409.26 (95% CrI 5775.16 to 11547.73)" 
-                          tot_cost_treat 
-"16508.47 (95% CrI 12609.9 to 21745.28)" 
-                        tot_QALY_noTreat 
-           "8.29 (95% CrI 5.6 to 11.29)" 
-                          tot_QALY_treat 
-         "10.12 (95% CrI 7.35 to 12.99)" 
-                              ICER_treat 
-  "4800.24 (95% CrI 2488.65 to 9301.51)" </code></pre>
+<pre><code>                               cost_treat 
+  "6127.59 (95% CrI 3491.71 to 10056.39)" 
+                       prob_death_noTreat 
+            "0.31 (95% CrI 0.18 to 0.46)" 
+                            rr_death_drug 
+              "0.5 (95% CrI 0.42 to 0.6)" 
+                             QALY_survive 
+          "11.93 (95% CrI 8.82 to 15.13)" 
+                             cost_survive 
+  "12100.93 (95% CrI 8869.45 to 15711.1)" 
+                         tot_cost_noTreat 
+  "8384.71 (95% CrI 5736.45 to 11511.88)" 
+                           tot_cost_treat 
+"16379.86 (95% CrI 12131.76 to 21481.13)" 
+                         tot_QALY_noTreat 
+           "8.27 (95% CrI 5.69 to 11.12)" 
+                           tot_QALY_treat 
+          "10.11 (95% CrI 7.33 to 12.94)" 
+                               ICER_treat 
+    "4646.26 (95% CrI 2549.08 to 8581.5)" </code></pre>
 </div>
 </div>
 </section>
 <section id="psa-and-correlation" class="slide level2">
 <h2>PSA and correlation</h2>
 <ul>
-<li><p>In theory, inputs to PSA should be sampled from the joint probability distribution of all uncertain parameters (accounting for correlation)</p></li>
+<li><p>In principle, inputs to PSA should be sampled from the joint probability distribution of all uncertain parameters (accounting for correlation)</p></li>
 <li><p>In practice, we often treat PSA inputs as independent</p>
 <ul>
-<li>Probably overestimate uncertainty in most cases</li>
-<li>Better to account for correlation between parameters when it’s likely to matter</li>
+<li>Probably overestimates uncertainty in most cases</li>
+<li>Should try to account for correlation between parameters when it’s likely to matter</li>
 </ul></li>
 </ul>
 </section>
@@ -1176,10 +1267,10 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <p>Can fit multivariate distributions to data</p>
 <ul>
 <li><p>Normal and lognormal are easiest</p></li>
-<li><p><a href="https://www.doi.org/10.1001/jamapsychiatry.2021.0247">Fairley et. al.&nbsp;2021</a> fir multivariate log-normal distribution to many parameters to capture correlation between values by policy (see supplement)</p></li>
+<li><p><a href="https://www.doi.org/10.1001/jamapsychiatry.2021.0247">Fairley et. al.&nbsp;2021</a> fit a multivariate log-normal distribution to many parameters to capture correlation between values by policy (see supplement)</p></li>
 </ul>
 
-<img data-src="fairly_multivariate_ex.png" class="r-stretch"></section>
+<img data-src="figs/fairly_multivariate_ex.png" class="r-stretch"></section>
 <section id="corr-2-relative-parameters" class="slide level2">
 <h2>Corr 2: relative parameters</h2>
 <ul>
@@ -1235,20 +1326,18 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Assignment 3 due <u><strong>Wed, Oct 11</strong></u></p>
+<li><p>Assignment 3 (simulation) due tomorrow</p></li>
+<li><p>Assignment 4 (sensitivity analysis) due Fri, Oct 25</p></li>
+<li><p>Project proposal due Fri, Nov 1</p>
 <ul>
-<li><a href="https://github.com/altonrus/epib-676/commit/389e9c01c32f1438b6ac72810785bcc3f3f8c1d7">Minor correction</a> made Tues</li>
+<li>I suggest discussing your idea with me before proposal deadline</li>
 </ul></li>
-<li><p>Shifting to ‘applied’ assignments</p>
-<ul>
-<li><p><a href="https://htmlpreview.github.io/?https://github.com/altonrus/epib-676/blob/main/syllabus/info_assignments_nonprogramming.html">Instructions in syllabus folder on Github</a></p></li>
-<li><p>Open source model presentations <u><strong>Th, Oct 26</strong></u></p></li>
-<li><p>Project proposals due <u><strong>Mon, Oct 30</strong></u></p></li>
-</ul></li>
-<li><p>Assignment 4 available tomorrow, due <u><strong>Fri, Nov 2</strong></u></p></li>
+<li><p>Presentation of open-source modelling paper in class on Tues, Nov 5</p></li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -1277,7 +1366,6 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1532,18 +1620,7 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1575,11 +1652,50 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1589,8 +1705,17 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1604,7 +1729,11 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
