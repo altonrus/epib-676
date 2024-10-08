@@ -8,11 +8,11 @@
 <link href="stats_ML_decision_modeling_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="stats_ML_decision_modeling_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="stats_ML_decision_modeling_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-11-07">
-  <title>Combining stats/ML and decision-analytic models</title>
+  <meta name="dcterms.date" content="2024-10-08">
+  <title>Stats/ML methods and decision modelling</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="stats_ML_decision_modeling_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="stats_ML_decision_modeling_files/libs/revealjs/dist/theme/quarto.css">
   <link href="stats_ML_decision_modeling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="stats_ML_decision_modeling_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="stats_ML_decision_modeling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -157,7 +157,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -326,8 +327,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Combining stats/ML and decision-analytic models</h1>
-  <p class="subtitle">EPIB 676 session 19, McGill University</p>
+  <h1 class="title">Stats/ML methods and decision modelling</h1>
+  <p class="subtitle">EPIB 676 session 12, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -337,38 +338,58 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-11-07</p>
+  <p class="date">2024-10-08</p>
 </section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
 <ul>
-<li><strong>Using data-driven models in decision analysis</strong>
+<li>Using stats/ML in decision analysis
 <ul>
 <li>Multi-state modeling survival analysis</li>
 <li>Machine learning example</li>
 </ul></li>
-<li>Clinical prediction model development through decision-analytic lens</li>
 </ul>
 </section>
-<section id="data-driven-vs.-decision-analytic-modeling" class="slide level2">
-<h2>“Data-driven” vs.&nbsp;decision-analytic modeling</h2>
+<section id="statsml-vs.-decision-models" class="slide level2">
+<h2>Stats/ML vs.&nbsp;decision models</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Stats &amp; ML</strong></p>
 <ul>
-<li><p>Extract info from data</p></li>
+<li><p>Derive insights from data</p></li>
 <li><p>Methods for understanding/estimating heterogeneity</p></li>
-<li><p>Good at understanding “<strong>what is</strong>”</p></li>
+<li><p>Good at understanding “<strong>what is</strong>” from complete data</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>Decision-analytic models</strong></p>
 <ul>
-<li><p>Integrate assumptions &amp; data-inform estimates</p></li>
+<li><p>Integrate (data-informed) paramters</p></li>
 <li><p>Traditionally for estimating ‘average’ policy impact</p></li>
-<li><p>Good at extrapolating, asking “<strong>what if</strong>”</p></li>
+<li><p>Good at extrapolating, asking “<strong>what if</strong>” using incomplete/unlinked data</p></li>
 </ul>
-</div>
-</div>
+</div></div>
+</section>
+<section id="causal-inference" class="slide level2">
+<h2>Causal inference</h2>
+<p>Identifying causal relationship requires causal methods</p>
+<ul>
+<li><p>Statistical methods for causal inference</p></li>
+<li><p>Causal ML (note: most ML methods are not causal)</p></li>
+</ul>
+<p>Typical decision models <u><strong>embed causal assumptions</strong></u> and <u><strong>extrapolate</strong></u> to quantify outcomes</p>
+<ul>
+<li>Ideally, causal assumptions based on well-done causal inference studies (randomized trial or quasi-experimental study)</li>
+</ul>
+</section>
+<section id="today-1" class="slide level2">
+<h2>Today</h2>
+<ul>
+<li><strong>Using stats/ML in decision analysis</strong>
+<ul>
+<li>Multi-state modeling survival analysis</li>
+<li>Machine learning example</li>
+</ul></li>
+</ul>
 </section>
 <section id="trial-based-economic-evaluation" class="slide level2">
 <h2>Trial-based economic evaluation</h2>
@@ -399,7 +420,7 @@ Alton Russell
 <p>Not main focus of this class, but here is a helpful tutorial</p>
 <p><a href="https://doi.org/10.1007/s40273-023-01301-7">Ben et. al.&nbsp;(2023). Conducting trial-based economic evaluations using R: A tutorial. PharmacoEconomics 41:1403–1413</a></p>
 </section>
-<section id="today-1" class="slide level2">
+<section id="today-2" class="slide level2">
 <h2>Today</h2>
 <ul>
 <li>Using data-driven models in decision analysis
@@ -413,7 +434,7 @@ Alton Russell
 <section id="multi-state-survival-modeling" class="slide level2">
 <h2>Multi-state survival modeling</h2>
 
-<img data-src="Williams%202017%20multistatemodel%20tutorial.png" class="r-stretch"><p><a href="https://doi.org/10.1177/0272989X16651869">Williams et. al.&nbsp;2017</a></p>
+<img data-src="figs/Williams%202017%20multistatemodel%20tutorial.png" class="r-stretch"><p><a href="https://doi.org/10.1177/0272989X16651869">Williams et. al.&nbsp;2017</a></p>
 <p><a href="https://www.gla.ac.uk/schools/healthwellbeing/research/hehta/cwilliams/">Supplemental material</a></p>
 </section>
 <section id="competing-risks" class="slide level2">
@@ -426,15 +447,14 @@ Alton Russell
 <li><p>Must account for competing risks</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img data-src="williams_model_diagram.png"></p>
-</div>
-</div>
+<p><img data-src="figs/williams_model_diagram.png"></p>
+</div></div>
 </section>
 <section id="panel-vs.-survival-data" class="slide level2">
 <h2>Panel vs.&nbsp;survival data</h2>
 <p><strong>Survival data</strong></p>
 <ul>
-<li><p>If event observed, we ahve exact time to event</p></li>
+<li><p>If event observed, we have exact time to event</p></li>
 <li><p>Usually some individuals right censored (end of follow-up)</p></li>
 <li><p>Ex. time to diagnosis, time to death</p></li>
 </ul>
@@ -453,14 +473,14 @@ Alton Russell
 <li><p>RFC: rituximab + fludarabine + cyclophosphamide (403 patients)</p></li>
 <li><p>FC: fludarabine + cyclophosphamide (407 patients)</p></li>
 </ul></li>
-<li><p>Trial time horizon 4 years (many patients still alive at trial end)</p></li>
-<li><p>Model time horizon 15 years (estimated &lt;2% cohort will remain alive)</p></li>
+<li><p>Trial horizon 4 years (many patients alive at trial end)</p></li>
+<li><p>Model horizon 15 years (estimate &lt;2% cohort alive)</p></li>
 </ul>
 </section>
 <section id="steps" class="slide level2">
 <h2>Steps</h2>
 
-<img data-src="williams_process_overview.png" class="r-stretch"></section>
+<img data-src="figs/williams_process_overview.png" class="r-stretch"></section>
 <section id="markov-or-semi-markov" class="slide level2">
 <h2>Markov or semi-Markov?</h2>
 <ul>
@@ -488,12 +508,12 @@ Alton Russell
 <section id="log-log-plots" class="slide level2">
 <h2>Log-log plots</h2>
 
-<img data-src="williams%20loglog.png" class="r-stretch"><p>Lines fairly parallel, suggesting proportional hazards reasonable</p>
+<img data-src="figs/williams%20loglog.png" class="r-stretch"><p>Lines fairly parallel, suggesting proportional hazards reasonable</p>
 </section>
 <section id="cumulative-hazards-vs.-time" class="slide level2">
 <h2>Cumulative hazards vs.&nbsp;time</h2>
 
-<img data-src="williams%20cumulative%20hazard.png" class="r-stretch"><p>(a) and (b) suggest increasing hazards may be appropriate. (c) suggests lack of treatment effect post-progression</p>
+<img data-src="figs/williams%20cumulative%20hazard.png" class="r-stretch"><p>(a) and (b) suggest increasing hazards may be appropriate. (c) suggests lack of treatment effect on progression -&gt; death transition</p>
 </section>
 <section id="conclusions-so-far" class="slide level2">
 <h2>Conclusions so far</h2>
@@ -501,13 +521,13 @@ Alton Russell
 <li><p>No severe violation of proportional hazard assumption, so we should consider proportional hazard models</p></li>
 <li><p>Next step:</p>
 <ul>
-<li>Build a Cox Markov state-arrival extended model for progression to death transition</li>
+<li>Build a Cox Markov state-arrival extended model for progression → death transition</li>
 </ul></li>
 </ul>
 </section>
-<section id="result-of-cox-markov-state-arrival-extended-model-on-progression-to-death" class="slide level2">
-<h2>Result of Cox Markov State-Arrival Extended Model on progression to death</h2>
-<table>
+<section id="cox-markov-state-arrival-extended-model-on-progression-death" class="slide level2">
+<h2>Cox Markov State-Arrival Extended Model on progression → death</h2>
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th>Covariate</th>
@@ -529,65 +549,73 @@ Alton Russell
 </tbody>
 </table>
 <ul>
-<li><p>Time progression-free impacts post-progression death</p></li>
+<li><p>Time progression-free impacts progression → death transition</p></li>
 <li><p>Markov property doesn’t hold; semi-Markov model needed.</p></li>
 </ul>
 </section>
 <section id="steps-1" class="slide level2">
 <h2>Steps</h2>
 
-<img data-src="williams_process_overview.png" class="r-stretch"></section>
+<img data-src="figs/williams_process_overview.png" class="r-stretch"></section>
 <section id="building-semi-markov-models" class="slide level2">
 <h2>Building semi-Markov models</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><p>We start with progression to death because no competing risk</p></li>
-<li><p>Evaluate multiple time-to-event distributions</p></li>
+<li><p>Estimate progression→death first (no competing risk)</p></li>
+<li><p>Fit multiple time-to-event distributions</p></li>
 <li><p>Include time spent progression-free as covariate</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img data-src="williams_model_diagram.png"></p>
-</div>
-</div>
+<p><img data-src="figs/williams_model_diagram.png"></p>
+</div></div>
 </section>
-<section id="selecting-model-for-progression-death" class="slide level2">
-<h2>Selecting model for progression → death</h2>
+<section id="model-for-progression-death" class="slide level2">
+<h2>Model for progression → death</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="progression_to_death_2yr.png"></p>
+<p><img data-src="figs/progression_to_death_2yr.png"></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="progression_to_death_15yr.png"></p>
-</div>
-</div>
-<p>While log-logistic minimized AIC, other distributions had more reasonable 15-year extrapolation. Gompertz distribution selected.</p>
+<p><img data-src="figs/progression_to_death_15yr.png"></p>
+</div></div>
+</section>
+<section id="model-for-progression-death-1" class="slide level2">
+<h2>Model for progression → death</h2>
+<ul>
+<li><p>Log-logistic minimized AIC (fit to KM curve the best), but all were similar</p></li>
+<li><p>Other distributions 15-year extrapolation seemed more ‘reasonable’ (more compatible with expert opinion on how many patients are expected to survive 15 years post-progression). Therefore, Gompertz distribution selected.</p></li>
+</ul>
 </section>
 <section id="selecting-model-for-other-transitions" class="slide level2">
 <h2>Selecting model for other transitions</h2>
 
-<img data-src="williams_extrapolation_other_transitions.png" class="r-stretch"></section>
+<img data-src="figs/williams_extrapolation_other_transitions.png" class="r-stretch"></section>
 <section id="steps-2" class="slide level2">
 <h2>Steps</h2>
 
-<img data-src="williams_process_overview.png" class="r-stretch"></section>
+<img data-src="figs/williams_process_overview.png" class="r-stretch"></section>
 <section id="life-years-costs-qalys" class="slide level2">
 <h2>Life years, costs, QALYs</h2>
 <p>Used data from the trial for mean cost/QALYs of progression-free &amp; progressed under each intervention.</p>
 
-<img data-src="williams_costs.png" class="r-stretch"></section>
+<img data-src="figs/williams_costs.png" class="r-stretch"></section>
 <section id="base-case-results" class="slide level2">
 <h2>Base case results</h2>
 
-<img data-src="williams_base_case_results.png" class="r-stretch"></section>
+<img data-src="figs/williams_base_case_results.png" class="r-stretch"></section>
+<section id="steps-3" class="slide level2">
+<h2>Steps</h2>
+
+<img data-src="figs/williams_process_overview.png" class="r-stretch"></section>
 <section id="scenario-analysis" class="slide level2">
 <h2>Scenario analysis</h2>
 
-<img data-src="williams_scenarios.png" class="r-stretch"></section>
+<img data-src="figs/williams_scenarios.png" class="r-stretch"></section>
 <section id="probabilistic-sensitivity-analysis" class="slide level2">
 <h2>Probabilistic sensitivity analysis</h2>
 
-<img data-src="williams_psa.png" class="r-stretch"></section>
-<section id="today-2" class="slide level2">
+<img data-src="figs/williams_psa.png" class="r-stretch"></section>
+<section id="today-3" class="slide level2">
 <h2>Today</h2>
 <ul>
 <li>Using data-driven models in decision analysis
@@ -595,37 +623,26 @@ Alton Russell
 <li>Multi-state modeling survival analysis</li>
 <li><strong>Machine learning example</strong></li>
 </ul></li>
-<li>Clinical prediction model development through decision-analytic lens</li>
 </ul>
 </section>
 <section id="switch-to-ppt-file" class="slide level2">
 <h2>Switch to ppt file</h2>
 </section>
-<section id="today-3" class="slide level2">
-<h2>Today</h2>
-<ul>
-<li>Using data-driven models in decision analysis
-<ul>
-<li>Multi-state modeling survival analysis</li>
-<li>Machine learning example</li>
-</ul></li>
-<li><strong>Clinical prediction model development through decision-analytic lens</strong></li>
-</ul>
-</section>
-<section id="swi" class="slide level2">
-<h2>Swi</h2>
-</section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>No more methods lectures</p></li>
-<li><p>Six more guest lectures</p></li>
-<li><p>Assignment 5 due Friday, Nov 17</p></li>
-<li><p>Final project presentations Tuesday, Dec 5</p></li>
-<li><p>Final project report due Wednesday, Dec 13</p></li>
+<li><p>Assignment 4 (sensitivity analysis) due Fri, Oct 25</p></li>
+<li><p>Project proposal due Fri, Nov 1</p>
+<ul>
+<li>I suggest discussing your idea with me before proposal deadline</li>
+</ul></li>
+<li><p>Presentation of open-source modelling paper in class on Tues, Nov 5</p></li>
+<li><p>Office hours on Zoom today (same link)</p></li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -654,7 +671,6 @@ Alton Russell
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -871,18 +887,7 @@ Alton Russell
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -914,11 +919,50 @@ Alton Russell
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -928,8 +972,17 @@ Alton Russell
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -943,7 +996,11 @@ Alton Russell
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

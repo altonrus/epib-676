@@ -994,13 +994,13 @@ $ICER_treat
 <span id="cb29-13"><a href=""></a>t_psa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_psa, psa_output); <span class="fu">head</span>(t_psa, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cost_treat prob_death_noTreat rr_death_drug QALY_survive cost_survive
-1   5613.137          0.3347203     0.4728203     8.768066      9250.18
-2   4244.706          0.3149221     0.5136047    10.255727     13795.32
-3   6846.113          0.2597922     0.5841386    13.270057     14571.85
+1   7922.261          0.3583852     0.5111299     11.88731     10990.94
+2   9588.701          0.2991788     0.4543131     13.43652     14108.43
+3   9219.241          0.2814665     0.4642410     10.05350     13014.91
   tot_cost_noTreat tot_cost_treat tot_QALY_noTreat tot_QALY_treat ICER_treat
-1         9163.717       19246.86         7.592332       9.425887   5499.228
-2         9450.873       15808.70         7.025973       8.596910   4047.154
-3        10786.195       19206.61         9.822600      11.256264   5873.355</code></pre>
+1         9367.803       15310.21         8.356565       9.971570   3679.496
+2         9887.490       21779.50         9.416601      11.610220   5421.184
+3         9351.650       20533.52         7.223773       8.739823   7375.661</code></pre>
 </div>
 </div>
 </section>
@@ -1228,26 +1228,26 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <span id="cb53-2"><a href=""></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">025</span>),<span class="dv">2</span>),<span class="st">" to "</span>,</span>
 <span id="cb53-3"><a href=""></a>                                <span class="fu">round</span>(<span class="fu">quantile</span>(x, <span class="at">p=</span>.<span class="dv">975</span>),<span class="dv">2</span>), <span class="st">")"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                               cost_treat 
-  "6127.59 (95% CrI 3491.71 to 10056.39)" 
-                       prob_death_noTreat 
-            "0.31 (95% CrI 0.18 to 0.46)" 
-                            rr_death_drug 
-              "0.5 (95% CrI 0.42 to 0.6)" 
-                             QALY_survive 
-          "11.93 (95% CrI 8.82 to 15.13)" 
-                             cost_survive 
-  "12100.93 (95% CrI 8869.45 to 15711.1)" 
-                         tot_cost_noTreat 
-  "8384.71 (95% CrI 5736.45 to 11511.88)" 
-                           tot_cost_treat 
-"16379.86 (95% CrI 12131.76 to 21481.13)" 
-                         tot_QALY_noTreat 
-           "8.27 (95% CrI 5.69 to 11.12)" 
-                           tot_QALY_treat 
-          "10.11 (95% CrI 7.33 to 12.94)" 
-                               ICER_treat 
-    "4646.26 (95% CrI 2549.08 to 8581.5)" </code></pre>
+<pre><code>                              cost_treat 
+    "6206.68 (95% CrI 3462 to 10286.94)" 
+                      prob_death_noTreat 
+            "0.3 (95% CrI 0.17 to 0.45)" 
+                           rr_death_drug 
+            "0.5 (95% CrI 0.42 to 0.62)" 
+                            QALY_survive 
+         "12.09 (95% CrI 9.01 to 15.31)" 
+                            cost_survive 
+"12147.06 (95% CrI 9053.83 to 16154.05)" 
+                        tot_cost_noTreat 
+ "8480.08 (95% CrI 5835.57 to 11802.11)" 
+                          tot_cost_treat 
+"16513.7 (95% CrI 12355.65 to 21684.26)" 
+                        tot_QALY_noTreat 
+           "8.44 (95% CrI 5.75 to 11.4)" 
+                          tot_QALY_treat 
+          "10.26 (95% CrI 7.5 to 13.25)" 
+                              ICER_treat 
+  "4766.65 (95% CrI 2498.66 to 9150.26)" </code></pre>
 </div>
 </div>
 </section>
@@ -1326,7 +1326,7 @@ NMB_a = \bar{e}_a\times WTP - \bar{c}_a
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Assignment 3 (simulation) due tomorrow</p></li>
+<li><p>Assignment 3 (simulation) <strong>deadline extended: Mon, Oct 7</strong></p></li>
 <li><p>Assignment 4 (sensitivity analysis) due Fri, Oct 25</p></li>
 <li><p>Project proposal due Fri, Nov 1</p>
 <ul>

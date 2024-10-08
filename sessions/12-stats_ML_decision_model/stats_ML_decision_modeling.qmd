@@ -1,42 +1,59 @@
 ---
-title: "Combining stats/ML and decision-analytic models"
-subtitle: "EPIB  676 session 19, McGill University"
+title: "Stats/ML methods and decision modelling"
+subtitle: "EPIB  676 session 12, McGill University"
 author: "Alton Russell"
-date: "7 Nov 2023"
+date: "8 Oct 2024"
 format: revealjs
 editor: visual
 ---
 
 ## Today
 
--   **Using data-driven models in decision analysis**
+-   Using stats/ML in decision analysis
     -   Multi-state modeling survival analysis
     -   Machine learning example
--   Clinical prediction model development through decision-analytic lens
 
-## "Data-driven" vs. decision-analytic modeling
+## Stats/ML vs. decision models
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 **Stats & ML**
 
--   Extract info from data
+-   Derive insights from data
 
 -   Methods for understanding/estimating heterogeneity
 
--   Good at understanding "**what is**"
+-   Good at understanding "**what is**" from complete data
 :::
 
 ::: {.column width="50%"}
 **Decision-analytic models**
 
--   Integrate assumptions & data-inform estimates
+-   Integrate (data-informed) paramters
 
 -   Traditionally for estimating 'average' policy impact
 
--   Good at extrapolating, asking "**what if**"
+-   Good at extrapolating, asking "**what if**" using incomplete/unlinked data
 :::
-:::
+:::::
+
+## Causal inference
+
+Identifying causal relationship requires causal methods
+
+-   Statistical methods for causal inference
+
+-   Causal ML (note: most ML methods are not causal)
+
+Typical decision models [**embed causal assumptions**]{.underline} and [**extrapolate**]{.underline} to quantify outcomes
+
+-   Ideally, causal assumptions based on well-done causal inference studies (randomized trial or quasi-experimental study)
+
+## Today
+
+-   **Using stats/ML in decision analysis**
+    -   Multi-state modeling survival analysis
+    -   Machine learning example
 
 ## Trial-based economic evaluation
 
@@ -77,7 +94,7 @@ Not main focus of this class, but here is a helpful tutorial
 
 ## Multi-state survival modeling
 
-![](Williams%202017%20multistatemodel%20tutorial.png)
+![](figs/Williams%202017%20multistatemodel%20tutorial.png)
 
 [Williams et. al. 2017](https://doi.org/10.1177/0272989X16651869)
 
@@ -85,7 +102,7 @@ Not main focus of this class, but here is a helpful tutorial
 
 ## Competing risks
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Cancer treatment trials often report 'progression-free' and 'overall' survival for limited time horizon
 
@@ -95,15 +112,15 @@ Not main focus of this class, but here is a helpful tutorial
 :::
 
 ::: {.column width="50%"}
-![](williams_model_diagram.png)
+![](figs/williams_model_diagram.png)
 :::
-:::
+:::::
 
 ## Panel vs. survival data
 
 **Survival data**
 
--   If event observed, we ahve exact time to event
+-   If event observed, we have exact time to event
 
 -   Usually some individuals right censored (end of follow-up)
 
@@ -125,13 +142,13 @@ Not main focus of this class, but here is a helpful tutorial
 
     -   FC: fludarabine + cyclophosphamide (407 patients)
 
--   Trial time horizon 4 years (many patients still alive at trial end)
+-   Trial horizon 4 years (many patients alive at trial end)
 
--   Model time horizon 15 years (estimated \<2% cohort will remain alive)
+-   Model horizon 15 years (estimate \<2% cohort alive)
 
 ## Steps
 
-![](williams_process_overview.png)
+![](figs/williams_process_overview.png)
 
 ## Markov or semi-Markov?
 
@@ -159,15 +176,15 @@ Not main focus of this class, but here is a helpful tutorial
 
 ## Log-log plots
 
-![](williams%20loglog.png)
+![](figs/williams%20loglog.png)
 
 Lines fairly parallel, suggesting proportional hazards reasonable
 
 ## Cumulative hazards vs. time
 
-![](williams%20cumulative%20hazard.png)
+![](figs/williams%20cumulative%20hazard.png)
 
-\(a\) and (b) suggest increasing hazards may be appropriate. (c) suggests lack of treatment effect post-progression
+\(a\) and (b) suggest increasing hazards may be appropriate. (c) suggests lack of treatment effect on progression -\> death transition
 
 ## Conclusions so far
 
@@ -175,106 +192,103 @@ Lines fairly parallel, suggesting proportional hazards reasonable
 
 -   Next step:
 
-    -   Build a Cox Markov state-arrival extended model for progression to death transition
+    -   Build a Cox Markov state-arrival extended model for progression → death transition
 
-## Result of Cox Markov State-Arrival Extended Model on progression to death
+## Cox Markov State-Arrival Extended Model on progression → death
 
 | Covariate                   | HR (95% CI)           | P value |
 |-----------------------------|-----------------------|---------|
 | Treatment                   | 1.555 (0.874, 2.7666) | 0.133   |
 | Time spent progression free | 0.413 (0.215, 0.794)  | 0.008   |
 
--   Time progression-free impacts post-progression death
+-   Time progression-free impacts progression → death transition
 
 -   Markov property doesn't hold; semi-Markov model needed.
 
 ## Steps
 
-![](williams_process_overview.png)
+![](figs/williams_process_overview.png)
 
 ## Building semi-Markov models
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
--   We start with progression to death because no competing risk
+-   Estimate progression→death first (no competing risk)
 
--   Evaluate multiple time-to-event distributions
+-   Fit multiple time-to-event distributions
 
 -   Include time spent progression-free as covariate
 :::
 
 ::: {.column width="50%"}
-
-![](williams_model_diagram.png)
+![](figs/williams_model_diagram.png)
 :::
-:::
+:::::
 
-## Selecting model for progression → death
+## Model for progression → death
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
-![](progression_to_death_2yr.png)
+![](figs/progression_to_death_2yr.png)
 :::
 
 ::: {.column width="50%"}
-![](progression_to_death_15yr.png)
+![](figs/progression_to_death_15yr.png)
 :::
-:::
+:::::
 
-While log-logistic minimized AIC, other distributions had more reasonable 15-year extrapolation. Gompertz distribution selected.
+## Model for progression → death
+
+-   Log-logistic minimized AIC (fit to KM curve the best), but all were similar
+
+-   Other distributions 15-year extrapolation seemed more 'reasonable' (more compatible with expert opinion on how many patients are expected to survive 15 years post-progression). Therefore, Gompertz distribution selected.
 
 ## Selecting model for other transitions
 
-![](williams_extrapolation_other_transitions.png)
+![](figs/williams_extrapolation_other_transitions.png)
 
 ## Steps
 
-![](williams_process_overview.png)
+![](figs/williams_process_overview.png)
 
 ## Life years, costs, QALYs
 
 Used data from the trial for mean cost/QALYs of progression-free & progressed under each intervention.
 
-![](williams_costs.png)
+![](figs/williams_costs.png)
 
 ## Base case results
 
-![](williams_base_case_results.png)
+![](figs/williams_base_case_results.png)
+
+## Steps
+
+![](figs/williams_process_overview.png)
 
 ## Scenario analysis
 
-![](williams_scenarios.png)
+![](figs/williams_scenarios.png)
 
 ## Probabilistic sensitivity analysis
 
-![](williams_psa.png)
+![](figs/williams_psa.png)
 
 ## Today
 
 -   Using data-driven models in decision analysis
     -   Multi-state modeling survival analysis
     -   **Machine learning example**
--   Clinical prediction model development through decision-analytic lens
 
 ## Switch to ppt file
 
-## Today
-
--   Using data-driven models in decision analysis
-    -   Multi-state modeling survival analysis
-    -   Machine learning example
--   **Clinical prediction model development through decision-analytic lens**
-
-## Swi
-
 ## Logistics
 
--   No more methods lectures
+-   Assignment 4 (sensitivity analysis) due Fri, Oct 25
 
--   Six more guest lectures
+-   Project proposal due Fri, Nov 1
 
--   Assignment 5 due Friday, Nov 17
+    -   I suggest discussing your idea with me before proposal deadline
 
--   Final project presentations Tuesday, Dec 5
+-   Presentation of open-source modelling paper in class on Tues, Nov 5
 
--   Final project report due Wednesday, Dec 13
+-   Office hours on Zoom today (same link)

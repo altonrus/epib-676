@@ -761,7 +761,7 @@ Can fit multivariate distributions to data
 
 ## Logistics
 
--   Assignment 3 (simulation) due tomorrow
+-   Assignment 3 (simulation) **deadline extended: Mon, Oct 7**
 
 -   Assignment 4 (sensitivity analysis) due Fri, Oct 25
 
