@@ -1,8 +1,8 @@
 ---
 title: "Calibration and validation"
-subtitle: "EPIB  676 session 12, McGill University"
+subtitle: "EPIB  676 session 13, McGill University"
 author: "Alton Russell"
-date: "12 Oct 2023"
+date: "10 Oct 2024"
 format: revealjs
 editor: visual
 ---
@@ -35,13 +35,13 @@ library(psych)
 
 ## Models combine multiple sources of evidence
 
-![](model_inputs_outputs.png)
+![](figs/model_inputs_outputs.png)
 
 Modeled outcomes are complex functions of multiple parameters
 
 ## Model as a function
 
-![](model_as_function.png)
+![](figs/model_as_function.png)
 
 ## Estimating parameter values
 
@@ -53,7 +53,7 @@ Modeled outcomes are complex functions of multiple parameters
 
 ## Model as function 2
 
-![](model_as_function_2.png)
+![](figs/model_as_function_2.png)
 
 Calibration uses data on modeled outcomes to estimate model parameters (and sometimes model structure)
 
@@ -61,7 +61,7 @@ Calibration uses data on modeled outcomes to estimate model parameters (and some
 
 Using data on **outcomes** to estimate **parameters**
 
-![](calibration_schematic.png)
+![](figs/calibration_schematic.png)
 
 ## Steps in model calibration
 
@@ -79,7 +79,7 @@ Using data on **outcomes** to estimate **parameters**
 
     -   Optimization
 
-    -   Bayesian
+    -   Bayesian or approximately Bayesian
 
 ## Hands on model calibration in R
 
@@ -89,9 +89,9 @@ Eva Enns, Fernando Alarid-Escudero, and Caleb Easterly 2018
 
 ## Calibration task
 
-::: columns
+::::: columns
 ::: {.column width="65%"}
-![](Alarid%20CRC%20diagram.jpeg)
+![](figs/Alarid%20CRC%20diagram.jpeg)
 
 [Alarid-Escudero et. al. 2018](https://doi.org/10.1177/0272989X18792283)
 :::
@@ -99,7 +99,7 @@ Eva Enns, Fernando Alarid-Escudero, and Caleb Easterly 2018
 ::: {.column width="35%"}
 Calibrate `p.Mets` and `p.DieMets` by fitting to observed survival data
 :::
-:::
+:::::
 
 ## Target data
 
@@ -127,17 +127,16 @@ p_target
 #| echo: true
 source("markov_crs.R")
 v.params.test <- c(p.Mets = 0.1, p.DieMets = 0.2)
-test_results <- markov_crs(v.params.test)
-str(test_results)
-head(test_results$Surv)
+model_result <- markov_crs(v.params.test)
+head(model_result$Surv)
 ```
 
-## Compare model to targets
+## Uncalibrated model vs. targets
 
 ```{r}
 #| echo: true
 t_compare <- cbind(CRS.targets$Surv,
-                   output = test_results$Surv)
+                   output = model_result$Surv)
 ggplot(t_compare, aes(x=Time, y=value))+
   geom_point()+geom_errorbar(aes(ymin=lb, ymax =ub))+
   geom_point(color="darkred", aes(y=output))+
@@ -156,21 +155,21 @@ ggplot(t_compare, aes(x=Time, y=value))+
 
 ## Latin hypercube sampling
 
-::: columns
-::: {.column width="60%"}
-![](lhs_figure.png)
+::::: columns
+::: {.column width="52%"}
+![](figs/lhs_figure.png)
 
 From [LHS basic vignette 2022](https://cran.r-project.org/web/packages/lhs/vignettes/lhs_basics.html)
 :::
 
-::: {.column width="40%"}
+::: {.column width="48%"}
 -   Using partitions to ensuring samples are well-dispersed across the parameter space
 
 -   Lots of variants
 
 -   Can use uniform random method then 'rescale' to fit our range or distribution
 :::
-:::
+:::::
 
 ## Code: latin hypercube sampling
 
@@ -211,7 +210,11 @@ for (i in 1:n.param){
 }
 ```
 
-## View LHS-sampled parameters
+-   Could rescale to represent draws from other distributions using `qbeta()`, `qnorm()`, `qgamma()`, etc.
+
+-   Could use the inverse CDF method for any non-standard distribution with defined CDF
+
+## Distribution of LHS-sampled params
 
 ```{r}
 #| echo: true
@@ -224,16 +227,28 @@ psych::pairs.panels(rs.param.samp)
 
 -   Higher likelihood $\rightarrow$ modeled output more consistent with calibration data
 
--   We'll use normal likelihood
+-   We'll use a normal distribution for likelihood
 
--   For numerical stability, we compute log-likelihood
+-   For numerical stability, we compute **log-likelihood**
+
+## Why maximize log-likelihood?
+
+Calibration identifies parameters that maximize **t**otal likelihood, [product of the likelihood]{.underline} of each target
+
+$$
+A: \underset{\Theta}{\operatorname{argmax}} p(\textbf{x} \mid \Theta ) = \underset{\Theta}{\operatorname{argmax}} \prod_{i=1}^N p(x_i \mid \Theta)
+$$Equivalent to maximizing the [sum of the log-likelihoods]{.underline}
+
+$$
+B: \underset{\Theta}{\operatorname{argmax}} \ln p(\textbf{x} \mid \Theta ) = \underset{\Theta}{\operatorname{argmax}}\sum_{i=1}^N \ln p(x_i \mid \Theta)
+$$
+
+Floating point precision issues are less likely with B vs. A
 
 ## Goodness-of-fit function
 
 ```{r}
 #| echo: true
-rs.GOF <- rep(0, rs.n.samp)
-
 gof_norm_loglike <- function(
     target_mean, #vector of mean for p(survive) by year (target)
     target_sd,  #vector of SD for p(survive) by year (target)
@@ -247,32 +262,42 @@ gof_norm_loglike <- function(
 }
 ```
 
+Calculates the log-likelihood of your survival probabilities given a likelihood distribution fit to your target
+
 ## Random search: compute GOF for each parameter set
 
 ```{r}
 #| echo: true
+
+#vector to store log-likelihood (goodness of fit) for each 
+#. parameter set we generated with latin hypercube sampling
+rs.loglike <- rep(0, rs.n.samp) 
+
 for (j in 1:rs.n.samp){
-  
-  ###  Run model for a given parameter set  ###
+  #  Run model for a given parameter set
   model.res = markov_crs(v.params = rs.param.samp[j, ])
-  
-  ###  Calculate goodness-of-fit of model outputs to targets  ###
-  # log likelihood of the model output given the targets
-  rs.GOF[j] = gof_norm_loglike(model_output = model.res$Surv,
+    # Calculate goodness-of-fit of model outputs to targets 
+  # (log likelihood of the model output given the targets)
+  rs.loglike[j] = gof_norm_loglike(model_output = model.res$Surv,
                                target_mean = CRS.targets$Surv$value,
                                target_sd = CRS.targets$Surv$se)
 }
+
+head(rs.loglike)
+head(exp(rs.loglike)) # exponentiate to get likelihood
+
+
 ```
 
 ## Random search: best-fitting parameters
 
 ```{r}
 # Arrange parameter sets in order of fit
-rs.calib.res <- cbind(rs.param.samp, rs.GOF)
-rs.calib.res <- rs.calib.res[order(-rs.calib.res[,"rs.GOF"]),]
+rs.calib.res <- cbind(rs.param.samp, rs.loglike)
+rs.calib.res <- rs.calib.res[order(-rs.calib.res[,"rs.loglike"]),]
 
 # Examine the top 10 best-fitting sets
-ggplot(data = data.frame(rs.calib.res), aes(x=p.Mets, y=p.DieMets, colour = exp(rs.GOF)))+
+ggplot(data = data.frame(rs.calib.res), aes(x=p.Mets, y=p.DieMets, colour = exp(rs.loglike)))+
          geom_point()+scale_colour_gradient(low="skyblue",high="darkred")
 
 rs_best_fit_params <- c(rs.calib.res[1, c("p.Mets",  "p.DieMets")])
@@ -315,7 +340,7 @@ Sample several starting points with goal of finding global optimum
 
 ## Local and global optima
 
-![](local_optima_illustration.png)
+![](figs/local_optima_illustration.png)
 
 Source: [Chao Jin 2015](http://dx.doi.org/10.13140/RG.2.2.32537.83041)
 
@@ -363,7 +388,7 @@ colnames(nm.calib.res) <- c(param.names, "Overall_fit")
 for (j in 1:n.init){
   
   fit.nm <- optim(nm.params.init[j,], nm_objective, 
-                 control = list(fnscale = -1, #switches from minimization to maximization
+                 control = list(fnscale = -1, #maximize instead of minimize
                                 maxit = 1000), 
                  hessian = T)
   nm.calib.res[j,] <- c(fit.nm$par,fit.nm$value)
@@ -371,9 +396,7 @@ for (j in 1:n.init){
 
 ```
 
-NM (green) and random search (red) nearly identical in this example.
-
-## NM calibration: results
+## NM calibration: results from 100 starting points
 
 ```{r}
 #| echo: true
@@ -385,7 +408,7 @@ nm.calib.res[1:10,]
 
 ```
 
-## NM calibration: results
+## NM calibration: results from 100 starting points
 
 ```{r}
 #| echo: true
@@ -414,6 +437,8 @@ ggplot(t_compare, aes(x=Time, y=value))+
 
 ## Compare results
 
+Fit of NM (green) and random search (red) nearly identical in this case)
+
 ```{r}
 #| echo: false
 nm_best_fit_params <- c(nm.calib.res[1, c("p.Mets",  "p.DieMets")])
@@ -434,7 +459,7 @@ ggplot(t_compare, aes(x=Time, y=value))+
 
 -   **Deterministic:** "What's the best-fitting parameter set?" (random search and NM)
 
--   **Probabilistic:** "What distribution of parameters is consistent with the uncertainty distribution of my calibration targets"
+-   **Probabilistic:** "What [distribution]{.underline} of parameters is [consistent with the uncertainty distributio]{.underline}n of my calibration targets"
 
 -   **Bayesian calibration** allows us to also use data on both parameters and outcomes to estimate parameters
 
@@ -442,31 +467,31 @@ ggplot(t_compare, aes(x=Time, y=value))+
 
 ## Bayesian updating
 
-![](bayesian_updating.png)
+![](figs/bayesian_updating.png)
 
 ## Bayesian calibration
 
-![](bayesian_calibration.png)
+![](figs/bayesian_calibration.png)
 
 ## Bayesian calibration ins and outs
 
-![](Bayesian_calib_inputS_outputs.png)
+![](figs/Bayesian_calib_inputS_outputs.png)
 
 ## Sample importance resampling (SIR) method
 
-![](SIR_1.png)
+![](figs/SIR_1.png)
 
 ## Sample importance resampling (SIR) method
 
-![](SIR_2.png)
+![](figs/SIR_2.png)
 
 ## Sample importance resampling (SIR) method
 
-![](SIR_3.png)
+![](figs/SIR_3.png)
 
 ## Sample importance resampling (SIR) method
 
-![](SIR_4.png)
+![](figs/SIR_4.png)
 
 ## Alternatives to SIR
 
@@ -484,13 +509,15 @@ Incremental mixture approximate Bayesian computation ([Rutter et. al. 2019](doi.
 
 Let's take a quick look at the [Bayesian tutorial by Enns et. al](https://darth-git.github.io/calibSMDM2018-materials/tutorials/imis_3state.html).
 
-## In summary
+## Recap of calibration
 
 -   Calibration identifies parameter values that produce modeled outcomes consisent with target data
 
 -   Deterministic methods identify best-fitting point estimates
 
--   Bayesian methods can approximate parameter draws over joint distribution of all parameters
+-   (Approximately) bayesian methods can approximate parameter draws over joint distribution of all parameters
+
+    -   Needed to vary uncertain parameters in probabilistic sensitivity analysis!
 
 ## Today
 
@@ -512,9 +539,11 @@ Let's take a quick look at the [Bayesian tutorial by Enns et. al](https://darth-
 
 -   Some models adapted after-the-fact to new decision problem
 
--   Must consider how decision-relevant trade-offs differ from original intent
+-   Must consider how decision-relevant trade-offs differ from original use case
 
--   Same model can have different level of validity for different application
+    -   Simplifying assumption that is OK for use case 1 might be problem for use case 2!
+
+    -   Model can have different level of validity for different applications
 
 ## Types of validity
 
@@ -532,9 +561,7 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
 ## Face validity
 
--   Model and assumptions reflect current evidence as judged by experts (e.g. clinicians, policy makers)
-
--   Multiple aspects
+-   Inputs and assumptions reflect current evidence as judged by experts (e.g., clinicians, policy makers)
 
     -   Model structure
 
@@ -544,7 +571,7 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
     -   Model output
 
--   Subjective and challenging (e.g., over- vs. under-simplified)
+-   Subjective and challenging
 
 ## Face validity best practice
 
@@ -562,11 +589,9 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
     -   Double programming
 
-    -   'Trace analysis'
+    -   'Trace analysis' (e.g., Markov cohort trace
 
-        -   Markov cohort trace
-
-        -   If I set parameters to extreme values or do 1- or 2-way sensitivity analyses, do outputs change in the direction I expect?
+    -   If I set parameters to extreme values or do 1- or 2-way sensitivity analyses, do outputs change in the direction I expect?
 
 ## Verification best practice
 
@@ -574,15 +599,10 @@ Eddy et. al. 2012 [Model transparency and validation report by ISPOR-SMDM Modeli
 
 ## Cross validation
 
--   Consistency with related models
+-   Performance consistent with related models
     -   Same decision problem
     -   Same biological/social phenomena
-
-```{=html}
-<!-- -->
-```
--   If multiple modelers reach same conclusion, trust in conclusions higher
-
+-   If \>1 modelers reach same conclusion independently, trust in conclusions higher
 -   More meaningful when models compared have different creators, data, methods
 
 ## Cross validation best practice
@@ -657,9 +677,29 @@ Only applies to models predicting into the future.
 
 > When feasible with respect to the decision being addressed and a future source's availability, a model should be tested for its prediction of future events. Builders of multiple-use models should seek opportunities to conduct predictive validations.
 
-## In summary
+## Calibration vs. external validation plots
 
--   Important to convince reader of model validity
+-   Look almost identical!
+
+-   Difference is:
+
+    -   Calibration plots compare modeled output to **targets** (estimates from data that were used to fit the model)
+
+    -   Validation plots compare modeled output to **external data** (ideally, data that was not used at all in model development)
+
+## Calibration validation trade-off
+
+-   Must decide whether to use data for calibration or validation
+
+    -   To maximize fit to data, use all available data to calibrate
+
+    -   To maximize confidence that model reflects reality without being overfit, use available data for external validation
+
+-   Decision must be made case-by-case, depending what data are available
+
+## Recap of validation
+
+-   Aim to maximize confidence in analysis by clear and transparent face validity, verification, cross validity and external validation
 
 -   External validation is great when feasible but depends on context
 
@@ -667,4 +707,24 @@ Only applies to models predicting into the future.
 
 ## Logistics
 
--   tbd
+-   Assignment 4 (sensitivity analysis) due Fri, Oct 25
+
+-   Project proposal due Fri, Nov 1
+
+    -   I suggest discussing your idea with me before proposal deadline
+
+-   Next class (Tues Oct 22): First applied guest lecture
+
+    -   Class will meet Zoom only
+
+## Expectations for guest lectures
+
+-   Read paper, look at code, and prepare a question in advance
+
+-   Most lecturers joining via Zoom, but we will meet in the regular classroom
+
+    -   [**Exceptions**]{.underline}: Tues Oct 22 and Tues Oct 29 will be Zoom only
+
+    -   When joining via Zoom, please have camera on most of the time
+
+-   Guest lectures factor more heavily than method lectures in determining class engagement grade (8% of final grade)

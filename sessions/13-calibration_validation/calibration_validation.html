@@ -8,10 +8,10 @@
 <link href="calibration_validation_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="calibration_validation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="calibration_validation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-10-12">
+  <meta name="dcterms.date" content="2024-10-10">
   <title>Calibration and validation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="calibration_validation_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="calibration_validation_files/libs/revealjs/dist/theme/quarto.css">
   <link href="calibration_validation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="calibration_validation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="calibration_validation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -392,7 +393,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Calibration and validation</h1>
-  <p class="subtitle">EPIB 676 session 12, McGill University</p>
+  <p class="subtitle">EPIB 676 session 13, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -402,19 +403,19 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-10-12</p>
+  <p class="date">2024-10-10</p>
 </section>
 <section id="r-packages" class="slide level2">
 <h2>R packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># calibration functionality</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(lhs)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># visualization</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(psych)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a><span class="co"># calibration functionality</span></span>
+<span id="cb1-5"><a href=""></a><span class="fu">library</span>(lhs)</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="co"># visualization</span></span>
+<span id="cb1-8"><a href=""></a><span class="fu">library</span>(psych)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="today" class="slide level2">
@@ -432,16 +433,16 @@ Alton Russell
 <section id="models-combine-multiple-sources-of-evidence" class="slide level2">
 <h2>Models combine multiple sources of evidence</h2>
 
-<img data-src="model_inputs_outputs.png" class="r-stretch"><p>Modeled outcomes are complex functions of multiple parameters</p>
+<img data-src="figs/model_inputs_outputs.png" class="r-stretch"><p>Modeled outcomes are complex functions of multiple parameters</p>
 </section>
 <section id="model-as-a-function" class="slide level2">
 <h2>Model as a function</h2>
 
-<img data-src="model_as_function.png" class="r-stretch"></section>
+<img data-src="figs/model_as_function.png" class="r-stretch"></section>
 <section id="estimating-parameter-values" class="slide level2">
 <h2>Estimating parameter values</h2>
 <ul>
-<li><p><strong>Direct estimation:</strong> with primary data or literature report</p></li>
+<li><p><strong>Direct estimation:</strong> with primary data or published studies</p></li>
 <li><p><strong>Expert or data-informed estimation</strong>: using imperfect or semi-applicable data and/or expert opinion, develop reasonable estimates/uncertainty ranges</p></li>
 <li><p><strong>Calibration:</strong> use data on model <strong><em>outcomes</em></strong> to estimate model <strong><em>inputs</em></strong> (parameters)</p></li>
 </ul>
@@ -449,13 +450,13 @@ Alton Russell
 <section id="model-as-function-2" class="slide level2">
 <h2>Model as function 2</h2>
 
-<img data-src="model_as_function_2.png" class="r-stretch"><p>Calibration uses data on modeled outcomes to estimate model parameters (and sometimes model structure)</p>
+<img data-src="figs/model_as_function_2.png" class="r-stretch"><p>Calibration uses data on modeled outcomes to estimate model parameters (and sometimes model structure)</p>
 </section>
 <section id="calibration" class="slide level2">
 <h2>Calibration</h2>
 <p>Using data on <strong>outcomes</strong> to estimate <strong>parameters</strong></p>
 
-<img data-src="calibration_schematic.png" class="r-stretch"></section>
+<img data-src="figs/calibration_schematic.png" class="r-stretch"></section>
 <section id="steps-in-model-calibration" class="slide level2">
 <h2>Steps in model calibration</h2>
 <ol type="1">
@@ -469,7 +470,7 @@ Alton Russell
 <ul>
 <li><p>Ad hoc</p></li>
 <li><p>Optimization</p></li>
-<li><p>Bayesian</p></li>
+<li><p>Bayesian or approximately Bayesian</p></li>
 </ul></li>
 </ol>
 </section>
@@ -482,18 +483,17 @@ Alton Russell
 <h2>Calibration task</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
-<p><img data-src="Alarid%20CRC%20diagram.jpeg"></p>
+<p><img data-src="figs/Alarid%20CRC%20diagram.jpeg"></p>
 <p><a href="https://doi.org/10.1177/0272989X18792283">Alarid-Escudero et. al.&nbsp;2018</a></p>
 </div><div class="column" style="width:35%;">
 <p>Calibrate <code>p.Mets</code> and <code>p.DieMets</code> by fitting to observed survival data</p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="target-data" class="slide level2">
 <h2>Target data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">load</span>(<span class="st">"CRSTargets.RData"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>CRS.targets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">load</span>(<span class="st">"CRSTargets.RData"</span>)</span>
+<span id="cb2-2"><a href=""></a>CRS.targets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$Surv
    Time Alive Pop value          se         lb        ub
@@ -562,42 +562,36 @@ Alton Russell
 <section id="plot-target-data" class="slide level2">
 <h2>Plot target data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>p_target <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(CRS.targets<span class="sc">$</span>Surv, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>p_target</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>p_target <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(CRS.targets<span class="sc">$</span>Surv, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb4-3"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
+<span id="cb4-4"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)</span>
+<span id="cb4-5"><a href=""></a>p_target</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section id="load-and-run-model" class="slide level2">
 <h2>Load and run model</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">source</span>(<span class="st">"markov_crs.R"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>v.params.test <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">p.Mets =</span> <span class="fl">0.1</span>, <span class="at">p.DieMets =</span> <span class="fl">0.2</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>test_results <span class="ot">&lt;-</span> <span class="fu">markov_crs</span>(v.params.test)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">str</span>(test_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 1
- $ Surv: Named num [1:59] 0.98 0.946 0.903 0.853 0.801 ...
-  ..- attr(*, "names")= chr [1:59] "2" "3" "4" "5" ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">head</span>(test_results<span class="sc">$</span>Surv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">source</span>(<span class="st">"markov_crs.R"</span>)</span>
+<span id="cb5-2"><a href=""></a>v.params.test <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">p.Mets =</span> <span class="fl">0.1</span>, <span class="at">p.DieMets =</span> <span class="fl">0.2</span>)</span>
+<span id="cb5-3"><a href=""></a>model_result <span class="ot">&lt;-</span> <span class="fu">markov_crs</span>(v.params.test)</span>
+<span id="cb5-4"><a href=""></a><span class="fu">head</span>(model_result<span class="sc">$</span>Surv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        2         3         4         5         6         7 
 0.9800000 0.9460000 0.9026000 0.8533000 0.8007380 0.7468786 </code></pre>
 </div>
 </div>
 </section>
-<section id="compare-model-to-targets" class="slide level2">
-<h2>Compare model to targets</h2>
+<section id="uncalibrated-model-vs.-targets" class="slide level2">
+<h2>Uncalibrated model vs.&nbsp;targets</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>t_compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(CRS.targets<span class="sc">$</span>Surv,</span>
-<span id="cb9-2"><a href="#cb9-2"></a>                   <span class="at">output =</span> test_results<span class="sc">$</span>Surv)</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">ggplot</span>(t_compare, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"darkred"</span>, <span class="fu">aes</span>(<span class="at">y=</span>output))<span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>t_compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(CRS.targets<span class="sc">$</span>Surv,</span>
+<span id="cb7-2"><a href=""></a>                   <span class="at">output =</span> model_result<span class="sc">$</span>Surv)</span>
+<span id="cb7-3"><a href=""></a><span class="fu">ggplot</span>(t_compare, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"darkred"</span>, <span class="fu">aes</span>(<span class="at">y=</span>output))<span class="sc">+</span></span>
+<span id="cb7-6"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
@@ -615,58 +609,61 @@ Alton Russell
 <section id="latin-hypercube-sampling" class="slide level2">
 <h2>Latin hypercube sampling</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
-<p><img data-src="lhs_figure.png"></p>
+<div class="column" style="width:52%;">
+<p><img data-src="figs/lhs_figure.png"></p>
 <p>From <a href="https://cran.r-project.org/web/packages/lhs/vignettes/lhs_basics.html">LHS basic vignette 2022</a></p>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:48%;">
 <ul>
 <li><p>Using partitions to ensuring samples are well-dispersed across the parameter space</p></li>
 <li><p>Lots of variants</p></li>
 <li><p>Can use uniform random method then ‘rescale’ to fit our range or distribution</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="code-latin-hypercube-sampling" class="slide level2">
 <h2>Code: latin hypercube sampling</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">set.seed</span>(<span class="dv">1010</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>param.names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p.Mets"</span>,<span class="st">"p.DieMets"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3"></a>n.param <span class="ot">&lt;-</span> <span class="fu">length</span>(param.names)</span>
-<span id="cb10-4"><a href="#cb10-4"></a>rs.n.samp <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># lower bound</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>lb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">p.Mets =</span> <span class="fl">0.04</span>, <span class="at">p.DieMets =</span> <span class="fl">0.04</span>) </span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co"># upper bound</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>ub <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">p.Mets =</span> <span class="fl">0.16</span>, <span class="at">p.DieMets =</span> <span class="fl">0.16</span>)</span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co"># Sample unit Latin Hypercube (uniform random!)</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a>m.lhs.unit <span class="ot">&lt;-</span> lhs<span class="sc">::</span><span class="fu">randomLHS</span>(rs.n.samp, n.param)</span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="fu">colnames</span>(m.lhs.unit) <span class="ot">&lt;-</span> param.names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1010</span>)</span>
+<span id="cb8-2"><a href=""></a>param.names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"p.Mets"</span>,<span class="st">"p.DieMets"</span>)</span>
+<span id="cb8-3"><a href=""></a>n.param <span class="ot">&lt;-</span> <span class="fu">length</span>(param.names)</span>
+<span id="cb8-4"><a href=""></a>rs.n.samp <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb8-5"><a href=""></a><span class="co"># lower bound</span></span>
+<span id="cb8-6"><a href=""></a>lb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">p.Mets =</span> <span class="fl">0.04</span>, <span class="at">p.DieMets =</span> <span class="fl">0.04</span>) </span>
+<span id="cb8-7"><a href=""></a><span class="co"># upper bound</span></span>
+<span id="cb8-8"><a href=""></a>ub <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">p.Mets =</span> <span class="fl">0.16</span>, <span class="at">p.DieMets =</span> <span class="fl">0.16</span>)</span>
+<span id="cb8-9"><a href=""></a><span class="co"># Sample unit Latin Hypercube (uniform random!)</span></span>
+<span id="cb8-10"><a href=""></a>m.lhs.unit <span class="ot">&lt;-</span> lhs<span class="sc">::</span><span class="fu">randomLHS</span>(rs.n.samp, n.param)</span>
+<span id="cb8-11"><a href=""></a><span class="fu">colnames</span>(m.lhs.unit) <span class="ot">&lt;-</span> param.names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-lhs-samples-for-random-search-calibration" class="slide level2">
 <h2>Plot LHS samples (for random search calibration)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(m.lhs.unit), <span class="fu">aes</span>(<span class="at">x=</span>p.Mets, <span class="at">y=</span>p.DieMets))<span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(m.lhs.unit), <span class="fu">aes</span>(<span class="at">x=</span>p.Mets, <span class="at">y=</span>p.DieMets))<span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section id="rescale-parameters" class="slide level2">
 <h2>Rescale parameters</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Rescale to min/max of each parameter</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>rs.param.samp <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow=</span>rs.n.samp,<span class="at">ncol=</span>n.param)</span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">colnames</span>(rs.param.samp) <span class="ot">&lt;-</span> param.names</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.param){</span>
-<span id="cb12-5"><a href="#cb12-5"></a>  rs.param.samp[,i] <span class="ot">&lt;-</span> <span class="fu">qunif</span>(m.lhs.unit[,i],</span>
-<span id="cb12-6"><a href="#cb12-6"></a>                           <span class="at">min =</span> lb[i],</span>
-<span id="cb12-7"><a href="#cb12-7"></a>                           <span class="at">max =</span> ub[i])</span>
-<span id="cb12-8"><a href="#cb12-8"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Rescale to min/max of each parameter</span></span>
+<span id="cb10-2"><a href=""></a>rs.param.samp <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow=</span>rs.n.samp,<span class="at">ncol=</span>n.param)</span>
+<span id="cb10-3"><a href=""></a><span class="fu">colnames</span>(rs.param.samp) <span class="ot">&lt;-</span> param.names</span>
+<span id="cb10-4"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.param){</span>
+<span id="cb10-5"><a href=""></a>  rs.param.samp[,i] <span class="ot">&lt;-</span> <span class="fu">qunif</span>(m.lhs.unit[,i],</span>
+<span id="cb10-6"><a href=""></a>                           <span class="at">min =</span> lb[i],</span>
+<span id="cb10-7"><a href=""></a>                           <span class="at">max =</span> ub[i])</span>
+<span id="cb10-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ul>
+<li><p>Could rescale to represent draws from other distributions using <code>qbeta()</code>, <code>qnorm()</code>, <code>qgamma()</code>, etc.</p></li>
+<li><p>Could use the inverse CDF method for any non-standard distribution with defined CDF</p></li>
+</ul>
 </section>
-<section id="view-lhs-sampled-parameters" class="slide level2">
-<h2>View LHS-sampled parameters</h2>
+<section id="distribution-of-lhs-sampled-params" class="slide level2">
+<h2>Distribution of LHS-sampled params</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(rs.param.samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(rs.param.samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
@@ -675,42 +672,64 @@ Alton Russell
 <ul>
 <li><p>Asks, how likely is the modeled output given the calibration data?</p></li>
 <li><p>Higher likelihood <span class="math inline">\(\rightarrow\)</span> modeled output more consistent with calibration data</p></li>
-<li><p>We’ll use normal likelihood</p></li>
-<li><p>For numerical stability, we compute log-likelihood</p></li>
+<li><p>We’ll use a normal distribution for likelihood</p></li>
+<li><p>For numerical stability, we compute <strong>log-likelihood</strong></p></li>
 </ul>
+</section>
+<section id="why-maximize-log-likelihood" class="slide level2">
+<h2>Why maximize log-likelihood?</h2>
+<p>Calibration identifies parameters that maximize <strong>t</strong>otal likelihood, <u>product of the likelihood</u> of each target</p>
+<p><span class="math display">\[
+A: \underset{\Theta}{\operatorname{argmax}} p(\textbf{x} \mid \Theta ) = \underset{\Theta}{\operatorname{argmax}} \prod_{i=1}^N p(x_i \mid \Theta)
+\]</span>Equivalent to maximizing the <u>sum of the log-likelihoods</u></p>
+<p><span class="math display">\[
+B: \underset{\Theta}{\operatorname{argmax}} \ln p(\textbf{x} \mid \Theta ) = \underset{\Theta}{\operatorname{argmax}}\sum_{i=1}^N \ln p(x_i \mid \Theta)
+\]</span></p>
+<p>Floating point precision issues are less likely with B vs.&nbsp;A</p>
 </section>
 <section id="goodness-of-fit-function" class="slide level2">
 <h2>Goodness-of-fit function</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>rs.GOF <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, rs.n.samp)</span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a>gof_norm_loglike <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb14-4"><a href="#cb14-4"></a>    target_mean, <span class="co">#vector of mean for p(survive) by year (target)</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>    target_sd,  <span class="co">#vector of SD for p(survive) by year (target)</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>    model_output <span class="co">#vector of modeled p(survive) by year</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>    ){</span>
-<span id="cb14-8"><a href="#cb14-8"></a>  <span class="co">#Sum the log-likelihood of modeled output given target distribution</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">sum</span>(<span class="fu">dnorm</span>(<span class="at">x =</span> model_output,</span>
-<span id="cb14-10"><a href="#cb14-10"></a>            <span class="at">mean =</span> target_mean,</span>
-<span id="cb14-11"><a href="#cb14-11"></a>            <span class="at">sd =</span> target_sd,</span>
-<span id="cb14-12"><a href="#cb14-12"></a>            <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb14-13"><a href="#cb14-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>gof_norm_loglike <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb12-2"><a href=""></a>    target_mean, <span class="co">#vector of mean for p(survive) by year (target)</span></span>
+<span id="cb12-3"><a href=""></a>    target_sd,  <span class="co">#vector of SD for p(survive) by year (target)</span></span>
+<span id="cb12-4"><a href=""></a>    model_output <span class="co">#vector of modeled p(survive) by year</span></span>
+<span id="cb12-5"><a href=""></a>    ){</span>
+<span id="cb12-6"><a href=""></a>  <span class="co">#Sum the log-likelihood of modeled output given target distribution</span></span>
+<span id="cb12-7"><a href=""></a>  <span class="fu">sum</span>(<span class="fu">dnorm</span>(<span class="at">x =</span> model_output,</span>
+<span id="cb12-8"><a href=""></a>            <span class="at">mean =</span> target_mean,</span>
+<span id="cb12-9"><a href=""></a>            <span class="at">sd =</span> target_sd,</span>
+<span id="cb12-10"><a href=""></a>            <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-11"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Calculates the log-likelihood of your survival probabilities given a likelihood distribution fit to your target</p>
 </section>
 <section id="random-search-compute-gof-for-each-parameter-set" class="slide level2">
 <h2>Random search: compute GOF for each parameter set</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>rs.n.samp){</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  </span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="do">###  Run model for a given parameter set  </span><span class="al">###</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>  model.res <span class="ot">=</span> <span class="fu">markov_crs</span>(<span class="at">v.params =</span> rs.param.samp[j, ])</span>
-<span id="cb15-5"><a href="#cb15-5"></a>  </span>
-<span id="cb15-6"><a href="#cb15-6"></a>  <span class="do">###  Calculate goodness-of-fit of model outputs to targets  </span><span class="al">###</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a>  <span class="co"># log likelihood of the model output given the targets</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a>  rs.GOF[j] <span class="ot">=</span> <span class="fu">gof_norm_loglike</span>(<span class="at">model_output =</span> model.res<span class="sc">$</span>Surv,</span>
-<span id="cb15-9"><a href="#cb15-9"></a>                               <span class="at">target_mean =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>value,</span>
-<span id="cb15-10"><a href="#cb15-10"></a>                               <span class="at">target_sd =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>se)</span>
-<span id="cb15-11"><a href="#cb15-11"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co">#vector to store log-likelihood (goodness of fit) for each </span></span>
+<span id="cb13-2"><a href=""></a><span class="co">#. parameter set we generated with latin hypercube sampling</span></span>
+<span id="cb13-3"><a href=""></a>rs.loglike <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, rs.n.samp) </span>
+<span id="cb13-4"><a href=""></a></span>
+<span id="cb13-5"><a href=""></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>rs.n.samp){</span>
+<span id="cb13-6"><a href=""></a>  <span class="co">#  Run model for a given parameter set</span></span>
+<span id="cb13-7"><a href=""></a>  model.res <span class="ot">=</span> <span class="fu">markov_crs</span>(<span class="at">v.params =</span> rs.param.samp[j, ])</span>
+<span id="cb13-8"><a href=""></a>    <span class="co"># Calculate goodness-of-fit of model outputs to targets </span></span>
+<span id="cb13-9"><a href=""></a>  <span class="co"># (log likelihood of the model output given the targets)</span></span>
+<span id="cb13-10"><a href=""></a>  rs.loglike[j] <span class="ot">=</span> <span class="fu">gof_norm_loglike</span>(<span class="at">model_output =</span> model.res<span class="sc">$</span>Surv,</span>
+<span id="cb13-11"><a href=""></a>                               <span class="at">target_mean =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>value,</span>
+<span id="cb13-12"><a href=""></a>                               <span class="at">target_sd =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>se)</span>
+<span id="cb13-13"><a href=""></a>}</span>
+<span id="cb13-14"><a href=""></a></span>
+<span id="cb13-15"><a href=""></a><span class="fu">head</span>(rs.loglike)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]   140.65501 -1027.43492  -158.43638   -67.54754  -175.99828 -1459.38907</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">head</span>(<span class="fu">exp</span>(rs.loglike)) <span class="co"># exponentiate to get likelihood</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.218134e+61 0.000000e+00 1.555804e-69 4.618221e-30 3.672143e-77
+[6] 0.000000e+00</code></pre>
+</div>
 </div>
 </section>
 <section id="random-search-best-fitting-parameters" class="slide level2">
@@ -721,15 +740,15 @@ Alton Russell
 <section id="random-search-calibrated-model-vs.-target" class="slide level2">
 <h2>Random search: calibrated model vs.&nbsp;target</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>rs_best_fit_params <span class="ot">&lt;-</span> <span class="fu">c</span>(rs.calib.res[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"p.Mets"</span>,  <span class="st">"p.DieMets"</span>)])</span>
-<span id="cb16-2"><a href="#cb16-2"></a>rs_best_fit_model <span class="ot">&lt;-</span> <span class="fu">markov_crs</span>(rs_best_fit_params)</span>
-<span id="cb16-3"><a href="#cb16-3"></a></span>
-<span id="cb16-4"><a href="#cb16-4"></a>t_compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(CRS.targets<span class="sc">$</span>Surv,</span>
-<span id="cb16-5"><a href="#cb16-5"></a>                   <span class="at">random_search =</span> rs_best_fit_model<span class="sc">$</span>Surv)</span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="fu">ggplot</span>(t_compare, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="fu">aes</span>(<span class="at">y=</span>random_search))<span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>rs_best_fit_params <span class="ot">&lt;-</span> <span class="fu">c</span>(rs.calib.res[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"p.Mets"</span>,  <span class="st">"p.DieMets"</span>)])</span>
+<span id="cb17-2"><a href=""></a>rs_best_fit_model <span class="ot">&lt;-</span> <span class="fu">markov_crs</span>(rs_best_fit_params)</span>
+<span id="cb17-3"><a href=""></a></span>
+<span id="cb17-4"><a href=""></a>t_compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(CRS.targets<span class="sc">$</span>Surv,</span>
+<span id="cb17-5"><a href=""></a>                   <span class="at">random_search =</span> rs_best_fit_model<span class="sc">$</span>Surv)</span>
+<span id="cb17-6"><a href=""></a><span class="fu">ggplot</span>(t_compare, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
+<span id="cb17-7"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
+<span id="cb17-8"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="fu">aes</span>(<span class="at">y=</span>random_search))<span class="sc">+</span></span>
+<span id="cb17-9"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
@@ -753,19 +772,19 @@ Alton Russell
 <section id="local-and-global-optima" class="slide level2">
 <h2>Local and global optima</h2>
 
-<img data-src="local_optima_illustration.png" class="r-stretch"><p>Source: <a href="http://dx.doi.org/10.13140/RG.2.2.32537.83041">Chao Jin 2015</a></p>
+<img data-src="figs/local_optima_illustration.png" class="r-stretch"><p>Source: <a href="http://dx.doi.org/10.13140/RG.2.2.32537.83041">Chao Jin 2015</a></p>
 </section>
 <section id="nm-calibration-sample-starting-values" class="slide level2">
 <h2>NM calibration: sample starting values</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>n.init <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>nm.params.init <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow=</span>n.init,<span class="at">ncol=</span>n.param)</span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.param){</span>
-<span id="cb17-5"><a href="#cb17-5"></a>  nm.params.init[,i] <span class="ot">&lt;-</span> <span class="fu">runif</span>(n.init,<span class="at">min=</span>lb[i],<span class="at">max=</span>ub[i])</span>
-<span id="cb17-6"><a href="#cb17-6"></a>}</span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="fu">colnames</span>(nm.params.init) <span class="ot">&lt;-</span> param.names</span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="fu">head</span>(nm.params.init, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>n.init <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb18-2"><a href=""></a>nm.params.init <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow=</span>n.init,<span class="at">ncol=</span>n.param)</span>
+<span id="cb18-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
+<span id="cb18-4"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.param){</span>
+<span id="cb18-5"><a href=""></a>  nm.params.init[,i] <span class="ot">&lt;-</span> <span class="fu">runif</span>(n.init,<span class="at">min=</span>lb[i],<span class="at">max=</span>ub[i])</span>
+<span id="cb18-6"><a href=""></a>}</span>
+<span id="cb18-7"><a href=""></a><span class="fu">colnames</span>(nm.params.init) <span class="ot">&lt;-</span> param.names</span>
+<span id="cb18-8"><a href=""></a><span class="fu">head</span>(nm.params.init, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         p.Mets  p.DieMets
 [1,] 0.08466381 0.05500232
@@ -781,42 +800,41 @@ Alton Russell
 <h2>NM calibration: objective function</h2>
 <p>Same basic steps as random search, just put into a function</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>nm_objective <span class="ot">=</span> <span class="cf">function</span>(v.params){</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="do">###   Run model for parametr set "v.params"</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  model.res <span class="ot">=</span> <span class="fu">markov_crs</span>(v.params)</span>
-<span id="cb19-4"><a href="#cb19-4"></a></span>
-<span id="cb19-5"><a href="#cb19-5"></a>  <span class="co"># log likelihood  </span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>  v.GOF <span class="ot">=</span> <span class="fu">gof_norm_loglike</span>(<span class="at">target_mean =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>value,</span>
-<span id="cb19-7"><a href="#cb19-7"></a>                              <span class="at">model_output =</span> model.res<span class="sc">$</span>Surv,</span>
-<span id="cb19-8"><a href="#cb19-8"></a>                              <span class="at">target_sd =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>se)</span>
-<span id="cb19-9"><a href="#cb19-9"></a>  <span class="fu">return</span>(v.GOF)</span>
-<span id="cb19-10"><a href="#cb19-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>nm_objective <span class="ot">=</span> <span class="cf">function</span>(v.params){</span>
+<span id="cb20-2"><a href=""></a>  <span class="do">###   Run model for parametr set "v.params"</span></span>
+<span id="cb20-3"><a href=""></a>  model.res <span class="ot">=</span> <span class="fu">markov_crs</span>(v.params)</span>
+<span id="cb20-4"><a href=""></a></span>
+<span id="cb20-5"><a href=""></a>  <span class="co"># log likelihood  </span></span>
+<span id="cb20-6"><a href=""></a>  v.GOF <span class="ot">=</span> <span class="fu">gof_norm_loglike</span>(<span class="at">target_mean =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>value,</span>
+<span id="cb20-7"><a href=""></a>                              <span class="at">model_output =</span> model.res<span class="sc">$</span>Surv,</span>
+<span id="cb20-8"><a href=""></a>                              <span class="at">target_sd =</span> CRS.targets<span class="sc">$</span>Surv<span class="sc">$</span>se)</span>
+<span id="cb20-9"><a href=""></a>  <span class="fu">return</span>(v.GOF)</span>
+<span id="cb20-10"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="nm-calibration-run-the-calibration" class="slide level2">
 <h2>NM calibration: run the calibration</h2>
 <p><strong>optim</strong>: General-purpose optimization based on Nelder–Mead, quasi-Newton and conjugate-gradient algorithms.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>nm.calib.res <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> n.init, <span class="at">ncol =</span> n.param<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">colnames</span>(nm.calib.res) <span class="ot">&lt;-</span> <span class="fu">c</span>(param.names, <span class="st">"Overall_fit"</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.init){</span>
-<span id="cb20-4"><a href="#cb20-4"></a>  </span>
-<span id="cb20-5"><a href="#cb20-5"></a>  fit.nm <span class="ot">&lt;-</span> <span class="fu">optim</span>(nm.params.init[j,], nm_objective, </span>
-<span id="cb20-6"><a href="#cb20-6"></a>                 <span class="at">control =</span> <span class="fu">list</span>(<span class="at">fnscale =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="co">#switches from minimization to maximization</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a>                                <span class="at">maxit =</span> <span class="dv">1000</span>), </span>
-<span id="cb20-8"><a href="#cb20-8"></a>                 <span class="at">hessian =</span> T)</span>
-<span id="cb20-9"><a href="#cb20-9"></a>  nm.calib.res[j,] <span class="ot">&lt;-</span> <span class="fu">c</span>(fit.nm<span class="sc">$</span>par,fit.nm<span class="sc">$</span>value)</span>
-<span id="cb20-10"><a href="#cb20-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>nm.calib.res <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> n.init, <span class="at">ncol =</span> n.param<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb21-2"><a href=""></a><span class="fu">colnames</span>(nm.calib.res) <span class="ot">&lt;-</span> <span class="fu">c</span>(param.names, <span class="st">"Overall_fit"</span>)</span>
+<span id="cb21-3"><a href=""></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n.init){</span>
+<span id="cb21-4"><a href=""></a>  </span>
+<span id="cb21-5"><a href=""></a>  fit.nm <span class="ot">&lt;-</span> <span class="fu">optim</span>(nm.params.init[j,], nm_objective, </span>
+<span id="cb21-6"><a href=""></a>                 <span class="at">control =</span> <span class="fu">list</span>(<span class="at">fnscale =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="co">#maximize instead of minimize</span></span>
+<span id="cb21-7"><a href=""></a>                                <span class="at">maxit =</span> <span class="dv">1000</span>), </span>
+<span id="cb21-8"><a href=""></a>                 <span class="at">hessian =</span> T)</span>
+<span id="cb21-9"><a href=""></a>  nm.calib.res[j,] <span class="ot">&lt;-</span> <span class="fu">c</span>(fit.nm<span class="sc">$</span>par,fit.nm<span class="sc">$</span>value)</span>
+<span id="cb21-10"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>NM (green) and random search (red) nearly identical in this example.</p>
 </section>
-<section id="nm-calibration-results" class="slide level2">
-<h2>NM calibration: results</h2>
+<section id="nm-calibration-results-from-100-starting-points" class="slide level2">
+<h2>NM calibration: results from 100 starting points</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Arrange parameter sets in order of fit</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>nm.calib.res <span class="ot">&lt;-</span> nm.calib.res[<span class="fu">order</span>(<span class="sc">-</span>nm.calib.res[,<span class="st">"Overall_fit"</span>]),]</span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="co"># Examine the top 10 best-fitting sets</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>nm.calib.res[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="co"># Arrange parameter sets in order of fit</span></span>
+<span id="cb22-2"><a href=""></a>nm.calib.res <span class="ot">&lt;-</span> nm.calib.res[<span class="fu">order</span>(<span class="sc">-</span>nm.calib.res[,<span class="st">"Overall_fit"</span>]),]</span>
+<span id="cb22-3"><a href=""></a><span class="co"># Examine the top 10 best-fitting sets</span></span>
+<span id="cb22-4"><a href=""></a>nm.calib.res[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          p.Mets  p.DieMets Overall_fit
  [1,] 0.12439610 0.04810758    156.0328
@@ -832,40 +850,41 @@ Alton Russell
 </div>
 </div>
 </section>
-<section id="nm-calibration-results-1" class="slide level2">
-<h2>NM calibration: results</h2>
+<section id="nm-calibration-results-from-100-starting-points-1" class="slide level2">
+<h2>NM calibration: results from 100 starting points</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(nm.calib.res))<span class="sc">+</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>p.Mets, <span class="at">y=</span>p.DieMets, <span class="at">overall_fit=</span>Overall_fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(nm.calib.res))<span class="sc">+</span></span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>p.Mets, <span class="at">y=</span>p.DieMets, <span class="at">overall_fit=</span>Overall_fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
 <section id="compare-results" class="slide level2">
 <h2>Compare results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>nm_best_fit_params <span class="ot">&lt;-</span> <span class="fu">c</span>(nm.calib.res[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"p.Mets"</span>,  <span class="st">"p.DieMets"</span>)])</span>
-<span id="cb24-2"><a href="#cb24-2"></a>nm_best_fit_model <span class="ot">&lt;-</span> <span class="fu">markov_crs</span>(nm_best_fit_params)</span>
-<span id="cb24-3"><a href="#cb24-3"></a></span>
-<span id="cb24-4"><a href="#cb24-4"></a>t_compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_compare,</span>
-<span id="cb24-5"><a href="#cb24-5"></a>                   <span class="at">nelder_mead =</span> nm_best_fit_model<span class="sc">$</span>Surv)</span>
-<span id="cb24-6"><a href="#cb24-6"></a></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="fu">ggplot</span>(t_compare, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb24-9"><a href="#cb24-9"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
-<span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="fu">aes</span>(<span class="at">y=</span>random_search))<span class="sc">+</span></span>
-<span id="cb24-11"><a href="#cb24-11"></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)<span class="sc">+</span></span>
-<span id="cb24-12"><a href="#cb24-12"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"green"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">y=</span>nelder_mead))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>nm_best_fit_params <span class="ot">&lt;-</span> <span class="fu">c</span>(nm.calib.res[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"p.Mets"</span>,  <span class="st">"p.DieMets"</span>)])</span>
+<span id="cb25-2"><a href=""></a>nm_best_fit_model <span class="ot">&lt;-</span> <span class="fu">markov_crs</span>(nm_best_fit_params)</span>
+<span id="cb25-3"><a href=""></a></span>
+<span id="cb25-4"><a href=""></a>t_compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(t_compare,</span>
+<span id="cb25-5"><a href=""></a>                   <span class="at">nelder_mead =</span> nm_best_fit_model<span class="sc">$</span>Surv)</span>
+<span id="cb25-6"><a href=""></a></span>
+<span id="cb25-7"><a href=""></a><span class="fu">ggplot</span>(t_compare, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>value))<span class="sc">+</span></span>
+<span id="cb25-8"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb25-9"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lb, <span class="at">ymax =</span>ub))<span class="sc">+</span></span>
+<span id="cb25-10"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"red"</span>, <span class="fu">aes</span>(<span class="at">y=</span>random_search))<span class="sc">+</span></span>
+<span id="cb25-11"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Pr Survive"</span>)<span class="sc">+</span></span>
+<span id="cb25-12"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"green"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="fu">aes</span>(<span class="at">y=</span>nelder_mead))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="compare-results-1" class="slide level2">
 <h2>Compare results</h2>
+<p>Fit of NM (green) and random search (red) nearly identical in this case)</p>
 
 <img data-src="calibration_validation_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
 <section id="what-about-uncertainty" class="slide level2">
 <h2>What about uncertainty?</h2>
 <ul>
 <li><p><strong>Deterministic:</strong> “What’s the best-fitting parameter set?” (random search and NM)</p></li>
-<li><p><strong>Probabilsitic:</strong> “What distribution of parameters is consistent with the uncertainty distribution of my calibration targets”</p></li>
+<li><p><strong>Probabilistic:</strong> “What <u>distribution</u> of parameters is <u>consistent with the uncertainty distributio</u>n of my calibration targets”</p></li>
 <li><p><strong>Bayesian calibration</strong> allows us to also use data on both parameters and outcomes to estimate parameters</p>
 <ul>
 <li>Can quantify uncertainty even when parameters are non-identifiable!</li>
@@ -875,31 +894,31 @@ Alton Russell
 <section id="bayesian-updating" class="slide level2">
 <h2>Bayesian updating</h2>
 
-<img data-src="bayesian_updating.png" class="r-stretch"></section>
+<img data-src="figs/bayesian_updating.png" class="r-stretch"></section>
 <section id="bayesian-calibration" class="slide level2">
 <h2>Bayesian calibration</h2>
 
-<img data-src="bayesian_calibration.png" class="r-stretch"></section>
+<img data-src="figs/bayesian_calibration.png" class="r-stretch"></section>
 <section id="bayesian-calibration-ins-and-outs" class="slide level2">
 <h2>Bayesian calibration ins and outs</h2>
 
-<img data-src="Bayesian_calib_inputS_outputs.png" class="r-stretch"></section>
+<img data-src="figs/Bayesian_calib_inputS_outputs.png" class="r-stretch"></section>
 <section id="sample-importance-resampling-sir-method" class="slide level2">
 <h2>Sample importance resampling (SIR) method</h2>
 
-<img data-src="SIR_1.png" class="r-stretch"></section>
+<img data-src="figs/SIR_1.png" class="r-stretch"></section>
 <section id="sample-importance-resampling-sir-method-1" class="slide level2">
 <h2>Sample importance resampling (SIR) method</h2>
 
-<img data-src="SIR_2.png" class="r-stretch"></section>
+<img data-src="figs/SIR_2.png" class="r-stretch"></section>
 <section id="sample-importance-resampling-sir-method-2" class="slide level2">
 <h2>Sample importance resampling (SIR) method</h2>
 
-<img data-src="SIR_3.png" class="r-stretch"></section>
+<img data-src="figs/SIR_3.png" class="r-stretch"></section>
 <section id="sample-importance-resampling-sir-method-3" class="slide level2">
 <h2>Sample importance resampling (SIR) method</h2>
 
-<img data-src="SIR_4.png" class="r-stretch"></section>
+<img data-src="figs/SIR_4.png" class="r-stretch"></section>
 <section id="alternatives-to-sir" class="slide level2">
 <h2>Alternatives to SIR</h2>
 <p>Incremental-mixture importance sampling (<a href="https://doi.org/10.1111/j.1541-0420.2010.01399.x">Raftery et. al.&nbsp;2010</a>, <a href="https://doi.org/10.1007/s40273-017-0494-4">Menzies et. al.&nbsp;2017</a>)</p>
@@ -916,12 +935,15 @@ Alton Russell
 <h2>Bayesian calibration tutorial</h2>
 <p>Let’s take a quick look at the <a href="https://darth-git.github.io/calibSMDM2018-materials/tutorials/imis_3state.html">Bayesian tutorial by Enns et. al</a>.</p>
 </section>
-<section id="in-summary" class="slide level2">
-<h2>In summary</h2>
+<section id="recap-of-calibration" class="slide level2">
+<h2>Recap of calibration</h2>
 <ul>
 <li><p>Calibration identifies parameter values that produce modeled outcomes consisent with target data</p></li>
 <li><p>Deterministic methods identify best-fitting point estimates</p></li>
-<li><p>Bayesian methods can approximate parameter draws over joint distribution of all parameters</p></li>
+<li><p>(Approximately) bayesian methods can approximate parameter draws over joint distribution of all parameters</p>
+<ul>
+<li>Needed to vary uncertain parameters in probabilistic sensitivity analysis!</li>
+</ul></li>
 </ul>
 </section>
 <section id="today-1" class="slide level2">
@@ -946,8 +968,11 @@ Alton Russell
 <li>Oncosim (Canada) or MISCAN (USA)</li>
 </ul></li>
 <li><p>Some models adapted after-the-fact to new decision problem</p></li>
-<li><p>Must consider how decision-relevant trade-offs differ from original intent</p></li>
-<li><p>Same model can have different level of validity for different application</p></li>
+<li><p>Must consider how decision-relevant trade-offs differ from original use case</p>
+<ul>
+<li><p>Simplifying assumption that is OK for use case 1 might be problem for use case 2!</p></li>
+<li><p>Model can have different level of validity for different applications</p></li>
+</ul></li>
 </ul>
 </section>
 <section id="types-of-validity" class="slide level2">
@@ -964,15 +989,14 @@ Alton Russell
 <section id="face-validity" class="slide level2">
 <h2>Face validity</h2>
 <ul>
-<li><p>Model and analysis of assumptions reflect current evidence as judged by domain experts (e.g.&nbsp;clinicians) and policy makers</p></li>
-<li><p>Multiple aspects</p>
+<li><p>Inputs and assumptions reflect current evidence as judged by experts (e.g., clinicians, policy makers)</p>
 <ul>
 <li><p>Model structure</p></li>
 <li><p>Data sources</p></li>
 <li><p>Problem formulation (e.g., alternatives)</p></li>
 <li><p>Model output</p></li>
 </ul></li>
-<li><p>Subjective and challenging (e.g., over- vs.&nbsp;under-simplified)</p></li>
+<li><p>Subjective and challenging</p></li>
 </ul>
 </section>
 <section id="face-validity-best-practice" class="slide level2">
@@ -990,11 +1014,8 @@ Alton Russell
 <ul>
 <li><p>Code documentation</p></li>
 <li><p>Double programming</p></li>
-<li><p>‘Trace analysis’</p>
-<ul>
-<li><p>Markov cohort trace</p></li>
+<li><p>‘Trace analysis’ (e.g., Markov cohort trace</p></li>
 <li><p>If I set parameters to extreme values or do 1- or 2-way sensitivity analyses, do outputs change in the direction I expect?</p></li>
-</ul></li>
 </ul></li>
 </ul>
 </section>
@@ -1007,14 +1028,13 @@ Alton Russell
 <section id="cross-validation" class="slide level2">
 <h2>Cross validation</h2>
 <ul>
-<li>Consistency with related models</li>
-</ul>
-<pre><code>-   Same decision problem
-
--   Same biological/social phenomena</code></pre>
+<li>Performance consistent with related models
 <ul>
-<li><p>If multiple modelers reach same conclusion, trust in conclusions higher</p></li>
-<li><p>More meaningful when models with differing creators, data, methods compared</p></li>
+<li>Same decision problem</li>
+<li>Same biological/social phenomena</li>
+</ul></li>
+<li>If &gt;1 modelers reach same conclusion independently, trust in conclusions higher</li>
+<li>More meaningful when models compared have different creators, data, methods</li>
 </ul>
 </section>
 <section id="cross-validation-best-practice" class="slide level2">
@@ -1093,34 +1113,67 @@ Alton Russell
 <p>When feasible with respect to the decision being addressed and a future source’s availability, a model should be tested for its prediction of future events. Builders of multiple-use models should seek opportunities to conduct predictive validations.</p>
 </blockquote>
 </section>
-<section id="in-summary-1" class="slide level2">
-<h2>In summary</h2>
+<section id="calibration-vs.-external-validation-plots" class="slide level2">
+<h2>Calibration vs.&nbsp;external validation plots</h2>
 <ul>
-<li><p>Important to convince reader of model validity</p></li>
-<li><p>External validation is great when feasible but highly dependent on context</p>
+<li><p>Look almost identical!</p></li>
+<li><p>Difference is:</p>
 <ul>
-<li>If we use the best data to parameterize/calibrate, what’s left for external validation</li>
+<li><p>Calibration plots compare modeled output to <strong>targets</strong> (estimates from data that were used to fit the model)</p></li>
+<li><p>Validation plots compare modeled output to <strong>external data</strong> (ideally, data that was not used at all in model development)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="calibration-validation-trade-off" class="slide level2">
+<h2>Calibration validation trade-off</h2>
+<ul>
+<li><p>Must decide whether to use data for calibration or validation</p>
+<ul>
+<li><p>To maximize fit to data, use all available data to calibrate</p></li>
+<li><p>To maximize confidence that model reflects reality without being overfit, use available data for external validation</p></li>
+</ul></li>
+<li><p>Decision must be made case-by-case, depending what data are available</p></li>
+</ul>
+</section>
+<section id="recap-of-validation" class="slide level2">
+<h2>Recap of validation</h2>
+<ul>
+<li><p>Aim to maximize confidence in analysis by clear and transparent face validity, verification, cross validity and external validation</p></li>
+<li><p>External validation is great when feasible but depends on context</p>
+<ul>
+<li>If we use the best data to parameterize/calibrate, what’s left for external validation?</li>
 </ul></li>
 </ul>
 </section>
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Next 3 classes Tu Oct 17, Th Oct 19, Tu Oct 17</p>
+<li><p>Assignment 4 (sensitivity analysis) due Fri, Oct 25</p></li>
+<li><p>Project proposal due Fri, Nov 1</p>
 <ul>
-<li><p>Guest lectures via Zoom (read papers + review code!)</p></li>
-<li><p>Can join remotely: <a href="https://mcgill.zoom.us/j/85707379604" class="uri">https://mcgill.zoom.us/j/85707379604</a></p></li>
-<li><p>Zoom office hours by request</p></li>
+<li>I suggest discussing your idea with me before proposal deadline</li>
 </ul></li>
-<li><p>Open source model presentations <u><strong>Th, Oct 26</strong></u></p>
+<li><p>Next class (Tues Oct 22): First applied guest lecture</p>
 <ul>
-<li>Email me selected paper</li>
+<li>Class will meet Zoom only</li>
 </ul></li>
-<li><p>Project proposals due <u><strong>Mon, Oct 30</strong></u></p></li>
-<li><p>Assignment 4 (sensitivity analysis) due <u><strong>Fri, Nov 2</strong></u></p></li>
 </ul>
+</section>
+<section id="expectations-for-guest-lectures" class="slide level2">
+<h2>Expectations for guest lectures</h2>
+<ul>
+<li><p>Read paper, look at code, and prepare a question in advance</p></li>
+<li><p>Most lecturers joining via Zoom, but we will meet in the regular classroom</p>
+<ul>
+<li><p><u><strong>Exceptions</strong></u>: Tues Oct 22 and Tues Oct 29 will be Zoom only</p></li>
+<li><p>When joining via Zoom, please have camera on most of the time</p></li>
+</ul></li>
+<li><p>Guest lectures factor more heavily than method lectures in determining class engagement grade (8% of final grade)</p></li>
+</ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -1149,7 +1202,6 @@ Alton Russell
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1404,18 +1456,7 @@ Alton Russell
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1447,11 +1488,50 @@ Alton Russell
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1461,8 +1541,17 @@ Alton Russell
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1476,7 +1565,11 @@ Alton Russell
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
