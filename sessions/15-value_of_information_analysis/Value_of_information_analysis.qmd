@@ -1,8 +1,8 @@
 ---
 title: "Value of information analysis"
-subtitle: "EPIB  676 session 11, McGill University"
+subtitle: "EPIB  676 session 15, McGill University"
 author: "Alton Russell"
-date: "8 Feb 2023"
+date: "29 Oct 2024"
 format: revealjs
 editor: visual
 ---
@@ -35,8 +35,14 @@ library(MASS) # for mvrnorm() function
 
 ## Logistics
 
--   Assignment 4 due Friday, Nov 3
+-   Next class (Thurs Oct 31 🎃): Last methods lecture on equity considerations
 
--   Assignment 5 due Friday, Nov 17
+-   Assignment 4 (sensitivity analysis) due Fri, Oct 25
 
-    -   To be posted by tomorrow
+-   Project proposal due Fri, Nov 1
+
+    -   I suggest discussing your idea with me before proposal deadline
+
+-   Presentation on open-source model Tue, Nov 5
+
+-   Assignment 5 (Calibration, VoI) due Fri, Nov 15

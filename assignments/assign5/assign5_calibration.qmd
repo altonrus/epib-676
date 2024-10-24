@@ -27,15 +27,13 @@ theme_set(theme_bw()) #Makes ggplots look better
 
 Building on the tutorial by Menzies et. al. 2017, we are going to calibrate a model of HIV in high-burden settings. Here I've shared the paper's description of the model, schematic, and parameter table:
 
-> The model is adapted from approaches for modeling human immunodeficiency virus in high-burden settings, simplified for ease of exposition for this example. The population is divided into five health states including nonsusceptible ($N$), susceptible ($S$), early disease ($E$), late disease ($L$), and treatment ($T$). The number of individuals by state and year (t) is given by
->
-> $N_t, S_t, E_t, L_t$, and $T_t$, respectively. Individuals enter the model distributed across the N and S states, and transition between states to allow for infection (S to E), disease progression (E to L), treatment initiation (E and L to T), and death (N, S, E, L and T to D) via background and disease-specific mortality. The force of infection ($\lambda_t$) is calculated as $\lambda_t = \rho \frac{E_t + L_t}{S_t + E_t + L_t + T_t}$, where q represents the effective contact rate (the rate of infection for a susceptible individual exposed to 100% infected contacts). This formulation assumes a fraction of the population (N) is not sexually active. A model simulation is initiated 30 years in the past (t = 0) when the epidemic is believed to have started, and run forward to provide historical and future estimates for various outcomes. The analysis adopts a 20-year time horizon, with the incremental cost-effectiveness ratio (ICER) representing the ratio of incremental costs to incremental life-years lived for the proposed policy vs. status quo (both undiscounted).
+> The model is adapted from approaches for modeling human immunodeficiency virus in high-burden settings, simplified for ease of exposition for this example. The population is divided into five health states including nonsusceptible ($N$), susceptible ($S$), early disease ($E$), late disease ($L$), and treatment ($T$). The number of individuals by state and year (t) is given by $N_t, S_t, E_t, L_t$, and $T_t$, respectively. Individuals enter the model distributed across the N and S states, and transition between states to allow for infection (S to E), disease progression (E to L), treatment initiation (E and L to T), and death (N, S, E, L and T to D) via background and disease-specific mortality. The force of infection ($\lambda_t$) is calculated as $\lambda_t = \rho \frac{E_t + L_t}{S_t + E_t + L_t + T_t}$, where q represents the effective contact rate (the rate of infection for a susceptible individual exposed to 100% infected contacts). This formulation assumes a fraction of the population (N) is not sexually active. A model simulation is initiated 30 years in the past (t = 0) when the epidemic is believed to have started, and run forward to provide historical and future estimates for various outcomes. The analysis adopts a 20-year time horizon, with the incremental cost-effectiveness ratio (ICER) representing the ratio of incremental costs to incremental life-years lived for the proposed policy vs. status quo (both undiscounted).
 
 ![Model schematic from Menzies et.al. 2017](Menzies_schematic.png)
 
 ![Model parameters from Menzies et. al. 2017](Menzies_param_table.png){width="750"}
 
-This code chunk contains the model. It's set up to take a vector of model parameters. It also has a boolean (true/false) argument `project_future` with a default value of false. For calibration, we will only use past data.
+This code chunk contains the model. Its inputs are a vector of model parameters and a boolean (true/false) argument `project_future` with a default value of false. For calibration, we will only use past data, so you can keep the default of `project_future = false`.
 
 If `project_future` is true, it returns list with four elements:
 
@@ -55,7 +53,7 @@ If `project_future` is false, it returns three outcomes for us to compare to cal
 
 -   Number of people in HIV treatment at 30 years
 
-**Model function code (unfold to view)**
+**Model function code (No edits needed; unfold to view)**
 
 ```{r mod_function}
 #| include: true
@@ -117,17 +115,28 @@ If `project_future` is false, it returns three outcomes for us to compare to cal
     ######## Report results ###################
     if(project_future==FALSE) {
       ## Return calibration metrics, if project_future = FALSE
-      return(list(prev = (rowSums(trace[,3:5])/rowSums(trace[,1:5]))[c(10,20,30)*12],  # Prevalence at 10,20,30 years
-                  surv = 1/(v_mu[3]+p)+ p/(v_mu[3]+p)*(1/v_mu[4]),                     # HIV survival without treatment
-                  tx   = trace[30*12,5]                                                # Treatment volume at 30 years
-                  ) )
+      return(list(
+        # Prevalence at 10,20,30 years
+        prev = (rowSums(trace[,3:5])/rowSums(trace[,1:5]))[c(10,20,30)*12],
+        # HIV survival without treatment
+        surv = 1/(v_mu[3]+p)+ p/(v_mu[3]+p)*(1/v_mu[4]),
+        # Treatment volume at 30 years
+        tx   = trace[30*12,5]
+        ))
     } else {
     ## Policy projections for CE analysis, if project_future = TRUE
-      return(list(trace0   = results[[1]],     # Trace without expanded treatment access
-                  trace1   = results[[2]],     # Trace with expanded treatment access
-                  inc_LY   = sum(results[[2]][(30*12+1):(51*12),-6]-results[[1]][(30*12+1):(51*12),-6])/12,  # incr. LY lived with expanded tx
-                  inc_cost = sum(results[[2]][(30*12+1):(51*12),5]-results[[1]][(30*12+1):(51*12),5])*c/12   # incr. cost  with expanded tx                  
-                  ) )  
+      return(list(
+        # Trace without expanded treatment access
+        trace0   = results[[1]],
+        # Trace with expanded treatment access
+        trace1   = results[[2]],
+        # incr. LY lived with expanded tx
+        inc_LY   = sum(results[[2]][(30*12+1):(51*12),-6]-
+                                   results[[1]][(30*12+1):(51*12),-6])/12,
+        # incr. cost  with expanded tx
+        inc_cost = sum(results[[2]][(30*12+1):(51*12),5]-
+                                   results[[1]][(30*12+1):(51*12),5])*c/12
+        ))  
     }
   }
 ```
@@ -157,9 +166,9 @@ NA
 NA
 ```
 
-## Prior & uncalibrated model
+## Priors & uncalibrated model
 
-We need to create an R function that samples from the prior distribution on each of our parameters. For simplicity, we sample each prior parameter from an independent distribution, ignoring correlation.
+We need to create an R function that samples from the prior distribution of each parameter. For simplicity, we sample each prior parameter from an independent distribution, ignoring correlation.
 
 We'll use a log-normal distribution for most of these parameters. The mean of a log-normal distribution is $m=e^{\mu+\sigma^2/2}$ where $\mu$ and $\sigma$ are the mean and standard deviation of a normal distribution on a log scale. We can calculate $\mu$ (which is the argument `meanlog` for the r functions `rlnorm` or `qlnorm`) from $m$ (the mean of the distribution) as $\mu = \log m - \frac{1}{2} \sigma^2$. The `sdlog` argument for the r functions `rlnorm` and `qlnorm` should be the standard deviation as provided in the parameter table above.
 
@@ -195,7 +204,7 @@ Make sure your `sample_prior` function works by sampling 4 parameter sets from t
 NA
 ```
 
-Next, we'll generate uncalibrated results where we conduct probabilistic sensitivity analysis on samples from the prior distributions. In the next two code chunks:
+Next, we'll generate uncalibrated results by conducting probabilistic sensitivity analysis using samples from the prior distributions. In the next two code chunks:
 
 -   Sample 10,000 parameter sets from the prior distribution.
 
@@ -212,7 +221,8 @@ Next, we'll generate uncalibrated results where we conduct probabilistic sensiti
 
 # Draw sample from prior
 set.seed(1234)   # set random seed for reproducibility
-n_samples <- 1e4 #Generate 10,000 draws from prior
+n_samples <- 500 # COMMENT OUT BEFORE SUBMITTING
+# n_samples <- 1e4 #UNCOMMENT BEFORE SUBMITTING
 m_samp <- NA #matrix of samples from prior distribution
 
 # Generate estimates for inc cost and inc LY via MC simulation (may take a while)
@@ -232,6 +242,8 @@ for(i in 1:n_samples) { # i=1
 
 Uncalib <- list(m_samp=m_samp,IncCost=IncCost,IncLY=IncLY)
 ```
+
+Visualize your calibrated model output
 
 ```{r disp_uncalibrated_results}
 # Plot distribution of inc costs and inc LY (2 separate plots)
@@ -281,7 +293,7 @@ As summarized in the table below, we want to construct calibration targets from 
 
 ![Calibration data and likelihoods from Menzies et. al. 2016](Menzies_likelihood_table.png)
 
-We must create a function `l_likelihood` that takes in a matrix of model parameters( like those produced by `sample_prior`), runs the model for each parameter set, and then computes the log likelihood.
+We must create a function `l_likelihood` that takes in a matrix of model parameters (like those produced by `sample_prior`), runs the model for each parameter set, and then computes the log likelihood.
 
 This function is already complete, but take a look at the calculation, comparing it to the likelihood function description in the table, to try and understand why it's correct.
 
@@ -377,6 +389,8 @@ for(i in 1:n_samples){
 
 ```
 
+We can now use these likelihoods to run SIR sampling.
+
 ```{r analyze_SIR_result}
 #Calculate probability weights for each sample in vector
 #.  Probabability a parameter set is sampled should be proportional
@@ -395,13 +409,11 @@ SIR_unique_sets
 
 ## Incremental mixture importance resampling
 
-SIR is a straightforward method but is not very efficient: many iterations are needed to produce a fairly small number of unique parameter sets. Whereas SIR is a single-shot method, IMIS is an iterative method that builds up a better importance sampling function over different 'batches' of draws from the prior distribution for more efficient computation.
+SIR may be straightforward, but it is not very efficient: many iterations are needed to produce a fairly small number of unique parameter sets. Whereas SIR is a single-shot method, IMIS is an iterative method that builds up a better importance sampling function over different 'batches' of draws from the prior distribution for more efficient computation.
 
 You don't need to understand all the technical details to apply IMIS, but here is a basic description from [Raftery and Bao 2010](https://www.doi.org/10.1111/j.1541-0420.2010.01399.x), which you can read if you want more information:
 
-> The basic idea of IMIS is that points with high importance weights are in areas where the target density is underrepresented by the importance sampling distribution. At each iteration, a multivariate normal distribution centered at the point with the highest importance weight is added to the current importance sampling distribution, which thus becomes a mixture of such functions and of the prior. In this way underrepresented parts of the parameter space are successively identified and are given representation, ending up with an iteratively constructed importance sampling distribution that
-> covers the target distribution well. The algorithm ends when the importance sampling weights
-> are reasonably uniform.
+> The basic idea of IMIS is that points with high importance weights are in areas where the target density is underrepresented by the importance sampling distribution. At each iteration, a multivariate normal distribution centered at the point with the highest importance weight is added to the current importance sampling distribution, which thus becomes a mixture of such functions and of the prior. In this way underrepresented parts of the parameter space are successively identified and are given representation, ending up with an iteratively constructed importance sampling distribution that covers the target distribution well. The algorithm ends when the importance sampling weights are reasonably uniform.
 
 **Model function code (no need to edit; unfold to view)**
 
@@ -571,18 +583,19 @@ To run IMIS, we will need a few functions:
 -   Likelihood: evaluates the likelihood of parameter sets. Since we already have a function for the log likelihood, we can just exponentiate it.
 
 ```{r gen_IMIS_results}
-#   prior -- evaluates prior density of a parameter set or sets
+#   prior -- evaluates prior density of a parameter set or sets; can simply exponentiate the output of l_prior
 prior <- function(par_vector) { 
   NA
 }
 
-#   likelihood -- evaluates likelihood of a parameter set or sets
+#   likelihood -- evaluates likelihood of a parameter set or sets; can simply exponentiate the output of l_prior
 likelihood <- function(par_vector){
   NA
 }
 
 # Run IMIS
 #. can just uncomment imis_res once functions above are set up correctly
+#. This may take a few minutes
 set.seed(1234)
 #imis_res <- IMIS(B=100,B.re=1e4,number_k=400,D=1)  
 
@@ -593,7 +606,7 @@ set.seed(1234)
 IncCost <- IncLY <- rep(NA,n_samples)     
 
 #For each row of the model
-for(i in 1:n_samples) { # Change this to match the size of imis_res$resample
+for(i in 1:99) { # Change 99 to the size of imis_res$resample
   #Run the model with project_future set to T
   # extract the inc_LY and inc_cost
   NA
@@ -621,7 +634,7 @@ NA
 NA
 ```
 
-Using the `ggpairs()` function from the `GGally` package (or similar), analyze the correlation between model parameters in the m_samp (draws from the prior distribution) and then, in a separate plot, analyze the correlation between the parameter sets stored in `imis_res$resample`.
+Using the `ggpairs()` function from the `GGally` package (or similar), analyze the correlation between model parameters in the m_samp (draws from the prior distribution) and then, in a separate plot, analyze the correlation between the parameter sets stored in `imis_res$resample`. Each parameter's prior distribution was sampled independently, so they should be uncorrelated with one another. Is that the case for the calibrated parameter distributions?
 
 ```{r correlation_plots}
 NA
@@ -682,7 +695,7 @@ $$
 EVPI = E_\mathbb\theta [\max_t \text{NMB}_t (\mathbb\theta)] - \max_t E_\mathbb\theta [\text{NMB}_t (\mathbb\theta)]
 $$
 
-Using the PSA parameter + outcomes data in the file `data_for_voi.csv', compute the expected value of perfect information with a threshold of \$50,000.
+Using the PSA parameters + outcomes data in the file \`data_for_voi.csv', compute the expected value of perfect information with a willingness-to-pay threshold of \$50,000.
 
 ```{r}
 
