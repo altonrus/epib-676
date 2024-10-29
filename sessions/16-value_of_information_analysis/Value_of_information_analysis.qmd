@@ -33,11 +33,25 @@ library(MASS) # for mvrnorm() function
 
 ![](VoI_process.png)
 
+## Recap
+
+-   **EVPI**: expected value of reducing [**all**]{.underline} uncertainty in [**all**]{.underline} parameters
+
+    -   Most I should spend on research whatsoever
+
+    -   Easy to compute from PSA inputs/outputs
+
+-   **EVPPI**: expected value of reducing [**all**]{.underline} uncertainty in [**some**]{.underline} parameters
+
+    -   Most I should spend on a study targeting specific variables
+
+-   **EVSI**: expected value of a study with specific sample size
+
+-   **ENBS**: EVSI minus cost of the study
+
 ## Logistics
 
--   Next class (Thurs Oct 31 🎃): Last methods lecture on equity considerations
-
--   Assignment 4 (sensitivity analysis) due Fri, Oct 25
+-   Next class (Thurs Oct 31 🎃): Last methods lecture (on equity considerations)
 
 -   Project proposal due Fri, Nov 1
 
