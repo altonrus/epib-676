@@ -8,10 +8,10 @@
 <link href="equity_considerations_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="equity_considerations_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="equity_considerations_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.330">
+  <meta name="generator" content="quarto-1.5.47">
 
   <meta name="author" content="Alton Russell">
-  <meta name="dcterms.date" content="2023-11-02">
+  <meta name="dcterms.date" content="2024-10-31">
   <title>Equity and fairness considerations</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="equity_considerations_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="equity_considerations_files/libs/revealjs/dist/theme/quarto.css">
   <link href="equity_considerations_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="equity_considerations_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="equity_considerations_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -157,7 +157,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -327,7 +328,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Equity and fairness considerations</h1>
-  <p class="subtitle">EPIB 676 session 18, McGill University</p>
+  <p class="subtitle">EPIB 676 session 17, McGill University</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -337,7 +338,7 @@ Alton Russell
 </div>
 </div>
 
-  <p class="date">2023-11-02</p>
+  <p class="date">2024-10-31</p>
 </section>
 <section id="today" class="slide level2">
 <h2>Today</h2>
@@ -352,16 +353,22 @@ Alton Russell
 <section id="dimensions-of-concern-for-health-equity-1" class="slide level2">
 <h2>Dimensions of concern for health equity?</h2>
 <ul>
-<li><p>Health, wealth, race and ethnicity, sex, gender identity, sexual orientation, age, (dis)ability, socioeconomic status, neighborhood…</p></li>
+<li><p>Health, wealth, race and ethnicity, sex, gender identity, sexual orientation, age, (dis)ability, disease severity, socioeconomic status, neighborhood…</p></li>
+<li><p>Access and outcomes</p></li>
 <li><p>Intersectionality</p></li>
 </ul>
+</section>
+<section id="what-equity-dimensions-should-factor-into-resource-allocation" class="slide level2">
+<h2>What equity dimensions should factor into resource allocation?</h2>
+<p>Cadham et. al.&nbsp;“Understanding Equity-Efficiency Trade-offs for Healthcare Resource Allocation in Canada: A Best-Worst Scaling Exercise” working paper</p>
+<p><a href="https://chear.org/sites/default/files/Cadham_CDA_Poster_20240815.pdf">Link to poster</a></p>
 </section>
 <section id="health-system-perspective-on-equity" class="slide level2">
 <h2>Health system perspective on equity</h2>
 <ul>
-<li><p>Portfolio of services may be viewed as unfair if:</p>
+<li><p>Portfolio of services may be viewed as unfair if it:</p>
 <ul>
-<li><p>Provides unequal benefit</p></li>
+<li><p>has unequal benefit or outcomes</p></li>
 <li><p>Creates unequal access</p></li>
 <li><p>Worsens existing inequities in health outcomes</p></li>
 </ul></li>
@@ -372,28 +379,33 @@ Alton Russell
 <h2>Lorenz curve</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="Lorenz_curve.png"></p>
+<p><img data-src="figs/Lorenz_curve.png"></p>
 </div><div class="column" style="width:40%;">
 <ul>
 <li><p>Analyzes distribution of wealth (or health) in population</p></li>
 <li><p>GINI coefficient: A/(A+B)</p></li>
 <li><p>Basis for several measures of equity</p></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section id="lorenz-curve-for-longevity" class="slide level2">
 <h2>Lorenz curve for longevity</h2>
-
-<img data-src="Lorenz_longevity.png" class="r-stretch"><p><a href="https://doi.org/10.4054/DemRes.2003.8.11">Shkolnikov et. al.&nbsp;2003</a></p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="figs/Lorenz_longevity.png"></p>
+<p><a href="https://doi.org/10.4054/DemRes.2003.8.11">Shkolnikov et. al.&nbsp;2003</a></p>
+</div><div class="column" style="width:40%;">
+<p><strong>X axis:</strong> cumulative share of population ordered from lowest to highest life expectancy</p>
+<p><strong>Y axis:</strong> Cumulative share of person-years lived</p>
+</div></div>
 </section>
 <section id="the-traditional-cea-approach" class="slide level2">
 <h2>The traditional CEA approach</h2>
 <ul>
-<li><p>Maximize total health benefit with limited funds</p></li>
+<li><p>Maximize population health benefit with fixed budget</p></li>
 <li><p>No consideration for distribution of benefits across population</p></li>
 <li><p>“A QALY is a QALY is a QALY”</p></li>
-<li><p>Some decision-making bodies disagree</p></li>
+<li><p>Many decision-making bodies disagree</p></li>
 </ul>
 </section>
 <section id="norways-3-criteria-for-health-technology-assessment" class="slide level2">
@@ -401,18 +413,18 @@ Alton Russell
 <ul>
 <li><p><strong>Health-benefit:</strong> prioritize interventions with greater expected health benefit (and other relevant welfare benefits)</p></li>
 <li><p><strong>Resource:</strong> prioritize interventions that requires fewer resources</p></li>
-<li><p><strong>Health loss:</strong> prioritize interventions for populations with a greater expected lifetime health loss in the absence of such an intervention.</p></li>
+<li><p><strong>Health loss:</strong> prioritize interventions for populations with a greater expected lifetime health loss in the absence of intervention.</p></li>
 </ul>
 <p><a href="https://doi.org/10.1016/j.healthpol.2016.01.012">Ottersen et. al.&nbsp;2016</a></p>
 </section>
 <section id="norways-health-loss-criterion-categorizations" class="slide level2">
 <h2>Norway’s health-loss criterion categorizations</h2>
 
-<img data-src="Norway_health_loss_classification.jpeg" class="r-stretch"></section>
+<img data-src="figs/Norway_health_loss_classification.jpeg" class="r-stretch"></section>
 <section id="staircase-cost-effectiveness-thresholds" class="slide level2">
 <h2>‘Staircase’ cost-effectiveness thresholds</h2>
 
-<img data-src="Norway_threshold_by_class.jpg" class="r-stretch"></section>
+<img data-src="figs/Norway_threshold_by_class.jpg" class="r-stretch"></section>
 <section id="dutch-proportional-shortfall" class="slide level2">
 <h2>Dutch Proportional shortfall</h2>
 <p>For a disease</p>
@@ -436,10 +448,9 @@ Alton Russell
 </ul>
 </div><div class="column" style="width:45%;">
 <p>Proposed scheme by NICE in UK</p>
-<p><img data-src="nice_shortfalls.png"></p>
+<p><img data-src="figs/nice_shortfalls.png"></p>
 <p><a href="https://shiny.york.ac.uk/shortfall/" class="uri">https://shiny.york.ac.uk/shortfall/</a></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="challenges-with-these-approaches" class="slide level2">
 <h2>Challenges with these approaches</h2>
@@ -458,8 +469,20 @@ Alton Russell
 </section>
 <section id="public-support-for-severity-adjusted-thresholds-mixed" class="slide level2">
 <h2>Public support for severity-adjusted thresholds mixed</h2>
+<p>And sensitive to how the question is phrased</p>
 
-<img data-src="Reckers-Droog%20support%20proportional%20shortfall.png" class="r-stretch"></section>
+<img data-src="figs/Reckers-Droog%20support%20proportional%20shortfall.png" class="r-stretch"></section>
+<section id="in-general" class="slide level2">
+<h2>In general</h2>
+<ul>
+<li><p><u><strong>High support</strong></u> for considering equity in health resource allocation</p></li>
+<li><p><u><strong>Some consensus</strong></u> on dimensions of equity to priorities</p></li>
+<li><p><u><strong>Low consensus</strong></u> on exact, quantitative decision criteria for trading off equity vs.&nbsp;efficiency (QALY maximization)</p>
+<ul>
+<li>Norway has done the most work on this</li>
+</ul></li>
+</ul>
+</section>
 <section id="today-1" class="slide level2">
 <h2>Today</h2>
 <ul>
@@ -502,7 +525,7 @@ Alton Russell
 <li>How much do subgroups gain and lose?</li>
 </ul>
 <p><strong>Pro:</strong> provides specific information on gains/losses by subgroup</p>
-<p><strong>Con:</strong> subgroup data that may be unavailable; no explicit valuing of equity-efficiency tradeoff</p>
+<p><strong>Con:</strong> subgroup data may be unavailable; no explicit valuing of equity-efficiency tradeoff</p>
 </section>
 <section id="equity-trade-off-analysis" class="slide level2">
 <h2>Equity trade-off analysis</h2>
@@ -515,46 +538,49 @@ Alton Russell
 <section id="equity-efficiency-plane" class="slide level2">
 <h2>Equity-efficiency plane</h2>
 
-<img data-src="equity_efficiency_plane.png" class="r-stretch quarto-figure-center"><p><a href="https://www.york.ac.uk/che/seminars/economic-evaluation/2015/andrew-mirelman/">Mirelman 2015</a></p>
+<img data-src="figs/equity_efficiency_plane.png" class="quarto-figure quarto-figure-center r-stretch"><p><a href="https://www.york.ac.uk/che/seminars/economic-evaluation/2015/andrew-mirelman/">Mirelman 2015</a></p>
 </section>
 <section id="standard-economic-evaluation" class="slide level2">
 <h2>Standard economic evaluation</h2>
 
-<img data-src="equity_efficiency_2.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="figs/equity_efficiency_2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="adding-equity-dimension" class="slide level2">
 <h2>Adding equity dimension</h2>
 
-<img data-src="equity_efficiency_3.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="figs/equity_efficiency_3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="equity-efficiency-trade-off" class="slide level2">
 <h2>Equity-efficiency trade off</h2>
 
-<img data-src="equity_efficiency_4.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="figs/equity_efficiency_4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="equity-evidence-review-1" class="slide level2">
 <h2>Equity evidence review</h2>
 
-<img data-src="equity_efficiency_5.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="figs/equity_efficiency_5.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="evidence-review-premature-neonates-in-india" class="slide level2">
 <h2>Evidence review: premature neonates in India</h2>
 
-<img data-src="Miljeteig%20et%20al%20outcomes.png" class="r-stretch"><p><a href="http://dx.doi.org/10.1136/jme.2010.035535">Miljeteig et. al.&nbsp;2010</a></p>
+<img data-src="figs/Miljeteig%20et%20al%20outcomes.png" class="r-stretch"><p><a href="http://dx.doi.org/10.1136/jme.2010.035535">Miljeteig et. al.&nbsp;2010</a></p>
 </section>
 <section id="premature-neonates-in-india" class="slide level2">
 <h2>Premature neonates in India</h2>
 
-<img data-src="Miljeteig%20et%20al%20benefits%20burdens.png" class="r-stretch"></section>
+<img data-src="figs/Miljeteig%20et%20al%20benefits%20burdens.png" class="r-stretch"></section>
 <section id="equity-constraint-analysis-1" class="slide level2">
 <h2>Equity constraint analysis</h2>
 
-<img data-src="equity_efficiency_6.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="figs/equity_efficiency_6.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="example-of-equity-constraints" class="slide level2">
 <h2>Example of equity constraints</h2>
 
-<img data-src="Cleary%20equity-efficiency%20HIV.png" class="r-stretch"><p><a href="https://doi.org/10.1002/hec.1542">Cleary et. al.&nbsp;2009</a></p>
+<img data-src="figs/Cleary%20equity-efficiency%20HIV.png" class="r-stretch"><p><a href="https://doi.org/10.1002/hec.1542">Cleary et. al.&nbsp;2009</a></p>
 </section>
 <section id="cleary-2009-approach" class="slide level2">
 <h2>Cleary 2009 approach</h2>
 <ul>
-<li><p>HIV care can be “no-ART”, “first-line ART only”, or “first and second-line ART”</p></li>
+<li><p>HIV care can be “no-ART”, “first-line ART only”, or “first and second-line ART”</p>
+<ul>
+<li>Alternatively, can provide no treatment</li>
+</ul></li>
 <li><p>Decision-model + constrained optimization</p></li>
 <li><p>For fixed budgets, maximized QALYs under constraints:</p>
 <ul>
@@ -567,19 +593,19 @@ Alton Russell
 <section id="model-structure" class="slide level2">
 <h2>Model structure</h2>
 
-<img data-src="Creary_model_structure.png" class="r-stretch"></section>
+<img data-src="figs/Creary_model_structure.png" class="r-stretch"></section>
 <section id="example-of-equity-constraints-1" class="slide level2">
 <h2>Example of equity constraints</h2>
 
-<img data-src="Cleary_equity_constraints.png" class="r-stretch"></section>
+<img data-src="figs/Cleary_equity_constraints.png" class="r-stretch"></section>
 <section id="equity-distributional-analysis" class="slide level2">
 <h2>Equity distributional analysis</h2>
 
-<img data-src="equity_efficiency_7.png" class="r-stretch"></section>
+<img data-src="figs/equity_efficiency_7.png" class="r-stretch"></section>
 <section id="extended-cost-effectiveness-analysis" class="slide level2">
 <h2>Extended cost-effectiveness analysis</h2>
 
-<img data-src="ECEA_1.png" class="r-stretch"><p><a href="https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/">Stéphane Verguet, Harvard</a></p>
+<img data-src="figs/ECEA_1.png" class="r-stretch"><p><a href="https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/">Stéphane Verguet, Harvard</a></p>
 </section>
 <section id="ecea-motivation" class="slide level2">
 <h2>ECEA motivation</h2>
@@ -589,7 +615,7 @@ Alton Russell
 <li><p>Public system (partially) government funded, but limited offerings</p></li>
 <li><p>Private system paid for out of pocket</p></li>
 </ul></li>
-<li><p>Decisions to cover services will have different impacts on more or less wealthy people</p></li>
+<li><p>Decisions to cover services will have different financial impacts on more wealthy vs.&nbsp;less wealthy people</p></li>
 </ul>
 </section>
 <section id="measures-considered-in-ecea" class="slide level2">
@@ -607,17 +633,17 @@ Alton Russell
 <section id="extended-cost-effectiveness-analysis-structure" class="slide level2">
 <h2>Extended cost-effectiveness analysis structure</h2>
 
-<img data-src="ECEA2.png" class="r-stretch"><p><a href="https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/">Stéphane Verguet, Harvard</a></p>
+<img data-src="figs/ECEA2.png" class="r-stretch"><p><a href="https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/">Stéphane Verguet, Harvard</a></p>
 </section>
 <section id="ecea-tobacco-tax-in-china" class="slide level2">
 <h2>ECEA: Tobacco tax in China</h2>
 
-<img data-src="verguet%202015%20China%20tobacco%20tax.png" class="r-stretch"><p><a href="https://doi.org/10.1016/s2214-109x(15)70095-1">Verguet et. al.&nbsp;2015</a></p>
+<img data-src="figs/verguet%202015%20China%20tobacco%20tax.png" class="r-stretch"><p><a href="https://doi.org/10.1016/s2214-109x(15)70095-1">Verguet et. al.&nbsp;2015</a></p>
 </section>
 <section id="equity-trade-off-analysis-1" class="slide level2">
 <h2>Equity trade-off analysis</h2>
 
-<img data-src="equity_efficiency_8.png" class="r-stretch"></section>
+<img data-src="figs/equity_efficiency_8.png" class="r-stretch"></section>
 <section id="dcea-distributional-cost-effectiveness" class="slide level2">
 <h2>DCEA: distributional cost-effectiveness</h2>
 <ul>
@@ -703,7 +729,7 @@ Alton Russell
 <section id="baseline-distribution-of-health-2" class="slide level2">
 <h2>Baseline distribution of health</h2>
 
-<img data-src="DCEA_QALE_by_quintile.png" class="r-stretch"></section>
+<img data-src="figs/DCEA_QALE_by_quintile.png" class="r-stretch"></section>
 <section id="distribution-of-health-changes" class="slide level2">
 <h2>Distribution of health changes</h2>
 <ul>
@@ -742,14 +768,13 @@ Alton Russell
 <p><strong>Status quo:</strong> apply odds of participating from pilot study to status quo participation counts</p>
 <p><strong>Reminder scenarios:</strong> costs and effects from literature; assume equal for all subgroups</p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="DCEA_OR_FIT_uptake.png"></p>
-</div>
-</div>
+<p><img data-src="figs/DCEA_OR_FIT_uptake.png"></p>
+</div></div>
 </section>
 <section id="intervention-uptake-1" class="slide level2">
 <h2>Intervention uptake</h2>
 
-<img data-src="DCEA_uptake_prob.png" class="r-stretch"></section>
+<img data-src="figs/DCEA_uptake_prob.png" class="r-stretch"></section>
 <section id="intervention-health-effects" class="slide level2">
 <h2>Intervention health effects</h2>
 <ul>
@@ -776,13 +801,13 @@ Alton Russell
 </section>
 <section id="net-health-gains-by-subgroup" class="slide level2">
 <h2>Net health gains by subgroup</h2>
-<p>Example calculation for Women in areas with low % from Indian subcontinent in deprivation quintile Q3</p>
+<p><strong>Example calculation:</strong> women in areas with low % from Indian subcontinent in deprivation quintile Q3</p>
 <ul>
-<li><p>Total lifetime net present costs (all subgroups)</p>
+<li><p>Lifetime net present cost of intervention (all subgroups)</p>
 <ul>
 <li>£72 million</li>
 </ul></li>
-<li><p>Health opportunity cost (all subgroup)</p>
+<li><p>Health opportunity cost (all subgroups)</p>
 <ul>
 <li>£72 million/£20,000 per QALY = 3600 QALYs</li>
 </ul></li>
@@ -796,7 +821,7 @@ Alton Russell
 <section id="qale-by-subgroup-by-strategy" class="slide level2">
 <h2>QALE by subgroup by strategy</h2>
 
-<img data-src="DCEA_QALE_by_subgroup.png" class="r-stretch"></section>
+<img data-src="figs/DCEA_QALE_by_subgroup.png" class="r-stretch"></section>
 <section id="fairness-adjusted-health-distributions" class="slide level2">
 <h2>Fairness-adjusted health distributions</h2>
 <ul>
@@ -823,19 +848,18 @@ Alton Russell
 <li><p>Can consider absolute inequality (Atkinson) or relative inequality (Kolm)</p></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="social_welfare_indices.png"></p>
-</div>
-</div>
+<p><img data-src="figs/social_welfare_indices.png"></p>
+</div></div>
 </section>
 <section id="preferred-intervention-by-welfare-index" class="slide level2">
 <h2>Preferred intervention by welfare index</h2>
 
-<img data-src="DCEA_prefered_int_by_welfare_index.png" class="r-stretch"><p>For low inequality aversion levels, we prefer universal reminders. For higher inequality aversion, we prefer targeted reminders</p>
+<img data-src="figs/DCEA_prefered_int_by_welfare_index.png" class="r-stretch"><p>For low inequality aversion levels, we prefer universal reminders. For higher inequality aversion, we prefer targeted reminders</p>
 </section>
 <section id="sensitivity-analysis-who-pays-opportunity-cost" class="slide level2">
 <h2>Sensitivity analysis: who ‘pays’ opportunity cost?</h2>
 
-<img data-src="DCEA_opp_cost_sens_analysis.png" class="r-stretch"></section>
+<img data-src="figs/DCEA_opp_cost_sens_analysis.png" class="r-stretch"></section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
 <ul>
@@ -847,11 +871,17 @@ Alton Russell
 <section id="logistics" class="slide level2">
 <h2>Logistics</h2>
 <ul>
-<li><p>Assignment 4 due Friday, Nov 3</p></li>
-<li><p>Assignment 5 due Friday, Nov 17</p></li>
+<li><p>Project proposal due Fri, Nov 1</p>
+<ul>
+<li>I suggest discussing your idea with me before proposal deadline</li>
+</ul></li>
+<li><p><strong>Next class:</strong> presentation on open-source model</p></li>
+<li><p>Assignment 5 (Calibration, VoI) due Fri, Nov 15</p></li>
 </ul>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
 
@@ -881,7 +911,6 @@ Alton Russell
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1098,18 +1127,7 @@ Alton Russell
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1141,11 +1159,50 @@ Alton Russell
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1155,8 +1212,17 @@ Alton Russell
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1170,7 +1236,11 @@ Alton Russell
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

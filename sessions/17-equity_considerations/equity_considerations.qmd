@@ -1,8 +1,8 @@
 ---
 title: "Equity and fairness considerations"
-subtitle: "EPIB  676 session 18, McGill University"
+subtitle: "EPIB  676 session 17, McGill University"
 author: "Alton Russell"
-date: "2 Nov 2023"
+date: "31 Oct 2024"
 format: revealjs
 editor: visual
 ---
@@ -17,15 +17,23 @@ editor: visual
 
 ## Dimensions of concern for health equity?
 
--   Health, wealth, race and ethnicity, sex, gender identity, sexual orientation, age, (dis)ability, socioeconomic status, neighborhood...
+-   Health, wealth, race and ethnicity, sex, gender identity, sexual orientation, age, (dis)ability, disease severity, socioeconomic status, neighborhood...
+
+-   Access and outcomes
 
 -   Intersectionality
 
+## What equity dimensions should factor into resource allocation?
+
+Cadham et. al. "Understanding Equity-Efficiency Trade-offs for Healthcare Resource Allocation in Canada: A Best-Worst Scaling Exercise" working paper
+
+[Link to poster](https://chear.org/sites/default/files/Cadham_CDA_Poster_20240815.pdf)
+
 ## Health system perspective on equity
 
--   Portfolio of services may be viewed as unfair if:
+-   Portfolio of services may be viewed as unfair if it:
 
-    -   Provides unequal benefit
+    -   has unequal benefit or outcomes
 
     -   Creates unequal access
 
@@ -35,9 +43,9 @@ editor: visual
 
 ## Lorenz curve
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
-![](Lorenz_curve.png)
+![](figs/Lorenz_curve.png)
 :::
 
 ::: {.column width="40%"}
@@ -47,23 +55,33 @@ editor: visual
 
 -   Basis for several measures of equity
 :::
-:::
+:::::
 
 ## Lorenz curve for longevity
 
-![](Lorenz_longevity.png)
+::::: columns
+::: {.column width="60%"}
+![](figs/Lorenz_longevity.png)
 
 [Shkolnikov et. al. 2003](https://doi.org/10.4054/DemRes.2003.8.11)
+:::
+
+::: {.column width="40%"}
+**X axis:** cumulative share of population ordered from lowest to highest life expectancy
+
+**Y axis:** Cumulative share of person-years lived
+:::
+:::::
 
 ## The traditional CEA approach
 
--   Maximize total health benefit with limited funds
+-   Maximize population health benefit with fixed budget
 
 -   No consideration for distribution of benefits across population
 
 -   "A QALY is a QALY is a QALY"
 
--   Some decision-making bodies disagree
+-   Many decision-making bodies disagree
 
 ## Norway's 3 criteria for health technology assessment
 
@@ -71,17 +89,17 @@ editor: visual
 
 -   **Resource:** prioritize interventions that requires fewer resources
 
--   **Health loss:** prioritize interventions for populations with a greater expected lifetime health loss in the absence of such an intervention.
+-   **Health loss:** prioritize interventions for populations with a greater expected lifetime health loss in the absence of intervention.
 
 [Ottersen et. al. 2016](https://doi.org/10.1016/j.healthpol.2016.01.012)
 
 ## Norway's health-loss criterion categorizations
 
-![](Norway_health_loss_classification.jpeg)
+![](figs/Norway_health_loss_classification.jpeg)
 
 ## 'Staircase' cost-effectiveness thresholds
 
-![](Norway_threshold_by_class.jpg)
+![](figs/Norway_threshold_by_class.jpg)
 
 ## Dutch Proportional shortfall
 
@@ -101,7 +119,7 @@ $$
 
 ## UK proportional shortfall (proposed)
 
-::: columns
+::::: columns
 ::: {.column width="55%"}
 -   Prioritize interventions for those with severe disease
 
@@ -113,12 +131,11 @@ $$
 ::: {.column width="45%"}
 Proposed scheme by NICE in UK
 
-![](nice_shortfalls.png)
+![](figs/nice_shortfalls.png)
 
 <https://shiny.york.ac.uk/shortfall/>
 :::
-:::
-
+:::::
 
 ## Challenges with these approaches
 
@@ -136,7 +153,19 @@ Proposed scheme by NICE in UK
 
 ## Public support for severity-adjusted thresholds mixed
 
-![](Reckers-Droog%20support%20proportional%20shortfall.png)
+And sensitive to how the question is phrased
+
+![](figs/Reckers-Droog support proportional shortfall.png)
+
+## In general
+
+-   [**High support**]{.underline} for considering equity in health resource allocation
+
+-   [**Some consensus**]{.underline} on dimensions of equity to priorities
+
+-   [**Low consensus**]{.underline} on exact, quantitative decision criteria for trading off equity vs. efficiency (QALY maximization)
+
+    -   Norway has done the most work on this
 
 ## Today
 
@@ -159,7 +188,6 @@ Four types:
 Mirelman (2015) [Methods for incorporating health equity impacts in economic evaluation with applications to low and middle income countries](https://www.york.ac.uk/che/seminars/economic-evaluation/2015/andrew-mirelman/)
 
 ## Equity evidence review
-
 
 -   What are the equity issues?
 
@@ -185,7 +213,7 @@ Mirelman (2015) [Methods for incorporating health equity impacts in economic eva
 
 **Pro:** provides specific information on gains/losses by subgroup
 
-**Con:** subgroup data that may be unavailable; no explicit valuing of equity-efficiency tradeoff
+**Con:** subgroup data may be unavailable; no explicit valuing of equity-efficiency tradeoff
 
 ## Equity trade-off analysis
 
@@ -197,49 +225,51 @@ Mirelman (2015) [Methods for incorporating health equity impacts in economic eva
 
 ## Equity-efficiency plane
 
-![](equity_efficiency_plane.png){fig-align="center"}
+![](figs/equity_efficiency_plane.png){fig-align="center"}
 
-[Mirelman 2015 ](https://www.york.ac.uk/che/seminars/economic-evaluation/2015/andrew-mirelman/)
+[Mirelman 2015](https://www.york.ac.uk/che/seminars/economic-evaluation/2015/andrew-mirelman/)
 
 ## Standard economic evaluation
 
-![](equity_efficiency_2.png){fig-align="center"}
+![](figs/equity_efficiency_2.png){fig-align="center"}
 
 ## Adding equity dimension
 
-![](equity_efficiency_3.png){fig-align="center"}
+![](figs/equity_efficiency_3.png){fig-align="center"}
 
 ## Equity-efficiency trade off
 
-![](equity_efficiency_4.png){fig-align="center"}
+![](figs/equity_efficiency_4.png){fig-align="center"}
 
 ## Equity evidence review
 
-![](equity_efficiency_5.png){fig-align="center"}
+![](figs/equity_efficiency_5.png){fig-align="center"}
 
 ## Evidence review: premature neonates in India
 
-![](Miljeteig%20et%20al%20outcomes.png)
+![](figs/Miljeteig%20et%20al%20outcomes.png)
 
 [Miljeteig et. al. 2010](http://dx.doi.org/10.1136/jme.2010.035535)
 
 ## Premature neonates in India
 
-![](Miljeteig%20et%20al%20benefits%20burdens.png)
+![](figs/Miljeteig%20et%20al%20benefits%20burdens.png)
 
 ## Equity constraint analysis
 
-![](equity_efficiency_6.png){fig-align="center"}
+![](figs/equity_efficiency_6.png){fig-align="center"}
 
 ## Example of equity constraints
 
-![](Cleary%20equity-efficiency%20HIV.png)
+![](figs/Cleary%20equity-efficiency%20HIV.png)
 
 [Cleary et. al. 2009](https://doi.org/10.1002/hec.1542)
 
 ## Cleary 2009 approach
 
 -   HIV care can be "no-ART", "first-line ART only", or "first and second-line ART"
+
+    -   Alternatively, can provide no treatment
 
 -   Decision-model + constrained optimization
 
@@ -253,19 +283,19 @@ Mirelman (2015) [Methods for incorporating health equity impacts in economic eva
 
 ## Model structure
 
-![](Creary_model_structure.png)
+![](figs/Creary_model_structure.png)
 
 ## Example of equity constraints
 
-![](Cleary_equity_constraints.png)
+![](figs/Cleary_equity_constraints.png)
 
 ## Equity distributional analysis
 
-![](equity_efficiency_7.png)
+![](figs/equity_efficiency_7.png)
 
 ## Extended cost-effectiveness analysis
 
-![](ECEA_1.png)
+![](figs/ECEA_1.png)
 
 [Stéphane Verguet, Harvard](https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/)
 
@@ -277,7 +307,7 @@ Mirelman (2015) [Methods for incorporating health equity impacts in economic eva
 
     -   Private system paid for out of pocket
 
--   Decisions to cover services will have different impacts on more or less wealthy people
+-   Decisions to cover services will have different financial impacts on more wealthy vs. less wealthy people
 
 ## Measures considered in ECEA
 
@@ -293,19 +323,19 @@ Estimate by subgroup (usually wealth-based)
 
 ## Extended cost-effectiveness analysis structure
 
-![](ECEA2.png)
+![](figs/ECEA2.png)
 
 [Stéphane Verguet, Harvard](https://www.hsph.harvard.edu/stephane-verguet/extended-cost-effectiveness-analysis-ecea/)
 
 ## ECEA: Tobacco tax in China
 
-![](verguet%202015%20China%20tobacco%20tax.png)
+![](figs/verguet%202015%20China%20tobacco%20tax.png)
 
 [Verguet et. al. 2015](https://doi.org/10.1016/s2214-109x(15)70095-1)
 
 ## Equity trade-off analysis
 
-![](equity_efficiency_8.png)
+![](figs/equity_efficiency_8.png)
 
 ## DCEA: distributional cost-effectiveness
 
@@ -391,7 +421,7 @@ In cancer screening example:
 
 ## Baseline distribution of health
 
-![](DCEA_QALE_by_quintile.png)
+![](figs/DCEA_QALE_by_quintile.png)
 
 ## Distribution of health changes
 
@@ -433,7 +463,7 @@ In cancer screening example:
 
 ## Intervention uptake
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 **No screen:** None
 
@@ -443,13 +473,13 @@ In cancer screening example:
 :::
 
 ::: {.column width="50%"}
-![](DCEA_OR_FIT_uptake.png)
+![](figs/DCEA_OR_FIT_uptake.png)
 :::
-:::
+:::::
 
 ## Intervention uptake
 
-![](DCEA_uptake_prob.png)
+![](figs/DCEA_uptake_prob.png)
 
 ## Intervention health effects
 
@@ -477,13 +507,13 @@ In cancer screening example:
 
 ## Net health gains by subgroup
 
-Example calculation for Women in areas with low % from Indian subcontinent in deprivation quintile Q3
+**Example calculation:** women in areas with low % from Indian subcontinent in deprivation quintile Q3
 
--   Total lifetime net present costs (all subgroups)
+-   Lifetime net present cost of intervention (all subgroups)
 
     -   £72 million
 
--   Health opportunity cost (all subgroup)
+-   Health opportunity cost (all subgroups)
 
     -   £72 million/£20,000 per QALY = 3600 QALYs
 
@@ -495,7 +525,7 @@ Example calculation for Women in areas with low % from Indian subcontinent in de
 
 ## QALE by subgroup by strategy
 
-![](DCEA_QALE_by_subgroup.png)
+![](figs/DCEA_QALE_by_subgroup.png)
 
 ## Fairness-adjusted health distributions
 
@@ -515,7 +545,7 @@ Example calculation for Women in areas with low % from Indian subcontinent in de
 
 ## Analyze trade-offs using social welfare indices
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 -   Can calculate *equally distributed equivalent* level of health
 
@@ -525,19 +555,19 @@ Example calculation for Women in areas with low % from Indian subcontinent in de
 :::
 
 ::: {.column width="40%"}
-![](social_welfare_indices.png)
+![](figs/social_welfare_indices.png)
 :::
-:::
+:::::
 
 ## Preferred intervention by welfare index
 
-![](DCEA_prefered_int_by_welfare_index.png)
+![](figs/DCEA_prefered_int_by_welfare_index.png)
 
 For low inequality aversion levels, we prefer universal reminders. For higher inequality aversion, we prefer targeted reminders
 
 ## Sensitivity analysis: who 'pays' opportunity cost?
 
-![](DCEA_opp_cost_sens_analysis.png)
+![](figs/DCEA_opp_cost_sens_analysis.png)
 
 ## Recap
 
@@ -549,6 +579,10 @@ For low inequality aversion levels, we prefer universal reminders. For higher in
 
 ## Logistics
 
--   Assignment 4 due Friday, Nov 3
+-   Project proposal due Fri, Nov 1
 
--   Assignment 5 due Friday, Nov 17
+    -   I suggest discussing your idea with me before proposal deadline
+
+-   **Next class:** presentation on open-source model
+
+-   Assignment 5 (Calibration, VoI) due Fri, Nov 15
