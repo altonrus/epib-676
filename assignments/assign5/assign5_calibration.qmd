@@ -254,7 +254,7 @@ NA
 #. Incremental cost
 NA
 
-#. Intremental life years
+#. Incremental life years
 NA
 
 #. ICER (cost per life year)
@@ -269,8 +269,7 @@ Note that since the annual cost of treatment parameter is completely independent
   l_prior <- function(par_vector) {
   # par_vector: a vector (or matrix) of model parameters (omits c)
     if(is.null(dim(par_vector))) par_vector <- t(par_vector)
-    lprior <- rep(0,nrow(par_vector))
-    lprior <- lprior+dlnorm(par_vector[,1],log(0.05 )-1/2*0.5^2,0.5,log=TRUE)    # mu_e
+    lprior <- dlnorm(par_vector[,1],log(0.05 )-1/2*0.5^2,0.5,log=TRUE)    # mu_e
     lprior <- lprior+dlnorm(par_vector[,2],log(0.25 )-1/2*0.5^2,0.5,log=TRUE)    # mu_l
     lprior <- lprior+dlnorm(par_vector[,3],log(0.025)-1/2*0.5^2,0.5,log=TRUE)    # mu_t
     lprior <- lprior+dlnorm(par_vector[,4],log(0.1  )-1/2*0.5^2,0.5,log=TRUE)    # p
@@ -671,6 +670,10 @@ for(i in 1:n_samples) { # Change this to match the size of imis_res$resample
 
 ```
 
+In this chunk, generate plots comparing the distribution from the model run to each #. calibration target. You can use geom_violin() to create a violin plot of the #. distribution of outcomes from the model, and use geom_pointrange to create a #. point and the 95% interval for each calibration target (based on the #. data in Table 2 above). We want to plot each calibration target point/range #. and the distribution from the model runs should be beside each other or #. on top of one another so it's clear which target goes with which outcome.
+
+**NOTE:** For the error bar on your calibration target, you'll need to calculate confidence intervals for the prevalence data. This would be a binomial proportion confidence interval, and there are multiple ways you can calculate it in R.
+
 ```{r}
 # Generate a plot or series of plots comparing the distribution from the model run to each 
 #.  calibration target. You can use geom_violin() to create a violin plot of the 
@@ -681,6 +684,7 @@ for(i in 1:n_samples) { # Change this to match the size of imis_res$resample
 #.  on top of one another so it's clear which target goes with which outcome
 
 
+#. Hint:
 ```
 
 **Question:** In comparing modeled outcomes to calibration target data, did you conduct *independent* external validation or not? Briefly discuss the decision trade-off around using available data for model calibration as it relates to independent external validation.

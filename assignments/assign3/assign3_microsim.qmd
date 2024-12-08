@@ -712,6 +712,7 @@ Try this function on `t_sim_cohort`
 
 ```{r}
 # t_sim_cohort <- recipient_outcomes_ttz(t_sim_cohort, l_params)
+# str(t_sim_cohort)
 ```
 
 We also need to simulate outcomes to the infant for any pregnant women transfused
@@ -760,6 +761,7 @@ Try this function on `t_sim_cohort`
 
 ```{r}
 # t_sim_cohort <- infant_outcomes_ttz(t_sim_cohort, l_params)
+# str(t_sim_cohort)
 ```
 
 ## Policies & cost-effectiveness
@@ -798,7 +800,7 @@ getPolOutcomes <- function(t_sim_cohort, l_params, prev=0.0001){
   #. calculate cost to blood center
   #. and each recipient's risk of transfusion-
   #. transmitted Zika
-  #. cost_athInact is per unit transfused (RBC+PLT+FFP)
+  #. costPathInact is per unit transfused (RBC+PLT+FFP)
   #. Calculate p_TTZ_pathInact using p_TTZ_doNothing and p_pathInact_prevent_TTZ
   t_sim_cohort <- t_sim_cohort |>
     mutate(

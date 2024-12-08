@@ -373,7 +373,7 @@ In this code chunk, sample each parameter from its indicated distribution. In th
 
 ```{r}
 n_psa_iter <- 5 #Comment out this line of code for final version
-#n_psa_iters <- 1000 #Uncomment this once your code is working
+#n_psa_iter <- 1000 #Uncomment this once your code is working
 
 #SAMPLE REWARD PARAMETERS
 #Get names of reward parameters
@@ -412,7 +412,7 @@ fromTo_param_names <- t_probs_psa_only$FromTo
 m_fromTo_psa <- NA
 
 #Sample parameters and save in m_fromTo_psa
-for (param in reward_param_names){
+for (param in fromTo_param_names){
   #sample n_psa_iter parameters from the distribution
   #.  specified in t_rewards$distribution
   #.  and fill in the appropriate column
@@ -430,22 +430,10 @@ for (param in reward_param_names){
 t_probs_temp <- cbind(t_probs)
 
 # Preallocate matrix to store PSA output
-#. columns should have same names as l_output_names
+#. columns should have same names as names(basecase_results)
 #. number of rows should match n_psa_iter
-l_output_names <- list("QALY_peds_noDetect",
-    "QALY_adult_noDetect",
-    "QALY_peds_Detect",
-    "QALY_adult_Detect",
-    "Cost_peds_noDetect",
-    "Cost_adult_noDetect",
-    "Cost_peds_Detect",
-    "Cost_adult_Detect",
-    "Incr_cost_adult",
-    "Incr_cost_peds",
-    "ICER_adult",
-    "ICER_peds")
 
-m_psa_output <- NA #can do m_psa_output if you prefer matrix
+m_psa_output <- NA 
 
 
 for(i in 1:n_psa_iter){
@@ -460,6 +448,8 @@ for(i in 1:n_psa_iter){
   #. row of the output matrix or table
   
 }
+
+# you may want to convert m_psa_output into a data frame to make future computations easier
 ```
 
 ## 1d. Analyze PSA
@@ -489,14 +479,15 @@ wtp <- seq(from=0, to=100, by=1)
 Construct a tornado diagram by varying each parameter in t_reward (to simplify, we won't include the transition probabilities in t_prob for this part). We will only do this for the adult cohort. NOTE: some parameters do not have a `value_min` and `value_max` in the table, you can filter these out.
 
 ```{r}
-reward_param_names_owsa <- t_rewards #modify to remove parameters we do not wish to vary in OWSA.
+#create vector of parameters we want o vary in OWSA (has a min and max value in t_rewards)
+t_rewards_owsa <- t_rewards #modify
 
 m_owsa_result <- matrix(
   data = 0,
-  nrow = length(reward_param_names),
+  nrow = nrow(t_rewards_owsa),
   ncol = 4,
   dimnames = list(
-    rows = reward_param_names_owsa$rname,
+    rows = t_rewards_owsa$rname,
     cols = c("input_low", "input_high", "ICER_detect_low", "ICER_detect_high")
   )
 )
